@@ -74,8 +74,10 @@ export function composePhotoRunner(pose: RunnerPose, rig: PhotoRig): PhotoDraw[]
     limb("shin", false, nearLeg.shinAngle, nearLeg.knee),
     limb("shoe", false, nearLeg.hindAngle, nearLeg.ankle),
     limb("shoeToe", false, nearLeg.foreAngle, nearLeg.foot.ball),
-    { id: "torso", far: false, poseAngle: pose.torsoAngle, axial: true, pivot: pose.hip },
+    // The neck is painted *under* the torso: the singlet's collar is in front
+    // of the neck's base, so it covers the seam where the neck was cut.
     { id: "neck", far: false, poseAngle: pose.neckAngle, axial: true, pivot: pose.neckBase },
+    { id: "torso", far: false, poseAngle: pose.torsoAngle, axial: true, pivot: pose.hip },
     { id: "head", far: false, poseAngle: pose.headAngle, axial: true, pivot: pose.headBase },
     limb("upperArm", false, pose.near.arm.upperAngle, pose.near.arm.shoulder),
     limb("forearm", false, pose.near.arm.forearmAngle, pose.near.arm.elbow),

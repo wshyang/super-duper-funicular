@@ -353,3 +353,40 @@ Deliverable codes used below:
   removed.
 - **Also:** `greenKey` now drops detached specks (`dropSpecks`, 64 px minimum) before bleeding, so a fleck
   of backdrop or the blurred edge of a floor shadow cannot survive as a floating island in a crop.
+
+## ADD-027: Mattes are colour classes, and the torso keeps only fabric
+
+- **Decided:** a part may declare `matte: "skin" | "fabric"`. `matteBlocked()` fences its flood to
+  pixels of that class (skin = warm hue, fabric = the singlet's red and the shorts' navy), and the
+  region then grows and fills as usual. The female plate now gives the torso `"fabric"`, the arms and the
+  neck `"skin"`.
+- **Why:** the plate is a profile with the arms pulled back, so a colour-blind flood from the chest
+  crossed the near arm and baked a ghost of it — grey upper arm, fingers — into the torso matte. Nothing
+  but a colour class separates fabric from the arm that lies against it; a cut line cannot, because the
+  two shapes touch along a curve that changes with the pose.
+- **Area:** D2, D3.
+- **Impact:** the torso's silhouette lost the arm and the hand (a 185 x 488 crop, no arm above the hip);
+  the upper arm no longer carries the singlet's strap into its rotation. 151/151 tests, `tsc` clean.
+
+## ADD-028: The neck is pulled under the head and the collar, and paints first
+
+- **Decided:** the neck is painted **before** the torso, and its cut is extended 14 px past its own
+  flood on every side, so a band of neck texture rides under the jaw above and under the singlet's collar
+  below. The singlet's collar line is no longer a barrier.
+- **Why:** the head turns about `headBase` and the trunk leans about the hip; a neck cut tight to those
+  two seams opens a step at the base of the neck as soon as either moves. Both neighbours are painted
+  over the neck, so whatever the neck owns beyond its visible band is invisible, and the visible band is
+  bounded by the jaw and the collar — lines the neck itself never draws.
+- **Area:** D2, D3, D5.
+- **Impact:** at a 0.35 rad head turn the neck seam is a clean line under the jaw with no black step and
+  no tear (`.scratch/rig-qc.ts 2 0.35`); at rest the join is invisible
+  (`reports/rig-head-0.png`). 151/151 tests, `tsc` clean, `npm run validate` green.
+
+## ADD-029: The far upper arm is fitted to the skin-only near arm
+
+- **Decided:** `FAR_SOURCES.upperArm.fit.width` goes from 68 to 78 px.
+- **Why:** the near upper arm's widest row is 83 px once its skin matte drops the strap it used to
+  include; a 68 px far arm was 18 % thinner and failed the far-side width gate.
+- **Area:** D3.
+- **Impact:** far/near width deltas are now upperArm 6.0 %, forearm 0 %, thigh 0 %, shin 0 %;
+  151/151 tests.

@@ -102,8 +102,10 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
   barriers: [
     // Under the jaw: separates head (with hair and ponytail) from the neck.
     { from: [305, 272], to: [452, 232] },
-    // The singlet collar: separates the neck from the torso.
-    { from: [300, 292], to: [430, 252] },
+    // No collar line: the singlet's own edge is the boundary. The torso keeps
+    // fabric only and the neck keeps skin only, so the two meet exactly on the
+    // collar. A drawn line there was the bug: the neck was a 15 px sliver that
+    // carried a disc of shoulder and strap around with it.
     // Armpit, up the deltoid's inner edge, to the collar: separates the arm
     // from the torso. The path passes on the far side of the shoulder pivot so
     // the arm texture owns its own rotation centre.
@@ -124,10 +126,19 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
   ],
   parts: [
     { id: "head", seed: [390, 150], extension: 3 },
-    { id: "neck", seed: [372, 262], extension: 2 },
-    { id: "torso", seed: [392, 600], extension: 3 },
-    { id: "upperArm", seed: [286, 480], extension: 7 },
-    { id: "forearm", seed: [240, 680], extension: 6 },
+    // Skin only, so the strap and the hair stay out of the neck's rotation.
+    // A generous extension is the seal: the extra band rides up under the jaw
+    // and down under the singlet's collar, where the head and the torso cover
+    // it, so neither the neck's top edge nor its bottom edge can be exposed
+    // when the head turns or the trunk leans.
+    { id: "neck", seed: [372, 262], extension: 14, matte: "skin" },
+    // Fabric only: in the plate her arms are pulled back, and a colour-blind
+    // flood leaves a ghost of the near arm baked into the torso. A fabric matte
+    // cannot cross the skin of an arm.
+    { id: "torso", seed: [392, 600], extension: 3, matte: "fabric" },
+    // Skin only: the arm must not carry the singlet's strap into its rotation.
+    { id: "upperArm", seed: [286, 480], extension: 7, matte: "skin" },
+    { id: "forearm", seed: [240, 680], extension: 6, matte: "skin" },
     { id: "thigh", seed: [390, 860], extension: 6 },
     { id: "shin", seed: [362, 1060], extension: 6 },
     // The far shoe peeks out behind the near one; it belongs to the other
@@ -174,11 +185,8 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
     // the shoe's straight top edge is exactly what a collar looks like.
     // Elbow, across the forearm seam.
     { joint: "elbow", parent: "upperArm", child: "forearm", radius: 26 },
-    // The shoulder, the neck base and the jaw are *not* ball joints. Their
-    // seams already follow the body: the deltoid's inner edge, the singlet's
-    // collar and the jawline. Those lines are what the limbs actually meet
-    // along, and a ball big enough to reach them would drag the strap and the
-    // collar around with the limb, which reads worse than the seam it hides.
+    // The shoulder is *not* a ball joint: its seam follows the deltoid's inner
+    // edge, and a ball big enough to reach that line would drag the strap.
   ],
   pose: { armSwing: 0.35, armBias: -0.05, elbowFlex: 1.45 },
   neutralAngles: {

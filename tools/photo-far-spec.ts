@@ -81,7 +81,9 @@ export const FAR_SOURCES: readonly FarSource[] = [
         pivot: [700, 120],
         target: 517,
         capPx: 40,
-        fit: { width: 68 },
+        // The near arm's silhouette is 83 px now that its skin matte drops the
+        // strap: a 68 px far arm read 18 % thinner and failed the width gate.
+        fit: { width: 78 },
       },
       {
         id: "forearm",
