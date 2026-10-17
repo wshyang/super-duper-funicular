@@ -23,7 +23,8 @@ Nothing here is carried forward from another turn; each row names when it last a
 | --- | --- | --- |
 | `npm ci` | 215 packages installed | executed |
 | `npx tsc --noEmit` | clean | executed |
-| `npx vitest run` | 44/44 passing — runner, pipeline, app SSR smoke and the 10-test discipline gate | executed 2026-10-17 |
+| `npx vitest run` | 52/52 passing — runner, pipeline, vectoriser, app SSR smoke and the 10-test discipline gate | executed 2026-10-18 |
+| `npm run vectors:build` | 48 SVGs, mean mask IoU 0.926, colour agreement 0.890, 2.84 MB | executed 2026-10-18 |
 | `npm run build` | `dist/` produced, 232.9 kB JS / 73.8 kB gzip | executed |
 | `npm run pipeline` | `grid 8x6 header=129px cell=316x262 · frames=48 duplicates=18 magentaSpill=0` | executed |
 | `npm run branches:compare` | five tips refreshed; history + ledger table rewritten | executed |

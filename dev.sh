@@ -9,6 +9,9 @@ npm ci --ignore-scripts
 echo "==> Regenerating extracted sprites, manifests and the flaw analysis"
 npm run pipeline
 
+echo "==> Tracing every extracted frame to pure SVG"
+npm run vectors:build
+
 echo "==> Running the full gate (typecheck, tests, build)"
 npm run validate
 

@@ -1013,3 +1013,42 @@ input[type='range'] {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+.vector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.vector-card {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #10151f;
+  overflow: hidden;
+}
+
+.vector-card__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #f4f1ea;
+}
+
+.vector-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 7px 9px;
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.vector-card__link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}

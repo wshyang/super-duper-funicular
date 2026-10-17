@@ -471,3 +471,41 @@ persona and joint calibration as `Gap`. Nothing in this entry claims those.
 **Continuous learning register.** This entry is the second; TURN-L01 holds the bootstrap review.
 The rule stands: every turn that changes code or docs appends a dated entry here before the turn
 ends, and the n-way ledger is refreshed from `npm run branches:compare` rather than hand-edited.
+
+### TURN-L03 · 2026-10-18 · Pure-SVG vector output
+
+**Why.** `Pure-SVG vector output` was a `Gap` row: the scene primitives were serialisable, but no
+frame had ever been traced from pixels to paths. The capability only counts when it is measured
+against real input, so the requirement was set as *re-rasterise the emitted paths and report IoU*.
+
+**What shipped.**
+- `src/pipeline/quantise.ts` — deterministic median-cut palette (14 colours) over 5-bit RGB buckets,
+  nearest-colour labelling weighted 0.3/0.59/0.11, transparent pixels labelled `-1`.
+- `src/pipeline/trace.ts` — marching-squares contours over a one-pixel-padded mask, segment
+  stitching by endpoint key, Ramer–Douglas–Peucker simplification (0.30 px), signed-area filter.
+  Outer edges and holes are emitted alike and filled with `fill-rule="evenodd"`, so no orientation
+  bookkeeping is needed.
+- `src/pipeline/vectorise.ts` — one `<path>` per colour band, `viewBox` in source pixels, no
+  embedded raster, bands sorted by pixel count.
+- `src/pipeline/vector-eval.ts` — an independent even-odd scanline rasteriser plus
+  `measureFidelity` (mask IoU and colour agreement).
+- `npm run vectors:build` → 48 SVGs in `public/vectors/<palette>/frame-NN.svg` and a manifest with
+  per-frame metrics; the new **Vector output** tab lists them by colourway with IoU and download.
+
+**Measured.**
+- 48/48 frames traced; mean mask IoU **0.926**, mean colour agreement **0.890** (14 colours,
+  tolerance 0.30, minimum area 2 px).
+- 2.84 MB of SVG for 48 frames; one frame ≈ 47 KB, ≈ 4 200 points.
+- Visual check: source frame vs re-rasterised SVG side by side at 2× — silhouette, socks, shoes and
+  jersey stripe survive; the pixel-art dithering becomes small speckle bands.
+
+**Bug found by the tests.** The first stitcher always continued from a segment's `b` endpoint, so
+every loop fragmented after one cell and the rasterised output was mostly empty (mask IoU 0.22 on
+the first real frame). Segments are undirected; the fix continues from whichever endpoint was not
+entered. The square-mask unit test pins this: one loop, area 99.5 px².
+
+**Rejected in this turn.** `minArea` 6 and tolerance 0.5 produce cleaner-looking SVGs but drop thin
+parts (socks, fingers) and cost ~0.04 IoU — recorded rather than quietly tuned for looks.
+
+**Continuous learning register.** TURN-L01 bootstrap, TURN-L02 gate/refactor/shoe-sock, TURN-L03
+vectorisation. The rule stands: evidence in the same turn, ledger refreshed by tool, never by hand.

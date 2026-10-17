@@ -14,8 +14,9 @@ or, step by step:
 
 ```bash
 npm ci
-npm run pipeline   # dedupe + extract + analyse the real artwork
-npm run validate   # typecheck + tests + production build
+npm run pipeline      # dedupe + extract + analyse the real artwork
+npm run vectors:build # trace every extracted frame to pure SVG
+npm run validate      # typecheck + tests + production build
 npm run dev
 ```
 
@@ -29,6 +30,7 @@ Node 20.19+ (developed on 22). No server, no database, no accounts.
 | **Rig inspector** | Isolate any of the 17 parts, listed in painter order (far chain first) |
 | **Source diagnostics** | The measured verdict on the original sheet: duplicate pose pairs, stance-side lock, foot separation, scale and baseline jitter |
 | **Asset library** | All 48 extracted reference frames, six colourways, with a lightbox |
+| **Vector output** | All 48 frames traced to pure SVG paths (median-cut palette, marching squares, RDP), each with its measured mask IoU and a download link |
 | **Parity ledger** | 23-capability union across five implementations, with the observed tip of each branch and an explicit acceptance note per row |
 | **Exports** | A transparent 8-cell sprite sheet and a 16-phase × 3-panel audit sheet, both painted by the same scene the stage uses |
 
@@ -56,8 +58,9 @@ flaw report. Re-running it reproduces the committed output byte-for-byte.
 
 ## Honest limits
 
-- **No photographic persona, no SVG vector output, no interactive joint calibration.** These are
-  `Gap` rows in `docs/N_WAY_COMPARISON.md`, each with an exit criterion.
+- **No photographic persona and no interactive joint calibration.** These are `Gap` rows in
+  `docs/N_WAY_COMPARISON.md`, each with an exit criterion. Pure-SVG output is shipped and measured
+  (mean mask IoU 0.926 against the quantised source), with its speckle artefacts documented.
 - **No browser E2E suite.** This sandbox has no browser runtime; `docs/VALIDATION.md` says so
   explicitly rather than implying coverage.
 - **The Dockerfiles are statically gate-checked, not built here.**
@@ -88,6 +91,6 @@ src/shared/          contracts, palettes, parity matrix
 src/generated/       branch tip snapshots + history (written by branches:compare)
 public/sprites/      extracted PNGs + manifest + analysis
 tools/               pipeline, audit dump, branch compare
-tests/               runner, pipeline, app smoke, discipline
+tests/               runner, pipeline, vectors, app smoke, discipline
 docs/                FDS, addenda, ledger, validation, plan, prompts, provenance
 ```

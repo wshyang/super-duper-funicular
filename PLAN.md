@@ -15,7 +15,7 @@ Live priorities. Completed items leave this file only when their outcome is reco
 ## 2. Next (parity queue)
 
 - Photographic persona with a matte pipeline (`Gap` → `Partial`).
-- Raster→SVG colour-band vectoriser (`Gap` → `Yes`).
+- ~~Raster→SVG colour-band vectoriser~~ — closed in T03 (`npm run vectors:build`, mean IoU 0.926).
 - Interactive joint calibration with registered PNG/JSON export (`Gap` → `Yes`).
 
 ## 3. Later

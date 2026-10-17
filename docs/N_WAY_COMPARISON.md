@@ -81,7 +81,7 @@ as ours.
 | 16-phase multi-background audit export | Yes | Yes | Yes | Gap | Yes | 48 panels sharing the app renderer: light, dark, skeleton |
 | Photographic persona pipeline | Yes | Yes | Yes | Partial | Gap | Not claimed: no studio plates or matte pipeline shipped |
 | Rounded-end joint cutter / ball sockets | Yes | Yes | Partial | Gap | Gap | Procedural joints are capsule-rounded; photo cutter deferred |
-| Pure-SVG vector output | Yes | Gap | Partial | Gap | Gap | Not shipped; scene primitives are SVG-serialisable next step |
+| Pure-SVG vector output | Yes | Gap | Partial | Gap | **Yes** | 48 SVGs from the real frames; re-rasterised mean mask IoU 0.926, colour match 0.890 |
 | Interactive joint/hip calibration + exports | Yes | Yes | Gap | Gap | Gap | Deferred: needs photo/texture cut editing, not procedural knobs |
 | Asset failure / retry handling | Partial | Yes | Partial | Gap | Yes | Load errors surface with retry; exports disabled while unavailable |
 | Automated discipline gate | Yes | Partial | Partial | Partial | Yes | Function/file limits, JSX purity, testids, Docker, ledger sync |
@@ -127,7 +127,7 @@ the shallowest of the five; six explicit Gaps.
 | P0 | Far-arm occlusion at φ≈0.55–0.75 | Reduced, still open (far swing ×0.72, far shoulder −8 px, far elbow flex ×0.88) | Re-rendered 16-phase sheet where the near chain reads in front at every phase, viewed |
 | ~~P0~~ | ~~Shoe/shin overlap at max dorsiflexion~~ | **Closed** in T02: sock capsule merged into the shin part, shoe radii 6.7/5.5, dark navy body | φ 0.15–0.40 renders at 3× viewed |
 | P1 | Photographic persona (plates + matte pipeline) | Deferred | A cut-out persona that composites at any phase with a measured spill count of 0 |
-| P1 | Raster→SVG colour-band vectoriser | Deferred | A stitched SVG frame that renders identically to the raster within a stated tolerance |
+| ~~P1~~ | ~~Raster→SVG colour-band vectoriser~~ | **Closed T03**: median-cut palette + marching squares + RDP; `npm run vectors:build` | 48 SVGs, re-rasterised mean mask IoU 0.926 |
 | P2 | Interactive joint/hip calibration with registered export | Deferred | Move a joint, re-download, verify pixels changed only inside the joint mask |
 | P2 | Playwright browser suite with video on by default | Deferred (no browser runtime in this sandbox) | A failing run that produces a video, plus a green run |
 | P3 | Canonical capsule resampling for every rounded end | Deferred | Width and coverage parity at the jaw, shoulder, hip, ankle and toe |
@@ -151,6 +151,17 @@ above and a ledger row, and the gate keeps them visible.
   **Parity:** ours 17 Yes / 6 Gap. The three-way siblings had each other at Partial for the live
   ledger because none of them tracked the fourth branch or our own; that row is now Yes for us and
   remains Partial for them.
+
+- **2026-10-17 / T03 — pure-SVG vector output.** Added `src/pipeline/{quantise,trace,vectorise,vector-eval}.ts`
+  and `npm run vectors:build`: median-cut palette (14 colours), marching-squares contours per colour
+  band, Douglas–Peucker simplification at 0.30 px, even-odd fill, pure paths (no embedded raster).
+  All 48 reference frames vectorised; re-rasterising the emitted paths gives **mean mask IoU 0.926**
+  and **mean colour agreement 0.890** against the quantised source. A new "Vector output" tab lists
+  every SVG with its measured IoU and a download link. Tests: 7 new pipeline tests (palette recovery,
+  square contour area, synthetic-circle IoU ≥ 0.93, determinism, real-frame IoU > 0.9) plus an SSR
+  panel test. Found and fixed a real stitching bug while doing it: segments are undirected, and the
+  first implementation always continued from `b`, which fragmented every loop.
+  **Parity:** `Pure-SVG vector output` moves Gap → Yes; ours is now 18 Yes / 5 Gap.
 
 - **2026-10-17 / T02 — discipline gate executable, refactors, shoe/sock pass.** Our tip moved
   `396ce25 → 192898f` (pushed). The gate is now a TypeScript AST walk (measured function bodies,

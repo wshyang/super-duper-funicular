@@ -23,6 +23,7 @@
     "sprites:analyse": "tsx tools/run-pipeline.ts analyse",
     "images:dedupe": "tsx tools/run-pipeline.ts dedupe",
     "dump-cycle": "tsx tools/dump-cycle.ts",
+    "vectors:build": "tsx tools/vectorise.ts",
     "branches:compare": "tsx tools/compare-branches.ts",
     "validate": "npm run typecheck && npm run test && npm run build"
   },

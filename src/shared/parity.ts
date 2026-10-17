@@ -175,8 +175,8 @@ export const PARITY_ROWS: readonly ParityRow[] = [
     strideLab: 'gap',
     funicular: 'partial',
     proceduralRunner: 'gap',
-    ours: 'gap',
-    acceptance: 'Not shipped; scene primitives are SVG-serialisable next step.',
+    ours: 'yes',
+    acceptance: '48 SVGs from real frames; re-rasterised mean mask IoU 0.926, colour match 0.890.',
   },
   {
     capability: 'Interactive joint/hip calibration + exports',

@@ -203,3 +203,28 @@ export interface BranchTipsFile {
   readonly observedAt: string;
   readonly tips: readonly BranchTip[];
 }
+
+export interface VectorFrameEntry {
+  readonly id: string;
+  readonly file: string;
+  readonly width: number;
+  readonly height: number;
+  readonly bands: number;
+  readonly paths: number;
+  readonly points: number;
+  readonly bytes: number;
+  readonly maskIou: number;
+  readonly colourAgreement: number;
+}
+
+export interface VectorManifest {
+  readonly generatedBy: string;
+  readonly options: {
+    readonly maxColors: number;
+    readonly tolerance: number;
+    readonly minArea: number;
+  };
+  readonly frames: readonly VectorFrameEntry[];
+  readonly meanMaskIou: number;
+  readonly meanColourAgreement: number;
+}

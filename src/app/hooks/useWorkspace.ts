@@ -5,7 +5,7 @@ import { useAnimationClock, type AnimationClock } from './useAnimationClock.ts';
 import { useSpriteData, type SpriteData } from './useSpriteData.ts';
 import { useExports, type ExportController } from './useExports.ts';
 
-export type TabId = 'studio' | 'inspector' | 'diagnostics' | 'gallery' | 'parity';
+export type TabId = 'studio' | 'inspector' | 'diagnostics' | 'gallery' | 'vectors' | 'parity';
 export type OverlayKey = 'skeleton' | 'ground' | 'onion' | 'compare';
 export type Overlays = Readonly<Record<OverlayKey, boolean>>;
 

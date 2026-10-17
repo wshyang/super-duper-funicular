@@ -3,10 +3,12 @@ import { PARITY_ROWS } from '../shared/parity.ts';
 import type { BranchTipsFile } from '../shared/types.ts';
 import branchTips from '../generated/branch-tips.json';
 import { useWorkspace, type TabId } from './hooks/useWorkspace.ts';
+import { useVectorManifest } from './hooks/useVectorManifest.ts';
 import { usePoseInfo } from './hooks/usePoseInfo.ts';
 import { ComparisonPanel } from './components/ComparisonPanel.tsx';
 import { DiagnosticsPanel } from './components/DiagnosticsPanel.tsx';
 import { GalleryPanel, Lightbox } from './components/GalleryPanel.tsx';
+import { VectorsPanel } from './components/VectorsPanel.tsx';
 import { InspectorPanel } from './components/InspectorPanel.tsx';
 import { StudioWorkspace } from './components/StudioWorkspace.tsx';
 
@@ -15,6 +17,7 @@ const TABS: readonly { id: TabId; label: string }[] = [
   { id: 'inspector', label: 'Rig inspector' },
   { id: 'diagnostics', label: 'Source diagnostics' },
   { id: 'gallery', label: 'Asset library' },
+  { id: 'vectors', label: 'Vector output' },
   { id: 'parity', label: 'Parity ledger' },
 ];
 
@@ -109,6 +112,37 @@ const GalleryTab = ({ workspace }: { workspace: WorkspaceState }): React.JSX.Ele
   </main>
 );
 
+const VectorsTab = ({ workspace }: { workspace: WorkspaceState }): React.JSX.Element => {
+  const vectors = useVectorManifest();
+  if (vectors.status === 'error' || !vectors.manifest) {
+    return (
+      <main className="single-column">
+        <section className="panel">
+          <h2 className="panel-title">Vector manifest unavailable</h2>
+          <p className="panel-hint">{vectors.error ?? 'Loading vector manifest…'}</p>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={vectors.retry}
+            data-testid="vectors__retry"
+          >
+            Retry vector load
+          </button>
+        </section>
+      </main>
+    );
+  }
+  return (
+    <main className="single-column">
+      <VectorsPanel
+        manifest={vectors.manifest}
+        palette={workspace.galleryPalette}
+        onPalette={workspace.setGalleryPalette}
+      />
+    </main>
+  );
+};
+
 const ParityTab = (): React.JSX.Element => (
   <main className="single-column">
     <ComparisonPanel tips={TIPS.tips} observedAt={TIPS.observedAt} rows={PARITY_ROWS} />
@@ -120,6 +154,7 @@ const TAB_VIEWS = {
   inspector: InspectorTab,
   diagnostics: DiagnosticsTab,
   gallery: GalleryTab,
+  vectors: VectorsTab,
   parity: ParityTab,
 } as const;
 
