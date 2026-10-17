@@ -1,4 +1,5 @@
 import type { PartMatte, Segment } from "../src/lib/photo/cut.ts";
+import type { PartEndCuts } from "../src/lib/photo/end-cap.ts";
 import type { PatchPlate } from "../src/lib/photo/patch.ts";
 
 /**
@@ -11,6 +12,20 @@ export interface PartArcCap {
   readonly side: "above" | "below";
   readonly radiusX: number;
   readonly radiusY: number;
+}
+
+/**
+ * Both ends of one part rounded in bone-local coordinates. The bone names the
+ * two joints the cap is measured between, so the radii in `cuts` are plate
+ * pixels along a real axis rather than a hand-picked box.
+ */
+export interface PartBoneCuts {
+  readonly part: PhotoPlateSpec["parts"][number]["id"];
+  readonly bone: {
+    readonly from: keyof PhotoPlateSpec["joints"];
+    readonly to: keyof PhotoPlateSpec["joints"];
+  };
+  readonly cuts: PartEndCuts;
 }
 
 /**
@@ -69,6 +84,15 @@ export interface PhotoPlateSpec {
    * ball cannot reach without dragging a neighbour's texture along.
    */
   readonly caps?: readonly PartArcCap[];
+  /**
+   * Ends rounded in bone-local coordinates. `caps` trims a half-plane beyond a
+   * pivot and so can only round an end whose mass lies along its bone; these
+   * round an end wherever it sits, because inside the joint plane the boundary
+   * is the shaft's own width and only protruding corners are taken. Every
+   * radius and blend below is measured from the plate by
+   * `npx tsx .scratch/end-widths.ts`.
+   */
+  readonly endCuts?: readonly PartBoneCuts[];
   /**
    * Ball-and-socket joints. A disc centred on the pivot is the only boundary a
    * rotation leaves unchanged, so each link hands the child a ball of exactly
@@ -256,6 +280,8 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
     { part: "neck", joint: "headBase", side: "above", radiusX: 30, radiusY: 26 },
     { part: "neck", joint: "neckBase", side: "below", radiusX: 85, radiusY: 65 },
   ],
+  // Bone-local endCuts are supported by the extractor, but not enabled here:
+  // the prototype's enlarged knee probe showed a crescent gap. See FDS L001.
   pose: { armSwing: 0.35, armBias: -0.05, elbowFlex: 1.45 },
   neutralAngles: {
     torso: -0.019,

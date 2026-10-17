@@ -27,6 +27,7 @@ import {
 } from "../src/lib/photo/cut.ts";
 import { BALL_OVERHANG, cutJoint, sealBall } from "../src/lib/photo/round-cut.ts";
 import { capArc } from "../src/lib/photo/arc-cap.ts";
+import { applyEndCuts, type Bone, type PartEndCuts } from "../src/lib/photo/end-cap.ts";
 import { fabricOnly, purgeMatte, refillMatted } from "../src/lib/photo/matte.ts";
 import { compositeKeyed, fitSimilarity, warpKeyed, type PatchPlate } from "../src/lib/photo/patch.ts";
 import { traceAlpha, type TracedShape } from "../src/lib/vector/trace.ts";
@@ -141,6 +142,22 @@ function applyCaps(spec: PhotoPlateSpec, width: number, height: number, regions:
   }
 }
 
+/** Resolves one part's declared bone-local end caps to plate joints. */
+function boneCutsFor(
+  spec: PhotoPlateSpec,
+  id: PhotoPlateSpec["parts"][number]["id"],
+): { bone: Bone; cuts: PartEndCuts } | undefined {
+  const declared = (spec.endCuts ?? []).find((entry) => entry.part === id);
+  if (declared === undefined) return undefined;
+  return {
+    bone: {
+      from: spec.joints[declared.bone.from] as readonly [number, number],
+      to: spec.joints[declared.bone.to] as readonly [number, number],
+    },
+    cuts: declared.cuts,
+  };
+}
+
 async function extract(spec: PhotoPlateSpec): Promise<{ rig: ExtractedRig; cut: CutPart[] }> {
   const source = await readImage(spec.source);
   const keyed = await withPatches(spec, greenKey(source));
@@ -186,7 +203,12 @@ async function extract(spec: PhotoPlateSpec): Promise<{ rig: ExtractedRig; cut: 
         radius: link.radius + BALL_OVERHANG,
       }));
   spec.parts.forEach((part, index) => {
-    const cropped = cutPart(keyed, regions[index] as Uint8Array, part.id);
+    const raw = cutPart(keyed, regions[index] as Uint8Array, part.id);
+    const declared = boneCutsFor(spec, part.id);
+    // Ends are rounded before any ball is sealed: the ball is the socket's own
+    // membrane and has to stay whole, while the cap only shapes the corners
+    // that would otherwise protrude past it as the part swings.
+    const cropped = declared === undefined ? raw : applyEndCuts(raw, declared.bone, declared.cuts);
     for (const ball of ballsFor(part.id)) {
       sealBall(cropped, { pivot: [ball.pivot[0] - cropped.x, ball.pivot[1] - cropped.y], radius: ball.radius });
     }

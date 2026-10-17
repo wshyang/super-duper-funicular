@@ -81,3 +81,22 @@ npm run sprites:analyse   # measure both cycles, write src/generated + reports
 npm run images:dedupe     # byte + silhouette duplicate report
 npm run runner:preview -- red   # 8-phase contact sheet to reports/
 ```
+
+## Continuous learning — every turn
+
+Update [`docs/FDS.md`](docs/FDS.md) during **every turn**, including investigation,
+no-code work and delivery handoffs. Record evidence → observation → decision →
+validation/uncertainty → next action. If nothing new was learned, say so with the
+reason; never invent retrospective experiments, prompts or results.
+
+- Record findings as they arise, and reconcile the entry before handing off.
+- Keep proposed fixes/status in `docs/RIG-QUALITY-PLAN.md`; decisions still require
+  sequential `docs/ADDENDA.md` entries. FDS indexes evidence, not a duplicate spec.
+- Pin cross-branch reviews to full SHAs and temporary detached checkouts. Separate
+  read code, personally viewed output, executed tests and others' reported results.
+- Record adopted **and rejected/deferred** ideas, plus evidence-backed strengths
+  here. More features or more tests is not proof of better visual quality.
+- Log future image prompts verbatim in `docs/PHOTO-PROMPTS.md`, including reference
+  paths and regeneration reasons. Do not fabricate unavailable historical prompts.
+- For rig/render changes, inspect enlarged app-fidelity output over the cycle;
+  label plate-space diagnostic probes as such. Passing tests do not certify seams.

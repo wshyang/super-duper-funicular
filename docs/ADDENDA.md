@@ -458,3 +458,26 @@ Deliverable codes used below:
   own strengths identified honestly.
 - **Area:** D1, D8.
 - **Impact:** documentation only, plus the two ported mechanisms above.
+
+## ADD-034: Bone-local end caps are opt-in pending visual acceptance
+
+- **Decided:** port Stride Lab `b227e2f` bone-local cap math with 15 tests and
+  optional `endCuts` extraction configuration; enable no defaults yet.
+- **Why:** cap-to-shaft blending addresses adjacent corners, but the enlarged
+  knee trial still shows a crescent gap and is not an app-fidelity render.
+  Subtraction cannot reconstruct absent texture. Baseline near/far regenerated.
+- **Area:** photo extraction and QC.
+- **Impact:** no default visual change; mask/ball ordering and far-side parity
+  require further investigation before activation. Every-end rounding is PARTIAL.
+
+## ADD-035: Continuous FDS learning and pinned cross-branch reviews
+
+- **Decided:** `docs/FDS.md` records evidence, observations, decisions, uncertainty,
+  validation and next actions every turn, mandated by `CLAUDE.md`. The living
+  investigation plan is `docs/RIG-QUALITY-PLAN.md`.
+- **Why:** user requests continuous learning, explicit fixes and comparative review.
+- **Area:** design discipline and delivery.
+- **Impact:** pin reference SHAs, distinguish read code from executed gates, retain
+  rejected/deferred ideas and never reconstruct historical prompt provenance.
+  This turn reviewed Stride Lab `b227e2f` and Sprite Motion Lab `ea3c37c` in detached
+  temporary worktrees. See branch comparison §5 and FDS L001.

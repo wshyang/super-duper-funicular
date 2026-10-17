@@ -123,3 +123,32 @@ pre-baked frame sheets (this branch composes every frame procedurally at runtime
   this round (a pivot-centred cap small enough to round the jaw cut also erased 1,788 px of
   ponytail; the deltoid, forefoot, and sole all carry mass far off their pivots). The sibling's
   canonical-canvas resampling is the proven route to close this; it is a re-architecture.
+
+## 5. Follow-up: Stride Lab and refreshed Sprite Motion Lab (2026-10-18)
+
+Exact references (code read; their gates not independently executed):
+- Stride Lab `arena/263385da-super-duper-funicular` at
+  `b227e2fe562be341f15f58955f539d325170729e`, detached `/tmp/stride-lab`.
+- Refreshed `arena/917ef347-super-duper-funicular` at
+  `ea3c37c6a8b946cf38e136cc183aa84edb012373`, detached
+  `/tmp/sprite-lab-ea3c37c`; latest other-branch commit inspected this turn.
+
+| Source-backed good practice | Adoption/status here |
+| --- | --- |
+| Stride Lab `end-cuts.ts`: bone-local radial end, transverse inner boundary, smooth shaft blend | Ported as `end-cap.ts`, 15 tests, optional extractor `endCuts`. Defaults disabled after inconclusive/gapped magnified knee probe. |
+| Stride Lab `FDS.md`: append-only evidence/decision/validation learning register | Adopted in `docs/FDS.md`; mandatory each turn in `CLAUDE.md`. |
+| Stride Lab `cycle-audit.ts` / `end-mask.ts`: 16-phase multi-background audit, interactive reversible masks, bounded cache | Planned P-2; no UI port claimed. Offline baking here avoids per-frame mask work. |
+| Stride Lab real-browser asset failure/retry tests and walk/brisk-walk contracts | Stronger coverage/breadth than here; readiness failure-path investigation P-3. Do not import running-incompatible contact knots. |
+| Sprite Motion Lab `ea3c37c`: internal cap shoulder blend, ankle-sock reconstruction, joint inspector/audit exports | Reinforces local blending and provenance-backed texture repair. Reconstruction/UI deferred pending app-fidelity acceptance and coordinate-contract adaptation. |
+
+Our advantages are specific, not universal: coherent original near-side texture,
+colour-class matte invariant, explicitly measured medial width parity, runtime
+phase composition and additive vector personas. Stride Lab has more interactive
+calibration and browser regression evidence; Sprite Motion Lab has finer part
+articulation and pure colour-band SVG. All three still document photographic seam
+limitations. Neither a zero-island score nor our high trace IoU establishes realism.
+
+The cap trial is a useful failed acceptance, not a shipped visual improvement:
+0/50/178/33 alpha reductions at shoulder/elbow/knee/toe were measured before ball
+resealing; the shoulder is a no-op and the magnified knee has a crescent gap.
+Baseline assets restored by full near/far extraction. See FDS L001 and plan §4.
