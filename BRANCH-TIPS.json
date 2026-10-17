@@ -1,12 +1,12 @@
 {
-  "fetchedAt": "2026-10-17T23:20:20.714Z",
+  "fetchedAt": "2026-10-17T23:21:18.675Z",
   "fetchedVia": "git ls-remote --heads origin (live)",
   "tips": [
     {
       "ref": "refs/heads/arena/db7c86d4-super-duper-funicular",
       "displayName": "arena/db7c86d4-super-duper-funicular",
-      "sha": "(not on remote)",
-      "timestamp": "(n/a)",
+      "sha": "4edf50f782a4f937eefac70fbcbf1562129d3f64",
+      "timestamp": "2026-10-17 23:21:06 +0000",
       "pr": "— (session)",
       "role": "This Branch — Harmonised Greenfield (Session)",
       "status": "active"
