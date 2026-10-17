@@ -104,7 +104,7 @@ export function solveRollingFootGeometry(
   legPhase: number,
   ctx: FootRollSolveContext,
 ): SolvedFootRollGeometry {
-  const sample = interpolateFootRollKnot(legPhase, ctx.config.footRollScale);
+  const sample = interpolateFootRollKnot(legPhase, ctx.config);
   const soleClearance = 3.5;
   const ballX = ctx.pelvis.x + sample.ballDx * ctx.config.strideLengthScale;
   const ballY = Math.min(
@@ -191,21 +191,42 @@ export function reanchorFootToSolvedAnkle(
 
 function interpolateFootRollKnot(
   legPhase: number,
-  footRollScale: number,
+  config: GaitConfig,
 ): RollingFootKnot {
-  const scaled = (((legPhase % 1) + 1) % 1) * 8;
+  const phase = ((legPhase % 1) + 1) % 1;
+  const mode = config.locomotionMode ?? 'run';
+  const stanceDuty = mode === 'walk' ? 0.62 : mode === 'brisk-walk' ? 0.56 : 0.32;
+  const isWalkingMode = mode === 'walk' || mode === 'brisk-walk';
+  const remappedPhase = isWalkingMode
+    ? phase < stanceDuty
+      ? (phase / stanceDuty) * 0.32
+      : 0.32 + ((phase - stanceDuty) / (1 - stanceDuty)) * 0.68
+    : phase;
+  const scaled = remappedPhase * 8;
   const idx0 = Math.floor(scaled) % 8;
   const idx1 = (idx0 + 1) % 8;
   const t = smoothStep(scaled - Math.floor(scaled));
   const k0 = FOOT_ROLL_KNOTS[idx0] ?? FOOT_ROLL_KNOTS[0]!;
   const k1 = FOOT_ROLL_KNOTS[idx1] ?? FOOT_ROLL_KNOTS[0]!;
+  const grounded = phase < stanceDuty;
+  const rawLiftY = grounded ? 0 : lerp(k0.ballLiftY, k1.ballLiftY, t);
+  const liftScale = mode === 'walk' ? 0.32 : mode === 'brisk-walk' ? 0.45 : 1.0;
   return {
     ballDx: lerp(k0.ballDx, k1.ballDx, t),
-    ballLiftY: lerp(k0.ballLiftY, k1.ballLiftY, t),
-    rearFootPitchDeg: lerp(k0.rearFootPitchDeg, k1.rearFootPitchDeg, t) * footRollScale,
-    toePitchDeg: lerp(k0.toePitchDeg, k1.toePitchDeg, t) * footRollScale,
-    contactPhase: t < 0.5 ? k0.contactPhase : k1.contactPhase,
-    grounded: legPhase < 0.32,
+    ballLiftY: rawLiftY * liftScale,
+    rearFootPitchDeg:
+      lerp(k0.rearFootPitchDeg, k1.rearFootPitchDeg, t) * config.footRollScale,
+    toePitchDeg: lerp(k0.toePitchDeg, k1.toePitchDeg, t) * config.footRollScale,
+    contactPhase: grounded
+      ? phase < stanceDuty * 0.35
+        ? 'midfoot-strike'
+        : phase < stanceDuty * 0.72
+          ? 'sole-roll'
+          : 'heel-off-roll'
+      : t < 0.5
+        ? k0.contactPhase
+        : k1.contactPhase,
+    grounded,
   };
 }
 

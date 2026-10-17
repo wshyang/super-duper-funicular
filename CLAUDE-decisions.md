@@ -32,4 +32,13 @@ Adopted from `wshyang/greenfield` `GREENFIELD.md §1` and `FDS_BUILDER.md`.
   5. **Executed Validation & Next Actions:** Exact test/build/audit gates executed in that turn (never claim unrun gates passed) and remaining open items.
 - **Cross-Branch Inspection Safety:** When referencing another branch of the repository, always clone or extract into `/tmp/...` outside `/home/user/super-duper-funicular` so the active working branch is never switched or polluted.
 
+## 4. Live 3-Way Branch Comparison & Feature Parity Ledger (`docs/THREE_WAY_BRANCH_COMPARISON.md`, `#three-way-branch-comparison`)
+
+- **Constantly Track All 3 Branches:** On every cross-branch or feature turn, query `git ls-remote --heads origin` and update `docs/THREE_WAY_BRANCH_COMPARISON.md` (and `THREE_WAY_COMPARISON.md`) with the latest commit SHA, timestamp, commit progression, and comparative status of:
+  1. `arena/917ef347-super-duper-funicular` (*Sprite Motion Lab* — this branch)
+  2. `arena/263385da-super-duper-funicular` (*Stride Lab* — motion workbench)
+  3. `arena/77ffb088-super-duper-funicular` (*Photo-Rig & Matte Lab* — coherent plate & matte rig)
+- **Feature Parity Goal:** Continuously adopt verified engineering strengths from the sibling branches while documenting our own implementation's unique advantages so all 3 branches converge toward full feature parity.
+
+
 

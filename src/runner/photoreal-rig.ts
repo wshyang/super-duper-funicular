@@ -7,6 +7,7 @@ import type {
   RunnerPalette,
 } from '../shared/types.js';
 import { removeSmallOpaqueIslands } from '../pipeline/connected-components.js';
+import { ARTICULATED_BODY_PARTS } from './body-proportions.js';
 import { parseHexColor } from './palette.js';
 import {
   warpPhotorealRollingShoe,
@@ -26,10 +27,8 @@ export function getPhotorealFemalePartBank(): PhotorealPartBank {
 }
 
 export function hasPhotorealFemalePartBank(): boolean {
-  return Boolean(
-    activeFemalePartBank.head &&
-      activeFemalePartBank.torso &&
-      activeFemalePartBank.nearThigh,
+  return ARTICULATED_BODY_PARTS.every((part) =>
+    Boolean(activeFemalePartBank[part.partId]),
   );
 }
 

@@ -20,4 +20,6 @@ Adopted from `wshyang/greenfield` `GREENFIELD.md §11`.
 | 14 | Mandatory Image Generation Prompt & Regeneration Justification Log | Every `generate_image` exact prompt + regeneration rationale logged in `docs/FDS.md#image-prompt-log` (`CLAUDE-decisions.md §2`) |
 | 15 | Full-Cycle Temporary Frame Dump & Agent Visual Audit Skill | `npm run dump-cycle` (`src/pipeline/cycle-frame-dumper.ts`) + `.claude/skills/audit-gait-cycle/SKILL.md` (`CLAUDE-validation.md §9`) |
 | 16 | Mandatory Continuous Per-Turn Learning Register | Append/update `TURN-L01..LNN` learnings in `docs/FDS.md#continuous-learning-log` during every turn (`CLAUDE.md` Rule 3, `CLAUDE-decisions.md §3`) |
+| 17 | Live 3-Way Branch Comparison & Feature Parity Ledger | Track latest commit hashes & 24-dimension feature parity across all 3 branches in `docs/THREE_WAY_BRANCH_COMPARISON.md` (`CLAUDE-decisions.md §4`) |
+
 

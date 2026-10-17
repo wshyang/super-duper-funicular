@@ -148,6 +148,22 @@ Every architectural, algorithmic, or tooling decision not fixed by a single lite
 - **Related Spec Section:** `docs/FDS.md#gait-cycle-visual-audit`, `docs/FDS.md#continuous-learning-log`, `PLAN.md`
 - **Practical Impact:** Added `PLAN.md`, `docs/RECTIFICATION_PLAN.md`, `src/app/components/JointAndCycleAuditPanel.tsx`, `src/app/hooks/useJointAndAuditInspector.ts`, updated `src/runner/gait.ts`, `src/pipeline/rounded-joint-cutter.ts`, `src/pipeline/photoreal-extractor.ts`, `src/app/App.tsx`, `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-checklist.md`, `src/discipline/greenfield-gate.test.ts`, `docs/FDS.md` (`v3.3.0`), and regenerated all sprite sheets and SVG frames.
 
+## `ADD-022` — Live 3-Way Branch Comparison Ledger (`docs/THREE_WAY_BRANCH_COMPARISON.md`) & Full 3-Way Feature Parity Convergence (`CROSS-05`..`CROSS-09`)
+- **What was decided:**
+  1. Check out the newly advanced commit `c6902014041359b595532a63faf739bbade38c5b` (`2026-10-17 22:36:26 UTC` — *"Record rig quality plan and cross-branch learnings; prototype opt-in end caps"*) on `origin/arena/77ffb088-super-duper-funicular` into `/tmp/branch-77ffb088` alongside `origin/arena/263385da-super-duper-funicular` @ `b227e2fe562be341f15f58955f539d325170729e` in `/tmp/branch-263385da`.
+  2. Establish **`docs/THREE_WAY_BRANCH_COMPARISON.md`** (and root mirror `THREE_WAY_COMPARISON.md`) as a live, continuously updated 3-way branch comparison ledger tracking the latest commit hashes, timestamps, progression history, and a 24-dimension Feature Parity Matrix across all 3 active branches.
+  3. Implement `CROSS-05` through `CROSS-09` to achieve 100% feature parity across all 3 branches:
+     - **`CROSS-05`:** All-or-nothing 17-part photorealistic asset bank readiness (`isCompletePhotorealBank`, `hasPhotorealFemalePartBank`) and `'error'` state reporting in `src/app/hooks/usePhotorealRigAssets.ts` and `src/runner/photoreal-rig.ts`.
+     - **`CROSS-06`:** Multi-mode locomotion profiles (`run`, `walk`, `brisk-walk` via `LocomotionModeId` in `src/shared/types.ts`, `src/runner/foot-roll.ts`, and `src/app/components/RunnerControls.tsx`) supporting zero-flight walking and double-support (`2/2`) stance phases.
+     - **`CROSS-07`:** Material-class matte invariant (`purgeSkinPartFabricSpill`, `countBrightSingletPixels` in `src/pipeline/photoreal-matte-and-qc.ts`) ensuring `0` stray bright singlet fabric pixels on skin-matted arm and neck cutouts.
+     - **`CROSS-08`:** Jacobi harmonic membrane-filled joint ball relaxation (`fillHollowJointBallByJacobiRelaxation` in `src/pipeline/photoreal-matte-and-qc.ts`).
+     - **`CROSS-09`:** Near-vs-far medial limb width-parity gate (`measureNearFarLimbWidthParity` in `src/pipeline/photoreal-matte-and-qc.ts`) enforcing `< 15%` transverse shaft width delta across `upperArm`, `forearm`, `thigh`, and `shin`.
+  4. Codify in `CLAUDE.md` (Rule 3), `CLAUDE-decisions.md` (`§3–§4`), `CLAUDE-checklist.md` (`#16–#17`), and `src/discipline/greenfield-gate.test.ts` that every turn must update both `docs/FDS.md#continuous-learning-log` and `docs/THREE_WAY_BRANCH_COMPARISON.md#three-way-branch-comparison`.
+- **Why:** Maintaining a live 3-way comparison ledger with pinned commit hashes and adopting the complementary strengths of both sibling branches ensures all 3 branches converge toward complete feature parity while preserving our branch's additive end-cap composites, 17-part rig, 2-segment rolling shoe warp, full-colour SVG vectorizer, and 21-call prompt log.
+- **Related Spec Section:** `docs/FDS.md#continuous-learning-log`, `docs/THREE_WAY_BRANCH_COMPARISON.md`
+- **Practical Impact:** Added `docs/THREE_WAY_BRANCH_COMPARISON.md`, `THREE_WAY_COMPARISON.md`, `src/pipeline/photoreal-matte-and-qc.ts`, updated `src/pipeline/photoreal-extractor.ts`, `src/shared/types.ts`, `src/runner/foot-roll.ts`, `src/runner/photoreal-rig.ts`, `src/app/hooks/usePhotorealRigAssets.ts`, `src/app/components/RunnerControls.tsx`, `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-checklist.md`, `docs/FDS.md` (`v3.4.0`), and test suites.
+
+
 
 
 

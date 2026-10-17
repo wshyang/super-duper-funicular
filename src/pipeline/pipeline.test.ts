@@ -5,6 +5,10 @@ import { describe, expect, it } from 'vitest';
 import { dumpFullGaitCycleToTempDir } from './cycle-frame-dumper.js';
 import { detectSpriteSheetGrid } from './grid-detection.js';
 import {
+  countBrightSingletPixels,
+  measureNearFarLimbWidthParity,
+} from './photoreal-matte-and-qc.js';
+import {
   computeAlphaSilhouetteIoU,
   computeDHash64,
   computeDHashHammingDistance,
@@ -250,5 +254,48 @@ describe('Real reference sprite sheet grid detection and extraction verification
     expect(fs.existsSync(report.contactSheetPath)).toBe(true);
     expect(fs.existsSync(report.jointCropsSheetPath)).toBe(true);
     fs.rmSync(tmpAuditDir, { recursive: true, force: true });
+  });
+
+  it('enforces 0 bright singlet fabric pixels on skin-matted parts and < 15% near/far limb width delta', () => {
+    const partsDir = path.join(
+      process.cwd(),
+      'public/sprites/photoreal/sg-chinese-female/parts',
+    );
+    const skinPartNames = [
+      'nearUpperArm',
+      'nearForearm',
+      'farUpperArm',
+      'farForearm',
+      'neck',
+    ] as const;
+    for (const partId of skinPartNames) {
+      const partImg = readImageFile(path.join(partsDir, `${partId}.png`));
+      expect(countBrightSingletPixels(partImg)).toBe(0);
+    }
+    const bank = Object.fromEntries(
+      [
+        'head',
+        'hairAccessory',
+        'neck',
+        'torso',
+        'pelvis',
+        'nearUpperArm',
+        'nearForearm',
+        'nearHand',
+        'farUpperArm',
+        'farForearm',
+        'farHand',
+        'nearThigh',
+        'nearShin',
+        'nearFoot',
+        'farThigh',
+        'farShin',
+        'farFoot',
+      ].map((id) => [id, readImageFile(path.join(partsDir, `${id}.png`))]),
+    ) as Parameters<typeof measureNearFarLimbWidthParity>[0];
+    const parity = measureNearFarLimbWidthParity(bank);
+    for (const entry of parity) {
+      expect(entry.relativeDeltaPct).toBeLessThan(15);
+    }
   });
 });

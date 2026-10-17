@@ -230,7 +230,10 @@ export interface AlgorithmicManifest {
   readonly bodyParts: readonly AlgorithmicBodyPartEntry[];
 }
 
+export type LocomotionModeId = 'run' | 'walk' | 'brisk-walk';
+
 export interface GaitConfig {
+  readonly locomotionMode?: LocomotionModeId;
   readonly cadenceHz: number;
   readonly strideLengthScale: number;
   readonly kneeDriveScale: number;

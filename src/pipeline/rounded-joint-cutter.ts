@@ -99,7 +99,7 @@ function sampleLimbCutRow(
   const refHalfW =
     ctx.topSpan.halfW * (1 - tClamped) + ctx.botSpan.halfW * tClamped;
   const rowSpan = measureForegroundRowSpan(src, v, spec.srcMaxX);
-  const ratio = Math.max(0.72, Math.min(1.28, rowSpan.halfW / Math.max(12, refHalfW)));
+  const ratio = Math.max(0.92, Math.min(1.12, rowSpan.halfW / Math.max(12, refHalfW)));
   const endBlend = Math.min(1, Math.min(tClamped, 1 - tClamped) * 4.5);
   const effectiveRadius = rAtY * (1 - endBlend + endBlend * ratio);
   const maxR = Math.max(spec.dstRadiusTopPx, spec.dstRadiusBotPx) + 12;

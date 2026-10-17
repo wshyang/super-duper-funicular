@@ -72,6 +72,8 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
       'docs/SPRITE_ANIMATION_FLAW_ANALYSIS.md',
       'PLAN.md',
       'docs/RECTIFICATION_PLAN.md',
+      'THREE_WAY_COMPARISON.md',
+      'docs/THREE_WAY_BRANCH_COMPARISON.md',
       '.claude/skills/audit-gait-cycle/SKILL.md',
     ];
     for (const rel of requiredDocs) {
@@ -79,16 +81,23 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     }
     const claudeMd = fs.readFileSync(path.join(repoRoot, 'CLAUDE.md'), 'utf8');
     const fdsMd = fs.readFileSync(path.join(repoRoot, 'docs/FDS.md'), 'utf8');
+    const threeWayMd = fs.readFileSync(
+      path.join(repoRoot, 'docs/THREE_WAY_BRANCH_COMPARISON.md'),
+      'utf8',
+    );
     expect(claudeMd).toContain('#image-prompt-log');
     expect(claudeMd).toContain('Regeneration Justification');
     expect(claudeMd).toContain('#continuous-learning-log');
+    expect(claudeMd).toContain('#three-way-branch-comparison');
     expect(fdsMd).toContain('Call `#01`');
     expect(fdsMd).toContain('Call `#21`');
     expect(fdsMd).toContain('Regeneration Justification:');
     expect(fdsMd).toContain('#svg-vector-assessment');
     expect(fdsMd).toContain('#gait-cycle-visual-audit');
     expect(fdsMd).toContain('#continuous-learning-log');
-    expect(fdsMd).toContain('TURN-L09');
+    expect(fdsMd).toContain('TURN-L10');
+    expect(threeWayMd).toContain('b227e2fe562be341f15f58955f539d325170729e');
+    expect(threeWayMd).toContain('c6902014041359b595532a63faf739bbade38c5b');
   });
 
   it('enforces file <= 800 LOC and named function <= 50 LOC across all TypeScript files', () => {

@@ -117,6 +117,19 @@ describe('Biomechanical Gait Solver: Neck Articulation, Foot Roll & Forward Fall
       expect(pose.collar.x).toBeGreaterThan(pose.pelvis.x + 12);
     }
   });
+
+  it('supports walk and brisk-walk locomotion profiles with zero flight phase and double support', () => {
+    for (const mode of ['walk', 'brisk-walk'] as const) {
+      const modeConfig = { ...DEFAULT_GAIT_CONFIG, locomotionMode: mode };
+      const poses = Array.from({ length: 16 }, (_, i) =>
+        solveArticulatedPose(i / 16, modeConfig, DEFAULT_RIG_SPEC),
+      );
+      expect(poses.every((p) => !p.isFlightPhase)).toBe(true);
+      expect(
+        poses.some((p) => p.nearLeg.isGrounded && p.farLeg.isGrounded),
+      ).toBe(true);
+    }
+  });
 });
 
 describe('Skinnable Sprite Hooks & Dual Singapore Chinese Male/Female Personas', () => {

@@ -7,7 +7,11 @@ import {
   setPhotorealFemalePartBank,
 } from '../../runner/photoreal-rig.js';
 
-export type PhotorealLoadStatus = 'idle' | 'loaded';
+export type PhotorealLoadStatus = 'idle' | 'loaded' | 'error';
+
+export function isCompletePhotorealBank(bank: PhotorealPartBank): boolean {
+  return ARTICULATED_BODY_PARTS.every((part) => Boolean(bank[part.partId]));
+}
 
 export function usePhotorealRigAssets(): PhotorealLoadStatus {
   const [status, setStatus] = useState<PhotorealLoadStatus>(
@@ -21,12 +25,17 @@ export function usePhotorealRigAssets(): PhotorealLoadStatus {
     let cancelled = false;
     loadAllPartsInBrowser()
       .then((bank) => {
-        if (!cancelled && Object.keys(bank).length > 0) {
+        if (cancelled) return;
+        if (isCompletePhotorealBank(bank)) {
           setPhotorealFemalePartBank(bank);
           setStatus('loaded');
+        } else {
+          setStatus('error');
         }
       })
-      .catch(() => undefined);
+      .catch(() => {
+        if (!cancelled) setStatus('error');
+      });
     return () => {
       cancelled = true;
     };

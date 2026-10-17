@@ -7,6 +7,10 @@ import {
 } from '../runner/photoreal-rig.js';
 import { sampleBilinearRgba } from '../runner/photoreal-warp.js';
 import { readImageFile, writePngFile } from './image-io.js';
+import {
+  fillHollowJointBallByJacobiRelaxation,
+  purgeSkinPartFabricSpill,
+} from './photoreal-matte-and-qc.js';
 import { createRaster, readPixel, writePixel } from './raster.js';
 import {
   applyPivotArcRoundedCut,
@@ -218,7 +222,8 @@ function extractPonytailCutout(src: RasterImage): RasterImage {
 }
 
 function extractNeckCutout(src: RasterImage): RasterImage {
-  return cutArticulatedLimbWithRoundedEnds(src, {
+  const purged = purgeSkinPartFabricSpill(src).cleaned;
+  const raw = cutArticulatedLimbWithRoundedEnds(purged, {
     srcTopY: 340,
     srcBotY: 540,
     dstRadiusTopPx: 28,
@@ -226,6 +231,10 @@ function extractNeckCutout(src: RasterImage): RasterImage {
     roundTopEnd: true,
     roundBotEnd: true,
     shadeScale: 0.98,
+  });
+  return fillHollowJointBallByJacobiRelaxation(raw, {
+    pivot: { x: 80, y: 36 },
+    radiusPx: 26,
   });
 }
 
@@ -353,30 +362,35 @@ function extractArmCutouts(
   | 'farForearm'
   | 'farHand'
 > {
-  const rawNearUpperArm = cutLimbBothEnds(nearArm, 140, 380, 25, 18, 1.0);
+  const cleanNear = purgeSkinPartFabricSpill(nearArm).cleaned;
+  const cleanFar = purgeSkinPartFabricSpill(farArm).cleaned;
+  const rawNearUpperArm = cutLimbBothEnds(cleanNear, 140, 380, 25, 18, 1.0);
+  const rawFarForearm = cutHorizontalLimbWithRoundedEnds(cleanFar, {
+    srcLeftX: 430,
+    srcRightX: 925,
+    srcMinY: 495,
+    dstRadiusTopPx: 18,
+    dstRadiusBotPx: 15,
+    shadeScale: 1.08,
+  });
   return {
-    nearUpperArm: softenProximalShoulderCap(rawNearUpperArm),
-    nearForearm: cutLimbBothEnds(nearArm, 390, 618, 18, 15, 1.0),
-    nearHand: cutLimbBothEnds(nearArm, 605, 722, 16, 21, 1.0),
-    farUpperArm: cutArticulatedLimbWithRoundedEnds(farArm, {
-      srcTopY: 140,
-      srcBotY: 485,
-      srcMaxX: 500,
-      dstRadiusTopPx: 24,
-      dstRadiusBotPx: 18,
-      roundTopEnd: true,
-      roundBotEnd: true,
-      shadeScale: 0.9,
-    }),
-    farForearm: cutHorizontalLimbWithRoundedEnds(farArm, {
-      srcLeftX: 430,
-      srcRightX: 925,
-      srcMinY: 495,
-      dstRadiusTopPx: 18,
-      dstRadiusBotPx: 15,
-      shadeScale: 1.08,
-    }),
-    farHand: cutHorizontalLimbWithRoundedEnds(farArm, {
+    nearUpperArm: purgeSkinPartFabricSpill(softenProximalShoulderCap(rawNearUpperArm)).cleaned,
+    nearForearm: purgeSkinPartFabricSpill(cutLimbBothEnds(cleanNear, 390, 618, 18, 15, 1.0)).cleaned,
+    nearHand: cutLimbBothEnds(cleanNear, 605, 722, 16, 21, 1.0),
+    farUpperArm: purgeSkinPartFabricSpill(
+      cutArticulatedLimbWithRoundedEnds(cleanFar, {
+        srcTopY: 140,
+        srcBotY: 485,
+        srcMaxX: 500,
+        dstRadiusTopPx: 24,
+        dstRadiusBotPx: 18,
+        roundTopEnd: true,
+        roundBotEnd: true,
+        shadeScale: 0.9,
+      }),
+    ).cleaned,
+    farForearm: purgeSkinPartFabricSpill(rawFarForearm).cleaned,
+    farHand: cutHorizontalLimbWithRoundedEnds(cleanFar, {
       srcLeftX: 895,
       srcRightX: 1135,
       srcMinY: 455,

@@ -2,6 +2,7 @@ import React from 'react';
 import type {
   BackdropVariantId,
   GaitConfig,
+  LocomotionModeId,
   RunnerPersonaId,
   RunnerVariantId,
 } from '../../shared/types.js';
@@ -47,12 +48,54 @@ export function RunnerControls({
   return (
     <aside className="studio-controls-panel" data-testid="runner-controls-panel">
       <PersonaSelectorSection props={props} />
+      <LocomotionModeSection props={props} />
       <PlaybackTransportSection props={props} />
       <TeamVariantSelectorSection props={props} />
       <BackdropSelectorSection props={props} />
       <GaitSlidersSection props={props} />
       <OverlayTogglesSection props={props} />
     </aside>
+  );
+}
+
+const LOCOMOTION_MODES: readonly {
+  readonly id: LocomotionModeId;
+  readonly label: string;
+  readonly sub: string;
+}[] = [
+  { id: 'run', label: 'Running', sub: 'Flight + Midfoot Roll' },
+  { id: 'walk', label: 'Walking', sub: 'Double Support (No Flight)' },
+  { id: 'brisk-walk', label: 'Brisk Walk', sub: 'Fast Cadence (No Flight)' },
+];
+
+function LocomotionModeSection({
+  props,
+}: {
+  readonly props: RunnerControlsProps;
+}): React.ReactElement {
+  const activeMode = props.gaitConfig.locomotionMode ?? 'run';
+  return (
+    <div className="control-card" data-testid="locomotion-mode-section">
+      <h3 className="control-card-title">Locomotion Profile</h3>
+      <div className="persona-toggle-grid">
+        {LOCOMOTION_MODES.map((m) => (
+          <button
+            key={m.id}
+            type="button"
+            className={
+              activeMode === m.id
+                ? 'persona-btn persona-btn--active'
+                : 'persona-btn'
+            }
+            onClick={() => props.onUpdateGait('locomotionMode', m.id)}
+            data-testid={`runner-controls__locomotion-${m.id}`}
+          >
+            <span className="persona-btn-title">{m.label}</span>
+            <span className="persona-btn-subtitle">{m.sub}</span>
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
 
