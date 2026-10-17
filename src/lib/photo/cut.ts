@@ -235,12 +235,14 @@ export function cutPart(image: KeyedImage, region: Uint8Array, id: PhotoPartId):
     for (let x = 0; x < cropWidth; x += 1) {
       const source = (y + top) * width + (x + left);
       const target = (y * cropWidth + x) * 4;
-      if (region[source] === 0) continue;
       const offset = source * 4;
+      // Colour is copied even outside the region. Canvas filtering samples the
+      // crop's transparent margin, and a zeroed margin blends black into every
+      // edge; keeping the neighbouring skin there keeps the silhouette clean.
       pixels[target] = data[offset] ?? 0;
       pixels[target + 1] = data[offset + 1] ?? 0;
       pixels[target + 2] = data[offset + 2] ?? 0;
-      pixels[target + 3] = data[offset + 3] ?? 0;
+      pixels[target + 3] = region[source] === 0 ? 0 : (data[offset + 3] ?? 0);
     }
   }
   featherSilhouette(pixels, cropWidth, cropHeight);

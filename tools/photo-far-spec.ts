@@ -81,7 +81,7 @@ export const FAR_SOURCES: readonly FarSource[] = [
         pivot: [700, 120],
         target: 517,
         capPx: 40,
-        fit: { width: 88 },
+        fit: { width: 68 },
       },
       {
         id: "forearm",

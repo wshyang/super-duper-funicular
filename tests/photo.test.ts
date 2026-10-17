@@ -6,6 +6,7 @@ import { solvePose } from "../src/lib/gait/pose.ts";
 import type { CutPart } from "../src/lib/photo/cut.ts";
 import { clipBelow, growRegions, widestRow } from "../src/lib/photo/cut.ts";
 import { resamplePart } from "../src/lib/photo/resample.ts";
+import { cutJoint, discMask, isSealed, sealBall, seamGap } from "../src/lib/photo/round-cut.ts";
 import { parsePhotoRig, partById, photoBodyMetrics, photoGait, PHOTO_PART_ORDER } from "../src/lib/photo/rig.ts";
 import { composePhotoRunner, photoAssetFiles } from "../src/lib/photo/scene.ts";
 import { findRunnerOption, lookFor, RUNNER_OPTIONS } from "../src/lib/rig/persona.ts";
@@ -208,5 +209,166 @@ describe("runner options", () => {
     expect(switched.colorwayId).toBe("green");
     expect(isPhotoSettings(switched)).toBe(true);
     expect(withPersona(DEFAULT_SETTINGS, "sg-chinese-female").colorwayId).toBe("blue");
+  });
+});
+
+describe("rounded joint cuts", () => {
+  const size = 120;
+  const pivot = [60, 60] as const;
+  const radius = 26;
+  const joint = { pivot, radius };
+
+  /** A plate with the upper half as the parent and the lower half as the child. */
+  const twoHalves = (): {
+    image: { width: number; height: number; alpha: Float32Array; data: Uint8ClampedArray };
+    regions: Uint8Array[];
+  } => {
+    const alpha = new Float32Array(size * size).fill(1);
+    const data = new Uint8ClampedArray(size * size * 4);
+    for (let index = 0; index < size * size; index += 1) {
+      data[index * 4] = 200;
+      data[index * 4 + 1] = 140;
+      data[index * 4 + 2] = 110;
+      data[index * 4 + 3] = 255;
+    }
+    const parent = new Uint8Array(size * size);
+    const child = new Uint8Array(size * size);
+    for (let y = 0; y < size; y += 1) {
+      for (let x = 0; x < size; x += 1) {
+        if (y < pivot[1]) parent[y * size + x] = 1;
+        else child[y * size + x] = 1;
+      }
+    }
+    return { image: { width: size, height: size, alpha, data }, regions: [parent, child] };
+  };
+
+  /** Rotates a mask about the pivot, 4x4 supersampled so edges are not aliased. */
+  const rotated = (mask: Uint8Array, angle: number): Uint8Array => {
+    const out = new Uint8Array(size * size);
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+    const offsets = [-0.375, -0.125, 0.125, 0.375];
+    for (let y = 0; y < size; y += 1) {
+      for (let x = 0; x < size; x += 1) {
+        for (const oy of offsets) {
+          for (const ox of offsets) {
+            const dx = x + ox - pivot[0];
+            const dy = y + oy - pivot[1];
+            const sx = Math.round(pivot[0] + dx * cos - dy * sin);
+            const sy = Math.round(pivot[1] + dx * sin + dy * cos);
+            if (sx < 0 || sy < 0 || sx >= size || sy >= size) continue;
+            if (mask[sy * size + sx] === 1) out[y * size + x] = 1;
+          }
+        }
+      }
+    }
+    return out;
+  };
+
+  /** Background left inside the disc once the parent and the rotated ball are drawn. */
+  const countGapInside = (a: Uint8Array, b: Uint8Array, solid: Uint8Array): number => {
+    let gap = 0;
+    const disc = discMask(joint, size, size);
+    for (let index = 0; index < disc.length; index += 1) {
+      if (disc[index] !== 1) continue;
+      if (a[index] !== 1 && b[index] !== 1 && solid[index] !== 1) gap += 1;
+    }
+    return gap;
+  };
+
+  it("leaves the socket empty and hands the whole ball to the child", () => {
+    const { image, regions } = twoHalves();
+    cutJoint(image, regions, { parent: 0, child: 1 }, joint);
+    const disc = discMask(joint, size, size);
+    let parentInside = 0;
+    let childInside = 0;
+    for (let index = 0; index < disc.length; index += 1) {
+      if (disc[index] !== 1) continue;
+      if (regions[0]?.[index] === 1) parentInside += 1;
+      if (regions[1]?.[index] === 1) childInside += 1;
+    }
+    expect(parentInside).toBe(0);
+    expect(childInside).toBeGreaterThan(Math.PI * radius * radius * 0.9);
+  });
+
+  it("closes the seam at every rotation, where a straight cut opens a wedge", () => {
+    const straight = twoHalves();
+    const rounded = twoHalves();
+    cutJoint(rounded.image, rounded.regions, { parent: 0, child: 1 }, joint);
+    const disc = discMask(joint, size, size);
+    for (const angle of [0, 0.2, 0.6, 1.0, 1.6, -0.7]) {
+      expect(countGapInside(rounded.regions[0] as Uint8Array, rotated(rounded.regions[1] as Uint8Array, angle), disc)).toBe(0);
+      if (angle > 0.15) {
+        expect(countGapInside(straight.regions[0] as Uint8Array, rotated(straight.regions[1] as Uint8Array, angle), new Uint8Array(size * size))).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it("keeps every ball pixel opaque and inside the parent/child pair", () => {
+    const { image, regions } = twoHalves();
+    image.alpha.fill(1);
+    const before = new Set<number>();
+    regions.forEach((region) => region.forEach((value, index) => value === 1 && before.add(index)));
+    cutJoint(image, regions, { parent: 0, child: 1 }, joint);
+    regions[1]?.forEach((value, index) => {
+      if (value !== 1) return;
+      expect(before.has(index)).toBe(true);
+    });
+  });
+
+  it("rounds a parent without inventing a child", () => {
+    const { image, regions } = twoHalves();
+    cutJoint(image, regions, { parent: 0, child: null }, joint);
+    const disc = discMask(joint, size, size);
+    let parentInside = 0;
+    for (let index = 0; index < disc.length; index += 1) if (disc[index] === 1 && regions[0]?.[index] === 1) parentInside += 1;
+    expect(parentInside).toBe(0);
+    expect(regions[1]?.some((value) => value === 1)).toBe(true);
+  });
+
+  it("fills the ball's hollow with skin, so the disc is solid", () => {
+    const { image, regions } = twoHalves();
+    // A hole in the plate, set above the seam but inside the disc.
+    for (let y = 40; y < 55; y += 1) {
+      for (let x = 50; x < 70; x += 1) {
+        const index = y * size + x;
+        image.alpha[index] = 0;
+        image.data[index * 4 + 3] = 0;
+      }
+    }
+    cutJoint(image, regions, { parent: 0, child: 1 }, joint);
+    for (let y = 40; y < 55; y += 1) {
+      for (let x = 50; x < 70; x += 1) {
+        const index = y * size + x;
+        expect(image.data[index * 4 + 3]).toBe(255);
+        expect(image.data[index * 4]).toBeGreaterThan(100);
+      }
+    }
+  });
+
+  it("re-seals a ball rim that feathering has softened", () => {
+    const width = 40;
+    const height = 40;
+    const pixels = new Uint8ClampedArray(width * height * 4);
+    for (let index = 0; index < width * height; index += 1) pixels[index * 4 + 3] = 158;
+    sealBall({ width, height, pixels }, { pivot: [20, 20], radius: 8 });
+    expect(pixels[(20 * width + 20) * 4 + 3]).toBe(255);
+    expect(pixels[(20 * width + 28) * 4 + 3]).toBe(255);
+    expect(pixels[0 * 4 + 3]).toBe(158);
+  });
+
+  it("measures the gap left in a rendered frame", () => {
+    const frame = (opaque: boolean): { getImageData: () => { data: Uint8ClampedArray } } => ({
+      getImageData: () => {
+        const pixels = new Uint8ClampedArray(200 * 200 * 4);
+        for (let index = 0; index < 200 * 200; index += 1) pixels[index * 4 + 3] = opaque ? 255 : 0;
+        return { data: pixels };
+      },
+    });
+    const options = { scale: 1, originX: 0, originY: 0 };
+    expect(seamGap(frame(true), joint, options)).toBe(0);
+    expect(isSealed(0)).toBe(true);
+    expect(isSealed(seamGap(frame(false), joint, options))).toBe(false);
+    expect(seamGap(frame(false), joint, options)).toBeGreaterThan(1000);
   });
 });

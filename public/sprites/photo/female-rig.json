@@ -93,7 +93,7 @@
       "x": 315,
       "y": 232,
       "width": 130,
-      "height": 81,
+      "height": 58,
       "pivot": [
         55,
         43
@@ -116,20 +116,20 @@
       "id": "upperArm",
       "file": "sg-chinese-female-photo/upperArm.png",
       "fileFar": "sg-chinese-female-photo/upperArm-far.png",
-      "x": 266,
-      "y": 251,
-      "width": 130,
-      "height": 298,
+      "x": 277,
+      "y": 262,
+      "width": 107,
+      "height": 287,
       "pivot": [
-        80,
-        49
+        69,
+        38
       ],
       "far": {
         "file": "sg-chinese-female-photo-far/upperArm.png",
-        "width": 119,
+        "width": 92,
         "height": 354,
         "pivot": [
-          47,
+          36,
           90
         ],
         "neutral": -0.05427601196718789
@@ -140,12 +140,12 @@
       "file": "sg-chinese-female-photo/forearm.png",
       "fileFar": "sg-chinese-female-photo/forearm-far.png",
       "x": 184,
-      "y": 481,
-      "width": 147,
-      "height": 336,
+      "y": 500,
+      "width": 134,
+      "height": 317,
       "pivot": [
         99,
-        47
+        28
       ],
       "far": {
         "file": "sg-chinese-female-photo-far/forearm.png",
@@ -163,12 +163,12 @@
       "file": "sg-chinese-female-photo/thigh.png",
       "fileFar": "sg-chinese-female-photo/thigh-far.png",
       "x": 305,
-      "y": 639,
+      "y": 753,
       "width": 155,
-      "height": 331,
+      "height": 217,
       "pivot": [
         73,
-        61
+        -53
       ],
       "far": {
         "file": "sg-chinese-female-photo-far/thigh.png",
@@ -186,12 +186,12 @@
       "file": "sg-chinese-female-photo/shin.png",
       "fileFar": "sg-chinese-female-photo/shin-far.png",
       "x": 310,
-      "y": 909,
-      "width": 104,
-      "height": 265,
+      "y": 921,
+      "width": 98,
+      "height": 253,
       "pivot": [
         55,
-        53
+        41
       ],
       "far": {
         "file": "sg-chinese-female-photo-far/shin.png",
@@ -231,12 +231,12 @@
       "id": "shoeToe",
       "file": "sg-chinese-female-photo/shoeToe.png",
       "fileFar": "sg-chinese-female-photo/shoeToe-far.png",
-      "x": 426,
+      "x": 435,
       "y": 1251,
-      "width": 75,
-      "height": 56,
+      "width": 66,
+      "height": 53,
       "pivot": [
-        14,
+        5,
         47
       ],
       "far": {

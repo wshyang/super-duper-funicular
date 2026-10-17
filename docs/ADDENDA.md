@@ -293,3 +293,42 @@ Deliverable codes used below:
 - **Area:** D7.
 - **Impact:** `reports/photo-zoom.png`, `reports/photo-filmstrip.png` and `reports/qc-far-leg.png` are the
   review artefacts; `npx tsx .scratch/widths.ts` and `.scratch/tones.ts` are the numeric gates.
+
+## ADD-024: Articulated ends are cut as arcs centred on the rotation axis
+
+- **Decided:** every limb end that meets its neighbour on an *arbitrary* line is cut as a ball-and-socket
+  pair. The parent keeps a socket — everything inside the disc is removed from it; the child is handed the
+  whole disc, including the pixels the plate left transparent there. The ball is cut 1.5 px wider than the
+  socket so its opaque rim covers the socket's feathered rim, and `sealBall()` restores that rim to full
+  alpha after feathering. Radii are half the opaque width measured across the joint, less a pixel.
+- **Why:** a disc centred on the pivot is the only boundary a rotation cannot change. Every other shape —
+  the straight cut, the semicircular cap, the rectangle — slides against its neighbour and opens a wedge.
+  A disc *inscribed* in the limb adds nothing visible at rest (1.6 % of the knee's disc is synthesised,
+  19.9 % of the elbow's) and at a bend it reaches both limb edges, which is exactly where the wedge opened.
+  A larger disc fixes the wedge too but reads as a plastic ball: at r 52 the knee bulged 12 px past the leg.
+- **Not applied** at the shoulder, neck base, jaw, ankle and ball of the foot: their seams are the deltoid's
+  inner edge, the singlet collar, the jawline, the shoe collar and the sole. A disc wide enough to reach
+  them would drag the strap and collar with the arm/head, or push shoe through the floor (both foot pivots
+  sit within 47 px of the sole). Those joints keep their natural contours; they are listed in
+  `docs/PHOTO-RENDER-FLAWS.md` §B.
+- **Area:** D2, D4.
+- **Impact:** knee r 39 (80 px joint) and elbow r 26 (55 px joint). Transparent pixels inside either joint's
+  disc: **0** at all eight phases (`.scratch/seam.ts`), against 793 enclosed pixels for the figure before
+  the cuts. The far upper arm also loses the width it had inherited from the old shoulder cap (89 → 68 px),
+  so `FAR_SOURCES` now fits it to 68 and the far arm passes the 15 % width gate.
+  See `reports/qc-joints-knee-ankle.png` and `reports/qc-joints-arm.png`.
+
+## ADD-025: Cut-out margins carry colour, and the despill is unconditional
+
+- **Decided:** `cutPart()` copies RGB for **every** pixel in the crop and takes alpha only from the region
+  mask; `greenKey()` clamps green to `max(red, blue)` on every pixel instead of only on soft edges; and the
+  plate is bled again after the joints are cut.
+- **Why:** canvas filtering samples a crop's transparent margin, and a zeroed margin blends black into
+  every edge — the dark 1-px rim around each part. The old despill left the silhouette's fringe green
+  wherever a dark patch of backdrop had keyed as fully opaque, and a fresh ball's rim has no bled colour of
+  its own until the plate is bled again. Together these produced a green halo around the knee and a light
+  hairline where the socket met the ball.
+- **Area:** D2, D3.
+- **Impact:** the knee rim's luminance step fell from ≈ 23 to ≤ 10 of ≈ 140 at r = 40 px
+  (`.scratch/arc-profile.ts`), and the green cast at the ball's edge is gone
+  (`reports/patch-shin.png`). 138/138 tests, `tsc` clean, `npm run validate` green.

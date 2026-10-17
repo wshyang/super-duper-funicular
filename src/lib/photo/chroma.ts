@@ -44,7 +44,11 @@ export function greenKey(image: RgbaImage): KeyedImage {
     const score = greenScore(red, green, blue);
     const coverage = clamp01((SOFT_HIGH - score) / (SOFT_HIGH - SOFT_LOW));
     alpha[index] = coverage;
-    const despilled = Math.min(green, Math.max(red, blue) + Math.round(10 * (1 - coverage)));
+    // Clamp green to the strongest of the other channels everywhere, not only
+    // on soft edges: a dark patch of backdrop keys as fully opaque yet still
+    // carries a green cast, and that sort of pixel becomes the silhouette's
+    // fringe as soon as anything interpolates from it.
+    const despilled = Math.min(green, Math.max(red, blue));
     output[offset] = red;
     output[offset + 1] = despilled;
     output[offset + 2] = blue;

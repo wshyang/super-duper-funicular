@@ -1,10 +1,12 @@
 # Assessment: why the photographic runner renders badly
 
-> **Status:** A and B remain (they need a coherent re-shoot). C–G are fixed in `d59cd18`..HEAD:
-> edges feathered, neighbours grown into a shared band, joint caps added at every hinge, the foot
-> split at the ball with a hinge cap, far textures driven below the declared sole, and far limbs
-> fitted to the near limb's silhouette width (all six now within 4 %) with a single 0.88 shadow
-> tint instead of a double darkening. See ADD-020.
+> **Status:** A remains (it needs a coherent re-shoot, not a code fix). **B is fixed at the knee and the
+> elbow** by a ball-and-socket cut: the parent keeps a socket, the child is given the whole disc, and the
+> rendered joint measures **0 transparent pixels inside the disc at all eight phases** (`.scratch/seam.ts`).
+> B is left in place deliberately at the shoulder, neck, jaw, ankle and toe, whose seams follow the body.
+> C–G are fixed in `d59cd18`..HEAD: edges feathered, neighbours grown into a shared band, the foot split
+> at the ball, far textures driven below the declared sole, far limbs fitted to the near silhouette with a
+> single 0.88 tint. See ADD-020, ADD-024 and ADD-025.
 
 Evidence: `reports/photo-defects.png` (six magnified panels), `reports/photo-zoom.png` (four phases),
 `reports/qc-feet-zoom.png`, `reports/qc0-head.png`, `reports/qc0-hip.png`, `reports/qc0-knee.png`,
@@ -64,11 +66,43 @@ Two hands in different poses, two different shoes on one runner.
 
 ## B. The cut boundaries are axis-aligned rectangles, not joints
 
-Far pieces are cut with `boxRegion()` — straight horizontal and vertical edges. A horizontal cut across a
+Far pieces were cut with `boxRegion()` — straight horizontal and vertical edges. A horizontal cut across a
 thigh is only correct while the thigh is vertical. Rotate it 0.9 rad and you see a **straight slab edge**
-crossing the limb (panel 1), with a rectangular step at the knee where the thigh's bottom cut meets the
-shin's top cut. The same shows at the far shoulder, where a fragment of red tank strap is carried in and
-floats free of the singlet as the arm swings (panel 5), and at the wrist.
+crossing the limb, with a rectangular step at the knee where the thigh's bottom cut meets the shin's top.
+
+**Fixed at the knee and the elbow** by `src/lib/photo/round-cut.ts`, driven by `links` in
+`tools/photo-rig-spec.ts`. A disc centred on the pivot is the only boundary that rotation cannot change, so
+each joint is now a ball-and-socket pair:
+
+- the parent loses every pixel inside the socket disc;
+- the child is handed the whole disc, including pixels the plate left transparent, which are closed by a
+  membrane solve pinned to the surrounding skin;
+- the ball is cut **1.5 px wider** than the socket, so its opaque rim covers the socket's feathered rim;
+- the radius is **half the opaque width measured across the joint**, minus a pixel: knee 80 px → r 39,
+  elbow 55 px → r 26.
+
+A disc that wide is *inscribed* in the limb, so at rest almost none of the synthesised face is visible —
+1.6 % of the knee's disc and 19.9 % of the elbow's — while at a bend it reaches both of the limb's edges,
+which is exactly where the wedge used to open. Measured on the rendered frames, transparent pixels inside a
+joint's disc:
+
+| phase | 0 | .125 | .250 | .375 | .500 | .625 | .750 | .875 |
+|---|---|---|---|---|---|---|---|---|
+| knee (r 39) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| elbow (r 26) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+This is not applied everywhere, on purpose:
+
+| joint | why it keeps its straight seam |
+|---|---|
+| shoulder | the arm/torso seam runs along the deltoid. A ball wide enough to reach it would drag the singlet's strap around with the arm; a smaller one would leave the straight edge outside the disc anyway. |
+| neck base, jaw | the seam *is* the singlet collar and the jawline — real edges, not arbitrary cuts. |
+| ankle | the pivot sits 47 px above the sole; a disc wide enough to bridge the shoe collar would push shoe through the floor. |
+| ball of the foot | the pivot sits 4 px above the sole; same reason. A sole hinge has to keep its sole. |
+
+Residual: a 1-px tonal seam remains at the ball's rim (luminance step ≤ 10 of ≈ 140, measured with
+`.scratch/arc-profile.ts`), visible only at 2× magnification. The plastic-ball look of a large disc is what
+set the radius rule: at r 52 the knee read as a doll's joint that bulged 12 px past the leg.
 
 ## C. Edges are hard-quantised, so seams show as dotted lines
 
@@ -99,8 +133,13 @@ Transparent pixels fully enclosed by figure pixels, per phase:
 | enclosed px | 62 | 344 | 668 | 640 | **793** | 298 | 680 | 696 |
 
 At 620 px per body height that is up to ~0.2 % of the frame area — wedges at the knee, the hip and the
-elbow where two rigid cut-outs rotate apart, plus the gap between sock and shoe collar. There are no joint
-caps and no occlusion masks, so background shows *through* the leg.
+elbow where two rigid cut-outs rotate apart, plus the gap between sock and shoe collar. There were no joint
+caps and no occlusion masks, so background showed *through* the leg.
+
+The knee and the elbow no longer contribute: after ADD-024 the transparent area **inside either joint's
+disc is 0 px at every phase**, because the disc is opaque in the child and the parent has no material
+there. The figure-wide count above also includes legitimate gaps — between the legs and between the
+swinging arm and the torso — which is why the per-joint measure is the gate.
 
 ## E. The toe hinge is anchored outside its own image
 

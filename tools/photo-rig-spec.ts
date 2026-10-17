@@ -34,11 +34,18 @@ export interface PhotoPlateSpec {
     readonly seed: [number, number];
     readonly extension: number;
     readonly erase?: readonly (readonly (readonly [number, number])[])[];
-    /**
-     * Disc of extra pixels around a joint, kept on top of the child part so a
-     * hinge never opens a wedge. The child is drawn later, so it covers the seam.
-     */
-    readonly cap?: { readonly centre: [number, number]; readonly radius: number };
+  }[];
+  /**
+   * Ball-and-socket joints. A disc centred on the pivot is the only boundary a
+   * rotation leaves unchanged, so each link hands the child a ball of exactly
+   * the socket the parent gives up. `child: null` rounds the parent's end only.
+   */
+  readonly links: readonly {
+    readonly joint: keyof PhotoPlateSpec["joints"];
+    readonly parent: PhotoPlateSpec["parts"][number]["id"];
+    readonly child: PhotoPlateSpec["parts"][number]["id"] | null;
+    /** Must reach past the cut line on both sides of the limb. */
+    readonly radius: number;
   }[];
   /**
    * Posture adjustments for this rig. The photographic arms are longer than the
@@ -109,19 +116,16 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
   ],
   parts: [
     { id: "head", seed: [390, 150], extension: 3 },
-    { id: "neck", seed: [372, 262], extension: 2, cap: { centre: [370, 275], radius: 34 } },
-    { id: "torso", seed: [392, 600], extension: 3, cap: { centre: [378, 700], radius: 58 } },
-    { id: "upperArm", seed: [286, 480], extension: 7, cap: { centre: [346, 300], radius: 46 } },
-    { id: "forearm", seed: [240, 680], extension: 6, cap: { centre: [283, 528], radius: 44 } },
-    { id: "thigh", seed: [390, 860], extension: 6, cap: { centre: [378, 700], radius: 58 } },
-    { id: "shin", seed: [362, 1060], extension: 6, cap: { centre: [365, 962], radius: 50 } },
+    { id: "neck", seed: [372, 262], extension: 2 },
+    { id: "torso", seed: [392, 600], extension: 3 },
+    { id: "upperArm", seed: [286, 480], extension: 7 },
+    { id: "forearm", seed: [240, 680], extension: 6 },
+    { id: "thigh", seed: [390, 860], extension: 6 },
+    { id: "shin", seed: [362, 1060], extension: 6 },
     // The far shoe peeks out behind the near one; it belongs to the other
     // foot, so the toe keeps only the near shoe's own forefoot.
     {
       id: "shoe",
-      // The ankle cap keeps the sock/shoe junction closed when the hindfoot
-      // rotates for the heel peel.
-      cap: { centre: [365, 1255], radius: 44 },
       seed: [350, 1265],
       extension: 8,
       erase: [
@@ -136,10 +140,6 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
     },
     {
       id: "shoeToe",
-      // The hinge sits on the ball. A small disc of shoe pixels around it is
-      // kept on the child, which is drawn after the hindfoot, so the hinge
-      // stays covered however far the two halves rotate apart.
-      cap: { centre: [440, 1298], radius: 13 },
       seed: [470, 1290],
       extension: 4,
       erase: [
@@ -151,6 +151,26 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
         [[280, 1303], [560, 1303], [560, 1400], [280, 1400]],
       ],
     },
+  ],
+  // Every radius is half the opaque width measured across that joint, less a
+  // pixel. A ball that wide is inscribed in the limb, so at rest none of its
+  // filled face shows; at a bend it is exactly wide enough to reach both of the
+  // limb's edges, which is where the wedge would otherwise open.
+  links: [
+    // Knee: 80 px across the plate at the joint.
+    { joint: "knee", parent: "thigh", child: "shin", radius: 39 },
+    // The ankle and the ball of the foot are deliberately not ball joints.
+    // Their pivots sit 47 and 4 pixels above the sole, so a solid ball big
+    // enough to bridge the seam would protrude through the ground plane. A
+    // shoe collar is a clothing boundary anyway: it turns *over* the sock, and
+    // the shoe's straight top edge is exactly what a collar looks like.
+    // Elbow, across the forearm seam.
+    { joint: "elbow", parent: "upperArm", child: "forearm", radius: 26 },
+    // The shoulder, the neck base and the jaw are *not* ball joints. Their
+    // seams already follow the body: the deltoid's inner edge, the singlet's
+    // collar and the jawline. Those lines are what the limbs actually meet
+    // along, and a ball big enough to reach them would drag the strap and the
+    // collar around with the limb, which reads worse than the seam it hides.
   ],
   pose: { armSwing: 0.35, armBias: -0.05, elbowFlex: 1.45 },
   neutralAngles: {

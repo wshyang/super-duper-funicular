@@ -24,6 +24,7 @@ import {
   tintFar,
   type CutPart,
 } from "../src/lib/photo/cut.ts";
+import { BALL_OVERHANG, cutJoint, sealBall } from "../src/lib/photo/round-cut.ts";
 import { FEMALE_PHOTO, type PhotoPlateSpec } from "./photo-rig-spec.ts";
 
 const OUTPUT_ROOT = "public/sprites/photo";
@@ -49,21 +50,24 @@ export interface ExtractedRig {
   }[];
 }
 
-/** Adds a disc of joint pixels to a region, where the plate is opaque there. */
-function capDisc(
-  region: Uint8Array,
-  width: number,
-  height: number,
-  image: { readonly alpha: Float32Array },
-  cap: { readonly centre: readonly [number, number]; readonly radius: number },
+/** Cuts every ball-and-socket joint, after growth has settled the seams. */
+function roundJoints(
+  spec: PhotoPlateSpec,
+  keyed: { readonly width: number; readonly height: number; readonly data: Uint8ClampedArray; readonly alpha: Float32Array },
+  regions: readonly Uint8Array[],
 ): void {
-  const [cx, cy] = cap.centre;
-  for (let y = Math.max(0, Math.floor(cy - cap.radius)); y <= Math.min(height - 1, Math.ceil(cy + cap.radius)); y += 1) {
-    for (let x = Math.max(0, Math.floor(cx - cap.radius)); x <= Math.min(width - 1, Math.ceil(cx + cap.radius)); x += 1) {
-      if (Math.hypot(x - cx, y - cy) > cap.radius) continue;
-      if ((image.alpha[y * width + x] ?? 0) < 0.5) continue;
-      region[y * width + x] = 1;
-    }
+  const indexOf = new Map(spec.parts.map((part, index) => [part.id, index]));
+  for (const link of spec.links) {
+    const parent = indexOf.get(link.parent);
+    const child = link.child === null ? null : indexOf.get(link.child);
+    if (parent === undefined) throw new Error(`joint parent ${link.parent} is not a part`);
+    if (child === undefined) throw new Error(`joint child ${link.child ?? ""} is not a part`);
+    cutJoint(
+      keyed,
+      regions,
+      { parent, child: child ?? null },
+      { pivot: spec.joints[link.joint] as readonly [number, number], radius: link.radius },
+    );
   }
 }
 
@@ -82,7 +86,6 @@ async function extract(spec: PhotoPlateSpec): Promise<ExtractedRig> {
   spec.parts.forEach((part, index) => {
     let region = extendRegion(keyed, regions[index] as Uint8Array, part.extension);
     for (const polygon of part.erase ?? []) erasePolygon(region, source.width, polygon);
-    if (part.cap !== undefined) capDisc(region, source.width, source.height, keyed, part.cap);
     regions[index] = region;
   });
   const erasures = new Uint8Array(source.width * source.height).fill(1);
@@ -92,8 +95,25 @@ async function extract(spec: PhotoPlateSpec): Promise<ExtractedRig> {
   fillUnassigned(keyed, regions, erasures);
   // A shared band of pixels between neighbours, so no dotted cut line shows.
   growRegions(keyed, regions, 2, erasures);
+  // Then replace every straight seam at a hinge with a ball-and-socket pair.
+  roundJoints(spec, keyed, regions);
+  // Fresh balls have fresh edges, so carry their colour outwards again: the
+  // renderer filters these crops, and transparent black would darken the rim.
+  bleedAlpha(keyed, 2);
+  // Every ball is re-sealed after feathering, or its rim shows the parent's
+  // socket through as a hairline.
+  const ballsFor = (id: string): Array<{ pivot: readonly [number, number]; radius: number }> =>
+    spec.links
+      .filter((link) => link.child === id)
+      .map((link) => ({
+        pivot: spec.joints[link.joint] as readonly [number, number],
+        radius: link.radius + BALL_OVERHANG,
+      }));
   spec.parts.forEach((part, index) => {
     const cropped = cutPart(keyed, regions[index] as Uint8Array, part.id);
+    for (const ball of ballsFor(part.id)) {
+      sealBall(cropped, { pivot: [ball.pivot[0] - cropped.x, ball.pivot[1] - cropped.y], radius: ball.radius });
+    }
     cut.push(cropped);
     writeFileSync(resolve(directory, `${part.id}.png`), encodePng(cropped.pixels, cropped.width, cropped.height));
     writeFileSync(resolve(directory, `${part.id}-far.png`), encodePng(tintFar(cropped).pixels, cropped.width, cropped.height));
