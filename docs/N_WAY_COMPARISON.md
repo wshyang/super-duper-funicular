@@ -14,7 +14,7 @@ drifts from `src/generated/branch-tips.json`.
 ## 1. Latest observed remote tips
 
 <!-- branch-tips:start -->
-Observed (UTC): 2026-10-17T23:37:42.315Z
+Observed (UTC): 2026-10-17T23:40:22.234Z
 
 | Implementation | Branch | Full remote SHA | Commit time |
 | --- | --- | --- | --- |
@@ -22,8 +22,12 @@ Observed (UTC): 2026-10-17T23:37:42.315Z
 | Stride Lab | `arena/263385da-super-duper-funicular` | `b227e2fe562be341f15f58955f539d325170729e` | 2026-10-17T21:55:19+00:00 |
 | Funicular | `arena/77ffb088-super-duper-funicular` | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | 2026-10-17T23:05:53+00:00 |
 | Procedural Runner | `arena/ce6d2a6e-super-duper-funicular` | `bab689cdac3ba730138bfae09dda537978d61e09` | 2026-10-17T06:27:14+00:00 |
-| Funicular Motion Lab (ours) | `arena/110272a0-super-duper-funicular` | `192898f5612a30e5c048cb43035146992f947a2a` | 2026-10-17T23:37:16+00:00 |
+| Funicular Motion Lab (ours) | `arena/110272a0-super-duper-funicular` | `3da6fff6f1290177fe3b3aaea3664fc5649341f0` | 2026-10-17T23:40:14+00:00 |
 <!-- branch-tips:end -->
+
+Our own row always trails the branch tip by exactly the commit that regenerates this table — the
+ledger cannot contain the hash of the commit that writes it. Read the trailing commit as "the
+reviewed state", not as the branch tip.
 
 Refresh with:
 
