@@ -2,7 +2,7 @@
 
 - **Repository:** `wshyang/super-duper-funicular`
 - **Active Session Branch:** `arena/db7c86d4-super-duper-funicular` (this branch — Harmonised Greenfield)
-- **Last Refreshed:** `2026-10-17T23:21:18.675Z` via `git ls-remote --heads origin (live)`
+- **Last Refreshed:** `2026-10-17T23:59:28.761Z` via `git ls-remote --heads origin (live)`
 - **Command:** `npm run branches:compare` (`tools/compare-branches.ts`) — queries `git ls-remote --heads origin`, inspects via `git show` / detached `/tmp/branch-*` (never `git switch`), writes live tips + history JSON, refreshes this document.
 - **Standing Mandate (`CLAUDE.md` Core Rules 3 + `CLAUDE-decisions.md §3–§4` + `docs/FDS.md#continuous-learning-log`):** Update on every cross-branch or implementation turn; adopt strengths toward **100% feature parity across all N active branches**.
 
@@ -12,11 +12,11 @@
 
 | Branch (Display) | Remote Ref | Latest SHA (short) | Timestamp | PR | Role |
 |---|---|---|---|---|---|
-| arena/db7c86d4-super-duper-funicular | `arena/db7c86d4-super-duper-funicular` | `4edf50f` | 2026-10-17 23:21:06 +0000 | — (session) | This Branch — Harmonised Greenfield (Session) |
+| arena/db7c86d4-super-duper-funicular | `arena/db7c86d4-super-duper-funicular` | `43aa179` | 2026-10-17 23:59:23 +0000 | — (session) | This Branch — Harmonised Greenfield (Session) |
 | arena/917ef347-super-duper-funicular | `arena/917ef347-super-duper-funicular` | `e172b0f` | 2026-10-17 23:09:40 +0000 | PR #1 OPEN | Sprite Motion Lab — Algorithmic + SVG + Photoreal Pipeline |
 | arena/263385da-super-duper-funicular | `arena/263385da-super-duper-funicular` | `b227e2f` | 2026-10-17 21:55:19 +0000 | PR #2 OPEN | Stride Lab — Motion Workbench + Multi-Locomotion + Calibration |
 | arena/77ffb088-super-duper-funicular | `arena/77ffb088-super-duper-funicular` | `43352cf` | 2026-10-17 23:05:53 +0000 | PR #3 OPEN | Photo-Rig & Matte Lab — Coherent Plates + Matte Invariants |
-| arena/ce6d2a6e-super-duper-funicular | `arena/ce6d2a6e-super-duper-funicular` | `bab689c` | 2026-10-17 06:27:14 +0000 | historic (superseded) | Early Prototype — Foundational (Historic) |
+| arena/ce6d2a6e-super-duper-funicular | `arena/ce6d2a6e-super-duper-funicular` | `bab689c` | unknown | historic (superseded) | Early Prototype — Foundational (Historic) |
 | main | `main` | `396ce25` | 2026-10-17 13:53:48 +0800 | - | main @ 396ce25 base |
 
 **Session status:** This document cannot embed its own future uncommitted hash; uncommitted delta is tracked separately from last observed remote SHA. Check again after publishing.
