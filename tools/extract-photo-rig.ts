@@ -26,6 +26,9 @@ import {
   type CutPart,
 } from "../src/lib/photo/cut.ts";
 import { BALL_OVERHANG, cutJoint, sealBall } from "../src/lib/photo/round-cut.ts";
+import { capArc } from "../src/lib/photo/arc-cap.ts";
+import { fabricOnly, purgeMatte, refillMatted } from "../src/lib/photo/matte.ts";
+import { compositeKeyed, fitSimilarity, warpKeyed, type PatchPlate } from "../src/lib/photo/patch.ts";
 import { traceAlpha, type TracedShape } from "../src/lib/vector/trace.ts";
 import { rasteriseShape, silhouetteIou } from "../src/lib/vector/raster.ts";
 import { svgDocument } from "../src/lib/vector/svg.ts";
@@ -105,9 +108,42 @@ function partRegions(spec: PhotoPlateSpec, keyed: KeyedImage): Uint8Array[] {
   });
 }
 
+/** Folds every patch plate into the base plate before any cutting happens. */
+async function withPatches(spec: PhotoPlateSpec, base: KeyedImage): Promise<KeyedImage> {
+  let image = base;
+  for (const patch of spec.patches ?? []) image = await applyPatch(patch, image);
+  return image;
+}
+
+/** Registers one patch plate and lets its opaque fabric replace the base. */
+async function applyPatch(patch: PatchPlate, base: KeyedImage): Promise<KeyedImage> {
+  const plate = greenKey(await readImage(patch.source));
+  const sim = fitSimilarity(patch.from, patch.to);
+  // The patch contributes fabric only: its baked-in shoulder sockets are skin
+  // the base plate already owns, and a fabric part may never carry skin.
+  const fabric = fabricOnly(warpKeyed(plate, sim, base.width, base.height));
+  return compositeKeyed(base, fabric, patch.clip);
+}
+
+/** Trims every declared end to an arc about its rotation axis. */
+function applyCaps(spec: PhotoPlateSpec, width: number, height: number, regions: Uint8Array[]): void {
+  const indexOf = new Map(spec.parts.map((part, index) => [part.id, index]));
+  for (const cap of spec.caps ?? []) {
+    const index = indexOf.get(cap.part);
+    if (index === undefined) throw new Error(`cap part ${cap.part} is not a part`);
+    const capped = capArc({ width, height, region: regions[index] as Uint8Array }, {
+      pivot: spec.joints[cap.joint] as readonly [number, number],
+      radiusX: cap.radiusX,
+      radiusY: cap.radiusY,
+      side: cap.side,
+    });
+    regions[index] = capped.region;
+  }
+}
+
 async function extract(spec: PhotoPlateSpec): Promise<{ rig: ExtractedRig; cut: CutPart[] }> {
   const source = await readImage(spec.source);
-  const keyed = greenKey(source);
+  const keyed = await withPatches(spec, greenKey(source));
   const specks = dropSpecks(keyed);
   bleedAlpha(keyed, 2);
   const bounds = alphaBounds(keyed);
@@ -128,6 +164,15 @@ async function extract(spec: PhotoPlateSpec): Promise<{ rig: ExtractedRig; cut: 
   growRegions(keyed, regions, 2, erasures);
   // Then replace every straight seam at a hinge with a ball-and-socket pair.
   roundJoints(spec, keyed, regions);
+  // Every end a ball does not reach becomes an arc about its rotation axis.
+  applyCaps(spec, keyed.width, keyed.height, regions);
+  // Colour mattes are a hard invariant: growth and leftovers cannot smuggle a
+  // strap into a skin part or a socket's skin into a fabric part. Anything the
+  // purge orphans is re-homed to a matte-compatible neighbour, so the armhole
+  // skin islands land on the skin parts instead of becoming holes.
+  const mattes = spec.parts.map((part) => part.matte);
+  purgeMatte(keyed, regions, mattes);
+  refillMatted(keyed, regions, { mattes, blocked: erasures });
   // Fresh balls have fresh edges, so carry their colour outwards again: the
   // renderer filters these crops, and transparent black would darken the rim.
   bleedAlpha(keyed, 2);

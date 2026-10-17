@@ -1,4 +1,17 @@
 import type { PartMatte, Segment } from "../src/lib/photo/cut.ts";
+import type { PatchPlate } from "../src/lib/photo/patch.ts";
+
+/**
+ * An end rounded about a rotation axis. The joint name picks the centre out of
+ * `joints`; the side names which end of the part is being rounded.
+ */
+export interface PartArcCap {
+  readonly part: PhotoPlateSpec["parts"][number]["id"];
+  readonly joint: keyof PhotoPlateSpec["joints"];
+  readonly side: "above" | "below";
+  readonly radiusX: number;
+  readonly radiusY: number;
+}
 
 /**
  * Trace data for one photographic plate. All numbers are pixels in the source
@@ -41,6 +54,21 @@ export interface PhotoPlateSpec {
     readonly matte?: PartMatte;
     readonly erase?: readonly (readonly (readonly [number, number])[])[];
   }[];
+  /**
+   * Extra plates whose cleanly shot parts replace the base plate's pixels
+   * before cutting. Each patch is fitted by two anchor pairs and clipped to
+   * the domain it replaces; transparent holes in the patch keep the base
+   * plate's pixels, so the neck and limbs show through an arm-free garment.
+   */
+  readonly patches?: readonly PatchPlate[];
+  /**
+   * Ends rounded out about their rotation axis. A disc centred on the pivot is
+   * the only boundary a rotation leaves unchanged: trimming the part's end to
+   * that arc means the covering neighbour seals the same disc at every angle.
+   * Ball joints (links) carry their own rounding; these caps cover the ends a
+   * ball cannot reach without dragging a neighbour's texture along.
+   */
+  readonly caps?: readonly PartArcCap[];
   /**
    * Ball-and-socket joints. A disc centred on the pivot is the only boundary a
    * rotation leaves unchanged, so each link hands the child a ball of exactly
@@ -187,6 +215,46 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
     { joint: "elbow", parent: "upperArm", child: "forearm", radius: 26 },
     // The shoulder is *not* a ball joint: its seam follows the deltoid's inner
     // edge, and a ball big enough to reach that line would drag the strap.
+  ],
+  patches: [
+    {
+      // The regenerated arm-free torso. The original plate has her arms pulled
+      // back across the trunk; this plate is the same kit shot as a bare
+      // garment with no limbs at all, so the torso can be cut without a colour
+      // matte apologising for an arm. Anchors: the shoulder strap's topmost
+      // garment point and the shorts hem's lowest point on each plate, measured
+      // with garment-only classification (red or navy, never skin or hair).
+      source: "src/images/photo/sg-chinese-female__torso-only__chroma-green__source.png",
+      from: [
+        [328, 162],
+        [261, 1015],
+      ],
+      to: [
+        [346, 269],
+        [310, 779],
+      ],
+      // The replacement domain: generous around the trunk, so the neck hole
+      // and arm holes of the patch fall inside it and keep the base plate.
+      clip: [
+        [262, 246],
+        [502, 246],
+        [502, 804],
+        [262, 804],
+      ],
+    },
+  ],
+  caps: [
+    // The neck's two ends are the ones a pivot-centred arc can round without
+    // eating anatomy: the under-jaw band becomes a small dome on the head's
+    // own axis (the head's jaw covers the same disc at every turn), and the
+    // collar end becomes a wide arc about the neck's bend axis (the singlet's
+    // collar covers it). The other ends were measured and rejected: a cap
+    // small enough to round the jaw cut also ate the ponytail (1788 px of
+    // unowned shoulder window), and the deltoid, forefoot, sole and hip ends
+    // all carry mass far off their pivots, so those joins stay sealed by
+    // z-order overlap and the ball joints at knee and elbow instead.
+    { part: "neck", joint: "headBase", side: "above", radiusX: 30, radiusY: 26 },
+    { part: "neck", joint: "neckBase", side: "below", radiusX: 85, radiusY: 65 },
   ],
   pose: { armSwing: 0.35, armBias: -0.05, elbowFlex: 1.45 },
   neutralAngles: {

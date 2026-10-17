@@ -390,3 +390,71 @@ Deliverable codes used below:
 - **Area:** D3.
 - **Impact:** far/near width deltas are now upperArm 6.0 %, forearm 0 %, thigh 0 %, shin 0 %;
   151/151 tests.
+
+## ADD-030: The torso comes from a generated arm-free plate, composited by anchors
+
+- **Decided:** a second plate — `sg-chinese-female__torso-only__chroma-green__source.png`, the same
+  kit shot as an empty garment with no limbs (prompt logged in `docs/PHOTO-PROMPTS.md`) — replaces
+  the base plate's trunk pixels before any cutting. `src/lib/photo/patch.ts` fits it with a
+  similarity solved from two measured anchor pairs (garment strap apex `[328, 162]` → `[346, 269]`;
+  shorts hem `[261, 1015]` → `[310, 779]`; scale 0.5975) and composites it inside a clip polygon,
+  keeping the base plate's pixels wherever the patch is transparent (the neck and arm holes show
+  the original neck and limbs through the garment). The patch contributes fabric only.
+- **Why:** the user asked for the torso photo to be generated "of her torso without any arms". The
+  original profile plate has the arms pulled back across the trunk; ADD-027 fenced the ghost out
+  with a colour matte, but the requirement was the plate itself.
+- **Area:** D2, D3.
+- **Impact:** the torso cut is the arm-free garment end to end — no arm, no hand, no matte apology.
+  Registration is deterministic and tested (`tests/patch.test.ts`, 4 cases); anchors are documented
+  in `docs/PHOTO-PROMPTS.md`. 155/155 tests.
+
+## ADD-031: Colour mattes are a hard invariant: purge, then re-home
+
+- **Decided:** after growth and caps, `purgeMatte` strips every matted region of pixels its class
+  rejects, and `refillMatted` re-homes the orphans to the nearest matte-compatible region
+  (`src/lib/photo/matte.ts`). The patch plate is matted to fabric before compositing
+  (`fabricOnly`).
+- **Why:** `fillUnassigned` and `growRegions` are colour-blind by design (a grown band is what
+  hides cut lines), so a strap could still ride in a skin part and the generated garment's baked-in
+  shoulder-socket skin landed in the fabric torso — a measured 1,788 px hole at the shoulder once
+  the socket skin was cut away. The purge alone then orphaned the armhole's skin islands into
+  holes; the matte-aware refill hands them to the skin parts instead.
+- **Area:** D3.
+- **Impact:** measured after the change: the skin-matted upper arm carries 0 opaque bright-red
+  pixels (was stray strap colour); the shoulder window's unowned pixels fall from 1,788 to 68 (a
+  fabric-classified sliver at the armhole rim that no region can legally reach); the torso carries
+  the arm-free garment with matte overlap 0.998. `tests/matte.test.ts`, 4 cases.
+
+## ADD-032: Pivot arc caps — where they work in plate space, and where they do not
+
+- **Decided:** `src/lib/photo/arc-cap.ts` trims a part's end to an elliptical arc about a rotation
+  axis (the rounded-end principle from the sibling branch's `rounded-joint-cutter.ts`, ADD-016
+  there). Applied at the neck's two ends: the under-jaw band becomes a 30 x 26 dome on `headBase`
+  and the collar end a wide 85 x 65 arc on `neckBase`, both covered concentrically by their
+  neighbours at every angle. Knee and elbow keep their ball-and-socket caps.
+- **Why:** the user requires every articulated end rounded out about its rotation axis. A measured
+  attempt to cap every end showed the constraint of plate-space cutting: a cap small enough to
+  round the jaw cut also erased the ponytail (1,788 px unowned at the shoulder window), the deltoid
+  mass sits ~70 px off the shoulder pivot, the forefoot 46 px off the ball, and the shin's cut end
+  81 px off the ankle — for those ends a pivot-centred ellipse either eats anatomy or is a no-op.
+  Those joins stay sealed by z-order overlap (draw order neck → torso → head → arms; shorts over
+  thigh; shoe over shin) and by the ball joints. The sibling's canonical-canvas resampling — which
+  rebuilds each limb as a capsule with semicircular ends — is the proven route to true rounding at
+  every end; it is a re-architecture and is recorded as such in `docs/BRANCH-COMPARISON.md`.
+- **Area:** D2, D5.
+- **Impact:** at 0.35 rad head turn the jaw seam is clean — no step, no tear, no disc
+  (`reports/rig-head-0.35.png`); at rest the join is invisible (`reports/rig-head-0.png`). The
+  cap maths is rotation-invariant by construction (`tests/patch.test.ts`, including an invariance
+  case across four angles).
+
+## ADD-033: The sibling branch is reviewed and its practices adopted
+
+- **Decided:** `arena/917ef347-super-duper-funicular` @ `f4c3197` (PR #1) is checked out at
+  `/tmp/other-branch` and compared in `docs/BRANCH-COMPARISON.md`. Adopted this round: per-element
+  plates, rounded-end caps, and the verbatim image-prompt log (`docs/PHOTO-PROMPTS.md`). Recorded
+  as future work: canonical-capsule resampling for full rounded ends, hands as separate parts,
+  ponytail secondary motion, and colour-band SVG vectors.
+- **Why:** the user asked for the comparison and the transfer of good practice, with this branch's
+  own strengths identified honestly.
+- **Area:** D1, D8.
+- **Impact:** documentation only, plus the two ported mechanisms above.
