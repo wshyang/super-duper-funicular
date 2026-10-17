@@ -66,6 +66,19 @@ export function photoGait<T extends { armSwing: number; armBias: number; elbowFl
   return { ...gait, ...(rig.pose ?? {}) };
 }
 
+/** Human names for the atlas cells, matching the vector rig's vocabulary. */
+export const PHOTO_PART_LABELS: Readonly<Record<PhotoPartId, string>> = {
+  head: "Head",
+  neck: "Neck",
+  torso: "Torso",
+  upperArm: "Upper arm",
+  forearm: "Forearm",
+  thigh: "Thigh",
+  shin: "Shin",
+  shoe: "Hindfoot",
+  shoeToe: "Forefoot",
+};
+
 export const PHOTO_PART_ORDER: readonly PhotoPartId[] = [
   "head",
   "neck",

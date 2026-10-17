@@ -1,7 +1,7 @@
 import { createControls } from "../components/controls.ts";
 import { createFlawPanel } from "../components/flaw-panel.ts";
 import { createMetrics } from "../components/metrics.ts";
-import { createPartsAtlas } from "../components/parts-atlas.ts";
+import { createRigAtlas } from "../components/rig-atlas.ts";
 import { createReferenceStrip } from "../components/reference-strip.ts";
 import { createStage } from "../components/stage.ts";
 import { startLoop } from "../loop.ts";
@@ -21,7 +21,7 @@ export function createRunLab(): RunLabHandle {
   const stage = createStage();
   const controls = createControls(store);
   const metrics = createMetrics();
-  const partsAtlas = createPartsAtlas(lookForSettings(store.get()));
+  const partsAtlas = createRigAtlas(store.get());
   const flaws = createFlawPanel(store.get());
 
   const element = layout(stage.element, controls.element, metrics.element, flaws.element, partsAtlas.element);
@@ -37,10 +37,7 @@ export function createRunLab(): RunLabHandle {
   store.subscribe((settings) => {
     metrics.update(settings);
     flaws.update(settings);
-    // The atlas decomposes the vector rig; photo personas have no vector look.
-    if (findRunnerOption(settings.personaId).kind === "vector") {
-      partsAtlas.setLook(lookForSettings(settings));
-    }
+    partsAtlas.update(settings);
   });
 
   let phase = 0;
