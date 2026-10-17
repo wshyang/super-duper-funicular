@@ -69,7 +69,7 @@ export const FAR_SOURCES: readonly FarSource[] = [
     pieces: [
       {
         id: "thigh",
-        box: [270, 145, 560, 545],
+        box: [270, 110, 560, 545],
         jointA: [395, 120],
         jointB: [420, 500],
         pivot: [395, 120],

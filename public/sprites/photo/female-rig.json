@@ -173,10 +173,10 @@
       "far": {
         "file": "sg-chinese-female-photo-far/thigh.png",
         "width": 165,
-        "height": 277,
+        "height": 301,
         "pivot": [
           71,
-          -17
+          8
         ],
         "neutral": 0.06569480155246474
       }
