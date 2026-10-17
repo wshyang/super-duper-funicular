@@ -1,0 +1,38 @@
+# INERT starter. Agency compliance policy, signing and promotion require review.
+# No claim of SHIP-HATS certification. See docs/ADDENDA.md.
+image: node:22.22.0
+stages: [build, test, static-test]
+build-job:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: [dist/]
+    expire_in: 7 days
+quality-job:
+  stage: test
+  script:
+    - npm ci
+    - npm run typecheck
+    - npm run lint
+    - npm run format:check
+    - npm test
+browser-job:
+  stage: test
+  script:
+    - npm ci
+    - npx playwright install --with-deps chromium
+    - npm run test:e2e
+  artifacts:
+    when: always
+    paths: [test-results/]
+extraction-job:
+  image: python:3.11.14
+  stage: test
+  script:
+    - pip install -r scripts/requirements.txt
+    - python scripts/test_extract.py
+    - python scripts/extract_sprites.py
+    - git diff --exit-code -- public/sprites docs/artwork-inventory.json
+# Configure compliance/scanner credentials via masked project variables, not YAML.
