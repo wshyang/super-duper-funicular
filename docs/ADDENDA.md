@@ -1,0 +1,5 @@
+# Addenda register (sequential; same-change rule — CLAUDE rule 1)
+## ADD-001 · Harmonised greenfield adoption — Copy `wshyang/greenfield` `GREENFIELD.md`/`FDS_BUILDER.md` verbatim, resolve placeholders in `CLAUDE.md`, split sections `CLAUDE-*.md` (seeded from ce6d2a6e's verbatim split). *Why:* §0 documentation architecture decided day one. *Impact:* binding rules 1–11.
+## ADD-002 · N-way (not 3-way) parity — Generalise #1/#3's 3-way ledgers to 6 rows incl. `main`, `ce6d2a6e` (no PR) and this branch. *Why:* instruction says n branches; a 4th implementation branch exists on remote. *Impact:* `docs/N_WAY_COMPARISON.md` is the single ledger.
+## ADD-003 · Vanilla-TS app shell — No React in v1 (following #3, not #1/#2/ce6). *Why:* rig core is framework-free; smallest reproducible surface; view/hook split preserved as view/model modules. *Impact:* revisit if UI complexity grows (record new ADD).
+## CROSS-01..03 · Adopted: #3 lib layout + compare script; #1 prompt-log/part-count; #2 motion families + visual-evidence rule. CROSS-04/05 · Deferred: photo rig, sheet extraction, SVG — pending behavioural parity specs (ledger §3 exit criteria), not file copying.
