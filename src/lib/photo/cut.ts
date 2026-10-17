@@ -17,10 +17,20 @@ export interface Segment {
   readonly to: readonly [number, number];
 }
 
+/**
+ * Colour families a part may keep. The subject wears a red singlet and navy
+ * shorts, so "skin" and "fabric" partition the body down the visible crease
+ * between a bare limb and cloth - the only fence a near arm pressed against
+ * the torso needs.
+ */
+export type PartMatte = "skin" | "fabric";
+
 export interface PartCutSpec {
   readonly id: PhotoPartId;
   /** A pixel that is certainly inside this part in the neutral plate. */
   readonly seed: readonly [number, number];
+  /** Restricts the part to one colour family; widen the mask, never narrow it. */
+  readonly matte?: PartMatte;
   /** How far the mask may grow into already-opaque pixels, in plate pixels. */
   readonly extension: number;
   /** Regions to remove after segmentation (e.g. the far shoe behind the near). */
@@ -64,6 +74,37 @@ export function rasteriseBarriers(
     }
   }
   return blocked;
+}
+
+/**
+ * True where a pixel reads as bare skin. Deliberately strict: a bright fold in
+ * the singlet or a highlight on the shorts must never pass, or a fabric part
+ * matted to "fabric" would punch holes in its own texture.
+ */
+export function isSkin(red: number, green: number, blue: number): boolean {
+  if (red < 96 || green < 52) return false;
+  if (red - blue < 24 || green - blue < 8) return false;
+  // Red kit has the same hue family as skin; the green channel separates them.
+  return red - green < 96;
+}
+
+/**
+ * Fences a part's flood with a colour matte as well as the cut lines. Skin and
+ * fabric are complements, so two adjacent parts meet exactly on the crease
+ * rather than overlapping or leaving a seam.
+ */
+export function matteBlocked(
+  blocked: Uint8Array,
+  data: Uint8ClampedArray,
+  matte: PartMatte,
+): Uint8Array {
+  const output = new Uint8Array(blocked.length);
+  for (let index = 0; index < blocked.length; index += 1) {
+    const offset = index * 4;
+    const skin = isSkin(data[offset] ?? 0, data[offset + 1] ?? 0, data[offset + 2] ?? 0);
+    output[index] = blocked[index] === 1 || skin === (matte === "fabric") ? 1 : 0;
+  }
+  return output;
 }
 
 /** Four-connected flood fill over opaque, unblocked pixels. */

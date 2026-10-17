@@ -5,6 +5,7 @@ import { DEFAULT_CONTROLS, resolveGait } from "../src/lib/gait/gait.ts";
 import { solvePose } from "../src/lib/gait/pose.ts";
 import type { CutPart } from "../src/lib/photo/cut.ts";
 import { clipBelow, growRegions, widestRow } from "../src/lib/photo/cut.ts";
+import { dropSpecks } from "../src/lib/photo/chroma.ts";
 import { resamplePart } from "../src/lib/photo/resample.ts";
 import { cutJoint, discMask, isSealed, sealBall, seamGap } from "../src/lib/photo/round-cut.ts";
 import { parsePhotoRig, partById, photoBodyMetrics, photoGait, PHOTO_PART_ORDER } from "../src/lib/photo/rig.ts";
@@ -370,5 +371,27 @@ describe("rounded joint cuts", () => {
     expect(isSealed(0)).toBe(true);
     expect(isSealed(seamGap(frame(false), joint, options))).toBe(false);
     expect(seamGap(frame(false), joint, options)).toBeGreaterThan(1000);
+  });
+});
+
+describe("matte cleanup", () => {
+  it("drops detached specks but keeps the body and anything at the minimum", () => {
+    const width = 24;
+    const height = 24;
+    const alpha = new Float32Array(width * height);
+    const fill = (x0: number, y0: number, size: number): void => {
+      for (let y = y0; y < y0 + size; y += 1) {
+        for (let x = x0; x < x0 + size; x += 1) alpha[y * width + x] = 1;
+      }
+    };
+    fill(1, 1, 8);
+    fill(18, 18, 2);
+    fill(18, 3, 3);
+    const image = { width, height, data: new Uint8ClampedArray(width * height * 4), alpha };
+    const cleared = dropSpecks(image, 5);
+    expect(cleared).toBe(4);
+    expect(alpha[20 * width + 19]).toBe(0);
+    expect(alpha[4 * width + 19]).toBe(1);
+    expect(alpha[4 * width + 4]).toBe(1);
   });
 });

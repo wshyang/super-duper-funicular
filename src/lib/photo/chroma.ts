@@ -75,6 +75,45 @@ export function alphaBounds(image: KeyedImage, minimum = 0.5): { minX: number; m
   return { minX, maxX, minY, maxY };
 }
 
+/**
+ * Drops detached specks from the matte: dust, a fleck of backdrop that keyed
+ * as subject, the blurred edge of a floor shadow. A speck inside a part's crop
+ * would otherwise survive as a floating pixel island on the sprite.
+ * Returns the number of pixels cleared.
+ */
+export function dropSpecks(image: KeyedImage, minimum = 64): number {
+  const { width, height, alpha } = image;
+  const seen = new Uint8Array(width * height);
+  const queue: number[] = [];
+  let cleared = 0;
+  for (let start = 0; start < alpha.length; start += 1) {
+    if (seen[start] === 1 || (alpha[start] ?? 0) < 0.5) continue;
+    queue.length = 0;
+    queue.push(start);
+    seen[start] = 1;
+    const component: number[] = [];
+    for (let head = 0; head < queue.length; head += 1) {
+      const index = queue[head] as number;
+      component.push(index);
+      const x = index % width;
+      const y = (index - x) / width;
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
+        const nx = x + dx;
+        const ny = y + dy;
+        if (nx < 0 || ny < 0 || nx >= width || ny >= height) continue;
+        const next = ny * width + nx;
+        if (seen[next] === 1 || (alpha[next] ?? 0) < 0.5) continue;
+        seen[next] = 1;
+        queue.push(next);
+      }
+    }
+    if (component.length >= minimum) continue;
+    for (const index of component) alpha[index] = 0;
+    cleared += component.length;
+  }
+  return cleared;
+}
+
 /** Nearest colour carried into transparent pixels, so filtering cannot bleed green. */
 export function bleedAlpha(image: KeyedImage, passes = 2): void {
   const { width, height, data, alpha } = image;

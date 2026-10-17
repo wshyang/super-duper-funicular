@@ -1,4 +1,4 @@
-import type { Segment } from "../src/lib/photo/cut.ts";
+import type { PartMatte, Segment } from "../src/lib/photo/cut.ts";
 
 /**
  * Trace data for one photographic plate. All numbers are pixels in the source
@@ -8,8 +8,12 @@ import type { Segment } from "../src/lib/photo/cut.ts";
  */
 export interface PhotoPlateSpec {
   readonly id: string;
+  /** Manifest filename stem, written to public/sprites/photo/<rig>.json. */
+  readonly rig: string;
   readonly label: string;
   readonly source: string;
+  /** Real-world stature, for the walk-to-run scaling. */
+  readonly statureMetres: number;
   /** Sole and crown of the neutral figure, for the pixel-to-body-height scale. */
   readonly soleY: number;
   readonly crownY: number;
@@ -33,6 +37,8 @@ export interface PhotoPlateSpec {
     readonly id: "head" | "neck" | "torso" | "upperArm" | "forearm" | "thigh" | "shin" | "shoe" | "shoeToe";
     readonly seed: [number, number];
     readonly extension: number;
+    /** Keeps the part on one colour family, so a crease needs no traced fence. */
+    readonly matte?: PartMatte;
     readonly erase?: readonly (readonly (readonly [number, number])[])[];
   }[];
   /**
@@ -73,7 +79,9 @@ export interface PhotoPlateSpec {
  */
 export const FEMALE_PHOTO: PhotoPlateSpec = {
   id: "sg-chinese-female-photo",
+  rig: "female-rig",
   label: "Singaporean Chinese, female (photoreal)",
+  statureMetres: 1.61,
   source: "src/images/photo/sg-chinese-female__neutral-profile__chroma-green__source.png",
   soleY: 1302,
   crownY: 83,
@@ -183,4 +191,106 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
     shin: 0,
     foot: 0,
   },
+};
+
+/**
+ * The male plate, shot to the same contract as the female one: profile facing
+ * right, arms hanging, green screen, same kit. Joints are measured off his own
+ * silhouette rather than copied from the female plate — he is 12 cm taller, his
+ * shoe is longer and his neck sits further forward.
+ */
+/**
+ * Draft. Measured on the male plate that was superseded by the re-shoot, so
+ * every joint here is off by the difference between the two frames. Re-measure
+ * against the current plate before extracting; the pose block is still valid.
+ */
+export const MALE_PHOTO: PhotoPlateSpec = {
+  id: "sg-chinese-male-photo",
+  rig: "male-rig",
+  label: "Singaporean Chinese, male (photoreal)",
+  statureMetres: 1.73,
+  source: "src/images/photo/sg-chinese-male__neutral-profile__chroma-green__source.png",
+  soleY: 1296,
+  crownY: 109,
+  joints: {
+    headBase: [404, 245],
+    neckBase: [404, 295],
+    shoulder: [379, 330],
+    elbow: [325, 575],
+    hip: [382, 706],
+    knee: [368, 963],
+    ankle: [338, 1235],
+    ball: [415, 1288],
+    heel: [297, 1270],
+    toe: [488, 1244],
+    wrist: [340, 742],
+    chin: [457, 250],
+  },
+  neutralAngles: {
+    torso: 0.053,
+    neck: 0,
+    head: 0.029,
+    upperArm: -0.217,
+    forearm: 0.090,
+    thigh: -0.054,
+    shin: -0.110,
+    foot: 0,
+  },
+  barriers: [
+    // Under the jaw, back to the nape: head (with hair) above, neck below.
+    { from: [350, 300], to: [470, 248] },
+    // The singlet's collar.
+    { from: [350, 350], to: [470, 295] },
+    // Armpit, up the deltoid's inner edge, to the collar.
+    { from: [330, 560], to: [385, 375] },
+    { from: [385, 375], to: [405, 340] },
+    // Across the elbow, more or less perpendicular to the arm axis.
+    { from: [255, 600], to: [360, 560] },
+    // Shorts hem.
+    { from: [265, 790], to: [480, 790] },
+    // Knee.
+    { from: [300, 962], to: [440, 962] },
+    // Top of the shoe collar.
+    { from: [285, 1200], to: [450, 1200] },
+    // Ball of the foot: the toe hinge.
+    { from: [415, 1310], to: [415, 1150] },
+  ],
+  parts: [
+    { id: "head", seed: [430, 170], extension: 3 },
+    { id: "neck", seed: [404, 280], extension: 2 },
+    { id: "torso", seed: [400, 600], extension: 3 },
+    { id: "upperArm", seed: [300, 450], extension: 7 },
+    { id: "forearm", seed: [330, 650], extension: 6 },
+    { id: "thigh", seed: [380, 860], extension: 6 },
+    { id: "shin", seed: [355, 1060], extension: 6 },
+    {
+      id: "shoe",
+      seed: [330, 1255],
+      extension: 8,
+      erase: [
+        // Nothing below the declared sole.
+        [[280, 1297], [560, 1297], [560, 1400], [280, 1400]],
+        // Forward and low = the toe box. Lace panel and collar stay on the
+        // hindfoot, where they sit over the midfoot.
+        [[419, 1238], [560, 1238], [560, 1297], [419, 1297]],
+      ],
+    },
+    {
+      id: "shoeToe",
+      seed: [455, 1275],
+      extension: 4,
+      erase: [
+        [[280, 1140], [411, 1140], [411, 1297], [280, 1297]],
+        [[280, 1140], [560, 1140], [560, 1238], [280, 1238]],
+        [[280, 1297], [560, 1297], [560, 1400], [280, 1400]],
+      ],
+    },
+  ],
+  links: [
+    // Knee: his near leg measures 88 px through the joint.
+    { joint: "knee", parent: "thigh", child: "shin", radius: 43 },
+    // Elbow: the arm measures 64 px through the joint.
+    { joint: "elbow", parent: "upperArm", child: "forearm", radius: 31 },
+  ],
+  pose: { armSwing: 0.4, armBias: -0.04, elbowFlex: 1.5 },
 };

@@ -47,3 +47,20 @@ near 1.0, which is what makes the pieces composite cleanly.
 3. `reports/photo-zoom.png` → no rectangular slab edges at hip, knee, elbow or wrist; no shoe below the
    ground line; no lace panel swinging with the toe.
 4. `npm run validate` green.
+
+## Shot contract v2 (after the round-5 review)
+
+The first male references broke three rules, all of which cost a re-shoot:
+
+1. **One articulated element per frame.** The far-leg shot showed a sliver of the other thigh behind the
+   near leg. Every far reference is now a single isolated limb: no second leg, no foot, no hand, no torso
+   edge, no head. State the exclusions in the prompt, not just the subject.
+2. **Medial surface and palm to camera.** The far arm is the runner's *left* arm, turned so the inner
+   upper arm and inner forearm face the lens, with the open palm facing the lens too. A right arm twisted
+   round, or a lateral view, cannot be mirrored without reversing the anatomy.
+3. **No cast shadow.** Flat frontal light, no floor contact shadow. The key handles a green shadow, but a
+   grey one keys as subject and then survives as a speck or a halo; `dropSpecks` is a safety net, not a
+   licence.
+
+Composition: portrait 9:16 for the neutral plate (the figure must fill the frame crown to sole), landscape
+only for the single-limb references, which are cut to the limb's joint-to-joint span.

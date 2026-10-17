@@ -332,3 +332,24 @@ Deliverable codes used below:
 - **Impact:** the knee rim's luminance step fell from ≈ 23 to ≤ 10 of ≈ 140 at r = 40 px
   (`.scratch/arc-profile.ts`), and the green cast at the ball's edge is gone
   (`reports/patch-shin.png`). 138/138 tests, `tsc` clean, `npm run validate` green.
+
+## ADD-026: Cut-outs are traced to vector silhouettes
+
+- **Decided:** every photographic part is traced (`src/lib/vector/trace.ts`: marching squares at the 0.5
+  matte line -> loop stitching -> Ramer-Douglas-Peucker at 0.5 px -> corner-aware Catmull-Rom) and ships
+  three things: the PNG as before, an SVG sprite (`public/sprites/photo/<rig>/svg/<part>.svg`, the texture
+  clipped by the traced path), and the path data in the manifest as `part.shape`.
+- **Why:** the user asked whether a raster-to-vector step would make the parts easier to work with. The
+  matte is a pixel staircase with a feathered rim; both are camera artefacts rather than body edges. A
+  traced path is the same edge at any scale, can be offset or boolean-cut analytically, and gives the app
+  a `Path2D` it can clip with instead of relying on a 1-px alpha ramp.
+- **Area:** D3, D5, D6.
+- **Impact:** measured overlap of the traced shape against its own matte, on the shipped female rig:
+  head 0.9947, neck 0.9802, torso 0.9985, upperArm 0.9958, forearm 0.9929, thigh 0.9969, shin 0.9957,
+  shoe 0.9920, shoeToe 0.9956. Node counts 21-230 per part. `reports/photo-parts-female-rig.png` draws the
+  traced edge in red over each texture; `reports/vector-zoom-shoe-0.5.png` renders one part at 4x
+  from the matte and from the path. Interior holes keep their feathered alpha in the app: the trace is used
+  for the outer silhouette, because a hard clip through a joint seam reintroduces the hairline ADD-025
+  removed.
+- **Also:** `greenKey` now drops detached specks (`dropSpecks`, 64 px minimum) before bleeding, so a fleck
+  of backdrop or the blurred edge of a floor shadow cannot survive as a floating island in a crop.

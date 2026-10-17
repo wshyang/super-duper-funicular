@@ -12,7 +12,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { encodePng } from "../src/lib/pipeline/png.ts";
 import { readImage } from "../src/lib/pipeline/decode.ts";
-import { alphaBounds, bleedAlpha, greenKey } from "../src/lib/photo/chroma.ts";
+import { alphaBounds, bleedAlpha, dropSpecks, greenKey, type KeyedImage } from "../src/lib/photo/chroma.ts";
 import {
   cutPart,
   erasePolygon,
@@ -20,12 +20,16 @@ import {
   fillUnassigned,
   growRegions,
   floodRegion,
+  matteBlocked,
   rasteriseBarriers,
   tintFar,
   type CutPart,
 } from "../src/lib/photo/cut.ts";
 import { BALL_OVERHANG, cutJoint, sealBall } from "../src/lib/photo/round-cut.ts";
-import { FEMALE_PHOTO, type PhotoPlateSpec } from "./photo-rig-spec.ts";
+import { traceAlpha, type TracedShape } from "../src/lib/vector/trace.ts";
+import { rasteriseShape, silhouetteIou } from "../src/lib/vector/raster.ts";
+import { svgDocument } from "../src/lib/vector/svg.ts";
+import { FEMALE_PHOTO, MALE_PHOTO, type PhotoPlateSpec } from "./photo-rig-spec.ts";
 
 const OUTPUT_ROOT = "public/sprites/photo";
 
@@ -33,10 +37,17 @@ export interface ExtractedRig {
   readonly id: string;
   readonly label: string;
   readonly image: string;
+  readonly statureMetres: number;
   readonly pixelsPerBody: number;
   readonly scale: { readonly soleY: number; readonly crownY: number };
   readonly joints: Record<string, readonly [number, number]>;
   readonly neutralAngles: Record<string, number>;
+  readonly links: readonly {
+    readonly joint: string;
+    readonly parent: string;
+    readonly child: string | null;
+    readonly radius: number;
+  }[];
   readonly pose: Record<string, number>;
   readonly parts: readonly {
     readonly id: string;
@@ -47,7 +58,15 @@ export interface ExtractedRig {
     readonly width: number;
     readonly height: number;
     readonly pivot: readonly [number, number];
+    readonly shape: string;
   }[];
+}
+
+/** The cut-out's own coverage, as the tracer wants it. */
+function alphaOf(part: CutPart): Float32Array {
+  const alpha = new Float32Array(part.width * part.height);
+  for (let index = 0; index < alpha.length; index += 1) alpha[index] = (part.pixels[index * 4 + 3] ?? 0) / 255;
+  return alpha;
 }
 
 /** Cuts every ball-and-socket joint, after growth has settled the seams. */
@@ -71,23 +90,35 @@ function roundJoints(
   }
 }
 
-async function extract(spec: PhotoPlateSpec): Promise<ExtractedRig> {
+/**
+ * Floods every part, honouring its cut lines and colour matte, then grows it
+ * into its neighbours so the seam shares a band of texture. Shared by the
+ * extraction and the QA contact sheet, which must show the same cuts.
+ */
+function partRegions(spec: PhotoPlateSpec, keyed: KeyedImage): Uint8Array[] {
+  const blocked = rasteriseBarriers(keyed.width, keyed.height, spec.barriers);
+  return spec.parts.map((part) => {
+    const fences = part.matte === undefined ? blocked : matteBlocked(blocked, keyed.data, part.matte);
+    const region = extendRegion(keyed, floodRegion(keyed, fences, part.seed), part.extension);
+    for (const polygon of part.erase ?? []) erasePolygon(region, keyed.width, polygon);
+    return region;
+  });
+}
+
+async function extract(spec: PhotoPlateSpec): Promise<{ rig: ExtractedRig; cut: CutPart[] }> {
   const source = await readImage(spec.source);
   const keyed = greenKey(source);
+  const specks = dropSpecks(keyed);
   bleedAlpha(keyed, 2);
   const bounds = alphaBounds(keyed);
-  const blocked = rasteriseBarriers(source.width, source.height, spec.barriers);
+  if (specks > 0) console.log(`  ${spec.rig}: dropped ${specks} px of detached specks`);
   const directory = resolve(OUTPUT_ROOT, spec.id);
   mkdirSync(directory, { recursive: true });
 
   const parts: Array<ExtractedRig["parts"][number]> = [];
   const cut: CutPart[] = [];
-  const regions = spec.parts.map((part) => floodRegion(keyed, blocked, part.seed));
-  spec.parts.forEach((part, index) => {
-    let region = extendRegion(keyed, regions[index] as Uint8Array, part.extension);
-    for (const polygon of part.erase ?? []) erasePolygon(region, source.width, polygon);
-    regions[index] = region;
-  });
+  const vectorQc: Array<{ id: string; nodes: number; iou: number }> = [];
+  const regions = partRegions(spec, keyed);
   const erasures = new Uint8Array(source.width * source.height).fill(1);
   for (const part of spec.parts) {
     for (const polygon of part.erase ?? []) erasePolygon(erasures, source.width, polygon);
@@ -115,7 +146,16 @@ async function extract(spec: PhotoPlateSpec): Promise<ExtractedRig> {
       sealBall(cropped, { pivot: [ball.pivot[0] - cropped.x, ball.pivot[1] - cropped.y], radius: ball.radius });
     }
     cut.push(cropped);
-    writeFileSync(resolve(directory, `${part.id}.png`), encodePng(cropped.pixels, cropped.width, cropped.height));
+    const matte = alphaOf(cropped);
+    const traced = traceAlpha(matte, cropped.width, cropped.height);
+    vectorQc.push({ id: part.id, nodes: traced.nodes, iou: silhouetteIou(traced, matte, cropped.width, cropped.height) });
+    const texture = encodePng(cropped.pixels, cropped.width, cropped.height);
+    writeFileSync(resolve(directory, `${part.id}.png`), texture);
+    mkdirSync(resolve(directory, "svg"), { recursive: true });
+    writeFileSync(
+      resolve(directory, "svg", `${part.id}.svg`),
+      svgDocument(traced.d, cropped.width, cropped.height, `data:image/png;base64,${texture.toString("base64")}`),
+    );
     writeFileSync(resolve(directory, `${part.id}-far.png`), encodePng(tintFar(cropped).pixels, cropped.width, cropped.height));
     const pivot = pivotFor(spec, part.id);
     parts.push({
@@ -127,20 +167,28 @@ async function extract(spec: PhotoPlateSpec): Promise<ExtractedRig> {
       width: cropped.width,
       height: cropped.height,
       pivot: [pivot[0] - cropped.x, pivot[1] - cropped.y],
+      shape: traced.d,
     });
   });
 
-  return {
+  for (const entry of vectorQc) {
+    console.log(`  ${spec.rig} ${entry.id.padEnd(9)} ${String(entry.nodes).padStart(3)} nodes  matte overlap ${entry.iou.toFixed(4)}`);
+  }
+
+  const rig: ExtractedRig = {
     id: spec.id,
     label: spec.label,
     image: spec.source.split("/").pop() ?? spec.source,
+    statureMetres: spec.statureMetres,
     pixelsPerBody: spec.soleY - spec.crownY,
     scale: { soleY: spec.soleY, crownY: spec.crownY },
     joints: spec.joints as unknown as Record<string, readonly [number, number]>,
     neutralAngles: spec.neutralAngles as unknown as Record<string, number>,
+    links: spec.links.map((link) => ({ ...link })),
     pose: spec.pose as unknown as Record<string, number>,
     parts,
   };
+  return { rig, cut };
 }
 
 function pivotFor(spec: PhotoPlateSpec, id: string): readonly [number, number] {
@@ -206,20 +254,35 @@ function montage(parts: readonly CutPart[]): Buffer {
   return encodePng(pixels, width, height);
 }
 
-const rig = await extract(FEMALE_PHOTO);
-writeFileSync(resolve(OUTPUT_ROOT, "female-rig.json"), `${JSON.stringify(rig, null, 2)}\n`);
-const source = await readImage(FEMALE_PHOTO.source);
-const keyed = greenKey(source);
-bleedAlpha(keyed, 2);
-const blocked = rasteriseBarriers(source.width, source.height, FEMALE_PHOTO.barriers);
-const cut: CutPart[] = [];
-for (const part of FEMALE_PHOTO.parts) {
-  let region = floodRegion(keyed, blocked, part.seed);
-  region = extendRegion(keyed, region, part.extension);
-  for (const polygon of part.erase ?? []) erasePolygon(region, source.width, polygon);
-  cut.push(cutPart(keyed, region, part.id));
+/** Paints the traced silhouette over the texture, so a drift is visible. */
+function outlined(part: CutPart): CutPart {
+  const coverage = rasteriseShape(traceAlpha(alphaOf(part), part.width, part.height), part.width, part.height);
+  const pixels = new Uint8ClampedArray(part.pixels);
+  for (let index = 0; index < coverage.length; index += 1) {
+    const value = coverage[index] ?? 0;
+    if (value < 0.15 || value > 0.85) continue;
+    const offset = index * 4;
+    pixels[offset] = 255;
+    pixels[offset + 1] = 48;
+    pixels[offset + 2] = 96;
+    pixels[offset + 3] = 255;
+  }
+  return { ...part, pixels };
 }
-mkdirSync(resolve("reports"), { recursive: true });
-writeFileSync(resolve("reports/photo-parts.png"), montage(cut));
-console.log(`wrote ${OUTPUT_ROOT}/female-rig.json with ${rig.parts.length} parts`);
-console.log("wrote reports/photo-parts.png");
+
+const requested = process.argv.slice(2).filter((argument) => !argument.startsWith("-"));
+const available = [FEMALE_PHOTO, MALE_PHOTO];
+const specs =
+  requested.length === 0
+    ? [FEMALE_PHOTO]
+    : available.filter((spec) => requested.includes(spec.rig));
+if (specs.length === 0) throw new Error(`No photo plate matches ${requested.join(", ")}`);
+
+for (const spec of specs) {
+  const { rig, cut } = await extract(spec);
+  writeFileSync(resolve(OUTPUT_ROOT, `${spec.rig}.json`), `${JSON.stringify(rig, null, 2)}\n`);
+  mkdirSync(resolve("reports"), { recursive: true });
+  writeFileSync(resolve(`reports/photo-parts-${spec.rig}.png`), montage(cut.map(outlined)));
+  console.log(`wrote ${OUTPUT_ROOT}/${spec.rig}.json with ${rig.parts.length} parts`);
+  console.log(`wrote reports/photo-parts-${spec.rig}.png`);
+}

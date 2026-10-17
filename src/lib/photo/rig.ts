@@ -12,6 +12,8 @@ export interface PhotoFarPart {
   readonly pivot: readonly [number, number];
   /** The bone's angle in its own reference photo. */
   readonly neutral: number;
+  /** Traced silhouette in crop pixels, SVG path data (even-odd). */
+  readonly shape?: string;
 }
 
 /** One cut-out in the manifest, in plate pixels. */
@@ -25,6 +27,8 @@ export interface PhotoPart {
   readonly height: number;
   /** Pivot inside the crop, in plate pixels, measured from its top-left. */
   readonly pivot: readonly [number, number];
+  /** Traced silhouette in crop pixels, SVG path data (even-odd). */
+  readonly shape?: string;
   readonly far?: PhotoFarPart;
 }
 
@@ -32,6 +36,15 @@ export interface PhotoRig {
   readonly id: string;
   readonly label: string;
   readonly image: string;
+  /** Real-world stature in metres; the gait solver scales footfalls with it. */
+  readonly statureMetres?: number;
+  /** Ball-and-socket joints cut into the near plates. */
+  readonly links?: readonly {
+    readonly joint: string;
+    readonly parent: PhotoPartId;
+    readonly child: PhotoPartId | null;
+    readonly radius: number;
+  }[];
   /** Plate pixels per body height: the conversion between photo and world. */
   readonly pixelsPerBody: number;
   readonly scale: { readonly soleY: number; readonly crownY: number };
@@ -113,7 +126,7 @@ export function photoBodyMetrics(rig: PhotoRig): BodyMetrics {
   const headCentreY = (crown + chinY) / 2;
   return {
     id: rig.id,
-    statureMetres: 1.61,
+    statureMetres: rig.statureMetres ?? 1.61,
     height: 1,
     ankleHeight: up(ankleY),
     thighLength: Math.hypot(kneeX - hipX, kneeY - hipY) / per,
