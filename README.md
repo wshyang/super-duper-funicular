@@ -88,6 +88,6 @@ src/shared/          contracts, palettes, parity matrix
 src/generated/       branch tip snapshots + history (written by branches:compare)
 public/sprites/      extracted PNGs + manifest + analysis
 tools/               pipeline, audit dump, branch compare
-tests/               runner, pipeline, discipline
+tests/               runner, pipeline, app smoke, discipline
 docs/                FDS, addenda, ledger, validation, plan, prompts, provenance
 ```

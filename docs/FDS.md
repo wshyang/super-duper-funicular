@@ -452,7 +452,8 @@ round:
   `PART_ORDER.map(...).find(...)` — a real bug this pass surfaced).
 
 **Validation executed.**
-- `npx vitest run` → **42/42** passing, including the 10-test discipline gate.
+- `npx vitest run` → **44/44** passing: runner, pipeline, a `renderToStaticMarkup` app smoke test
+  (studio shell and all five tab testids) and the 10-test discipline gate.
 - `npm run validate` (typecheck + tests + build) → OK; bundle 234.63 kB / 74.66 kB gzip.
 - `npx eslint .` → clean. `npx prettier --check src tests tools` → clean.
 - `npx tsx tools/_armcheck.ts` (temporary) → five 3× frames at φ 0.15–0.40 rendered and viewed.
