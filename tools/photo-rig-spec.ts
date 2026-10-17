@@ -34,6 +34,11 @@ export interface PhotoPlateSpec {
     readonly seed: [number, number];
     readonly extension: number;
     readonly erase?: readonly (readonly (readonly [number, number])[])[];
+    /**
+     * Disc of extra pixels around a joint, kept on top of the child part so a
+     * hinge never opens a wedge. The child is drawn later, so it covers the seam.
+     */
+    readonly cap?: { readonly centre: [number, number]; readonly radius: number };
   }[];
   /**
    * Posture adjustments for this rig. The photographic arms are longer than the
@@ -73,7 +78,7 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
     hip: [378, 700],
     knee: [365, 962],
     ankle: [365, 1255],
-    ball: [420, 1300],
+    ball: [440, 1298],
     heel: [297, 1298],
     toe: [497, 1298],
     wrist: [222, 752],
@@ -104,22 +109,47 @@ export const FEMALE_PHOTO: PhotoPlateSpec = {
   ],
   parts: [
     { id: "head", seed: [390, 150], extension: 3 },
-    { id: "neck", seed: [372, 262], extension: 2 },
-    { id: "torso", seed: [392, 600], extension: 3 },
-    { id: "upperArm", seed: [286, 480], extension: 7 },
-    { id: "forearm", seed: [240, 680], extension: 6 },
-    { id: "thigh", seed: [390, 860], extension: 6 },
-    { id: "shin", seed: [362, 1060], extension: 6 },
+    { id: "neck", seed: [372, 262], extension: 2, cap: { centre: [370, 275], radius: 34 } },
+    { id: "torso", seed: [392, 600], extension: 3, cap: { centre: [378, 700], radius: 58 } },
+    { id: "upperArm", seed: [286, 480], extension: 7, cap: { centre: [346, 300], radius: 46 } },
+    { id: "forearm", seed: [240, 680], extension: 6, cap: { centre: [283, 528], radius: 44 } },
+    { id: "thigh", seed: [390, 860], extension: 6, cap: { centre: [378, 700], radius: 58 } },
+    { id: "shin", seed: [362, 1060], extension: 6, cap: { centre: [365, 962], radius: 50 } },
     // The far shoe peeks out behind the near one; it belongs to the other
     // foot, so the toe keeps only the near shoe's own forefoot.
-    { id: "shoe", seed: [350, 1265], extension: 8 },
+    {
+      id: "shoe",
+      // The ankle cap keeps the sock/shoe junction closed when the hindfoot
+      // rotates for the heel peel.
+      cap: { centre: [365, 1255], radius: 44 },
+      seed: [350, 1265],
+      extension: 8,
+      erase: [
+        // Everything below the declared sole: the solver grounds the ankle on
+        // `soleY`, so texture past it would be dragged through the floor.
+        [[280, 1303], [560, 1303], [560, 1400], [280, 1400]],
+        // Forward and low = the toe box. The lace panel and collar above the
+        // ball stay on the hindfoot: they sit over the midfoot and must not
+        // swing up with the toes.
+        [[444, 1252], [560, 1252], [560, 1303], [444, 1303]],
+      ],
+    },
     {
       id: "shoeToe",
+      // The hinge sits on the ball. A small disc of shoe pixels around it is
+      // kept on the child, which is drawn after the hindfoot, so the hinge
+      // stays covered however far the two halves rotate apart.
+      cap: { centre: [440, 1298], radius: 13 },
       seed: [470, 1290],
       extension: 4,
-      erase: [[
-        [438, 1140], [545, 1140], [545, 1240], [512, 1252], [438, 1252],
-      ]],
+      erase: [
+        // The toe owns the forefoot and nothing else: everything behind the
+        // ball, everything above the lace line, and everything past the sole
+        // is removed so the child cannot swing a sail or dig under the floor.
+        [[280, 1140], [436, 1140], [436, 1303], [280, 1303]],
+        [[280, 1140], [560, 1140], [560, 1252], [280, 1252]],
+        [[280, 1303], [560, 1303], [560, 1400], [280, 1400]],
+      ],
     },
   ],
   pose: { armSwing: 0.35, armBias: -0.05, elbowFlex: 1.45 },

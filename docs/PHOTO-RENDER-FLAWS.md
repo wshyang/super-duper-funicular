@@ -1,5 +1,11 @@
 # Assessment: why the photographic runner renders badly
 
+> **Status:** A and B remain (they need a coherent re-shoot). C–G are fixed in `d59cd18`..HEAD:
+> edges feathered, neighbours grown into a shared band, joint caps added at every hinge, the foot
+> split at the ball with a hinge cap, far textures driven below the declared sole, and far limbs
+> fitted to the near limb's silhouette width (all six now within 4 %) with a single 0.88 shadow
+> tint instead of a double darkening. See ADD-020.
+
 Evidence: `reports/photo-defects.png` (six magnified panels), `reports/photo-zoom.png` (four phases),
 `reports/qc-feet-zoom.png`, `reports/qc0-head.png`, `reports/qc0-hip.png`, `reports/qc0-knee.png`,
 `reports/qc0-arm.png`, `reports/qc0-torso.png`.

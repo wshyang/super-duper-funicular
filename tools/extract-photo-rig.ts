@@ -18,6 +18,7 @@ import {
   erasePolygon,
   extendRegion,
   fillUnassigned,
+  growRegions,
   floodRegion,
   rasteriseBarriers,
   tintFar,
@@ -48,6 +49,24 @@ export interface ExtractedRig {
   }[];
 }
 
+/** Adds a disc of joint pixels to a region, where the plate is opaque there. */
+function capDisc(
+  region: Uint8Array,
+  width: number,
+  height: number,
+  image: { readonly alpha: Float32Array },
+  cap: { readonly centre: readonly [number, number]; readonly radius: number },
+): void {
+  const [cx, cy] = cap.centre;
+  for (let y = Math.max(0, Math.floor(cy - cap.radius)); y <= Math.min(height - 1, Math.ceil(cy + cap.radius)); y += 1) {
+    for (let x = Math.max(0, Math.floor(cx - cap.radius)); x <= Math.min(width - 1, Math.ceil(cx + cap.radius)); x += 1) {
+      if (Math.hypot(x - cx, y - cy) > cap.radius) continue;
+      if ((image.alpha[y * width + x] ?? 0) < 0.5) continue;
+      region[y * width + x] = 1;
+    }
+  }
+}
+
 async function extract(spec: PhotoPlateSpec): Promise<ExtractedRig> {
   const source = await readImage(spec.source);
   const keyed = greenKey(source);
@@ -63,6 +82,7 @@ async function extract(spec: PhotoPlateSpec): Promise<ExtractedRig> {
   spec.parts.forEach((part, index) => {
     let region = extendRegion(keyed, regions[index] as Uint8Array, part.extension);
     for (const polygon of part.erase ?? []) erasePolygon(region, source.width, polygon);
+    if (part.cap !== undefined) capDisc(region, source.width, source.height, keyed, part.cap);
     regions[index] = region;
   });
   const erasures = new Uint8Array(source.width * source.height).fill(1);
@@ -70,6 +90,8 @@ async function extract(spec: PhotoPlateSpec): Promise<ExtractedRig> {
     for (const polygon of part.erase ?? []) erasePolygon(erasures, source.width, polygon);
   }
   fillUnassigned(keyed, regions, erasures);
+  // A shared band of pixels between neighbours, so no dotted cut line shows.
+  growRegions(keyed, regions, 2, erasures);
   spec.parts.forEach((part, index) => {
     const cropped = cutPart(keyed, regions[index] as Uint8Array, part.id);
     cut.push(cropped);

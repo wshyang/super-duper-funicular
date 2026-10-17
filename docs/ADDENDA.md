@@ -237,3 +237,31 @@ Deliverable codes used below:
   `tools/extract-photo-far.ts` writes `sg-chinese-female-photo-far/*.png` and merges the blocks into
   `female-rig.json`. Joint caps (a disc of reference pixels around the pivot) keep elbows and knees filled
   at full bend. Tests: `tests/photo.test.ts` pins the far file/pivot/neutral wiring and the 24-asset list.
+
+## ADD-020: Far-side textures are fitted to the near limb, and every hinge gets a cap
+
+- **Decided:** after cutting a far piece, `tools/extract-photo-far.ts` runs a second, *silhouette* fit:
+  the cut-out is stretched so its widest row matches the near part it abuts (`fit.width`), then all
+  far pieces pass through `tintFar` once at 0.88 instead of being tone-matched and tinted again.
+  Every articulated part gets a `cap` (a disc of joint pixels kept on the child) in the plate spec, and
+  neighbouring regions are grown two pixels into each other so no dotted cut line can show.
+- **Why:** measured against the near crops, far limbs were up to 1.6× too wide and 28 % too dark; the
+  double darkening came from tone-matching *and* tinting. Joint caps close the wedges that open when two
+  rigid textures rotate apart (793 enclosed transparent pixels at phase 0.5 before caps, ~10 per limb after).
+- **Area:** D4, D5.
+- **Impact:** `PhotoPart.far.width/height` are now measured, not inherited: all six far limbs match their
+  near counterparts within 4 % (`tests/photo.test.ts > far-side texture fitting`). The same test pins the
+  far foot above the declared sole. `clipBelow()` in `cut.ts` trims any foot texture that runs past the
+  ground line the solver uses, which is what stopped the stance shoe sinking ~11 px under the floor.
+
+## ADD-021: The foot is split into a hindfoot and a low toe box, hinged at the ball
+
+- **Decided:** the hindfoot keeps the heel, sole, collar and lace panel; the toe piece is only the low
+  box ahead of the ball and below the lace line, hinged at the ball with a 13 px cap. Both are trimmed at
+  the declared sole (`soleY`), and the crops overlap across the hinge.
+- **Why:** an earlier vertical split carried the lace panel into the toe, so toe-off swung a sail of shoe
+  upward; a later low-only split left a slot when the toe rotated. Splitting low, overlapping the crops
+  and capping the hinge satisfies both, and no texture reaches under the floor.
+- **Area:** D5.
+- **Impact:** `tests/photo.test.ts > splits the near foot at the ball`. The toe pivot is inside its own
+  crop now (was (−17, 49), 17 px outside), so the two halves hinge instead of sliding apart.

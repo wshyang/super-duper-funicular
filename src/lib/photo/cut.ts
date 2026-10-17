@@ -243,21 +243,136 @@ export function cutPart(image: KeyedImage, region: Uint8Array, id: PhotoPartId):
       pixels[target + 3] = data[offset + 3] ?? 0;
     }
   }
+  featherSilhouette(pixels, cropWidth, cropHeight);
   return { id, x: left, y: top, width: cropWidth, height: cropHeight, pixels };
 }
 
+/**
+ * Softens the outermost ring of alpha a little. Cut-outs arrive with a binary
+ * matte from the key, which paints a stair-stepped edge at display size; one
+ * gentle step of falloff reads as a photographed edge instead.
+ */
+function featherSilhouette(pixels: Uint8ClampedArray, width: number, height: number): void {
+  const alphaAt = (x: number, y: number): number => pixels[(y * width + x) * 4 + 3] ?? 0;
+  const edge: number[] = [];
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      if (alphaAt(x, y) === 0) continue;
+      const open =
+        (x === 0 || alphaAt(x - 1, y) === 0) ||
+        (x === width - 1 || alphaAt(x + 1, y) === 0) ||
+        (y === 0 || alphaAt(x, y - 1) === 0) ||
+        (y === height - 1 || alphaAt(x, y + 1) === 0);
+      if (open) edge.push((y * width + x) * 4 + 3);
+    }
+  }
+  for (const index of edge) {
+    const value = pixels[index] ?? 0;
+    pixels[index] = Math.round(value * 0.62);
+  }
+}
+
+/**
+ * Grows every region by `passes` pixels into any opaque neighbour, regardless
+ * of which part already owns it. Neighbouring parts then share a one- or
+ * two-pixel band, so a hard cut edge never shows as a dotted seam where two
+ * textures abut: whichever part is drawn last simply covers the join.
+ */
+export function growRegions(
+  image: KeyedImage,
+  regions: readonly Uint8Array[],
+  passes: number,
+  blocked?: Uint8Array,
+): void {
+  const { width, height, alpha } = image;
+  for (let pass = 0; pass < passes; pass += 1) {
+    const additions = regions.map((region) => {
+      const extra: number[] = [];
+      for (let y = 0; y < height; y += 1) {
+        for (let x = 0; x < width; x += 1) {
+          const index = y * width + x;
+          if (region[index] === 1) continue;
+          if ((alpha[index] ?? 0) < 0.5) continue;
+          if (blocked !== undefined && blocked[index] === 0) continue;
+          if (!hasNeighbour(region, width, height, x, y)) continue;
+          extra.push(index);
+        }
+      }
+      return extra;
+    });
+    additions.forEach((extra, partIndex) => {
+      const region = regions[partIndex] as Uint8Array;
+      for (const index of extra) region[index] = 1;
+    });
+  }
+}
+
+const hasNeighbour = (region: Uint8Array, width: number, height: number, x: number, y: number): boolean => {
+  for (let dy = -1; dy <= 1; dy += 1) {
+    for (let dx = -1; dx <= 1; dx += 1) {
+      if (dx === 0 && dy === 0) continue;
+      if (!inside(x + dx, y + dy, width, height)) continue;
+      if (region[(y + dy) * width + x + dx] === 1) return true;
+    }
+  }
+  return false;
+};
+
 /** Darkens and cools a part for the far side, as the vector palette does. */
-export function tintFar(part: CutPart, factor = 0.72): CutPart {
+export function tintFar(part: CutPart, factor = 0.88): CutPart {
   const pixels = new Uint8ClampedArray(part.pixels);
   for (let index = 0; index < pixels.length; index += 4) {
     if ((pixels[index + 3] ?? 0) === 0) continue;
     for (let channel = 0; channel < 3; channel += 1) {
       const value = pixels[index + channel] ?? 0;
-      const cooled = channel === 2 ? 8 : 0;
+      const cooled = channel === 2 ? 6 : 0;
       pixels[index + channel] = Math.round(Math.min(255, value * factor + cooled));
     }
   }
   return { ...part, pixels };
+}
+
+/** Widest opaque run in any single row, in pixels. */
+export function widestRow(part: CutPart): number {
+  let widest = 0;
+  for (let y = 0; y < part.height; y += 1) {
+    let run = 0;
+    for (let x = 0; x < part.width; x += 1) {
+      const opaque = (part.pixels[(y * part.width + x) * 4 + 3] ?? 0) > 128;
+      run = opaque ? run + 1 : 0;
+      if (run > widest) widest = run;
+    }
+  }
+  return widest;
+}
+
+/** Tallest opaque run in any single column, in pixels. */
+export function tallestColumn(part: CutPart): number {
+  let tallest = 0;
+  for (let x = 0; x < part.width; x += 1) {
+    let run = 0;
+    for (let y = 0; y < part.height; y += 1) {
+      const opaque = (part.pixels[(y * part.width + x) * 4 + 3] ?? 0) > 128;
+      run = opaque ? run + 1 : 0;
+      if (run > tallest) tallest = run;
+    }
+  }
+  return tallest;
+}
+
+/**
+ * Removes everything below `limitY` (a row in the part's own pixels). Foot
+ * textures from a different shoot can extend past the sole the solver grounds
+ * on; left alone, that surplus swings through the floor on every heel peel.
+ */
+export function clipBelow(part: CutPart, limitY: number): CutPart {
+  const limit = Math.max(0, Math.round(limitY));
+  if (limit >= part.height) return part;
+  const pixels = new Uint8ClampedArray(part.pixels);
+  for (let y = limit; y < part.height; y += 1) {
+    for (let x = 0; x < part.width; x += 1) pixels[(y * part.width + x) * 4 + 3] = 0;
+  }
+  return { ...part, pixels, height: Math.max(1, limit) };
 }
 
 export const pivotOf = (part: CutPart, pivot: Vec2): Vec2 => ({ x: pivot.x - part.x, y: pivot.y - part.y });

@@ -1,7 +1,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { bleedAlpha, greenKey } from "../src/lib/photo/chroma.ts";
-import { cutPart, tintFar, type CutPart } from "../src/lib/photo/cut.ts";
+import { clipBelow, cutPart, tintFar, widestRow, type CutPart } from "../src/lib/photo/cut.ts";
 import { resamplePart, type Scale } from "../src/lib/photo/resample.ts";
 import { readImage } from "../src/lib/pipeline/decode.ts";
 import { encodePng } from "../src/lib/pipeline/png.ts";
@@ -77,11 +77,28 @@ function pieceRegion(width: number, height: number, piece: FarPiece): Uint8Array
   return region;
 }
 
+/**
+ * Base scale from the bone length in the reference shot. Pieces cut from the
+ * same photograph share it, so a joint keeps one thickness across the seam.
+ */
 function scaleFor(piece: FarPiece, scales: ReadonlyMap<string, Scale>): Scale {
   const reused = piece.scaleFrom === undefined ? undefined : scales.get(piece.scaleFrom);
   if (reused !== undefined) return reused;
   const uniform = piece.target / distance(piece.jointA, piece.jointB);
   return { x: uniform * (piece.stretchX ?? 1), y: uniform };
+}
+
+/**
+ * A second pass over the cut-out: stretches it so its silhouette matches the
+ * near part it abuts. Reference shots are framed differently, so without this
+ * the far thigh reads as a slab and the far shoe as a pancake.
+ */
+function fitScale(part: CutPart, piece: FarPiece): Scale {
+  const base = { x: 1, y: 1 };
+  if (piece.fit?.width === undefined && piece.fit?.height === undefined) return base;
+  const width = piece.fit?.width === undefined ? 1 : piece.fit.width / Math.max(1, widestRow(part));
+  const height = piece.fit?.height === undefined ? 1 : piece.fit.height / Math.max(1, part.height);
+  return { x: Math.min(1.8, Math.max(0.5, width)), y: Math.min(1.8, Math.max(0.5, height)) };
 }
 
 async function cutPieces(): Promise<Map<string, { part: CutPart; piece: FarPiece; scale: Scale }>> {
@@ -126,8 +143,16 @@ async function main(): Promise<void> {
     const entry = rig.parts.find((candidate) => candidate.id === id);
     if (entry === undefined) throw new Error(`Near rig has no part ${id}`);
     const nearImage = await readImage(resolve("public/sprites/photo", String(entry.file)));
-    const shadowed = tintFar(matchTone(resamplePart(part, scale), meanTone(nearImage.data)));
-    const far = record(shadowed, part, piece, scale);
+    const base = resamplePart(part, scale);
+    const fit = fitScale(base, piece);
+    let fitted = resamplePart(base, fit);
+    const finalScale = { x: scale.x * fit.x, y: scale.y * fit.y };
+    if (piece.soleBelowPivot !== undefined) {
+      const pivotY = (piece.pivot[1] - part.y) * finalScale.y;
+      fitted = clipBelow(fitted, pivotY + piece.soleBelowPivot);
+    }
+    const shadowed = tintFar(matchTone(fitted, meanTone(nearImage.data)));
+    const far = record(shadowed, part, piece, finalScale);
     entry.far = far;
     console.log(
       `far ${id}: ${far.width}x${far.height} pivot ${far.pivot.join(",")} neutral ${far.neutral.toFixed(3)}`,
