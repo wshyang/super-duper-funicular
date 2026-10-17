@@ -1,0 +1,46 @@
+{
+  "name": "procedural-runner",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sprite-sheet forensics and a procedural, biomechanically-grounded running-sprite generator",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 3000",
+    "start": "vite preview --host 0.0.0.0 --port 3000",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "sprites:extract": "tsx tools/extract-sprites.ts",
+    "sprites:analyse": "tsx tools/analyse-source.ts",
+    "images:dedupe": "tsx tools/dedupe-images.ts",
+    "runner:preview": "tsx tools/render-preview.ts",
+    "runner:filmstrip": "tsx tools/render-filmstrip.ts",
+    "runner:filmstrips": "tsx tools/render-filmstrip.ts sg-chinese-male && tsx tools/render-filmstrip.ts sg-chinese-female",
+    "runner:footroll": "tsx tools/render-foot-roll.ts",
+    "photo:extract": "tsx tools/extract-photo-rig.ts && tsx tools/extract-photo-far.ts",
+    "photo:filmstrip": "tsx tools/render-photo-filmstrip.ts",
+    "validate": "npm run typecheck && npm run test && npm run build",
+    "photo:far": "tsx tools/extract-photo-far.ts",
+    "branches:compare": "tsx tools/compare-branches.ts",
+    "photo:audit": "tsx tools/render-photo-audit.ts"
+  },
+  "dependencies": {
+    "vite": "7.1.5"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "0.1.80",
+    "@types/node": "22.18.5",
+    "@types/pngjs": "6.0.5",
+    "happy-dom": "18.0.1",
+    "jpeg-js": "0.4.4",
+    "pngjs": "7.0.0",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}

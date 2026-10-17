@@ -1,0 +1,335 @@
+{
+  "generatedBy": "npm run sprites:analyse",
+  "source": "src/images/source/runner-sheet__8frame-alternating-gait__6-colorways__source.jpeg",
+  "sourcePixels": {
+    "width": 2528,
+    "height": 1696
+  },
+  "pixelsPerBody": 231,
+  "layout": {
+    "rows": 6,
+    "columns": 8
+  },
+  "rows": [
+    {
+      "label": "reference sheet, row 1",
+      "frameCount": 8,
+      "uniquePoses": 4,
+      "headDriftPx": 50.438365734383666,
+      "framesOnGround": 2,
+      "maxGroundClearancePx": 20,
+      "figureHeightRangePx": 20,
+      "duplicateGroups": [
+        {
+          "frames": [
+            0,
+            4
+          ]
+        },
+        {
+          "frames": [
+            1,
+            5
+          ]
+        },
+        {
+          "frames": [
+            2,
+            6
+          ]
+        },
+        {
+          "frames": [
+            3,
+            7
+          ]
+        }
+      ],
+      "groundClearancePx": [
+        230,
+        213,
+        210,
+        212,
+        230,
+        214,
+        213,
+        211
+      ]
+    },
+    {
+      "label": "reference sheet, row 2",
+      "frameCount": 8,
+      "uniquePoses": 4,
+      "headDriftPx": 52.627839330653316,
+      "framesOnGround": 2,
+      "maxGroundClearancePx": 22,
+      "figureHeightRangePx": 22,
+      "duplicateGroups": [
+        {
+          "frames": [
+            0,
+            4
+          ]
+        },
+        {
+          "frames": [
+            1,
+            5
+          ]
+        },
+        {
+          "frames": [
+            2,
+            6
+          ]
+        },
+        {
+          "frames": [
+            3,
+            7
+          ]
+        }
+      ],
+      "groundClearancePx": [
+        230,
+        213,
+        208,
+        211,
+        230,
+        214,
+        213,
+        211
+      ]
+    },
+    {
+      "label": "reference sheet, row 3",
+      "frameCount": 8,
+      "uniquePoses": 4,
+      "headDriftPx": 52.19907362752191,
+      "framesOnGround": 2,
+      "maxGroundClearancePx": 23,
+      "figureHeightRangePx": 22,
+      "duplicateGroups": [
+        {
+          "frames": [
+            0,
+            4
+          ]
+        },
+        {
+          "frames": [
+            1,
+            5
+          ]
+        },
+        {
+          "frames": [
+            2,
+            6
+          ]
+        },
+        {
+          "frames": [
+            3,
+            7
+          ]
+        }
+      ],
+      "groundClearancePx": [
+        230,
+        213,
+        207,
+        209,
+        230,
+        213,
+        214,
+        210
+      ]
+    },
+    {
+      "label": "reference sheet, row 4",
+      "frameCount": 8,
+      "uniquePoses": 4,
+      "headDriftPx": 54.35246350799726,
+      "framesOnGround": 2,
+      "maxGroundClearancePx": 21,
+      "figureHeightRangePx": 21,
+      "duplicateGroups": [
+        {
+          "frames": [
+            0,
+            4
+          ]
+        },
+        {
+          "frames": [
+            1,
+            5
+          ]
+        },
+        {
+          "frames": [
+            2,
+            6
+          ]
+        },
+        {
+          "frames": [
+            3,
+            7
+          ]
+        }
+      ],
+      "groundClearancePx": [
+        229,
+        213,
+        208,
+        208,
+        229,
+        214,
+        214,
+        208
+      ]
+    },
+    {
+      "label": "reference sheet, row 5",
+      "frameCount": 8,
+      "uniquePoses": 4,
+      "headDriftPx": 52.534758634488526,
+      "framesOnGround": 2,
+      "maxGroundClearancePx": 24,
+      "figureHeightRangePx": 23,
+      "duplicateGroups": [
+        {
+          "frames": [
+            0,
+            4
+          ]
+        },
+        {
+          "frames": [
+            1,
+            5
+          ]
+        },
+        {
+          "frames": [
+            2,
+            6
+          ]
+        },
+        {
+          "frames": [
+            3,
+            7
+          ]
+        }
+      ],
+      "groundClearancePx": [
+        230,
+        212,
+        208,
+        206,
+        230,
+        214,
+        213,
+        207
+      ]
+    },
+    {
+      "label": "reference sheet, row 6",
+      "frameCount": 8,
+      "uniquePoses": 4,
+      "headDriftPx": 52.79668789808916,
+      "framesOnGround": 2,
+      "maxGroundClearancePx": 24,
+      "figureHeightRangePx": 25,
+      "duplicateGroups": [
+        {
+          "frames": [
+            0,
+            4
+          ]
+        },
+        {
+          "frames": [
+            1,
+            5
+          ]
+        },
+        {
+          "frames": [
+            2,
+            6
+          ]
+        },
+        {
+          "frames": [
+            3,
+            7
+          ]
+        }
+      ],
+      "groundClearancePx": [
+        229,
+        214,
+        210,
+        205,
+        229,
+        214,
+        212,
+        206
+      ]
+    }
+  ],
+  "reference": {
+    "label": "reference sheet, row 1",
+    "frameCount": 8,
+    "uniquePoses": 4,
+    "duplicateGroups": [
+      {
+        "frames": [
+          0,
+          4
+        ]
+      },
+      {
+        "frames": [
+          1,
+          5
+        ]
+      },
+      {
+        "frames": [
+          2,
+          6
+        ]
+      },
+      {
+        "frames": [
+          3,
+          7
+        ]
+      }
+    ],
+    "halfCycleDistance": 0.017578125,
+    "adjacentDistance": 0.24609375,
+    "headDriftPx": 50.438365734383666,
+    "groundLineVariationPx": 20,
+    "figureHeightRangePx": 20,
+    "framesOnGround": 2,
+    "meanGroundClearancePx": 13.375,
+    "maxGroundClearancePx": 20,
+    "footSeparationRangePx": null,
+    "clearancesPx": [
+      0,
+      17,
+      20,
+      18,
+      0,
+      16,
+      17,
+      19
+    ]
+  }
+}

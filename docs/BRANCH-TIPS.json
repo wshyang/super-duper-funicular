@@ -1,0 +1,26 @@
+{
+  "observedAt": "2026-10-17T23:04:48.934Z",
+  "tips": [
+    {
+      "name": "Funicular",
+      "branch": "arena/77ffb088-super-duper-funicular",
+      "hash": "c6902014041359b595532a63faf739bbade38c5b",
+      "committedAt": "2026-10-17T22:36:26+00:00",
+      "subject": "Record rig quality plan and cross-branch learnings; prototype opt-in end caps"
+    },
+    {
+      "name": "Stride Lab",
+      "branch": "arena/263385da-super-duper-funicular",
+      "hash": "b227e2fe562be341f15f58955f539d325170729e",
+      "committedAt": "2026-10-17T21:55:19+00:00",
+      "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits"
+    },
+    {
+      "name": "Sprite Motion Lab",
+      "branch": "arena/917ef347-super-duper-funicular",
+      "hash": "9637227aa8e8ac071e89855e0e62b537c88e101a",
+      "committedAt": "2026-10-17T23:02:42+00:00",
+      "subject": "feat(three-way-parity): add live 3-way branch comparison ledger, adopt CROSS-05..09 for 3-way feature parity & update FDS (ADD-022)"
+    }
+  ]
+}
