@@ -173,3 +173,12 @@ exists; the silhouette+texture contract stays the default.
   its exact user-facing consequences.
 - Validation: `npm run validate` passed: strict typecheck, 177 tests across 13 files,
   production build. Other branches were read, not built or tested locally.
+
+## 5. Three-way parity update — 2026-10-18
+
+`docs/THREE-WAY-COMPARISON.md` is now the live cross-branch parity contract.
+P-2 inspection progressed: `npm run photo:audit` produces 16 phases with light,
+dark and skeleton panels through the actual app solver/painter. Browser/settings
+export remains pending. Viewed sheet shows ankle/foot separation across several
+phases; prioritise enlarged app-fidelity ankle/ball-hinge coverage probes next.
+Do not enable experimental end cuts to hide an unmeasured placement failure.

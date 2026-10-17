@@ -52,3 +52,44 @@ far parity and pivot coverage before enabling caps. Then address asset readiness
 with a real failure-path test. Rounded-end requirement remains PARTIAL; male
 photo, hand/pelvis/hair decomposition and texture seams remain open. Commit this
 bounded change and open a PR on the session branch, naming the visual limitation.
+
+## L002 · 2026-10-18 · Live three-way convergence and multi-background audit
+
+**Evidence.** Refreshed explicit remote heads using `npm run branches:compare`.
+Funicular last remote `c6902014041359b595532a63faf739bbade38c5b`, Stride Lab
+`b227e2fe562be341f15f58955f539d325170729e`. Sprite Motion Lab advanced mid-turn
+from `ea3c37c` to `9637227aa8e8ac071e89855e0e62b537c88e101a`; inspected that exact
+new tip in `/tmp/sprite-lab-9637227`. Source diff includes all-part asset readiness,
+walking duty/phase remapping and material/relaxation/width QC. Reference code read,
+not executed. Latest observed hashes/history live in `BRANCH-TIPS.json` and
+`BRANCH-HISTORY.json`; reviewed hashes stay distinct from newly observed tips.
+
+**Learning/decision.** Comparisons become stale during parallel work. Created the
+live union-of-features matrix `THREE-WAY-COMPARISON.md` with snapshot command,
+review protocol, acceptance criteria and adoption queue. The final goal is parity
+across all three branches, not winning by feature/test count. Some former local
+advantages (joint relaxation, width QC) now exist on a peer; retire exclusive
+claims. Preserve our coherent photography, general matte-compatible ownership,
+rolling hinge and vector personas while adopting useful inspection tools.
+
+**Adopted.** `photo:audit` renders sixteen phases with light/dark/joint panels,
+using the same solver, composition and painter as the app. This ports the labs'
+diagnostic format, not their UI/framework or image assets. All bitmaps must load;
+incomplete paint throws. Clean panels omit skeleton; labels use a neutral footer.
+CLI only, fixed default female run: current-settings/browser/all-persona parity is
+not claimed. Added a pure layout module; observed its test fail on missing module,
+then pass. Full panel clipping prevents neighbouring phase bleed.
+
+**Viewed output/uncertainty.** Opened `reports/photo-audit.png` after generation.
+Multiple phases show detached-looking shoes/ankle discontinuities; diagnostic
+adoption is not a repair. Enlarged joint crops and coverage/sole tests are next.
+No new rig defaults or generated source images. Existing end caps remain opt-in.
+
+**Validation.** `npm run branches:compare` fetched all three exact refs and wrote
+snapshot/table/history; `npm run photo:audit` generated the 2880×1440 sheet.
+`npm run validate` passed strict typecheck, 178 tests / 14 files and production
+build. No browser E2E, Docker gates or reference suites run.
+
+**Next.** Fix app-fidelity ankle/foot continuity, then asset failure/retry and
+walking contracts; add browser calibration/export and hand/pelvis/hair parity.
+CLAUDE.md now mandates this ledger workflow as part of every-turn learning.

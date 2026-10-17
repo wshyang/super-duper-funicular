@@ -481,3 +481,25 @@ Deliverable codes used below:
   rejected/deferred ideas and never reconstruct historical prompt provenance.
   This turn reviewed Stride Lab `b227e2f` and Sprite Motion Lab `ea3c37c` in detached
   temporary worktrees. See branch comparison §5 and FDS L001.
+
+## ADD-036: Live three-way feature parity is the convergence contract
+
+- **Decided:** `docs/THREE-WAY-COMPARISON.md` is the live feature-union matrix and
+  adoption queue. `branches:compare` refreshes exact remote SHAs/table and appends
+  changed snapshots to JSON history. Reviewed and observed hashes stay separate.
+- **Why:** user requests continuous tracking toward parity across the three labs;
+  parallel branch movement invalidates static rankings.
+- **Area:** cross-branch design, FDS and CLAUDE discipline.
+- **Impact:** no automatic merging, polling or edits to peer branches. Full parity
+  needs equivalent behavioural/visual acceptance, not copying their frameworks.
+
+## ADD-037: Multi-background audit uses the real photo renderer
+
+- **Decided:** add `photo:audit` (sixteen phases, light/dark/joint panels) using
+  the app solver, composition and painter; retain existing filmstrip unchanged.
+- **Why:** adopted the inspection format from both peers to expose phase-specific
+  seam failures missed by a single background.
+- **Area:** photo QC.
+- **Impact:** default female-run CLI only, not UI/settings export parity. The
+  generated audit reveals ankle/foot discontinuities; no seam fix claimed.
+  One layout test plus full local gate: 178 tests / 14 files. See FDS L002.

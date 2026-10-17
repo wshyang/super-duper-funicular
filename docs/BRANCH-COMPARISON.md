@@ -152,3 +152,10 @@ The cap trial is a useful failed acceptance, not a shipped visual improvement:
 0/50/178/33 alpha reductions at shoulder/elbow/knee/toe were measured before ball
 resealing; the shoulder is a no-op and the magnified knee has a crescent gap.
 Baseline assets restored by full near/far extraction. See FDS L001 and plan §4.
+
+## 6. Superseding live ledger
+
+Current three-way feature status, remote-tip tracking and parity acceptance live
+in [THREE-WAY-COMPARISON.md](THREE-WAY-COMPARISON.md). Earlier sections above are
+historical: notably Sprite Motion Lab now has new matte/relaxation/width QC and
+walking code at `9637227`. Do not repeat older exclusivity claims as current facts.

@@ -100,3 +100,26 @@ reason; never invent retrospective experiments, prompts or results.
   paths and regeneration reasons. Do not fabricate unavailable historical prompts.
 - For rig/render changes, inspect enlarged app-fidelity output over the cycle;
   label plate-space diagnostic probes as such. Passing tests do not certify seams.
+
+### Live three-way parity discipline
+
+The goal is feature parity across Funicular (`arena/77ffb088`), Stride Lab
+(`arena/263385da`) and Sprite Motion Lab (`arena/917ef347`), preserving useful
+local strengths rather than copying frameworks or incompatible coordinate math.
+[`docs/THREE-WAY-COMPARISON.md`](docs/THREE-WAY-COMPARISON.md) is the live ledger.
+
+Every turn: consult the ledger and update FDS with progress/no progress and the
+next parity gap. For comparative or implementation turns, run
+`npm run branches:compare` to fetch the three explicit heads and refresh the
+full-SHA table, JSON snapshot and changed-tip history. If offline, record failure
+and retain last-known hashes; never label stale evidence current. Inspect changed
+code in detached temporary worktrees before advancing **reviewed** hashes.
+Update the feature matrix, adopted/deferred decisions and append-only progress log
+when evidence changes. Hash automation does not perform semantic review.
+
+Record this branch's uncommitted delta separately from its last observed remote
+SHA (a committed document cannot embed its own future hash). Check again after
+publishing when needed. Never alter another branch to claim cross-branch parity.
+A capability is not complete until its behavioural acceptance and relevant visual
+review pass. Track known gaps honestly; retire exclusivity claims when peers catch
+up. No background polling or automatic merging is implied by “live”.
