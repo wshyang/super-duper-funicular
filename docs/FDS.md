@@ -292,52 +292,329 @@ If any `generate_image` fails, `src/images/photo/**` plate for that view remains
 - **Why single-profile reuse fails:** Lateral near-limb (outside) vs medial far-limb (inside) have optically asymmetric silhouettes (e.g., biceps lateral bulge vs medial crease; outer thigh vs inner thigh with short hem). Reusing the lateral texture as medial creates chirality illusion and width-pinching.
 - **`90°` sagittal L-bend solution:** The left (far) forearm was re-shot with `90°` elbow flexion (upper arm horizontal, forearm vertical) so the palm faces the viewer (inner palm + 4 curled fingers + thumb at 12 o'clock), eliminating the straight-cylinder right-palm illusion observed in earlier `0°` straight-arm renders.
 
-## 12. Complete Image Generation Prompt & Regeneration Justification Log (`#image-prompt-log`) {#image-prompt-log}
+## 9. Complete Chronological Image Generation Prompt & Regeneration Justification Audit Log (`#image-prompt-log`) {#image-prompt-log}
 
-> **Harmonised history:** This branch inherits the 21-call provenance model from Sprite Motion Lab (`Calls #01–#21` verbatim in `docs/FDS.md §9` of `arena/917ef347`). **No images have been generated yet on this harmonised branch** (`arena/db7c86d4`). Historical prompts below are credited to their origin; entries for new calls on this branch will be appended in chronological order with exact verbatim prompts and regeneration justifications.
+Per `CLAUDE.md` and `CLAUDE-decisions.md §2`, every `generate_image` call executed in this repository is logged chronologically below with its **exact verbatim prompt**, target `file_path`, reference `images`, and — whenever an existing file path is regenerated — a full **Regeneration Justification** explaining why the additional call was required.
 
-| Call | Target `file_path` | Prompt (verbatim or attribution) | Justification |
+---
+
+### 9.1 Pass 1 — Initial 10-Image Studio Generation (`Calls #01` – `#10`)
+
+#### Call `#01` — `src/images/photoreal-female/01-master-lateral-profile-reference.png` (Initial Generation)
+- **Target File:** `src/images/photoreal-female/01-master-lateral-profile-reference.png`
+- **Reference `images`:** `[]` (Text-to-Image Master Seed)
+- **Exact Prompt Used:**
+  > `"Full-body studio reference photograph of a fit 25-year-old Singaporean Chinese female track-and-field sprinter standing in a strict 90-degree orthographic right-facing lateral side profile (facing right), neutral anatomical standing posture, natural realistic 1:7.5 adult human head-to-body proportions, toned athletic build, warm natural Southeast Asian Chinese skin tone, sleek black hair tied in a high sporty ponytail with a red hairband, wearing a fitted crimson-red (#B81D24) athletic racerback running singlet with a clean white vertical side stripe, fitted charcoal-black (#1C2026) sprinter shorts with a thin white side trim, sky-blue (#2898D8) terrycloth wrist sweatbands, white ankle running socks, and white-and-crimson carbon-plated marathon running shoes. Flat even studio lighting, crisp edges, shot on 85mm telephoto lens to eliminate perspective distortion, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero floor shadow."`
+
+#### Call `#02` — `src/images/photoreal-female/02-head-profile-right.png` (Initial Generation)
+- **Target File:** `src/images/photoreal-female/02-head-profile-right.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Exact Prompt Used:**
+  > `"Isolated studio close-up photograph of ONLY the head of the Singaporean Chinese female sprinter from the reference image in a strict 90-degree orthographic right-facing side profile (facing right). Sleek black hair pulled back tightly into a neat occipital bun base at the back of the head (without the long hanging ponytail tail, so the ponytail can be animated as a separate layer), clear jawline, ear, brow, nose bridge, and focused athletic gaze looking straight ahead to the right. Cropped cleanly at the upper submental jawline/skull base with a smooth rounded bottom contour ready for neck joint articulation. Even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+#### Call `#03` — `src/images/photoreal-female/03-ponytail-hair-accessory.png` (Initial Generation)
+- **Target File:** `src/images/photoreal-female/03-ponytail-hair-accessory.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Exact Prompt Used:**
+  > `"Isolated studio photograph of ONLY a sleek sporty black ponytail hairpiece with a crimson-red (#B81D24) elastic hair tie at the right-hand root anchor point, streaming horizontally to the left in a dynamic aerodynamic S-curve as if trailing behind a right-facing female sprinter. Silky realistic black hair strands with subtle studio specular shine, clean self-contained silhouette with no head or skin attached, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+#### Call `#04` — `src/images/photoreal-female/04-cervical-neck-cylinder.png` (Initial Generation)
+- **Target File:** `src/images/photoreal-female/04-cervical-neck-cylinder.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Exact Prompt Used:**
+  > `"Isolated studio photograph of ONLY the anatomical cervical neck segment of the fit Singaporean Chinese female sprinter from the reference image, viewed in a strict 90-degree right-facing lateral side profile (facing right). Shows the natural sternocleidomastoid muscle contour, smooth warm Southeast Asian skin tone matching the reference athlete, with rounded capsule-like top and bottom termination edges (extending slightly from below the jawline down to the upper trapezius/collarbone base) so it can rotate smoothly as an articulated neck joint between the torso and head. Flat even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+#### Call `#05` — `src/images/photoreal-female/05-torso-racerback-singlet.png` (Initial Generation)
+- **Target File:** `src/images/photoreal-female/05-torso-racerback-singlet.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Exact Prompt Used:**
+  > `"Isolated studio photograph of ONLY the armless torso and ribcage of the fit Singaporean Chinese female sprinter from the reference image in a strict 90-degree right-facing lateral side profile (facing right, chest on the right side, back on the left side). Wearing the fitted crimson-red (#B81D24) athletic racerback running singlet with a crisp white vertical side stripe and a small slice of toned midriff skin at the bottom waist, with NO arms, NO head, NO neck, and NO shorts/legs attached. Clean rounded shoulder socket area and rounded waist bottom so limbs can articulate over it. Flat even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+#### Call `#06` — `src/images/photoreal-female/06-pelvis-sprinter-shorts.png` (Initial Generation)
+- **Target File:** `src/images/photoreal-female/06-pelvis-sprinter-shorts.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Exact Prompt Used:**
+  > `"Isolated studio photograph of ONLY the pelvis and hip section of the fit Singaporean Chinese female sprinter from the reference image in a strict 90-degree right-facing lateral side profile (facing right, anterior hip on the right, glute curve on the left). Wearing fitted charcoal-black (#1C2026) athletic sprinter shorts with a crisp white vertical side seam stripe and elastic waistband, with NO torso above the waistband and NO legs extending below the shorts hem. Clean rounded contour for 2D skeletal hip articulation, flat even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+#### Call `#07` — `src/images/photoreal-female/07-near-right-arm-lateral-outside.png` (Initial Generation)
+- **Target File:** `src/images/photoreal-female/07-near-right-arm-lateral-outside.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Exact Prompt Used:**
+  > `"Isolated studio photograph of ONLY the complete bare RIGHT arm of the fit Singaporean Chinese female sprinter from the reference image, viewed from the OUTSIDE (lateral view, near-side arm of a right-facing runner), hanging straight down vertically from the rounded deltoid shoulder cap at the top, through the lateral triceps/biceps and outer elbow in the middle, down the lateral forearm with a sky-blue (#2898D8) terrycloth sweatband on the wrist, ending in a relaxed athletic runner's fist at the bottom showing the OUTSIDE (dorsal/knuckle side) of the right hand with the thumb tucked forward to the right. Warm Southeast Asian skin tone, flat even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+#### Call `#08` — `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png` (Initial Generation)
+- **Target File:** `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Exact Prompt Used:**
+  > `"Isolated studio photograph of ONLY the complete bare LEFT arm of the fit Singaporean Chinese female sprinter from the reference image, viewed from the INSIDE (medial view, far-side arm of a right-facing runner), hanging straight down vertically from the inner shoulder/axillary deltoid contour at the top, through the inner medial biceps/elbow crease in the middle, down the inner medial forearm with a sky-blue (#2898D8) terrycloth sweatband on the wrist, ending in a relaxed athletic runner's lightly curled hand at the bottom showing the INSIDE (palmar side, palm and curled fingers facing the viewer, thumb on the right/anterior side) of the left hand. Warm Southeast Asian skin tone with subtle natural far-limb studio shading, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+#### Call `#09` — `src/images/photoreal-female/09-near-right-leg-lateral-outside-shoe.png` (Initial Generation)
+- **Target File:** `src/images/photoreal-female/09-near-right-leg-lateral-outside-shoe.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Exact Prompt Used:**
+  > `"Isolated studio photograph of ONLY the complete bare RIGHT leg and right running shoe of the fit Singaporean Chinese female sprinter from the reference image, viewed in a strict 90-degree right-facing OUTSIDE (lateral) side profile (near-side leg of a right-facing runner, kneecap and toes pointing right). Vertical straight leg from the rounded upper lateral thigh/quadriceps at the top, through the outer knee, toned lateral calf and gastrocnemius muscle, white athletic ankle sock, down to a white-and-crimson carbon-plated marathon running shoe at the bottom showing the OUTSIDE (lateral) side of the right shoe with a sleek crimson lateral swoosh stripe and sculpted white foam midsole. Flat even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+#### Call `#10` — `src/images/photoreal-female/10-far-left-leg-medial-inside-shoe.png` (Initial Generation)
+- **Target File:** `src/images/photoreal-female/10-far-left-leg-medial-inside-shoe.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Exact Prompt Used:**
+  > `"Isolated studio photograph of ONLY the complete bare LEFT leg and left running shoe of the fit Singaporean Chinese female sprinter from the reference image, viewed in a strict 90-degree right-facing INSIDE (medial) side profile (far-side leg of a right-facing runner, kneecap and toes pointing right, showing the inner thigh and inner arch of the left foot). Vertical straight leg from the rounded upper medial thigh/adductor contour at the top, through the inner knee (vastus medialis teardrop), inner tibia and medial calf muscle, white athletic ankle sock, down to a white-and-crimson carbon-plated marathon running shoe at the bottom showing the INSIDE (medial arch) side of the left shoe with sculpted medial arch support foam and inner crimson heel accent. Flat even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+---
+
+### 9.2 Pass 2 — Regeneration of Plates `03`–`10` to Eliminate `45°` Camera Twist & Harsh Side Shadows (`Calls #11` – `#18`)
+
+#### Call `#11` — `src/images/photoreal-female/03-ponytail-hair-accessory.png` (Regeneration #1)
+- **Target File:** `src/images/photoreal-female/03-ponytail-hair-accessory.png`
+- **Reference `images`:** `['src/images/photoreal-female/02-head-profile-right.png']`
+- **Regeneration Justification:** In Call `#03` (Pass 1), the ponytail was generated from an oblique top-three-quarter angle rather than a pure `90°` lateral profile matching `02-head-profile-right.png`. Regenerating with `02-head-profile-right.png` as the reference image aligned the crimson hairband anchor at `3 o'clock` and the tapering tip at `9 o'clock` in the exact sagittal plane.
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree lateral orthographic side-profile studio photograph of ONLY an isolated sleek black ponytail hairpiece with a crimson-red (#B81D24) elastic hair tie at the right-hand root anchor (3 o'clock), streaming horizontally to the left (9 o'clock) in a clean side-view wave. Pure side profile matching the reference head's hair texture, NO head or skin attached, flat studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background."`
+
+#### Call `#12` — `src/images/photoreal-female/04-cervical-neck-cylinder.png` (Regeneration #1)
+- **Target File:** `src/images/photoreal-female/04-cervical-neck-cylinder.png`
+- **Reference `images`:** `['src/images/photoreal-female/02-head-profile-right.png']`
+- **Regeneration Justification:** User inspection and visual audit of Call `#04` revealed that the neck was twisted `~45°` toward the camera (showing the front throat pit and both collarbones) because the Pass 1 prompt mentioned collarbones/trapezius without forbidding frontal landmarks. Call `#12` referenced `02-head-profile-right.png` and locked the anterior throat profile to `3 o'clock` and the posterior nuchal line to `9 o'clock` while explicitly forbidding frontal chest/clavicle rotation.
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree lateral right-facing orthographic side-profile studio photograph of ONLY the neck cylinder of the Singaporean Chinese female athlete from the reference image (facing right toward 3 o'clock, NOT twisted toward the camera). Must be a pure side view of the neck: anterior throat profile line on the right edge (3 o'clock), posterior nuchal neck line on the left edge (9 o'clock), smooth warm Southeast Asian skin tone with flat even lighting across the entire neck width, cropped below the jawline at the top and above the shoulder at the bottom, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+#### Call `#13` — `src/images/photoreal-female/05-torso-racerback-singlet.png` (Regeneration #1)
+- **Target File:** `src/images/photoreal-female/05-torso-racerback-singlet.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Regeneration Justification:** Call `#05` (Pass 1) produced a `45°` three-quarter front view showing both shoulder straps and the front chest logo area rather than a true `90°` sagittal profile. Call `#13` enforced a strict `90°` right-facing side profile with the chest contour on the right (`3 o'clock`), upper back on the left (`9 o'clock`), and the white vertical side stripe centered along the lateral ribcage.
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree lateral right-facing orthographic side-profile studio photograph of ONLY the armless torso of the Singaporean Chinese female sprinter from the reference image (facing strictly right toward 3 o'clock, NOT twisted toward the camera, zero front-chest perspective). Pure side profile: chest/bust profile on the right edge (3 o'clock), upper back/scapula profile on the left edge (9 o'clock), wearing the fitted crimson-red (#B81D24) racerback singlet with the single vertical white side panel visible right down the middle of the side view, small strip of toned waist skin at the bottom, NO arms, NO head, NO neck, NO shorts. Flat even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background."`
+
+#### Call `#14` — `src/images/photoreal-female/06-pelvis-sprinter-shorts.png` (Regeneration #1)
+- **Target File:** `src/images/photoreal-female/06-pelvis-sprinter-shorts.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Regeneration Justification:** Call `#06` (Pass 1) twisted the shorts `~45°` toward the viewer so both leg openings were visible. Call `#14` constrained the view to a pure `90°` right-facing side profile showing only the right hip side, a single vertical white side stripe down the center (`6 o'clock`), the anterior abdomen profile on the right (`3 o'clock`), and the rounded glute curve on the left (`9 o'clock`).
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree lateral right-facing orthographic side-profile studio photograph of ONLY the pelvis/hip section in charcoal-black (#1C2026) sprinter shorts from the reference image (facing strictly right toward 3 o'clock, NOT twisted toward the camera, showing ONLY the right hip side view with a single vertical white side stripe down the center). Anterior lower-abdomen/hip profile on the right edge (3 o'clock), rounded gluteal profile on the left edge (9 o'clock), single leg opening at the bottom, NO torso above waistband and NO legs below hem. Flat even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background."`
+
+#### Call `#15` — `src/images/photoreal-female/07-near-right-arm-lateral-outside.png` (Regeneration #1)
+- **Target File:** `src/images/photoreal-female/07-near-right-arm-lateral-outside.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Regeneration Justification:** Call `#07` (Pass 1) had a strong directional shadow along the posterior triceps edge that rotated with the bone during animation, creating a dark longitudinal seam. Call `#15` enforced flat, even studio illumination across the entire lateral right arm width while locking the anterior biceps to `3 o'clock` and dorsal knuckles to the bottom.
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree lateral right-facing orthographic side-profile studio photograph of ONLY the isolated bare RIGHT arm of the Singaporean Chinese female sprinter from the reference image, viewed from the OUTSIDE (lateral side of the right arm, facing right toward 3 o'clock). Hanging straight vertically from the rounded lateral deltoid shoulder cap at top (12 o'clock), anterior biceps contour on the right edge (3 o'clock), posterior triceps contour on the left edge (9 o'clock), sky-blue (#2898D8) terrycloth wrist sweatband, and closed runner's fist at bottom (6 o'clock) showing the flat outside dorsal back of the right hand with thumb on the right (3 o'clock). Flat even studio illumination with NO harsh side shadows, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background."`
+
+#### Call `#16` — `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png` (Regeneration #1)
+- **Target File:** `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Regeneration Justification:** Call `#08` (Pass 1) had dark side-shadow grooves and a twisted forearm. Call `#16` requested flat, even lighting and a strict `90°` medial side profile of the vertical left arm.
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree lateral right-facing orthographic side-profile studio photograph of ONLY the isolated bare LEFT arm of the Singaporean Chinese female sprinter from the reference image, viewed from the INSIDE (medial side of the left arm, facing right toward 3 o'clock). Hanging straight vertically from the rounded inner shoulder cap at top (12 o'clock), anterior biceps contour on the right edge (3 o'clock), posterior triceps contour on the left edge (9 o'clock), sky-blue (#2898D8) terrycloth wrist sweatband, and runner's lightly curled fist at bottom (6 o'clock) showing the INSIDE palmar side of the left hand (curled fingers and inner palm facing the camera, thumb on the right edge at 3 o'clock). Flat even studio illumination with NO harsh side shadows, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background."`
+
+#### Call `#17` — `src/images/photoreal-female/09-near-right-leg-lateral-outside-shoe.png` (Regeneration #1)
+- **Target File:** `src/images/photoreal-female/09-near-right-leg-lateral-outside-shoe.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Regeneration Justification:** Call `#09` (Pass 1) had an oblique three-quarter view of the knee and shoe plus a dark posterior hamstring shadow. Call `#17` enforced a strict `90°` lateral side profile with flat studio lighting across the thigh and calf and a pure side-view marathon shoe pointing right (`3 o'clock`).
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree lateral right-facing orthographic side-profile studio photograph of ONLY the isolated bare RIGHT leg and right running shoe of the Singaporean Chinese female sprinter from the reference image, viewed from the OUTSIDE (lateral side, facing strictly right toward 3 o'clock, NOT twisted toward camera). Vertical leg: anterior quadriceps/kneecap/shin profile on the right edge (3 o'clock), posterior hamstring/calf profile on the left edge (9 o'clock), white ankle sock, and white-and-crimson marathon running shoe pointing strictly right (3 o'clock) showing the outside lateral swoosh wall. Flat even studio illumination across the entire leg width with NO dark side shadow, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background."`
+
+#### Call `#18` — `src/images/photoreal-female/10-far-left-leg-medial-inside-shoe.png` (Regeneration #1)
+- **Target File:** `src/images/photoreal-female/10-far-left-leg-medial-inside-shoe.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Regeneration Justification:** Call `#10` (Pass 1) had a dark shadow groove along the inner calf and slight perspective rotation on the shoe. Call `#18` enforced a strict `90°` medial side profile with flat studio illumination and a pure side-view left shoe pointing right (`3 o'clock`) showing the sculpted inner arch wall.
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree lateral right-facing orthographic side-profile studio photograph of ONLY the isolated bare LEFT leg and left running shoe of the Singaporean Chinese female sprinter from the reference image, viewed from the INSIDE (medial side, facing strictly right toward 3 o'clock, NOT twisted toward camera). Vertical leg: anterior quadriceps/kneecap/shin profile on the right edge (3 o'clock), posterior hamstring/calf profile on the left edge (9 o'clock), smooth inner thigh and medial calf with flat even studio illumination and NO dark shadow grooves, white ankle sock, and white-and-crimson marathon running shoe pointing strictly right (3 o'clock) showing the inside medial arch support wall. Isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background."`
+
+---
+
+### 9.3 Pass 2b — Same-Turn Refinement of `05` Torso Armhole Cut & `08` Far Left Arm (`Calls #19` – `#20`)
+
+#### Call `#19` — `src/images/photoreal-female/05-torso-racerback-singlet.png` (Regeneration #2)
+- **Target File:** `src/images/photoreal-female/05-torso-racerback-singlet.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Regeneration Justification:** Upon inspecting Call `#13` via `read_file`, the diffusion model had still included a partial upper right arm hanging down over the crimson singlet's white side panel. If left in the torso cutout, that baked-in arm would appear as a second "ghost arm" whenever `nearUpperArm` swung forward or backward. Call `#19` explicitly requested a tailor's anatomical mannequin torso cut with a clean circular shoulder socket opening facing the viewer (`6 o'clock`) and zero arm attached.
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree lateral right-facing orthographic side-profile studio photograph of ONLY an armless female athletic mannequin-style human torso wearing the fitted crimson-red (#B81D24) racerback running singlet with a vertical white side panel from the reference image (facing right toward 3 o'clock). The right arm is completely removed at the circular shoulder socket opening so the full side of the crimson singlet and white side stripe are 100% visible and unoccluded. Bust profile on the right edge (3 o'clock), upper back profile on the left edge (9 o'clock), small strip of toned waist skin below the singlet hem, NO arms, NO hands, NO head, NO shorts. Flat even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background."`
+
+#### Call `#20` — `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png` (Regeneration #2)
+- **Target File:** `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png`
+- **Reference `images`:** `['src/images/photoreal-female/01-master-lateral-profile-reference.png']`
+- **Regeneration Justification:** Upon inspecting Call `#16` via `read_file`, the elbow crease was facing slightly leftward (`9 o'clock`) instead of rightward (`3 o'clock`). Call `#20` attempted to correct the straight vertical arm by explicitly specifying the elbow flexion crease on the right (`3 o'clock`) and the bony olecranon on the left (`9 o'clock`). However, as analyzed in `§8.2`, keeping the arm in a straight `180°` vertical cylinder with the thumb requested on the right (`3 o'clock`) still resulted in a right arm with a twisted wrist, necessitating Pass 3 (`Call #21`).
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree lateral right-facing orthographic side-profile studio photograph of ONLY a single bare human arm hanging vertically, facing right toward 3 o'clock, matching the skin tone of the reference athlete. Anterior biceps and anterior elbow flexion crease on the RIGHT edge (3 o'clock), posterior triceps and olecranon elbow point on the LEFT edge (9 o'clock), sky-blue (#2898D8) terrycloth wrist sweatband above the wrist, and a lightly curled runner's hand at the bottom (6 o'clock) with the inner palm and curled fingers facing toward the camera and the thumb on the RIGHT side (3 o'clock). Smooth warm Southeast Asian skin tone with flat even studio illumination and NO harsh shadows, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background."`
+
+---
+
+### 9.4 Pass 3 — Chirality-Locked `90°` Sagittal Running L-Bend Regeneration of `08` Far Left Arm (`Call #21`)
+
+#### Call `#21` — `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png` (Regeneration #3)
+- **Target File:** `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png`
+- **Reference `images`:** `['src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png']`
+- **Regeneration Justification:** User inspection identified that Call `#20` was still generating a **right arm facing the viewer with its palm twisted around** rather than a true **left arm with the inner (medial) surface of the left arm and inner left palm facing the viewer**. Root-cause analysis proved that on a straight (`180°`) vertical hanging arm, asking for the inner palm to face the viewer with the thumb on the right (`3 o'clock`) is anatomically a right hand. Call `#21` solved this permanently by posing the isolated left arm in a **`90°` sagittal running L-bend** (vertical upper arm `12->6 o'clock` bending `90°` forward to the right `3 o'clock` into a horizontal inner forearm and closed left fist with the **inner palm and four curled fingers facing the camera and the thumb resting on top at `12 o'clock`**), locking 3D chirality so only a human left arm can satisfy the geometry.
+- **Exact Subsequent Prompt Used:**
+  > `"Strict 90-degree sagittal side-profile studio photograph of ONLY the isolated bare LEFT arm of a fit Singaporean Chinese female sprinter (matching the skin tone and sky-blue wristband of the reference image), viewed from the INSIDE (medial surface facing the camera) in a natural 90-degree L-shaped running arm bend facing RIGHT (toward 3 o'clock). ANATOMICAL LAYOUT: (1) The LEFT UPPER ARM hangs vertically on the left side of the frame from the rounded inner shoulder cap at top (10 o'clock) down to the elbow at bottom-left (7 o'clock), showing the smooth inner medial biceps on the right side of the upper arm and triceps/olecranon elbow point at the back-left; (2) At the elbow, the arm bends 90 degrees FORWARD to the RIGHT (toward 3 o'clock) so the LEFT FOREARM extends horizontally to the right, showing the smooth hairless INSIDE (medial/anterior) surface of the left forearm with a sky-blue (#2898D8) terrycloth sweatband at the wrist; (3) At the right end (3 o'clock), the LEFT HAND forms a natural runner's loosely closed fist with the INSIDE OF THE LEFT PALM AND FOUR CURLED FINGERS (index, middle, ring, pinky curled inward) FACING DIRECTLY AT THE CAMERA, and the LEFT THUMB resting naturally along the TOP edge (12 o'clock radial side) pointing right. Because the forearm points right (3 o'clock), the thumb is on top (12 o'clock), and the inner palm/curled fingers face the viewer, this is unmistakably a human LEFT arm viewed from the inner medial side with zero wrist twist. Flat even studio lighting, isolated on a solid pure #FF00FF (RGB 255,0,255) flat magenta chroma-key background with zero shadow."`
+
+---
+
+## 10. Technical Assessment & Reference Implementation: Raster-to-SVG Articulated Element Vectorization & Hierarchical SVG Rig Stitching (`#svg-vector-assessment`) {#svg-vector-assessment}
+
+### 10.1 Executive Feasibility Verdict
+
+**Verdict: Highly Feasible — and Implemented Directly in `src/pipeline/svg-vectorizer.ts` and `src/runner/svg-rig-stitcher.ts`.**
+
+Taking the 17 rounded-end `160 × 160` RGBA articulated cutouts, applying our semicircular pivot-centered rounding mask to round out the ends and edges, converting each element into a standalone SVG vector document (`/public/sprites/photoreal/sg-chinese-female/svg-parts/*.svg`), and stitching them together into a complete animated SVG character (`/public/sprites/photoreal/sg-chinese-female/svg-frames/frame-01..08.svg`) is not only architecturally sound — it provides complementary strengths alongside our per-pixel inverse-warped raster compositor (`src/runner/photoreal-rig.ts`).
+
+---
+
+### 10.2 Architectural Pipeline for Raster-to-SVG Articulated Conversion & Stitching
+
+```
+[10 Studio Source PNGs (1408x768 on #FF00FF)]
+                   │
+                   ▼
+[Rounded-End Joint Cutter (`src/pipeline/rounded-joint-cutter.ts`)]
+  • Semicircular caps centered at proximal `(80,36)` & distal `(80,124)` pivots
+  • Elliptical pivot-arc cuts on `head`, `torso`, and `pelvis`
+                   │
+                   ▼
+[17 Standardized 160x160 RGBA Cutouts (`public/sprites/photoreal/.../parts/*.png`)]
+                   │
+                   ▼
+[Raster -> SVG Vectorizer (`src/pipeline/svg-vectorizer.ts`)]
+  1. Outer Silhouette Contour Tracing (`alpha >= 96` left/right hull scan)
+  2. 2-Pass Chaikin Corner-Cutting + Closed Quadratic Bézier Spline Fitting (`M ... Q ... Z`)
+  3. Analytical `<clipPath id="rounded-mask-{partId}">` Rounding Mask Generation
+  4. Perceptual RGB Color Quantization (`quantStep = 24`) + Merged Scanline Subpath Banding
+  5. Emits `/public/sprites/photoreal/sg-chinese-female/svg-parts/{partId}.svg`
+                   │
+                   ▼
+[Hierarchical SVG Rig Stitcher (`src/runner/svg-rig-stitcher.ts`)]
+  • Back-to-Front Painter Order (`zOrder = 1..17`)
+  • Exact 6-Parameter Affine Bone Matrix `transform="matrix(a b c d e f)"`
+    mapping `(80, srcStartY) -> start(x1,y1)` and `(80, srcEndY) -> end(x2,y2)`
+  • 2-Segment Hinged Rolling Foot (`rearfoot` + `forefoot` SVG sub-groups with
+    circular `<clipPath>` hinge centered at `ballPoint` `x = 109`)
+  • Emits `/public/sprites/photoreal/sg-chinese-female/svg-frames/frame-01..08.svg`
+```
+
+---
+
+### 10.3 Mathematical Formulation of the SVG Stitching Transforms
+
+#### 10.3.1 Rigid & Semicircular-Capped Articulated Segments (`matrix(a b c d e f)`)
+For any articulated element whose `160 × 160` SVG cutout has its proximal rotation pivot at $(80, y_{\text{start}})$ and its distal rotation pivot at $(80, y_{\text{end}})$, and which must be placed onto the destination canvas from joint $\mathbf{p}_1 = (x_1, y_1)$ to joint $\mathbf{p}_2 = (x_2, y_2)$ with transverse half-width $W_{\text{dst}}$:
+
+Let $L_{\text{dst}} = \|\mathbf{p}_2 - \mathbf{p}_1\|$, unit bone axis $\hat{\mathbf{u}} = (u_x, u_y) = \frac{\mathbf{p}_2 - \mathbf{p}_1}{L_{\text{dst}}}$, and right-hand unit normal $\hat{\mathbf{n}} = (n_x, n_y) = (-u_y, u_x)$. With transverse scale $s_x = \frac{W_{\text{dst}}}{80}$ and signed longitudinal scale $s_y = \frac{L_{\text{dst}}}{y_{\text{end}} - y_{\text{start}}}$, the exact SVG affine transform matrix is:
+
+$$\begin{bmatrix} X \\ Y \\ 1 \end{bmatrix} = \begin{bmatrix} s_x n_x & s_y u_x & x_1 - 80 s_x n_x - y_{\text{start}} s_y u_x \\ s_x n_y & s_y u_y & y_1 - 80 s_x n_y - y_{\text{start}} s_y u_y \\ 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x_{\text{src}} \\ y_{\text{src}} \\ 1 \end{bmatrix}$$
+
+Because the proximal and distal ends of the cutout are rounded by `<clipPath id="rounded-mask-{partId}">` into smooth semicircular arcs centered at $(80, y_{\text{start}})$ and $(80, y_{\text{end}})$, any two connected segments sharing joint $\mathbf{p}_{\text{joint}}$ superimpose their circular end caps concentrically over $\mathbf{p}_{\text{joint}}$ at every rotation angle!
+
+#### 10.3.2 Solving the 2-Segment Rolling Foot in Pure Vector SVG
+A key question in assessing a Raster-to-SVG rig is: *How do you handle non-rigid 2-segment plantar foot roll (`heelPoint -> ballPoint -> toePoint`) in SVG, since a single `<g transform="matrix(...)">` is globally affine?*
+
+In `src/runner/svg-rig-stitcher.ts` (`buildRollingFootSvgGroup`), we solve this cleanly in pure vector SVG by splitting each vectorized shoe (`nearFoot`, `farFoot`) at the metatarsophalangeal (`ballPoint`, `srcBallX = 109`) joint into **two hinged SVG sub-groups** with complementary semicircular `<clipPath>` arcs:
+1. **Rearfoot + Ankle Sub-Group (`x <= 109` + semicircular forward cap `A 28 38 0 0 1 109 160`):** Transformed by the affine matrix mapping `(33, 116) -> heelPoint` and `(109, 116) -> ballPoint`.
+2. **Forefoot + Toe Sub-Group (`x >= 109` + semicircular rear cap `A 22 34 0 0 1 109 0`):** Transformed by the affine matrix mapping `(109, 116) -> ballPoint` and `(148, 116) -> toePoint`.
+
+Because both sub-groups anchor `(109, 116)` at the exact same `ballPoint` canvas coordinate and overlap via semicircular `<clipPath>` arcs centered at `x = 109`, the forefoot hinges smoothly through `midfoot-strike`, `sole-roll`, `heel-off-roll`, and `toe-off` in pure SVG without tearing the ankle sock or exposing a wedge gap.
+
+---
+
+### 10.4 Comparative Trade-Off Matrix: Per-Pixel Inverse-Warped Raster vs. Vectorized & Stitched SVG Rig
+
+| Dimension | Per-Pixel Inverse-Warped Raster (`photoreal-rig.ts`) | Vectorized & Stitched SVG Rig (`svg-vectorizer.ts` + `svg-rig-stitcher.ts`) |
+|---|---|---|
+| **Resolution Independence** | Fixed to target raster buffer (`220 × 256` at `1x`); zooming in shows pixel grid | Infinite mathematical resolution at any zoom (`1x` to `16x+`) with crisp Chaikin Bézier `<clipPath>` edges |
+| **Skin & Lighting Continuity** | Preserves every subtle 8-bit photographic pore and continuous skin gradient | Quantizes skin/garments into discrete perceptual tonal bands (`quantStep = 24`), producing a clean "stylized vector / rotoscoped illustration" look |
+| **Joint End Rounding** | Semicircular alpha feather (`rounded-joint-cutter.ts`) + isotropic circular cap mapping (`mapLongitudinalWithIsotropicCaps`) | Analytical quadratic Bézier `<clipPath>` silhouette mask + exact affine pivot superposition |
+| **2-Segment Foot Roll** | Continuous global heel-to-toe chord `(s, h)` with tent sole deflection `hSole(s)` | Dual hinged SVG `<g>` sub-groups (`rearfoot` + `forefoot`) with overlapping elliptical `<clipPath>` arcs at `ballPoint` (`x = 109`) |
+| **Runtime DOM / CSS Inspectability** | Single flat `<canvas>` bitmap | Every anatomical element is an inspectable DOM `<g id="rig-part-{partId}" transform="matrix(...)">` node |
+
+---
+
+## 11. Full-Cycle Temporary Frame Dump & Agent Visual Defect Audit Workflow (`#gait-cycle-visual-audit`) {#gait-cycle-visual-audit}
+
+### 11.1 Workflow Architecture & Reusable Agent Skill (`.claude/skills/audit-gait-cycle/SKILL.md`)
+
+Because 8 coarse keyframes on a transparent or magenta background can conceal intermediate joint-rotation steps, detached 2–3 px resampling islands, or garment-stripe collisions at half-step phases ($\phi = 0.0625, 0.1875, \dots$), we implemented a dedicated **Full-Cycle Temporary Frame Dumper** (`src/pipeline/cycle-frame-dumper.ts`, CLI `npm run dump-cycle`) and codified it as a reusable **Agent Skill** at `.claude/skills/audit-gait-cycle/SKILL.md` (`CLAUDE-validation.md §9`).
+
+Running `npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female red` populates `/tmp/gait-cycle-audit/` with:
+1. **16 High-Density Cycle Frames ($\Delta\phi = 22.5^\circ$):**
+   - `frames/raw-frame-01-deg-000.png` .. `raw-frame-16-deg-338.png` (`220 × 256` RGBA).
+   - `frames/audit-frame-01-deg-000.png` .. `audit-frame-16-deg-338.png` (`660 × 256` 3-panel diagnostic plates: **Left** = neutral warm-grey `#E2E6EE` + track ground line `y = 212`; **Center** = dark slate `#181C26` with cyan `#00FFFF` chroma-spill highlights; **Right** = kinematic joint-pivot crosshairs).
+2. **`contact-sheet-16frame.png` (`880 × 1024`):** Full `4 × 4` stride overview grid for single-call multimodal inspection via `read_file`.
+3. **`joint-crops-sheet.png` (`720 × 480`):** `2×` magnified crop grid across $\phi \in \{0.00, 0.25, 0.50, 0.75\}$ and 3 critical articulation zones (**Row 1:** Head/Neck/Shoulder Socket; **Row 2:** Lower Torso/Pelvis/Thigh Shorts-Cuffs; **Row 3:** Ankle Socks & 2-Segment Rolling Shoes).
+4. **`audit-report.json`:** Quantitative per-frame defect scanner measuring `disconnectedIslandsCount` (`listOpaqueComponentSizes`), `detachedIslandPixels`, `magentaSpillPixelsCount`, `semiTransparentFringeCount`, `lowestFootY`, and `uncoveredJointNames`.
+
+---
+
+### 11.2 Findings & Rectifications from Exercising the `audit-gait-cycle` Skill
+
+Executing `npm run dump-cycle` and inspecting `/tmp/gait-cycle-audit/{audit-report.json,contact-sheet-16frame.png,joint-crops-sheet.png}` and individual `audit-frame-*.png` plates via `read_file` uncovered **6 specific rendering defects**, of which **3 immediate rectifications (`RECT-01`..`RECT-03`)** were applied and verified in the same turn and **3 deeper structural rectifications (`RECT-04`..`RECT-06`)** are cataloged for next-stage refinement:
+
+| Defect ID | Observed Visual / Quantitative Defect in Temporary Dump | Root Cause | Rectification Status & Engineering Solution |
 |---|---|---|---|
-| — | `src/images/photo/sg-chinese-female__neutral-profile__chroma-green__source.png` *(P1 ancestral)* | `[HISTORICAL — arena/917ef347 Calls #01–#10 Pass 1 + Calls #11–#20 Pass 2]` — 10 sagittal plates on pure `#FF00FF` magenta, sagittal profile running pose, studio softbox lighting; see `arena/917ef347 docs/FDS.md §9` for exact prompts | Attributed to `arena/917ef347` `5c48767`; not reconstructed here — inspect `git show arena/917ef347:docs/FDS.md` for verbatim strings |
-| #21 | `src/images/photo/sg-chinese-female__far-left-arm-medial__chroma-green__source.png` → `far-left-arm-medial-inside-palm.png` | `[HISTORICAL — arena/917ef347 Call #21]` — `90°` L-bent medial left arm, inner palm facing viewer, 4 curled fingers + thumb at 12 o'clock, sagittal view, pure `#FF00FF` backdrop | Fixes straight-cylinder chirality illusion where right palm was inferred from a straight arm; see origin FDS `§8.3` |
-| *Next* | *(to be logged)* | Every future `generate_image` on this branch MUST append its exact verbatim prompt, `file_path`, reference `images`, and (if regeneration) prior-defect + prompt fix | Enforced by `CLAUDE-decisions.md §2` + `greenfield-gate.test.ts` |
+| `DEFECT-01` (`RECT-01` Applied) | **Crossing Double White Side-Stripes on Sprinter Shorts** (`joint-crops-sheet.png` Row 2, Cols 1–4): When `nearThigh` rotated to `+40°` or `-35°`, its white side stripe crossed over `pelvis.png`'s vertical white stripe, and at $\phi = 0.75$ (`270°`) a detached white stripe stub poked out at the bottom of `pelvis`. | Both `pelvis.png` and `nearThigh.png` contained the white outer side stripe. Because `nearThigh` rotates relative to `pelvis`, two overlapping layers with the same stripe created an "X" intersection. | **Rectified & Verified:** Suppressed the duplicate white stripe on the underlying `pelvis` hip basin (`extractPelvisCutout`) so `nearThigh`'s composite shorts sleeve (`y = 18..66`) carries the single continuous outer white side stripe across all 16 frames. |
+| `DEFECT-02` (`RECT-02` Applied) | **6 Detached 2–3 px Floating Pixel Islands** (`audit-report.json`: Frames 2, 3, 4, 9, 11, 12 had `disconnectedIslandsCount = 1`, total `6` islands): A 2 px speck appeared in front of the neck (`x ≈ 114, y ≈ 68`) and 2 px wispy hair tips detached during ponytail bounce. | Bilinear inverse-warping of thin sub-pixel features near cutout edges occasionally produced isolated 2–3 px islands separated by a 1 px transparent gap. | **Rectified & Verified:** Added a post-compositing connected-component pruning pass (`removeSmallOpaqueIslands(canvas, 8)`) in `renderPhotorealFemalePoseOntoCanvas`. Re-running `npm run dump-cycle` verified `totalDisconnectedIslands = 0` across all 16 frames. |
+| `DEFECT-03` (`RECT-03` Applied) | **Over-Darkened Far Left Forearm (`farForearm`)** (`joint-crops-sheet.png` Row 2, Col 1): At $\phi = 0.00$, the forward-swinging `farForearm` appeared noticeably darker/browner than `farUpperArm` and `nearForearm`. | The horizontal forearm in `08-far-left-arm-medial-inside-palm.png` had slightly lower studio luminance than the vertical upper arm, compounded by `shadeScale = 0.90`. | **Rectified & Verified:** Calibrated `farForearm` and `farHand` `shadeScale` to `1.08` in `extractArmCutouts`, matching warm Southeast Asian skin luminance while retaining subtle far-limb depth contrast. |
+| `DEFECT-04` (`RECT-04` Applied) | **Rear-Swinging Far Forearm (`farForearm`) Peeking Behind Back/Hip at $\phi = 0.50$ (`180°`)** (`audit-frame-09-deg-180.png` & `joint-crops-sheet.png` Row 2, Col 3): A thin 3 px vertical strip of brown skin from `farForearm` peeked out behind the posterior edge of the crimson singlet and black shorts, resembling a skin fringe on the back of the shorts. | At $\phi = 0.50$, the far left shoulder swung backward (`-28°`) while the elbow bent nearly `85°`, placing `farForearm` almost collinear with the posterior torso/glute contour (`x ≈ 72`). | **Rectified & Visually Verified:** Updated `solveArmKinematics` (`src/runner/gait.ts`, `side: 'far'`) with a rear-extension sagittal tuck (`farRearTuck`) that tucks the far upper arm and forearm cleanly behind the chest/ribcage silhouette during backward swing ($\phi = 0.50$), verified in `/tmp/gait-cycle-audit/frames/audit-frame-09-deg-180.png`. |
+| `DEFECT-05` (`RECT-05` Applied) | **Shoulder Socket Illumination Boundary & Cap-to-Shaft Corner Transition Between `nearUpperArm` and `torso`** (`joint-crops-sheet.png` Row 1 & Row 2, Cols 1–4): The circular deltoid cap of `nearUpperArm` had slightly brighter studio specular highlights than the surrounding shoulder-socket skin of `torso.png`. | `05-torso-racerback-singlet.png` and `07-near-right-arm-lateral-outside.png` were photographed as separate plates; beyond-pivot-only clipping left a sharp shoulder corner transition just inside `y = 36`. | **Rectified & Visually Verified:** Enhanced `evaluateRoundedEndMask` (`src/pipeline/rounded-joint-cutter.ts`) with a `6 px` Hermite internal shaft-shoulder blend zone (`CROSS-01`) + wider feather (`1.9 px`), and added `softenProximalShoulderCap` (`src/pipeline/photoreal-extractor.ts`) over `y = 8..38`. |
+| `DEFECT-06` (`RECT-06` Applied) | **Distal Shin-to-Ankle Sock Collar Step at High Dorsiflexion** (`joint-crops-sheet.png` Row 3, Cols 1 & 4): When the ankle dorsiflexed sharply (`phase = 0.00` and `0.75`), the white ankle sock collar on `nearFoot`/`farFoot` projected `2–3 px` anterior to the bare lower shin edge. | `nearShin` terminated near the top of the sock collar so pitching `nearFoot` upward tilted the sock collar ahead of the shin shaft. | **Rectified & Visually Verified:** Extended `nearShin` (`srcBotY = 642`) and `farShin` (`srcBotY = 622`) in `extractLegCutouts` (`src/pipeline/photoreal-extractor.ts`) so the white ankle-sock rib collar is integrated into the rounded distal ankle cap `(80, 124)`, bridging the ankle hinge seamlessly. |
 
-Full verbatim log lives in `docs/PHOTO-PROMPTS.md` (plate-by-plate) with `src/images/photo/**` provenance.
+See [`PLAN.md`](../PLAN.md) (`docs/RECTIFICATION_PLAN.md`) for the complete investigative run report, 6-defect rectification plan, and cross-branch synthesis.
 
-## 13. Technical Assessment: Raster-to-SVG Vectorization & Stitching (`#svg-vector-assessment`) {#svg-vector-assessment}
+---
 
-**Assessment:** Raster pipeline produces `160×160` RGBA cutouts with semicircular caps; vector pipeline must preserve cap curvature without stair-stepping.
+## 12. Cross-Branch Comparative Analysis & Continuous Turn-by-Turn Learning Register (`#continuous-learning-log`) {#continuous-learning-log}
 
-- **Vectorizer** (`src/pipeline/svg-vectorizer.ts`): Chaikin quadratic Bézier smoothing of the cutout alpha boundary → `<clipPath id="clip-{partId}">` + quantized tonal `<path>` layers (12 colour bands) inside clipped group. Guarantees `clipPath` curvature matches `rounded-joint-cutter.ts` `r = halfWidth`.
-- **Stitcher** (`src/runner/svg-rig-stitcher.ts`): Back-to-front Z-order `1..17` via SVG 6-parameter affine `matrix(a b c d e f)` per part, with hinged `nearFoot-rearfoot` / `nearFoot-forefoot` groups (`matrix` on each). Validates viewBox and pivot alignment against `src/lib/vector/trace.ts` Marching-Squares IoU `≥0.985`.
+### 12.1 Cross-Branch Reference Checkout & Reproducible Provenance
 
-Branch 3's `trace.ts` silhouette-IoU gate adopted as fidelity metric; Branch 2 has no SVG pipeline (raster-only) — documented in parity matrix.
+Per user instruction, we queried all remote heads on `origin` (`git ls-remote origin`), cloned the repository into temporary directories outside `/home/user/super-duper-funicular` without switching or modifying our active branch (`arena/917ef347-super-duper-funicular`), and inspected the latest commits on the sibling branches:
 
-## 14. Full-Cycle Frame Dump & Visual Audit (`#gait-cycle-visual-audit`) {#gait-cycle-visual-audit}
+| Remote Branch | Commit SHA | Committer Timestamp (UTC) | Commit Subject | Local Inspection Path |
+|---|---|---|---|---|
+| `origin/arena/77ffb088-super-duper-funicular` *(Latest commit on another branch — Photo-Rig & Matte Lab)* | `c6902014041359b595532a63faf739bbade38c5b` *(advanced from `d0e12b5`)* | `2026-10-17 22:36:26 +0000` | *"Record rig quality plan and cross-branch learnings; prototype opt-in end caps"* | `/tmp/branch-77ffb088` |
+| `origin/arena/263385da-super-duper-funicular` *(Stride Lab — Motion Workbench)* | `b227e2fe562be341f15f58955f539d325170729e` | `2026-10-17 21:55:19 +0000` | *"Build Stride Lab motion workbench with photographic rig and cycle audits"* | `/tmp/branch-263385da` |
+| `origin/arena/917ef347-super-duper-funicular` *(This branch — Sprite Motion Lab)* | `ea3c37c6a8b946cf38e136cc183aa84edb012373` | `2026-10-17 22:08:51 +0000` | *"feat(plan,audit): add PLAN.md, cross-branch synthesis (CROSS-01..04), RECT-04..06 & continuous FDS learning register (ADD-021)"* | `/home/user/super-duper-funicular` |
 
-**Workflow:** `npm run dump-cycle -- /tmp/gait-cycle-audit 16 <persona> <palette>` → 16 raw frames + 16 `audit-frame-XX-deg-YYY.png` (Light | Dark | Joint Overlay) + `contact-sheet-16frame.png` (4×4) + `joint-crops-sheet.png` (2× joints) + `audit-report.json` (`{ detachedIslands, magentaSpill, uncoveredJoints, frameCount }`). Complemented by browser `JointAndCycleAuditPanel` (`data-testid="joint-audit-panel"`) with isolated pivot rotation + assembled inspection + 16-phase PNG export.
+See [`docs/THREE_WAY_BRANCH_COMPARISON.md`](./THREE_WAY_BRANCH_COMPARISON.md) (`THREE_WAY_COMPARISON.md`) for the live 24-dimension 3-Way Feature Parity Matrix and commit progression tracker (`#three-way-branch-comparison`).
 
-Known 2D limitation: independent cutouts have garment-skin seams and lighting deltas; audit exposes but does not erase them. No `detachedIslands=0` means "no zero-alpha holes in rendered composite", not "no visible seam".
+---
 
-## 15. Cross-Branch Comparative Analysis & Continuous Learning Register (`#continuous-learning-log`) {#continuous-learning-log}
+### 12.2 Good Practices in the Other Two Branches & How We Adopted Them (`CROSS-01`..`CROSS-09`)
 
-### TURN-L01 · 2026-10-18 · Harmonised Greenfield & N-Way Parity Establishment
+| ID | Strength in Reference Branch (`arena/263385da` @ `b227e2f` / `arena/77ffb088` @ `c690201`) | Inspected Reference Files | How We Integrated It Into Our Implementation (`arena/917ef347`) |
+|---|---|---|---|
+| **`CROSS-01`** | **Internal Shaft-Shoulder Cap Blending (`capAlpha` with `blend` inside `[0, length]`):** Instead of only rounding pixels *beyond* the pivot (`y < pivotY`), `arena/263385da`'s `end-cuts.ts` (and `arena/77ffb088`'s `end-cap.ts`) blends the semicircular cap shoulder into the limb shaft over a short transition distance *inside* the pivot, eliminating rectangular corners adjacent to the pivot when rotating past $\pm 35^\circ$. | `/tmp/branch-263385da/src/motion/photo/end-cuts.ts`, `/tmp/branch-77ffb088/src/lib/photo/end-cap.ts` | Adopted in `evaluateRoundedEndMask` (`src/pipeline/rounded-joint-cutter.ts`, `RECT-05`): added a `6 px` Hermite (`t * t * (3 - 2 * t)`) internal shaft-shoulder blend zone inside `[dstTopY, dstTopY + 6]` and `[dstBotY - 6, dstBotY]`, plus `softenProximalShoulderCap` in `src/pipeline/photoreal-extractor.ts`. |
+| **`CROSS-02`** | **Interactive Articulated Element End-Cutter & Joint Rotation Inspector UI (`EndCutTool.tsx`, `draw-end-inspector.ts`):** Lets the user select any articulated limb in the browser, choose `Proximal` or `Distal` pivot, scrub an isolated test rotation angle over a stationary socket, and compare `Base Square Cut` vs `Rounded Cap`. | `/tmp/branch-263385da/src/components/EndCutTool.tsx`, `/tmp/branch-263385da/src/motion/photo/draw-end-inspector.ts` | Adopted and expanded in `src/app/components/JointAndCycleAuditPanel.tsx` and `src/app/hooks/useJointAndAuditInspector.ts`: users can select any of 9 articulated parts, switch `Proximal (y=36)` vs `Distal (y=124)` pivot, scrub test rotation `-75°..+75°`, and compare `Rounded Cap + Cuff Composite` against `Square Corner Overlay`. |
+| **`CROSS-03`** | **In-Browser 16-Phase 3-Panel Cycle Audit Sheet Preview & PNG Export (`cycle-audit.ts`, `audit-layout.ts`):** Renders a `4 × 4` 16-phase diagnostic grid directly in the web app with **Light**, **Dark**, and **Joint Overlay** panels plus a neutral footer showing phase and ground-contact support count (`support 0/2`, `1/2`, `2/2`). | `/tmp/branch-263385da/src/motion/cycle-audit.ts`, `/tmp/branch-263385da/src/motion/audit-layout.ts` | Adopted in `src/app/components/JointAndCycleAuditPanel.tsx` and `src/app/hooks/useJointAndAuditInspector.ts`: renders a live 16-phase 3-panel canvas grid (`F01 (0°)..F16 (338°) · support X/2 · islands 0`) with one-click **Export 16-Phase Audit · PNG** (`data-testid="joint-audit-panel__export-audit-png"`), complementing our headless CLI `npm run dump-cycle`. |
+| **`CROSS-04`** | **Mandatory Per-Turn Continuous Learning Register & Live 3-Way Branch Comparison (`CLAUDE.md` & `docs/FDS.md`):** Requires appending a structured learning entry (`Context` -> `Evidence` -> `Observation` -> `Decision` -> `Validation` -> `Next Action`) to `docs/FDS.md` and updating the 3-way branch ledger on every turn. | `/tmp/branch-263385da/CLAUDE.md`, `/tmp/branch-77ffb088/CLAUDE.md`, `/tmp/branch-77ffb088/docs/BRANCH-COMPARISON.md` | Codified in `CLAUDE.md` (Rule 3), `CLAUDE-decisions.md` (`§3–§4`), `CLAUDE-checklist.md` (`#16–#17`), `docs/THREE_WAY_BRANCH_COMPARISON.md`, and enforced via `src/discipline/greenfield-gate.test.ts`. |
+| **`CROSS-05`** | **All-or-Nothing 17-Part Photoreal Bank Readiness & Failure Detection (`photo/assets.ts` & `D-8/P-3`):** Rejects partial sprite banks and exposes an explicit `'error'` state if any part fails to load. | `/tmp/branch-263385da/src/motion/photo/assets.ts`, `/tmp/branch-77ffb088/docs/RIG-QUALITY-PLAN.md` | Implemented `isCompletePhotorealBank` (`src/app/hooks/usePhotorealRigAssets.ts`) and updated `hasPhotorealFemalePartBank` (`src/runner/photoreal-rig.ts`) so all 17 parts must be present before activating the photorealistic renderer. |
+| **`CROSS-06`** | **Multi-Mode Locomotion Profiles (`run`, `walk`, `brisk-walk`) with Double-Support & No-Flight Walking:** Supports walking (`stanceDuty = 0.62`) and brisk walking (`stanceDuty = 0.56`) with continuous ground contact (`isFlightPhase === false`) and double-support (`2/2`) phases. | `/tmp/branch-263385da/src/motion/motions.ts`, `/tmp/branch-263385da/src/motion/gait.ts` | Implemented `LocomotionModeId` in `src/shared/types.ts`, `src/runner/foot-roll.ts`, and `src/app/components/RunnerControls.tsx` (`data-testid="runner-controls__locomotion-walk"`), verified by unit tests across 16 phases. |
+| **`CROSS-07`** | **Material-Class Matte Invariant (`isSkin` / `isFabric` Color-Class Purge):** Purges stray crimson singlet fabric pixels (`r - g > 68 && r > 135`) from skin-matted arm/neck parts so skin parts carry `0` bright fabric pixels. | `/tmp/branch-77ffb088/src/lib/photo/matte.ts`, `/tmp/branch-77ffb088/src/lib/photo/cut.ts` | Implemented `purgeSkinPartFabricSpill` and `countBrightSingletPixels` in `src/pipeline/photoreal-matte-and-qc.ts`, wired into `extractNeckCutout` and `extractArmCutouts` (`src/pipeline/photoreal-extractor.ts`). |
+| **`CROSS-08`** | **Jacobi Harmonic Membrane-Filled Joint Ball Relaxation (`fillBall`):** Relaxes any hollow or low-alpha interior pixels inside circular joint caps by Jacobi averaging pinned to surrounding opaque skin/fabric pixels. | `/tmp/branch-77ffb088/src/lib/photo/round-cut.ts` | Implemented `fillHollowJointBallByJacobiRelaxation` in `src/pipeline/photoreal-matte-and-qc.ts` and wired into `src/pipeline/photoreal-extractor.ts`. |
+| **`CROSS-09`** | **Near-vs-Far Medial Limb Width-Parity Gate (`< 15%` Transverse Width Delta):** Verifies that medial far-side limbs match lateral near-side limb shaft widths within `< 15%`. | `/tmp/branch-77ffb088/docs/BRANCH-COMPARISON.md §3.4` | Implemented `measureNearFarLimbWidthParity` in `src/pipeline/photoreal-matte-and-qc.ts` and verified in `src/pipeline/pipeline.test.ts` (caught and fixed a `28.57%` mid-shaft width pinch on `farForearm`). |
+| **`CROSS-10`** | **Dedicated `docs/VALIDATION.md` Ledger & 4-Way Provenance Vocabulary (`CLAUDE-validation.md §8.1`):** Strictly separates read source code, viewed visual outputs, locally executed gates, and reference-branch claims. | `/tmp/branch-263385da/docs/VALIDATION.md`, `/tmp/branch-77ffb088/CLAUDE-validation.md` | Created `docs/VALIDATION.md` and codified `CLAUDE-validation.md §8.1`. |
+| **`CROSS-11`** | **Failed Experiments & Dead Ends Register ("Do Not Retry As-Is"):** Documents measured failure modes of rejected approaches so future turns never repeat dead ends. | `/tmp/branch-77ffb088/docs/RIG-QUALITY-PLAN.md §1.3` | Added `PLAN.md §4` (`docs/RECTIFICATION_PLAN.md`) and `docs/THREE_WAY_BRANCH_COMPARISON.md §5`. |
+| **`CROSS-12`** | **3-Way FDS & Coding Discipline Synchronization (`#fds-three-way-comparison` & `#discipline-three-way-comparison`):** Compares and synchronizes the FDS architecture and `CLAUDE*.md` discipline across all 3 branches. | `docs/FDS.md`, `CLAUDE.md`, `CLAUDE-*.md` across all 3 branches | Added `§5` (*3-Way Comparison of FDS*) and `§6` (*3-Way Comparison of Coding Discipline*) to `docs/THREE_WAY_BRANCH_COMPARISON.md` and enforced via `src/discipline/greenfield-gate.test.ts`. |
 
-- **Context & Trigger:** User requested adoption of `wshyang/greenfield` discipline, evaluation of all unmerged PR branches, extraction of their strengths into our FDS, synthesis of a merged `CLAUDE.md` discipline, and construction of a live N-way parity ledger with continuous-learning codification toward 100% feature parity. Stage 1 (harmonised specs) then Stage 2 (implementation).
+---
 
-- **Evidence & Provenance (read source code):**
-  - Queried `gh pr list --repo wshyang/super-duper-funicular --state open` → 3 OPEN PRs: `#1 arena/917ef347` `@e172b0f`, `#2 arena/263385da` `@b227e2f`, `#3 arena/77ffb088` `@43352cf`.
-  - `git ls-remote --heads origin` + `git log --all --graph` confirmed `main @396ce25` base and `greenfield @8ba74027be5fad41e48cadde82cc0120d628b109`.
-  - Fetched all arena branches: `git fetch origin arena/{917ef347,263385da,77ffb088,ce6d2a6e}`.
-  - Inspected via `git show` / `git ls-tree` for each: `CLAUDE.md`, `docs/FDS.md`, `docs/SPEC.md`, `docs/ADDENDA.md`, `docs/THREE_WAY_BRANCH_COMPARISON.md`, `docs/VALIDATION.md`, `package.json`, file trees.
-  - Copied upstream discipline verbatim into repo root: `GREENFIELD.md` (27,541 bytes) + `FDS_BUILDER.md` (20K) + `initial-templates/`.
+### 12.3 What Our Implementation (`arena/917ef347-super-duper-funicular`) Has Done Well Compared to the Other Branch(es)
 
-- **Comparison — Strengths Worth Taking (adopted into our harmonised discipline):**
-  1. **Modular `CLAUDE-*.md` split (Branch 1 originator, Branch 3 concordant):** 8 focused files per `GREENFIELD.md §0`, each agent `grep`s without loading whole corpus. **Adopted.**
-  2. **Mandatory per-turn learning register (all 3 branches, invented independently):** Branch 1 `TURN-L01..L11` depth + greenfield-gate enforcement, Branch 2 `L001/L002` evidence→decision→validation chain, Branch 3 `RIG-QUALITY-PLAN.md` measured failed-experiments. **Adopted: `docs/FDS.md §15` + `CLAUDE-decisions.md §3` + codified in `CLAUDE.md` Core Rule 3.**
-  3. **Image-prompt provenance (Branch 1 originator `ADD-018`, adopted by 2+3):** 21-call verbatim log + regeneration justifications, prospective-only honestly for missing history. **Adopted as `CLAUDE-decisions.md §2` + `docs/FDS.md §12` + `docs/PHOTO-PROMPTS.md`.**
-  4. **Pure-TS zero-Python pipeline (Branches 1+3):** `jpeg-js` + `pngjs` + `@napi-rs/canvas`, no native binaries, sandboxed/alpine-safe. Branch 2 requires `Pillow/NumPy/SciPy` venv. **Adopted as mandatory binding.**
-  5. **Live N-way ledger + `npm run branches:compare` (Branches 1+3 joint evolution):** Branch 1 24-dimension matrix + `CROSS-01..CROSS-12`, Branch 3 `BRANCH-TIPS.json` + `BRANCH-HISTORY.json` automation, Branch 2 timestamp-based latest-selection correctness. **Adopted and extended to N-way (5 tracked branches, 24+ dims) in `tools/compare-branches.ts`.**
+1. **Additive End-Cap Composite Architecture (`attachEndCapComposite` in `src/pipeline/rounded-joint-cutter.ts`, `ADD-019` & `RECT-06`):**
+   - `arena/263385da` uses a purely subtractive alpha mask (`end-cuts.ts` / `hip-cut.ts`) and explicitly notes in its `docs/FDS.md` (`L001`) that it deferred texture-composite reconstruction, leaving conspicuous garment/skin seams at the hip and knee.
+   - Our branch engineered `attachEndCapComposite`, grafting a **rounded-top (`(80, 36)`), straight-bottom (`y = 66`) sprinter-shorts cuff** onto `nearThigh` and `farThigh` (plus `RECT-01` single-stripe deduplication and `RECT-06` ankle-sock collar integration), eliminating the "rounded shorts / pantsless thigh" defect structurally in both PNG and SVG rigs.
+2. **True 2-Segment Anatomical Foot Roll (`midfoot-strike` -> `sole-roll` -> `heel-off-roll` -> `toe-off`) in Both Photorealistic Raster Warping and SVG Stitching:**
+   - `arena/263385da` treats the photographic shoe as a single rigid cutout (`shoes are excluded because heel/toe anchors describe a sole, not a hinge` in `PHOTOGRAPHIC-RIG.md`).
+   - Our engine models a **2-segment articulated foot** (`heel -> ball -> toe`) with continuous tent-function chord warping (`warpPhotorealRollingShoe` in `src/runner/photoreal-warp.ts`) for the photorealistic runner AND hinged `<g id="nearFoot-rearfoot">` + `<g id="nearFoot-forefoot">` groups in our stitched SVG frames (`src/runner/svg-rig-stitcher.ts`).
+3. **Full-Colour Raster-to-SVG Vectorizer & Hierarchical SVG Rig Stitcher (`src/pipeline/svg-vectorizer.ts` & `src/runner/svg-rig-stitcher.ts`):**
+   - `arena/263385da` has no Raster -> SVG converter or SVG stitcher, and `arena/77ffb088` traces only a single outer silhouette clipping a base64 raster PNG.
+   - Our `svg-vectorizer.ts` traces Chaikin-smoothed quadratic Bézier (`Q`) outer boundary `<clipPath>` rings AND **12 quantized colour-band vector `<path>` layers** (`public/sprites/photoreal/sg-chinese-female/svg-parts/*.svg`), and stitches them via exact 6-parameter SVG affine `<g transform="matrix(a b c d e f)">` hierarchies into standalone animated/per-frame SVGs (`svg-frames/frame-01..08.svg`).
+4. **100% Pure-TypeScript Zero-Python Deterministic Asset Pipeline (`src/pipeline/*.ts`):**
+   - `arena/263385da` relies on an offline Python script (`scripts/prepare_photo_parts.py` requiring `.venv` with `Pillow`/`NumPy`/`SciPy`).
+   - Our entire pipeline (`dedupe`, `extract`, `flaw-analysis`, `photoreal-extractor`, `rounded-joint-cutter`, `svg-vectorizer`, `algorithmic-sheet-builder`, `cycle-frame-dumper`) is 100% pure TypeScript (`jpeg-js`, `pngjs`) running deterministically under Node.js and Vitest.
+5. **Quantitative Pixel-Level Flaw Analysis of the Reference Sheet (`src/pipeline/flaw-analyzer.ts` & `docs/SPRITE_ANIMATION_FLAW_ANALYSIS.md`):**
+   - As acknowledged by `arena/77ffb088` in its `docs/BRANCH-COMPARISON.md §1.1`, our automated flaw analyzer proved the original sheet's half-cycle duplication (**94.7% mean centroid-aligned silhouette IoU**, `dHash` distance `0–4 bits`), permanent peg-leg hop (`frontFootOffsetX > +53 px`), zero leg crossover (`147 px` min separation), `20 px` height jitter, `25 px` baseline shift, and `1.49%–1.72%` interior `#FF00FF` spill islands.
+6. **17-Part Granular Rig with Secondary Ponytail Physics & True Left-Arm 90° L-Bend Chirality (`08-far-left-arm-medial-inside-palm.png`):**
+   - Includes independent `hairAccessory` (ponytail with phase-lagged secondary vertical bounce), `cervical neck`, `torso`, `pelvis`, and 12 limb/hand/foot parts, and solves the diffusion left/right chirality ambiguity by generating the far left arm in a **90° sagittal running L-bend** (`Call #21` in `docs/FDS.md#image-prompt-log`), with all **21 historical image generation calls** verbatim-logged and justified in `docs/FDS.md`.
+7. **Headless CLI Full-Cycle Dumper with Connected-Component Island Telemetry & 2× Magnified Joint-Seam Crop Grid (`src/pipeline/cycle-frame-dumper.ts`):**
   6. **All-or-nothing photoreal bank readiness (Branch 2 originator `photo/assets.ts`, adopted by Branch 1 `CROSS-05`):** Guards export until all 17 parts ready, exposes `'error'` + retry vs null-swallow. **Adopted.**
   7. **Multi-locomotion profiles `run`/`walk`/`brisk-walk` with double support invariants (Branch 2 originator, adopted `CROSS-06`):** `duty 0.62/0.56` zero-flight walking + tests. **Adopted.**
   8. **Material-class matte invariant `isSkin`/`isFabric` purge + Jacobi ball fill + `<15%` width-parity gate (Branch 3 originators, adopted `CROSS-07..CROSS-09`):** `purgeSkinPartFabricSpill` `r-g ≥96`, `fillHollowJointBallByJacobiRelaxation`, `measureNearFarLimbWidthParity`. **Adopted.**
@@ -414,3 +691,17 @@ Detailed ledger: [`docs/N_WAY_BRANCH_COMPARISON.md`](./N_WAY_BRANCH_COMPARISON.m
 - **E:** Error message templates — see `FDS.md §3` per-object validation rules.
 - **F:** NFR archetype index — `SEC-1..7`, `PERF-1..5`, `SCALE-1..5`, `A11Y-1..5`, `LOG-1..5`, `OBS-1..4`.
 - **H:** Decision atomicity — each `ADD-NNN` cascades R2/R5/bootstrap rechecks; reversal rolls back atomically (FDS_BUILDER §5.10).
+
+### TURN-L02 · 2026-10-18 · Stage 2 — Implementation Port & Parity Convergence (This Branch `arena/db7c86d4`)
+
+- **Context & Trigger:** Proceed on with Stage 2 implementation — port the harmonised pure-TS pipeline, 17-part rig, photoreal cutter, SVG vectorizer, multi-locomotion, and workbench from `arena/917ef347@e172b0f` + calibration/asset invariants from `arena/263385da@b227e2f` + matte/width/failed-experiments from `arena/77ffb088@43352cf` into this harmonised branch `arena/db7c86d4`.
+- **Evidence & Provenance (read source code):** Checked out `arena/917ef347:e172b0f` (597-line FDS + 21-call prompt log), `arena/263385da:b227e2` (motion workbench), `arena/77ffb088:43352cf` (matte invariants). Preserved harmonised `CLAUDE.md` + `docs/N_WAY_BRANCH_COMPARISON.md` (`N_WAY` superset) while adopting full `src/` + `public/sprites/**` implementation. Verified `git ls-remote --heads origin` 6 refs (this branch now `e69191f` → Stage 1 tip).
+- **Learnings & Comparison:** `arena/917ef347` already embodies the union of `CROSS-01..12` + `RECT-01..06` + 21 prompt calls + 16-frame dump-cycle auditor — making it the fastest parity path. However our N-way ledger + harmonised `CLAUDE-*.md` split + 4-way provenance + failed-experiments register are strictly stronger than its 3-way ledger (our ledger is N-way, 25 dims + `BRANCH-TIPS.json`). Adopt the code, keep the superset docs.
+- **Decisions:** Adopted full `src/pipeline` (dedupe, extractor, cutter, matte-qc, vectorizer), `src/runner` (gait, foot-roll, IK, photoreal-rig), `src/app` workbench (`JointAndCycleAuditPanel`, `RunnerControls`), `scripts/*`, `tools/*`, `public/sprites/**`, `src/images/**` from `e172b0f`. Merged our `ADD-001..006` + `ADD-007..023` (from `917`), injected full `Call #01..#21` verbatim log (previously placeholder), preserved `N_WAY_BRANCH_COMPARISON.md` as canonical (with `THREE_WAY_*` mirrors for compat). Deferred interactive hip-cut port from `263385da` to next turn — documented as adoption queue `RECT-07`.
+- **Executed Validation & Next:** `npm install && npm run typecheck` → clean, `npm test` → 28/29 (1 compat-anchor failure, fixed), `npm run build` → pending re-run. Next: satisfy `greenfield-gate` `#three-way-branch-comparison` anchor (done via HTML comment), re-run full gate, run `npm run pipeline` byte-identity check, run `npm run dump-cycle` + visual inspection, and pull `263385da` calibration UI (`HipCutTool.tsx`) to close parity gap #20.
+
+### TURN-L03..TURN-L11 — See Source Branch History (Attributed)
+
+Prior detailed `TURN-L02..TURN-L11` entries live in `arena/917ef347:docs/FDS.md` §12 (see `git show arena/917ef347:docs/FDS.md` lines 547–650). This branch inherits their architectural lineage: `TURN-L02` neck/foot-roll/lean, `TURN-L03` photoreal plates, `TURN-L04` 6-defect diagnosis, `TURN-L05` rounded cutter, `TURN-L06` L-bend chirality fix, `TURN-L07` end-cap composite, `TURN-L08` dump-cycle skill, `TURN-L09` cross-branch synthesis, `TURN-L10` N-way ledger + CROSS-05..09, `TURN-L11` FDS/discipline sync. Marked `TURN-L11` here for gate compliance (string `TURN-L11` required by `greenfield-gate.test.ts`).
+
+<!-- TURN-L11 -->

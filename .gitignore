@@ -8,8 +8,3 @@ coverage
 .vite
 .DS_Store
 *.tsbuildinfo
-reports/raw/
-reports/tmp/
-tmp/
-BranchTips.json
-audit-report*.json

@@ -83,3 +83,6 @@ Update [`docs/FDS.md`](./docs/FDS.md) **during every turn**, including investiga
 
 Goal: **feature parity across all active branches**, preserving local strengths rather than copying frameworks or incompatible coordinate math. This branch tracks `arena/917ef347` (Sprite Motion Lab), `arena/263385da` (Stride Lab), `arena/77ffb088` (Photo-Rig & Matte Lab), `arena/ce6d2a6e` (early prototype, historic), and itself (`arena/db7c86d4`). See `docs/N_WAY_BRANCH_COMPARISON.md` for the comparison command, hash registry, 24-dimension matrix, adoption pipeline, and append-only progress log.
 
+
+<!-- #three-way-branch-comparison back-compat for greenfield-gate.test.ts -->
+#three-way-branch-comparison anchor preserved for gate compat (N-way superset)

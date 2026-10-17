@@ -1,46 +1,170 @@
-/**
- * Greenfield gate — Stage 1 placeholder.
- * In Stage 2 this file mechanically enforces:
- *   - ≤50 LOC per function (AST scan)
- *   - ≤800 LOC per file
- *   - presentation-only JSX interior (no filter/reduce/sort/find/some/every/new Date/toFixed/JSON.parse inside return())
- *   - data-testid on every interactive element
- *   - Dockerfile 0.0.0.0:3000 + UID 1001 contract
- *   - activate-shiphats.sh scratch activation
- *   - docs/FDS.md #image-prompt-log + #continuous-learning-log presence
- *   - docs/N_WAY_BRANCH_COMPARISON.md + BRANCH-TIPS.json freshness
- * For Stage 1 (specs-only) the gate is intentionally minimal so `npm test` passes.
- */
-import { describe, it, expect } from 'vitest';
-import { readFileSync, existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { describe, expect, it } from 'vitest';
 
-describe('greenfield-gate (Stage 1 placeholder)', () => {
-  it('GREENFIELD.md and FDS_BUILDER.md exist at repo root', () => {
-    expect(existsSync('GREENFIELD.md')).toBe(true);
-    expect(existsSync('FDS_BUILDER.md')).toBe(true);
+function collectSourceFiles(dir: string): string[] {
+  const results: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      results.push(...collectSourceFiles(full));
+    } else if (entry.name.endsWith('.ts') || entry.name.endsWith('.tsx')) {
+      results.push(full);
+    }
+  }
+  return results;
+}
+
+function measureFunctionLengths(sourceText: string): Array<{ name: string; lines: number }> {
+  const lines = sourceText.split('\n');
+  const results: Array<{ name: string; lines: number }> = [];
+  const fnPattern = /^(?:export\s+)?function\s+([A-Za-z0-9_]+)\s*\(/;
+  for (let i = 0; i < lines.length; i++) {
+    const match = fnPattern.exec(lines[i] ?? '');
+    if (match) {
+      const span = findClosingBraceLine(lines, i) - i + 1;
+      results.push({ name: match[1] ?? 'anonymous', lines: span });
+    }
+  }
+  return results;
+}
+
+function findClosingBraceLine(lines: readonly string[], startLine: number): number {
+  let depth = 0;
+  let opened = false;
+  for (let i = startLine; i < lines.length; i++) {
+    const line = lines[i] ?? '';
+    for (const ch of line) {
+      if (ch === '{') {
+        depth++;
+        opened = true;
+      } else if (ch === '}') {
+        depth--;
+        if (opened && depth === 0) {
+          return i;
+        }
+      }
+    }
+  }
+  return lines.length - 1;
+}
+
+describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
+  const repoRoot = process.cwd();
+
+  it('verifies CLAUDE.md index, split CLAUDE-*.md files, FDS.md, and ADDENDA.md exist', () => {
+    const requiredDocs = [
+      'GREENFIELD.md',
+      'FDS_BUILDER.md',
+      'CLAUDE.md',
+      'CLAUDE-decisions.md',
+      'CLAUDE-testing.md',
+      'CLAUDE-database.md',
+      'CLAUDE-conventions.md',
+      'CLAUDE-function-design.md',
+      'CLAUDE-validation.md',
+      'CLAUDE-deployment.md',
+      'CLAUDE-checklist.md',
+      'docs/FDS.md',
+      'docs/ADDENDA.md',
+      'docs/VALIDATION.md',
+      'docs/SPRITE_ANIMATION_FLAW_ANALYSIS.md',
+      'PLAN.md',
+      'docs/RECTIFICATION_PLAN.md',
+      'THREE_WAY_COMPARISON.md',
+      'docs/THREE_WAY_BRANCH_COMPARISON.md',
+      '.claude/skills/audit-gait-cycle/SKILL.md',
+    ];
+    for (const rel of requiredDocs) {
+      expect(fs.existsSync(path.join(repoRoot, rel)), `Missing ${rel}`).toBe(true);
+    }
+    const claudeMd = fs.readFileSync(path.join(repoRoot, 'CLAUDE.md'), 'utf8');
+    const fdsMd = fs.readFileSync(path.join(repoRoot, 'docs/FDS.md'), 'utf8');
+    const threeWayMd = fs.readFileSync(
+      path.join(repoRoot, 'docs/THREE_WAY_BRANCH_COMPARISON.md'),
+      'utf8',
+    );
+    expect(claudeMd).toContain('#image-prompt-log');
+    expect(claudeMd).toContain('Regeneration Justification');
+    expect(claudeMd).toContain('#continuous-learning-log');
+    expect(claudeMd).toContain('#three-way-branch-comparison');
+    expect(fdsMd).toContain('Call `#01`');
+    expect(fdsMd).toContain('Call `#21`');
+    expect(fdsMd).toContain('Regeneration Justification:');
+    expect(fdsMd).toContain('#svg-vector-assessment');
+    expect(fdsMd).toContain('#gait-cycle-visual-audit');
+    expect(fdsMd).toContain('#continuous-learning-log');
+    expect(fdsMd).toContain('TURN-L11');
+    expect(threeWayMd).toContain('b227e2fe562be341f15f58955f539d325170729e');
+    expect(threeWayMd).toContain('c6902014041359b595532a63faf739bbade38c5b');
+    expect(threeWayMd).toContain('#fds-three-way-comparison');
+    expect(threeWayMd).toContain('#discipline-three-way-comparison');
   });
-  it('all 8 CLAUDE-*.md section files exist', () => {
-    for (const f of ['CLAUDE-decisions.md','CLAUDE-testing.md','CLAUDE-database.md','CLAUDE-conventions.md','CLAUDE-function-design.md','CLAUDE-validation.md','CLAUDE-deployment.md','CLAUDE-checklist.md']) {
-      expect(existsSync(f), `missing ${f}`).toBe(true);
+
+  it('enforces file <= 800 LOC and named function <= 50 LOC across all TypeScript files', () => {
+    const files = [
+      ...collectSourceFiles(path.join(repoRoot, 'src')),
+      ...collectSourceFiles(path.join(repoRoot, 'scripts')),
+    ];
+    for (const file of files) {
+      const content = fs.readFileSync(file, 'utf8');
+      const lineCount = content.split('\n').length;
+      expect(lineCount, `${file} exceeds 800 LOC`).toBeLessThanOrEqual(800);
+      for (const fn of measureFunctionLengths(content)) {
+        expect(
+          fn.lines,
+          `Function ${fn.name} in ${path.relative(repoRoot, file)} is ${fn.lines} lines (> 50)`,
+        ).toBeLessThanOrEqual(50);
+      }
     }
   });
-  it('docs/FDS.md contains TURN-L01 continuous-learning entry', () => {
-    const fds = readFileSync('docs/FDS.md','utf8');
-    expect(fds).toContain('TURN-L01');
-    expect(fds).toContain('#continuous-learning-log');
+
+  it('enforces presentation-only JSX interior and data-testid attributes on components', () => {
+    const compDir = path.join(repoRoot, 'src/app/components');
+    const tsxFiles = collectSourceFiles(compDir).filter((f) => f.endsWith('.tsx'));
+    const bannedInJsx = /\.(filter|reduce|sort|find|some|every|toFixed)\(|new Date\(|JSON\.parse\(/;
+    for (const file of tsxFiles) {
+      const content = fs.readFileSync(file, 'utf8');
+      expect(content).toContain('data-testid=');
+      const returns = content.split('return (').slice(1);
+      for (const block of returns) {
+        expect(bannedInJsx.test(block), `Banned derivation in JSX of ${file}`).toBe(false);
+      }
+    }
   });
-  it('docs/FDS.md contains #image-prompt-log', () => {
-    expect(readFileSync('docs/FDS.md','utf8')).toContain('#image-prompt-log');
-  });
-  it('docs/N_WAY_BRANCH_COMPARISON.md and BRANCH-TIPS.json exist and are fresh', () => {
-    expect(existsSync('docs/N_WAY_BRANCH_COMPARISON.md')).toBe(true);
-    expect(existsSync('docs/BRANCH-TIPS.json')).toBe(true);
-    expect(existsSync('N_WAY_COMPARISON.md')).toBe(true);
-  });
-  it('Dockerfile exposes 0.0.0.0:3000 and USER 1001', () => {
-    const dockerfile = readFileSync('Dockerfile','utf8');
+
+  it('verifies Dockerfile contract (0.0.0.0:3000, numeric non-root USER, HEALTHCHECK)', () => {
+    const dockerfile = fs.readFileSync(path.join(repoRoot, 'Dockerfile'), 'utf8');
+    expect(dockerfile).toContain('PORT=3000');
     expect(dockerfile).toContain('0.0.0.0');
-    expect(dockerfile).toContain('3000');
-    expect(dockerfile).toContain('1001');
+    expect(dockerfile).toContain('USER 1001:1001');
+    expect(dockerfile).toContain('HEALTHCHECK');
+  });
+
+  it('activates inert .shiphats files cleanly in a scratch directory using activate-shiphats.sh', () => {
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'shiphats-test-'));
+    const inertFiles = [
+      '.gitlab-ci.yml.shiphats',
+      '.gitlab/ci/pipeline.gitlab-ci.yml.shiphats',
+      'sonar-project.properties.shiphats',
+      '.gitlab/CODEOWNERS.shiphats',
+      '.gitlab/merge_request_templates/Default.md.shiphats',
+    ];
+    for (const rel of inertFiles) {
+      const dst = path.join(tmpDir, rel);
+      fs.mkdirSync(path.dirname(dst), { recursive: true });
+      fs.copyFileSync(path.join(repoRoot, rel), dst);
+    }
+    const scriptPath = path.join(repoRoot, 'activate-shiphats.sh');
+    execFileSync('/bin/bash', [scriptPath, '--non-interactive', '--root', tmpDir]);
+    for (const rel of inertFiles) {
+      const activePath = path.join(tmpDir, rel.replace(/\.shiphats$/, ''));
+      expect(fs.existsSync(activePath)).toBe(true);
+      const rendered = fs.readFileSync(activePath, 'utf8');
+      expect(rendered).not.toContain('@@SHIPHATS_');
+    }
+    fs.rmSync(tmpDir, { recursive: true, force: true });
   });
 });

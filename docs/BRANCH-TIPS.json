@@ -1,12 +1,12 @@
 {
-  "fetchedAt": "2026-10-17T23:21:18.675Z",
+  "fetchedAt": "2026-10-17T23:57:23.543Z",
   "fetchedVia": "git ls-remote --heads origin (live)",
   "tips": [
     {
       "ref": "refs/heads/arena/db7c86d4-super-duper-funicular",
       "displayName": "arena/db7c86d4-super-duper-funicular",
-      "sha": "4edf50f782a4f937eefac70fbcbf1562129d3f64",
-      "timestamp": "2026-10-17 23:21:06 +0000",
+      "sha": "e69191f72d0e779b99682673e3216e316e128dbd",
+      "timestamp": "2026-10-17 23:21:21 +0000",
       "pr": "— (session)",
       "role": "This Branch — Harmonised Greenfield (Session)",
       "status": "active"
@@ -42,7 +42,7 @@
       "ref": "refs/heads/arena/ce6d2a6e-super-duper-funicular",
       "displayName": "arena/ce6d2a6e-super-duper-funicular",
       "sha": "bab689cdac3ba730138bfae09dda537978d61e09",
-      "timestamp": "2026-10-17 06:27:14 +0000",
+      "timestamp": "unknown",
       "pr": "historic (superseded)",
       "role": "Early Prototype — Foundational (Historic)",
       "status": "historic"
