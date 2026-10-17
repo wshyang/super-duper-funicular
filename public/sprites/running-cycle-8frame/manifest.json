@@ -1,0 +1,861 @@
+{
+  "schemaVersion": 1,
+  "sheet": {
+    "id": "running-cycle-8frame",
+    "source": "images/reference/running-cycle-8frame-6variants.jpeg",
+    "columns": 8,
+    "rows": 6
+  },
+  "canvas": {
+    "width": 213,
+    "height": 232
+  },
+  "pivot": {
+    "x": 127,
+    "y": 232
+  },
+  "variants": [
+    {
+      "id": "red",
+      "label": "Red"
+    },
+    {
+      "id": "blue",
+      "label": "Blue"
+    },
+    {
+      "id": "green",
+      "label": "Green"
+    },
+    {
+      "id": "yellow",
+      "label": "Yellow"
+    },
+    {
+      "id": "purple",
+      "label": "Purple"
+    },
+    {
+      "id": "orange",
+      "label": "Orange"
+    }
+  ],
+  "frames": [
+    {
+      "id": "running-cycle-8frame-red-1",
+      "variant": "red",
+      "frame": 1,
+      "url": "/sprites/running-cycle-8frame/red/frame-01.png",
+      "sheetCell": {
+        "row": 0,
+        "column": 0
+      },
+      "sheetBounds": {
+        "x": 2,
+        "y": 132,
+        "width": 306,
+        "height": 257
+      },
+      "pixelSha256": "6acf623df0553ae5c5c32d004bd3e8267771666bd6bec9ab22272307015cb77e"
+    },
+    {
+      "id": "running-cycle-8frame-red-2",
+      "variant": "red",
+      "frame": 2,
+      "url": "/sprites/running-cycle-8frame/red/frame-02.png",
+      "sheetCell": {
+        "row": 0,
+        "column": 1
+      },
+      "sheetBounds": {
+        "x": 318,
+        "y": 132,
+        "width": 306,
+        "height": 257
+      },
+      "pixelSha256": "ddacc30929426687d47780735bb86931af2439e4bb6e48aec9e86f1ae53e165c"
+    },
+    {
+      "id": "running-cycle-8frame-red-3",
+      "variant": "red",
+      "frame": 3,
+      "url": "/sprites/running-cycle-8frame/red/frame-03.png",
+      "sheetCell": {
+        "row": 0,
+        "column": 2
+      },
+      "sheetBounds": {
+        "x": 636,
+        "y": 132,
+        "width": 306,
+        "height": 257
+      },
+      "pixelSha256": "281e6cbe8a9a7e8276981115a3f8ca8f21803d7efe9e8ade62a5238541abfa16"
+    },
+    {
+      "id": "running-cycle-8frame-red-4",
+      "variant": "red",
+      "frame": 4,
+      "url": "/sprites/running-cycle-8frame/red/frame-04.png",
+      "sheetCell": {
+        "row": 0,
+        "column": 3
+      },
+      "sheetBounds": {
+        "x": 954,
+        "y": 132,
+        "width": 304,
+        "height": 257
+      },
+      "pixelSha256": "0c82e747e30c9545af25cd96b8e13944264a0bb55d28884dd69b3d2db78ca7f9"
+    },
+    {
+      "id": "running-cycle-8frame-red-5",
+      "variant": "red",
+      "frame": 5,
+      "url": "/sprites/running-cycle-8frame/red/frame-05.png",
+      "sheetCell": {
+        "row": 0,
+        "column": 4
+      },
+      "sheetBounds": {
+        "x": 1270,
+        "y": 132,
+        "width": 304,
+        "height": 257
+      },
+      "pixelSha256": "468d0f7373e5e870aa4d1c0b292145a721fc5dbe53d15d2db0503b84373f480d"
+    },
+    {
+      "id": "running-cycle-8frame-red-6",
+      "variant": "red",
+      "frame": 6,
+      "url": "/sprites/running-cycle-8frame/red/frame-06.png",
+      "sheetCell": {
+        "row": 0,
+        "column": 5
+      },
+      "sheetBounds": {
+        "x": 1586,
+        "y": 132,
+        "width": 306,
+        "height": 257
+      },
+      "pixelSha256": "fc1c3860ce96b3be4822d07f740e8107bc07ef915131453acdef4bbee679f68b"
+    },
+    {
+      "id": "running-cycle-8frame-red-7",
+      "variant": "red",
+      "frame": 7,
+      "url": "/sprites/running-cycle-8frame/red/frame-07.png",
+      "sheetCell": {
+        "row": 0,
+        "column": 6
+      },
+      "sheetBounds": {
+        "x": 1904,
+        "y": 132,
+        "width": 306,
+        "height": 257
+      },
+      "pixelSha256": "54a4c30dcb9a0b560b3af17d5d4902c3230827ab34881909bf4731c480b84023"
+    },
+    {
+      "id": "running-cycle-8frame-red-8",
+      "variant": "red",
+      "frame": 8,
+      "url": "/sprites/running-cycle-8frame/red/frame-08.png",
+      "sheetCell": {
+        "row": 0,
+        "column": 7
+      },
+      "sheetBounds": {
+        "x": 2220,
+        "y": 132,
+        "width": 306,
+        "height": 257
+      },
+      "pixelSha256": "0c9f6b69bb4871f3a809e481f993edd827fb0b354220a2f095b901defab51d6a"
+    },
+    {
+      "id": "running-cycle-8frame-blue-1",
+      "variant": "blue",
+      "frame": 1,
+      "url": "/sprites/running-cycle-8frame/blue/frame-01.png",
+      "sheetCell": {
+        "row": 1,
+        "column": 0
+      },
+      "sheetBounds": {
+        "x": 2,
+        "y": 398,
+        "width": 306,
+        "height": 254
+      },
+      "pixelSha256": "17e99e8aeb85200524179611d90d86ffc9edb96b822774f26ecd6eb201bb0003"
+    },
+    {
+      "id": "running-cycle-8frame-blue-2",
+      "variant": "blue",
+      "frame": 2,
+      "url": "/sprites/running-cycle-8frame/blue/frame-02.png",
+      "sheetCell": {
+        "row": 1,
+        "column": 1
+      },
+      "sheetBounds": {
+        "x": 318,
+        "y": 398,
+        "width": 306,
+        "height": 254
+      },
+      "pixelSha256": "9ca1ebebb34dcdddd872bc0e915b167efcfd0ac87fb08bca226714bcba84dead"
+    },
+    {
+      "id": "running-cycle-8frame-blue-3",
+      "variant": "blue",
+      "frame": 3,
+      "url": "/sprites/running-cycle-8frame/blue/frame-03.png",
+      "sheetCell": {
+        "row": 1,
+        "column": 2
+      },
+      "sheetBounds": {
+        "x": 636,
+        "y": 398,
+        "width": 306,
+        "height": 254
+      },
+      "pixelSha256": "b00de4df3883c91cca5d47b37953623d76d41b8a9512b24d6655f9ead5ef4c95"
+    },
+    {
+      "id": "running-cycle-8frame-blue-4",
+      "variant": "blue",
+      "frame": 4,
+      "url": "/sprites/running-cycle-8frame/blue/frame-04.png",
+      "sheetCell": {
+        "row": 1,
+        "column": 3
+      },
+      "sheetBounds": {
+        "x": 954,
+        "y": 398,
+        "width": 304,
+        "height": 254
+      },
+      "pixelSha256": "6fa9833ed2052ceadb77ddddd4976528255fe28f0cee7ae0455ef58e027e8d76"
+    },
+    {
+      "id": "running-cycle-8frame-blue-5",
+      "variant": "blue",
+      "frame": 5,
+      "url": "/sprites/running-cycle-8frame/blue/frame-05.png",
+      "sheetCell": {
+        "row": 1,
+        "column": 4
+      },
+      "sheetBounds": {
+        "x": 1270,
+        "y": 398,
+        "width": 304,
+        "height": 254
+      },
+      "pixelSha256": "9fe3b8edd65784cfd3c0134c03d1d1dc2bddd90251f83d24fef29eb299b1d682"
+    },
+    {
+      "id": "running-cycle-8frame-blue-6",
+      "variant": "blue",
+      "frame": 6,
+      "url": "/sprites/running-cycle-8frame/blue/frame-06.png",
+      "sheetCell": {
+        "row": 1,
+        "column": 5
+      },
+      "sheetBounds": {
+        "x": 1586,
+        "y": 398,
+        "width": 306,
+        "height": 254
+      },
+      "pixelSha256": "3902bce89201963b474b000a4c447eced732bb8323098481092b245a55d507cb"
+    },
+    {
+      "id": "running-cycle-8frame-blue-7",
+      "variant": "blue",
+      "frame": 7,
+      "url": "/sprites/running-cycle-8frame/blue/frame-07.png",
+      "sheetCell": {
+        "row": 1,
+        "column": 6
+      },
+      "sheetBounds": {
+        "x": 1904,
+        "y": 398,
+        "width": 306,
+        "height": 254
+      },
+      "pixelSha256": "6ad65b52ef7cee566ab8cb76aa50edd417ec10464b6ef8a6ec3175afeec77ab2"
+    },
+    {
+      "id": "running-cycle-8frame-blue-8",
+      "variant": "blue",
+      "frame": 8,
+      "url": "/sprites/running-cycle-8frame/blue/frame-08.png",
+      "sheetCell": {
+        "row": 1,
+        "column": 7
+      },
+      "sheetBounds": {
+        "x": 2220,
+        "y": 398,
+        "width": 306,
+        "height": 254
+      },
+      "pixelSha256": "29347b31d041474a9892c8e32e5abb979b7d85d93bd92d773301665c89c2fb76"
+    },
+    {
+      "id": "running-cycle-8frame-green-1",
+      "variant": "green",
+      "frame": 1,
+      "url": "/sprites/running-cycle-8frame/green/frame-01.png",
+      "sheetCell": {
+        "row": 2,
+        "column": 0
+      },
+      "sheetBounds": {
+        "x": 2,
+        "y": 662,
+        "width": 306,
+        "height": 252
+      },
+      "pixelSha256": "8810cd7f6daafb539354647ac0c69e4e29d185d7eb045f9af05f15be33799a60"
+    },
+    {
+      "id": "running-cycle-8frame-green-2",
+      "variant": "green",
+      "frame": 2,
+      "url": "/sprites/running-cycle-8frame/green/frame-02.png",
+      "sheetCell": {
+        "row": 2,
+        "column": 1
+      },
+      "sheetBounds": {
+        "x": 318,
+        "y": 662,
+        "width": 306,
+        "height": 252
+      },
+      "pixelSha256": "028234dc8e262ea1e5583208763c201f885398b25c7d117756d48d125f6ae865"
+    },
+    {
+      "id": "running-cycle-8frame-green-3",
+      "variant": "green",
+      "frame": 3,
+      "url": "/sprites/running-cycle-8frame/green/frame-03.png",
+      "sheetCell": {
+        "row": 2,
+        "column": 2
+      },
+      "sheetBounds": {
+        "x": 636,
+        "y": 662,
+        "width": 306,
+        "height": 252
+      },
+      "pixelSha256": "55acb020858c4549329accd90315710fdcea9390e36404b819e055af958ccea3"
+    },
+    {
+      "id": "running-cycle-8frame-green-4",
+      "variant": "green",
+      "frame": 4,
+      "url": "/sprites/running-cycle-8frame/green/frame-04.png",
+      "sheetCell": {
+        "row": 2,
+        "column": 3
+      },
+      "sheetBounds": {
+        "x": 954,
+        "y": 662,
+        "width": 304,
+        "height": 252
+      },
+      "pixelSha256": "831ed9faf73ca8259456a352cfc82dc052cbf679737948c589b92de07beb741e"
+    },
+    {
+      "id": "running-cycle-8frame-green-5",
+      "variant": "green",
+      "frame": 5,
+      "url": "/sprites/running-cycle-8frame/green/frame-05.png",
+      "sheetCell": {
+        "row": 2,
+        "column": 4
+      },
+      "sheetBounds": {
+        "x": 1270,
+        "y": 662,
+        "width": 304,
+        "height": 252
+      },
+      "pixelSha256": "a079cc6b91aca23817c8554e0dc57528d451323da49b80e4c9b3476f8dfc0c09"
+    },
+    {
+      "id": "running-cycle-8frame-green-6",
+      "variant": "green",
+      "frame": 6,
+      "url": "/sprites/running-cycle-8frame/green/frame-06.png",
+      "sheetCell": {
+        "row": 2,
+        "column": 5
+      },
+      "sheetBounds": {
+        "x": 1586,
+        "y": 662,
+        "width": 306,
+        "height": 252
+      },
+      "pixelSha256": "4411f97d7322db2280e89e2c5ccae133bee2f7d2c8744908da5afbb4be01ede8"
+    },
+    {
+      "id": "running-cycle-8frame-green-7",
+      "variant": "green",
+      "frame": 7,
+      "url": "/sprites/running-cycle-8frame/green/frame-07.png",
+      "sheetCell": {
+        "row": 2,
+        "column": 6
+      },
+      "sheetBounds": {
+        "x": 1904,
+        "y": 662,
+        "width": 306,
+        "height": 252
+      },
+      "pixelSha256": "8b4b3557ae491e8e2202670c879dbee0632ef61c50b92a51621b31cea375aec6"
+    },
+    {
+      "id": "running-cycle-8frame-green-8",
+      "variant": "green",
+      "frame": 8,
+      "url": "/sprites/running-cycle-8frame/green/frame-08.png",
+      "sheetCell": {
+        "row": 2,
+        "column": 7
+      },
+      "sheetBounds": {
+        "x": 2220,
+        "y": 662,
+        "width": 306,
+        "height": 252
+      },
+      "pixelSha256": "f2c3b9dd6f9cd508663b8dac553b51cd5d49aee73056db44bf52b95b06616d77"
+    },
+    {
+      "id": "running-cycle-8frame-yellow-1",
+      "variant": "yellow",
+      "frame": 1,
+      "url": "/sprites/running-cycle-8frame/yellow/frame-01.png",
+      "sheetCell": {
+        "row": 3,
+        "column": 0
+      },
+      "sheetBounds": {
+        "x": 2,
+        "y": 925,
+        "width": 306,
+        "height": 250
+      },
+      "pixelSha256": "f19487a231eb2af12cb444e92ce5436c0829fe0e53e60d8d64c96e202fce777c"
+    },
+    {
+      "id": "running-cycle-8frame-yellow-2",
+      "variant": "yellow",
+      "frame": 2,
+      "url": "/sprites/running-cycle-8frame/yellow/frame-02.png",
+      "sheetCell": {
+        "row": 3,
+        "column": 1
+      },
+      "sheetBounds": {
+        "x": 318,
+        "y": 925,
+        "width": 306,
+        "height": 250
+      },
+      "pixelSha256": "badc2b04308c7e2354d3309f9cb66fddaac545d58e975bc19471dd2e97d1284a"
+    },
+    {
+      "id": "running-cycle-8frame-yellow-3",
+      "variant": "yellow",
+      "frame": 3,
+      "url": "/sprites/running-cycle-8frame/yellow/frame-03.png",
+      "sheetCell": {
+        "row": 3,
+        "column": 2
+      },
+      "sheetBounds": {
+        "x": 636,
+        "y": 925,
+        "width": 306,
+        "height": 250
+      },
+      "pixelSha256": "65aa74701161e5c9f83be6e1c56decc4b6bf75135d8b1c99eb0792a0a1c00ee7"
+    },
+    {
+      "id": "running-cycle-8frame-yellow-4",
+      "variant": "yellow",
+      "frame": 4,
+      "url": "/sprites/running-cycle-8frame/yellow/frame-04.png",
+      "sheetCell": {
+        "row": 3,
+        "column": 3
+      },
+      "sheetBounds": {
+        "x": 954,
+        "y": 925,
+        "width": 304,
+        "height": 250
+      },
+      "pixelSha256": "50fc4dd69eb65e322486409ff28cebac0c2c6903c8d43e348a04977c849326ab"
+    },
+    {
+      "id": "running-cycle-8frame-yellow-5",
+      "variant": "yellow",
+      "frame": 5,
+      "url": "/sprites/running-cycle-8frame/yellow/frame-05.png",
+      "sheetCell": {
+        "row": 3,
+        "column": 4
+      },
+      "sheetBounds": {
+        "x": 1270,
+        "y": 925,
+        "width": 304,
+        "height": 250
+      },
+      "pixelSha256": "9bff11aeaffca20044f39fe977cb3671e59ab8b41be44a9957a3c69fd44b8933"
+    },
+    {
+      "id": "running-cycle-8frame-yellow-6",
+      "variant": "yellow",
+      "frame": 6,
+      "url": "/sprites/running-cycle-8frame/yellow/frame-06.png",
+      "sheetCell": {
+        "row": 3,
+        "column": 5
+      },
+      "sheetBounds": {
+        "x": 1586,
+        "y": 925,
+        "width": 306,
+        "height": 250
+      },
+      "pixelSha256": "6de0ed1673c98466ba846f09d3a26391ef865084708653246af5cd7d89a121c3"
+    },
+    {
+      "id": "running-cycle-8frame-yellow-7",
+      "variant": "yellow",
+      "frame": 7,
+      "url": "/sprites/running-cycle-8frame/yellow/frame-07.png",
+      "sheetCell": {
+        "row": 3,
+        "column": 6
+      },
+      "sheetBounds": {
+        "x": 1904,
+        "y": 925,
+        "width": 306,
+        "height": 250
+      },
+      "pixelSha256": "f36ba9f631026c5072a5bace8fdd310da338131f75b4b08448d313b4eb49dbc1"
+    },
+    {
+      "id": "running-cycle-8frame-yellow-8",
+      "variant": "yellow",
+      "frame": 8,
+      "url": "/sprites/running-cycle-8frame/yellow/frame-08.png",
+      "sheetCell": {
+        "row": 3,
+        "column": 7
+      },
+      "sheetBounds": {
+        "x": 2220,
+        "y": 925,
+        "width": 306,
+        "height": 250
+      },
+      "pixelSha256": "cb675573b061d3f0289ea8ad122851ce046cf86725df79f5862ed63fa557dd29"
+    },
+    {
+      "id": "running-cycle-8frame-purple-1",
+      "variant": "purple",
+      "frame": 1,
+      "url": "/sprites/running-cycle-8frame/purple/frame-01.png",
+      "sheetCell": {
+        "row": 4,
+        "column": 0
+      },
+      "sheetBounds": {
+        "x": 2,
+        "y": 1186,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "ab17b1282fab092a10533100ef3f820273ae3770e89523bcfc3f531638d7eb0e"
+    },
+    {
+      "id": "running-cycle-8frame-purple-2",
+      "variant": "purple",
+      "frame": 2,
+      "url": "/sprites/running-cycle-8frame/purple/frame-02.png",
+      "sheetCell": {
+        "row": 4,
+        "column": 1
+      },
+      "sheetBounds": {
+        "x": 318,
+        "y": 1186,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "6893f6dded7f22c97000735bcc9ef164232a4f8c237ccc2a14b2fbe86def39ba"
+    },
+    {
+      "id": "running-cycle-8frame-purple-3",
+      "variant": "purple",
+      "frame": 3,
+      "url": "/sprites/running-cycle-8frame/purple/frame-03.png",
+      "sheetCell": {
+        "row": 4,
+        "column": 2
+      },
+      "sheetBounds": {
+        "x": 636,
+        "y": 1186,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "58e9ae6bfa617ec1451e996d255dba7a4441457bc1e35801f52e4a29dca80c27"
+    },
+    {
+      "id": "running-cycle-8frame-purple-4",
+      "variant": "purple",
+      "frame": 4,
+      "url": "/sprites/running-cycle-8frame/purple/frame-04.png",
+      "sheetCell": {
+        "row": 4,
+        "column": 3
+      },
+      "sheetBounds": {
+        "x": 954,
+        "y": 1186,
+        "width": 304,
+        "height": 246
+      },
+      "pixelSha256": "d4b3df439728f2f514f0fdf3bfe9588ba6adecd4bf21f31a6d7ba3f553c02ba6"
+    },
+    {
+      "id": "running-cycle-8frame-purple-5",
+      "variant": "purple",
+      "frame": 5,
+      "url": "/sprites/running-cycle-8frame/purple/frame-05.png",
+      "sheetCell": {
+        "row": 4,
+        "column": 4
+      },
+      "sheetBounds": {
+        "x": 1270,
+        "y": 1186,
+        "width": 304,
+        "height": 246
+      },
+      "pixelSha256": "73ec5e743c5ab7e8741d134500da2cadc7d4bdf81e9f6c2ac22c37b53b8afaa1"
+    },
+    {
+      "id": "running-cycle-8frame-purple-6",
+      "variant": "purple",
+      "frame": 6,
+      "url": "/sprites/running-cycle-8frame/purple/frame-06.png",
+      "sheetCell": {
+        "row": 4,
+        "column": 5
+      },
+      "sheetBounds": {
+        "x": 1586,
+        "y": 1186,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "683d353768f1b41223549b59f52b6118e478cc9f2d426e58e9c7089d9c00a796"
+    },
+    {
+      "id": "running-cycle-8frame-purple-7",
+      "variant": "purple",
+      "frame": 7,
+      "url": "/sprites/running-cycle-8frame/purple/frame-07.png",
+      "sheetCell": {
+        "row": 4,
+        "column": 6
+      },
+      "sheetBounds": {
+        "x": 1904,
+        "y": 1186,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "b47046eb31e5e2b43dc7250fd2fc965c8f5dcfd8bb533d1238d45d1dbd0d13f6"
+    },
+    {
+      "id": "running-cycle-8frame-purple-8",
+      "variant": "purple",
+      "frame": 8,
+      "url": "/sprites/running-cycle-8frame/purple/frame-08.png",
+      "sheetCell": {
+        "row": 4,
+        "column": 7
+      },
+      "sheetBounds": {
+        "x": 2220,
+        "y": 1186,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "72eadb4eccab17533d031756e27762463fb3551061f41eeff566ef53cd9a2d8f"
+    },
+    {
+      "id": "running-cycle-8frame-orange-1",
+      "variant": "orange",
+      "frame": 1,
+      "url": "/sprites/running-cycle-8frame/orange/frame-01.png",
+      "sheetCell": {
+        "row": 5,
+        "column": 0
+      },
+      "sheetBounds": {
+        "x": 2,
+        "y": 1444,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "ec40e65bad595cb388d0d290b395a28e67f0f67b67bbbd2d4705f260c8eefbc7"
+    },
+    {
+      "id": "running-cycle-8frame-orange-2",
+      "variant": "orange",
+      "frame": 2,
+      "url": "/sprites/running-cycle-8frame/orange/frame-02.png",
+      "sheetCell": {
+        "row": 5,
+        "column": 1
+      },
+      "sheetBounds": {
+        "x": 318,
+        "y": 1444,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "ff35810cb4a3f6699793d67f938e431ab0219205ff73f463b2376d45cc6fda07"
+    },
+    {
+      "id": "running-cycle-8frame-orange-3",
+      "variant": "orange",
+      "frame": 3,
+      "url": "/sprites/running-cycle-8frame/orange/frame-03.png",
+      "sheetCell": {
+        "row": 5,
+        "column": 2
+      },
+      "sheetBounds": {
+        "x": 636,
+        "y": 1444,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "766f9c7fa40da3ba89fc7d41662512aa54b5e044615ac23954b149e6dec66b67"
+    },
+    {
+      "id": "running-cycle-8frame-orange-4",
+      "variant": "orange",
+      "frame": 4,
+      "url": "/sprites/running-cycle-8frame/orange/frame-04.png",
+      "sheetCell": {
+        "row": 5,
+        "column": 3
+      },
+      "sheetBounds": {
+        "x": 954,
+        "y": 1444,
+        "width": 304,
+        "height": 246
+      },
+      "pixelSha256": "cb2556322f176584b0f57d489f48486560edc2b60191498efa8e566cef5568fb"
+    },
+    {
+      "id": "running-cycle-8frame-orange-5",
+      "variant": "orange",
+      "frame": 5,
+      "url": "/sprites/running-cycle-8frame/orange/frame-05.png",
+      "sheetCell": {
+        "row": 5,
+        "column": 4
+      },
+      "sheetBounds": {
+        "x": 1270,
+        "y": 1444,
+        "width": 304,
+        "height": 246
+      },
+      "pixelSha256": "3b7da00b14e897b3b00843df9169e3215f3ed79f0cd8accf9005986044008c05"
+    },
+    {
+      "id": "running-cycle-8frame-orange-6",
+      "variant": "orange",
+      "frame": 6,
+      "url": "/sprites/running-cycle-8frame/orange/frame-06.png",
+      "sheetCell": {
+        "row": 5,
+        "column": 5
+      },
+      "sheetBounds": {
+        "x": 1586,
+        "y": 1444,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "7a4231ddb371b60e91fa5b0a3aa03db3324d4beb6b015470fd19892a39d49d33"
+    },
+    {
+      "id": "running-cycle-8frame-orange-7",
+      "variant": "orange",
+      "frame": 7,
+      "url": "/sprites/running-cycle-8frame/orange/frame-07.png",
+      "sheetCell": {
+        "row": 5,
+        "column": 6
+      },
+      "sheetBounds": {
+        "x": 1904,
+        "y": 1444,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "5ade1e6010f18f1dc1768c2acc22bf80ada4e016e63a073e2352a0e7f6ad979d"
+    },
+    {
+      "id": "running-cycle-8frame-orange-8",
+      "variant": "orange",
+      "frame": 8,
+      "url": "/sprites/running-cycle-8frame/orange/frame-08.png",
+      "sheetCell": {
+        "row": 5,
+        "column": 7
+      },
+      "sheetBounds": {
+        "x": 2220,
+        "y": 1444,
+        "width": 306,
+        "height": 246
+      },
+      "pixelSha256": "e0eb510b14188e7b31e92c8f05bdf4f45dfb5e7d520900fc6a2f1c7788440ae6"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  background: #1d1d22;
+  color: #eee;
+}
+
+body {
+  margin: 0;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  display: grid;
+  gap: 24px;
+}
+
+.app__stage {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.runner-stage {
+  margin: 0;
+  background: #2a2a2e;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.runner-stage__canvas {
+  width: 384px;
+  height: 432px;
+  image-rendering: pixelated;
+  display: block;
+}
+
+.runner-stage__caption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #bbb;
+}
+
+.runner-controls {
+  display: grid;
+  gap: 12px;
+}
+
+.runner-controls label {
+  display: grid;
+  gap: 4px;
+}
+
+.runner-controls__default-note {
+  font-size: 12px;
+  color: #888;
+}
+
+.variant-picker {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.variant-picker__option {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background: #2a2a2e;
+  color: inherit;
+  cursor: pointer;
+}
+
+.variant-picker__option--selected {
+  border-color: #fff;
+  background: #3a3a40;
+}
+
+.filmstrip,
+.reference-strip {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+}
+
+.filmstrip__cell,
+.reference-strip li {
+  display: grid;
+  justify-items: center;
+  font-size: 12px;
+  background: #2a2a2e;
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.filmstrip__cell--active {
+  outline: 2px solid #ffd54a;
+}
+
+.filmstrip__canvas {
+  width: 96px;
+  height: 108px;
+  image-rendering: pixelated;
+}
+
+.reference-strip img {
+  width: 96px;
+  height: auto;
+  image-rendering: pixelated;
+}
