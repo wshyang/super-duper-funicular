@@ -95,9 +95,21 @@ function scaleFor(piece: FarPiece, scales: ReadonlyMap<string, Scale>): Scale {
  */
 function fitScale(part: CutPart, piece: FarPiece): Scale {
   const base = { x: 1, y: 1 };
-  if (piece.fit?.width === undefined && piece.fit?.height === undefined) return base;
+  if (piece.fit?.width === undefined && piece.fit?.height === undefined && piece.reachBelowPivot === undefined) {
+    return base;
+  }
   const width = piece.fit?.width === undefined ? 1 : piece.fit.width / Math.max(1, widestRow(part));
-  const height = piece.fit?.height === undefined ? 1 : piece.fit.height / Math.max(1, part.height);
+  if (piece.fit?.uniform === true) {
+    const uniform = Math.min(1.8, Math.max(0.5, width));
+    return { x: uniform, y: uniform };
+  }
+  const pivotY = piece.pivot[1] - part.y;
+  const height =
+    piece.reachBelowPivot !== undefined
+      ? (pivotY + piece.reachBelowPivot) / Math.max(1, part.height)
+      : piece.fit?.height === undefined
+        ? 1
+        : piece.fit.height / Math.max(1, part.height);
   return { x: Math.min(1.8, Math.max(0.5, width)), y: Math.min(1.8, Math.max(0.5, height)) };
 }
 

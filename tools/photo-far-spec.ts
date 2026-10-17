@@ -33,13 +33,29 @@ export interface FarPiece {
    * from the near part it must sit against. Reference shoots differ in framing,
    * so bone-length scaling alone leaves one limb visibly fatter than the other.
    */
-  readonly fit?: { readonly width?: number; readonly height?: number };
+  readonly fit?: {
+    readonly width?: number;
+    readonly height?: number;
+    /**
+     * Scale the width and the height by the same factor. A limb must not be
+     * squeezed along its own axis: anisotropic fitting makes a calf thin when
+     * it hangs and fat when it swings, which is exactly how it gives itself away.
+     */
+    readonly uniform?: boolean;
+  };
   /**
    * Pixels from the pivot down to the declared sole, in the near rig's plate
    * scale. Foot textures are clipped here so nothing reaches under the ground
    * line the gait solver uses.
    */
   readonly soleBelowPivot?: number;
+  /**
+   * Distance in final pixels from the pivot down to the far end of the bone.
+   * Reference shots that crop a limb short (a calf that ends at mid-calf) are
+   * stretched by this rather than by their own total height, so the child's
+   * joint still lands where the skeleton puts it.
+   */
+  readonly reachBelowPivot?: number;
 }
 
 export interface FarSource {
@@ -53,88 +69,95 @@ const LOWER = "src/images/photo/sg-chinese-female__far-lower-leg-medial__chroma-
 
 export const FAR_SOURCES: readonly FarSource[] = [
   {
-    // One photograph for the whole arm: upper arm and forearm share a scale,
-    // so the elbow cannot change thickness where the two pieces meet.
+    // One shot of the whole arm, hanging, palm to camera. Both pieces share its
+    // scale so the elbow cannot change thickness at the seam.
     source: ARM,
     pieces: [
       {
         id: "upperArm",
-        box: [318, 120, 525, 660],
-        jointA: [405, 175],
-        jointB: [405, 615],
-        pivot: [405, 175],
-        target: 236.5,
-        capPx: 46,
+        box: [628, 18, 812, 420],
+        jointA: [700, 120],
+        jointB: [668, 709],
+        pivot: [700, 120],
+        target: 517,
+        capPx: 40,
         fit: { width: 88 },
       },
       {
         id: "forearm",
-        box: [295, 600, 530, 1330],
-        jointA: [405, 615],
-        jointB: [405, 1010],
-        pivot: [405, 615],
+        box: [622, 322, 802, 766],
+        jointA: [700, 120],
+        jointB: [668, 709],
+        pivot: [699, 340],
         target: 0,
         scaleFrom: "upperArm",
-        capPx: 46,
+        capPx: 36,
         fit: { width: 65 },
       },
     ],
   },
   {
-    // One photograph for the whole leg. The seam is at the knee, so thigh and
-    // shin carry the same skin tone and the same width at the joint.
+    // One shot of the whole standing leg. The hip sits just above the frame
+    // edge; the shorts hem fixes where it must be.
     source: LEG,
     pieces: [
       {
-        id: "shin",
-        box: [235, 480, 540, 1010],
-        jointA: [405, 520],
-        jointB: [375, 975],
-        pivot: [405, 520],
-        target: 293,
-        capPx: 62,
-        fit: { width: 86 },
-      },
-      {
         id: "thigh",
-        box: [270, 110, 560, 570],
-        jointA: [420, 220],
-        jointB: [405, 520],
-        pivot: [420, 220],
-        target: 0,
-        scaleFrom: "shin",
-        capPx: 62,
-        fit: { width: 152 },
+        box: [556, 0, 842, 610],
+        jointA: [700, 60],
+        jointB: [660, 490],
+        pivot: [700, 60],
+        target: 262,
+        capPx: 52,
+        fit: { width: 152, uniform: true },
       },
+
     ],
   },
   {
+    // This shot is framed on the lower leg: its top edge is the knee and the
+    // sock line is the ankle, so one piece spans the whole shin without any
+    // longitudinal stretching.
     source: LOWER,
     pieces: [
       {
+        id: "shin",
+        box: [528, 0, 800, 584],
+        jointA: [645, 0],
+        jointB: [645, 583],
+        pivot: [645, 0],
+        // Knee at the frame's top edge, ankle at the sock line: the bone-length
+        // scale alone lands the shin at the right width, so no width fit.
+        target: 293,
+        capPx: 40,
+        fit: { width: 86, uniform: true },
+      },
+      {
         id: "shoe",
-        // Hindfoot only: stops at the ball, with a 40 px overlap band so the
-        // hinge never shows a seam.
-        box: [70, 930, 505, 1270],
-        jointA: [270, 990],
-        jointB: [270, 1245],
-        pivot: [320, 1035],
-        target: 47,
-        stretchX: 1.55,
+        box: [528, 470, 812, 704],
+        // Height is scaled from the shoe itself (top of collar to sole), so the
+        // foot lands at the near shoe's size however close the shot was taken.
+        // Ankle at the sock line, sole at y 701. Depth (sole to collar) sets the
+        // scale: the reference is a close-up, so this maps the foot to the near
+        // shoe's height instead of stretching it by its length.
+        jointA: [645, 701],
+        jointB: [645, 583],
+        pivot: [645, 583],
+        target: 118,
         neutral: 0,
-        fit: { width: 149 },
+        fit: { width: 149, height: 143 },
         soleBelowPivot: 47,
       },
       {
         id: "shoeToe",
-        box: [465, 930, 745, 1270],
-        jointA: [270, 990],
-        jointB: [270, 1245],
-        pivot: [470, 1180],
-        target: 47,
+        box: [788, 610, 968, 704],
+        jointA: [645, 570],
+        jointB: [645, 700],
+        pivot: [822, 690],
+        target: 0,
         neutral: 0,
         scaleFrom: "shoe",
-        fit: { width: 64 },
+        fit: { width: 64, height: 52 },
         soleBelowPivot: 47,
       },
     ],

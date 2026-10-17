@@ -265,3 +265,31 @@ Deliverable codes used below:
 - **Area:** D5.
 - **Impact:** `tests/photo.test.ts > splits the near foot at the ball`. The toe pivot is inside its own
   crop now (was (−17, 49), 17 px outside), so the two halves hinge instead of sliding apart.
+
+## ADD-022: Far-side references are shot in the neutral carriage, and fitted isotropically
+
+- **Decided:** the three far-side references were re-shot (arm hanging palm-to-camera, standing leg, lower
+  leg framed knee-to-sole) with one light, one wardrobe and one camera distance. Far pieces are now fitted
+  to the near silhouette **isotropically** (`fit.uniform`): a limb may not be squeezed along its own axis,
+  because an anisotropic fit makes a calf thin when it hangs and fat when it swings.
+- **Why:** the first reference set was three different framings. Measuring them against the near plate
+  showed far limbs up to 1.6× too wide and 28 % too dark, and a vertical fit had stretched the far shoe
+  into a pancake and the far shin into a sausage. The plate's own far arm is *raised*, so it cannot serve
+  as a neutral either: rotating a raised arm down tears the shoulder.
+- **Area:** D4.
+- **Impact:** all six far limbs now sit within 4 % of their near counterpart's silhouette width
+  (`tests/photo.test.ts`). The far shin is cut from the lower-leg reference, whose top edge is the knee and
+  whose sock line is the ankle, so it spans the whole bone without longitudinal stretching. The far shoe
+  is scaled by ankle-to-sole depth (118 px), not by its length, and clipped at the declared sole.
+
+## ADD-023: The photographic rig is honest about what it is
+
+- **Decided:** `docs/PHOTO-RENDER-FLAWS.md` records the measured defects and their status, and
+  `docs/PHOTO-SHOOT-PLAN.md` records the reference contract (framing, light, wardrobe, scale, medial
+  surface). The filmstrip and the app both keep the photographic runner as a *third* option.
+- **Why:** the collage reads badly whenever its parts disagree, so the acceptance criteria have to be
+  measurable rather than "looks right": far width within 15 %, far luminance 0.85–0.95 of near, no texture
+  below the ground line, no hinge gap.
+- **Area:** D7.
+- **Impact:** `reports/photo-zoom.png`, `reports/photo-filmstrip.png` and `reports/qc-far-leg.png` are the
+  review artefacts; `npx tsx .scratch/widths.ts` and `.scratch/tones.ts` are the numeric gates.

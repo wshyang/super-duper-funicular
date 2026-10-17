@@ -94,15 +94,15 @@ describe("far-side texture fitting", () => {
   });
 
   it("keeps the far foot's texture above the declared sole", () => {
-    const sole = rig.scale.soleY;
+    // The declared sole sits `footSole` below the ankle; a foot texture that
+    // reaches further sweeps under the ground line on every heel peel.
     const ankleY = rig.joints.ankle?.[1] ?? 0;
-    for (const id of ["shoe", "shoeToe"] as const) {
-      const part = partById(rig, id);
-      const far = part.far;
-      if (far === undefined) throw new Error(`no far ${id}`);
-      // The pivot sits at the ankle or the ball; neither may reach the sole.
-      expect(far.pivot[1]).toBeLessThan(sole - ankleY);
-      expect(far.height - far.pivot[1]).toBeLessThan(200);
+    const soleDepth = rig.scale.soleY - ankleY;
+    const shoe = partById(rig, "shoe");
+    const toe = partById(rig, "shoeToe");
+    if (shoe.far === undefined || toe.far === undefined) throw new Error("far foot missing");
+    for (const far of [shoe.far, toe.far]) {
+      expect(far.height - far.pivot[1]).toBeLessThanOrEqual(soleDepth + 1);
     }
   });
 

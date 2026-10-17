@@ -126,13 +126,13 @@
       ],
       "far": {
         "file": "sg-chinese-female-photo-far/upperArm.png",
-        "width": 92,
-        "height": 291,
+        "width": 119,
+        "height": 354,
         "pivot": [
-          39,
-          30
+          47,
+          90
         ],
-        "neutral": 0
+        "neutral": -0.05427601196718789
       }
     },
     {
@@ -149,13 +149,13 @@
       ],
       "far": {
         "file": "sg-chinese-female-photo-far/forearm.png",
-        "width": 101,
-        "height": 410,
+        "width": 133,
+        "height": 407,
         "pivot": [
-          47,
-          25
+          57,
+          32
         ],
-        "neutral": 0
+        "neutral": -0.05427601196718789
       }
     },
     {
@@ -172,13 +172,13 @@
       ],
       "far": {
         "file": "sg-chinese-female-photo-far/thigh.png",
-        "width": 158,
-        "height": 297,
+        "width": 166,
+        "height": 352,
         "pivot": [
-          81,
-          71
+          84,
+          35
         ],
-        "neutral": -0.049958395721942765
+        "neutral": -0.09275632018814374
       }
     },
     {
@@ -195,13 +195,13 @@
       ],
       "far": {
         "file": "sg-chinese-female-photo-far/shin.png",
-        "width": 161,
-        "height": 356,
+        "width": 97,
+        "height": 207,
         "pivot": [
-          90,
-          40
+          42,
+          0
         ],
-        "neutral": -0.0658387693026938
+        "neutral": 0
       }
     },
     {
@@ -218,11 +218,11 @@
       ],
       "far": {
         "file": "sg-chinese-female-photo-far/shoe.png",
-        "width": 157,
-        "height": 63,
+        "width": 154,
+        "height": 116,
         "pivot": [
-          90,
-          20
+          64,
+          69
         ],
         "neutral": 0
       }
@@ -241,11 +241,11 @@
       ],
       "far": {
         "file": "sg-chinese-female-photo-far/shoeToe.png",
-        "width": 73,
-        "height": 63,
+        "width": 91,
+        "height": 52,
         "pivot": [
-          2,
-          46
+          18,
+          44
         ],
         "neutral": 0
       }
