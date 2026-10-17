@@ -443,6 +443,9 @@ round:
 - Far arm: swing damped to 0.72× on the far side, far shoulder moved from `(-5, drop+1)` to
   `(-8, drop+1)`, far elbow flex 0.88×. This reduces how far the far forearm leaves the torso
   silhouette; it does **not** eliminate the crossing.
+- Foot clearance: run `liftPx` 34 → 46 so the passing foot clears the stance shoe instead of
+  stacking on it. A 0.985 hip-height trial was reverted after the gait test caught the shin chain
+  overshooting its joint length by 0.45 px — the test is doing its job.
 - Ear: moved from `local(-1, 2.6)` (which read as a ring on the cheek) to
   `local(-headRx × 0.58, 2.2)` with radius 3.6.
 - Shoes: body radii 8.4/6.8 → 6.7/5.5, sole 2.6 → 2.1, shoe colour off-white → dark navy

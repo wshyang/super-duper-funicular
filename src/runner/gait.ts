@@ -28,7 +28,7 @@ const PROFILES: Readonly<Record<MotionId, MotionProfile>> = {
     id: 'run',
     duty: 0.38,
     stridePx: 104,
-    liftPx: 34,
+    liftPx: 46,
     leanDeg: 14,
     armSwingDeg: 42,
     elbowDeg: 84,
