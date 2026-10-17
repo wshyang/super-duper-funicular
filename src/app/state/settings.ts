@@ -1,5 +1,5 @@
 import { COLORWAYS, type Colorway } from "../../lib/rig/palette.ts";
-import { findPersona, lookFor, type SpriteLook } from "../../lib/rig/persona.ts";
+import { findRunnerOption, lookFor, type SpriteLook } from "../../lib/rig/persona.ts";
 import { DEFAULT_CONTROLS, GAIT_LIMITS, type GaitControls } from "../../lib/gait/gait.ts";
 
 export interface DisplayOptions {
@@ -63,11 +63,18 @@ export function createSettingsStore(initial: AppSettings = DEFAULT_SETTINGS): Se
 }
 
 /** Personas carry their own default kit, so switching one is visibly different. */
-export const withPersona = (settings: AppSettings, personaId: string): AppSettings => ({
-  ...settings,
-  personaId,
-  colorwayId: findPersona(personaId).skin.defaultColorwayId,
-});
+export const withPersona = (settings: AppSettings, personaId: string): AppSettings => {
+  const persona = findRunnerOption(personaId);
+  return {
+    ...settings,
+    personaId,
+    colorwayId: persona.kind === "vector" ? persona.skin.defaultColorwayId : settings.colorwayId,
+  };
+};
+
+/** Photo personas render from a bitmap rig; the vector look would throw. */
+export const isPhotoSettings = (settings: AppSettings): boolean =>
+  findRunnerOption(settings.personaId).kind === "photo";
 
 export const colorwayFor = (settings: AppSettings): Colorway =>
   COLORWAYS.find((candidate) => candidate.id === settings.colorwayId) ?? (COLORWAYS[0] as Colorway);

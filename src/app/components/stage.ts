@@ -9,7 +9,11 @@ import {
   worldToScreen,
   type View,
 } from "../../lib/render/paint.ts";
-import { lookFor, type SpriteLook } from "../../lib/rig/persona.ts";
+import { findRunnerOption, lookFor, type PhotoPersona, type SpriteLook } from "../../lib/rig/persona.ts";
+import { composePhotoRunner } from "../../lib/photo/scene.ts";
+import { photoGait } from "../../lib/photo/rig.ts";
+import { paintPhotoRunner } from "../../lib/render/photo-paint.ts";
+import { photoRuntime, type PhotoRuntime } from "../model/photo-runtime.ts";
 import { lookForSettings, type AppSettings } from "../state/settings.ts";
 import {
   EMPTY_TRAIL,
@@ -41,6 +45,26 @@ export function createStage(): Stage {
   };
   let trail: TrailState = EMPTY_TRAIL;
   let lastPhase = 0;
+  const photo: { personaId: string; runtime?: PhotoRuntime } = { personaId: "" };
+
+  /**
+   * Starts the photo rig loading the first time a photo persona is selected and
+   * returns it once ready; frames before that simply skip the figure.
+   */
+  const photoFor = (persona: PhotoPersona): PhotoRuntime | undefined => {
+    if (photo.personaId !== persona.id) {
+      photo.personaId = persona.id;
+      photo.runtime = undefined;
+      void photoRuntime(persona.manifest)
+        .then((runtime) => {
+          if (photo.personaId === persona.id) photo.runtime = runtime;
+        })
+        .catch(() => {
+          if (photo.personaId === persona.id) photo.runtime = undefined;
+        });
+    }
+    return photo.runtime;
+  };
 
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
@@ -51,13 +75,8 @@ export function createStage(): Stage {
   };
 
   const render = (phase: number, settings: AppSettings) => {
-    const lookKey = `${settings.personaId}:${settings.colorwayId}`;
-    if (cache.key !== lookKey) {
-      cache.look = lookForSettings(settings);
-      cache.key = lookKey;
-    }
+    const persona = findRunnerOption(settings.personaId);
     const gait = resolveGait(settings.gait);
-    const pose = solvePose(gait, phase, cache.look.body);
     const view = viewForCanvas(canvas.width, canvas.height);
     const deltaSeconds = ((phase - lastPhase + 1) % 1) * gait.cycleSeconds;
     trail = advanceTrail(trail, gait, phase, deltaSeconds);
@@ -66,10 +85,34 @@ export function createStage(): Stage {
     paintBackground(context, canvas.width, canvas.height);
     paintGround(context, view, canvas.width, "rgba(255, 255, 255, 0.12)");
     if (settings.display.showGroundMarkers) paintFootprints(context, trail, view);
+    if (settings.display.showTrail) paintBodyRuler(context, view, "1 body height");
+
+    if (persona.kind === "photo") {
+      const runtime = photoFor(persona);
+      if (runtime !== undefined) {
+        const pose = solvePose(photoGait(gait, runtime.rig), phase, runtime.body);
+        if (settings.display.showShadow) paintShadow(context, pose, view);
+        paintPhotoRunner(
+          context as never,
+          composePhotoRunner(pose, runtime.rig),
+          runtime.rig,
+          runtime.assets,
+          view,
+        );
+        if (settings.display.showSkeleton) paintSkeleton(context, pose, view);
+      }
+      return;
+    }
+
+    const lookKey = `${settings.personaId}:${settings.colorwayId}`;
+    if (cache.key !== lookKey) {
+      cache.look = lookForSettings(settings);
+      cache.key = lookKey;
+    }
+    const pose = solvePose(gait, phase, cache.look.body);
     if (settings.display.showShadow) paintShadow(context, pose, view);
     paintScene(context, composeRunner(pose, cache.look), view);
     if (settings.display.showSkeleton) paintSkeleton(context, pose, view);
-    if (settings.display.showTrail) paintBodyRuler(context, view, "1 body height");
   };
 
   return { element: canvas, render, resize };

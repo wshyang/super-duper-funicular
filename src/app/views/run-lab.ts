@@ -6,6 +6,7 @@ import { createReferenceStrip } from "../components/reference-strip.ts";
 import { createStage } from "../components/stage.ts";
 import { startLoop } from "../loop.ts";
 import { createSettingsStore, lookForSettings, type AppSettings, type SettingsStore } from "../state/settings.ts";
+import { findRunnerOption } from "../../lib/rig/persona.ts";
 
 export interface RunLabHandle {
   readonly element: HTMLElement;
@@ -36,7 +37,10 @@ export function createRunLab(): RunLabHandle {
   store.subscribe((settings) => {
     metrics.update(settings);
     flaws.update(settings);
-    partsAtlas.setLook(lookForSettings(settings));
+    // The atlas decomposes the vector rig; photo personas have no vector look.
+    if (findRunnerOption(settings.personaId).kind === "vector") {
+      partsAtlas.setLook(lookForSettings(settings));
+    }
   });
 
   let phase = 0;

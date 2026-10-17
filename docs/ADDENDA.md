@@ -207,3 +207,33 @@ Deliverable codes used below:
   difference alone is subtle. The colourway row still lets the user override the kit afterwards.
 - **Area:** D6.
 - **Impact:** `tests/app.test.ts` asserts the round trip male → female → male returns red → blue → red.
+
+## ADD-018: Photographic personas are an additive layer, never a replacement
+
+- **Decided:** the cut-out rig ships as a third `RunnerOption` with `kind: "photo"`. `Persona` stays the
+  vector contract (body + skin); `PhotoPersona` carries only a manifest URL. `PERSONAS` is untouched, so
+  every existing vector test and default still holds. `withPersona` keeps the current colourway when a
+  photo runner is selected, because a photograph has no recolourable palette.
+- **Why:** the requirement was photo-real articulated parts *in addition to* the existing vector sprites.
+  Keeping the two option lists separate makes it impossible for the photo path to silently break the
+  vector path — the stage branches on `kind` and the atlas only receives vector looks.
+- **Area:** D5, D6.
+- **Impact:** `RUNNER_OPTIONS = [...PERSONAS, ...PHOTO_PERSONAS]`; the photo rig loads asynchronously
+  (`app/model/photo-runtime.ts`) and frames render without it until decoding finishes. The loader fetches
+  every file in `photoAssetFiles(rig)`, which now includes the far-side shots.
+
+## ADD-019: Far limbs are photographed from the inside, not mirrored from the near plate
+
+- **Decided:** a single side profile only shows the *outside* of the near limbs. The far arm and leg are
+  cut from dedicated chroma-key reference shots: a left arm with the palm to camera, a full leg for the
+  thigh, and a lower leg whose medial ankle and shoe arch face the camera. Six far-only parts (`upperArm`,
+  `forearm`, `thigh`, `shin`, `shoe`, `shoeToe`) are cut, resampled so each joint-to-joint distance equals
+  the near rig's bone length, tone-matched to the near crop's mean colour, then shadow-tinted.
+- **Why:** mirroring the near limb duplicates the wrong surface — the outer shoe and the back of the hand —
+  which is exactly what the user flagged. A real medial reference keeps the arch, inner ankle and palm.
+- **Area:** D4, D5.
+- **Impact:** `PhotoPart.far` carries its own file, size, pivot and reference neutral; `composePhotoRunner`
+  uses those for every far draw. `tools/photo-far-spec.ts` records the source boxes, joints and targets;
+  `tools/extract-photo-far.ts` writes `sg-chinese-female-photo-far/*.png` and merges the blocks into
+  `female-rig.json`. Joint caps (a disc of reference pixels around the pivot) keep elbows and knees filled
+  at full bend. Tests: `tests/photo.test.ts` pins the far file/pivot/neutral wiring and the 24-asset list.

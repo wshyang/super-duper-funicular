@@ -1,0 +1,254 @@
+{
+  "id": "sg-chinese-female-photo",
+  "label": "Singaporean Chinese, female (photoreal)",
+  "image": "sg-chinese-female__neutral-profile__chroma-green__source.png",
+  "pixelsPerBody": 1219,
+  "scale": {
+    "soleY": 1302,
+    "crownY": 83
+  },
+  "joints": {
+    "headBase": [
+      378,
+      225
+    ],
+    "neckBase": [
+      370,
+      275
+    ],
+    "shoulder": [
+      346,
+      300
+    ],
+    "elbow": [
+      283,
+      528
+    ],
+    "hip": [
+      378,
+      700
+    ],
+    "knee": [
+      365,
+      962
+    ],
+    "ankle": [
+      365,
+      1255
+    ],
+    "ball": [
+      420,
+      1300
+    ],
+    "heel": [
+      297,
+      1298
+    ],
+    "toe": [
+      497,
+      1298
+    ],
+    "wrist": [
+      222,
+      752
+    ],
+    "chin": [
+      444,
+      230
+    ]
+  },
+  "neutralAngles": {
+    "torso": -0.019,
+    "neck": 0.158,
+    "head": 0.029,
+    "upperArm": -0.269,
+    "forearm": -0.266,
+    "thigh": -0.05,
+    "shin": 0,
+    "foot": 0
+  },
+  "pose": {
+    "armSwing": 0.35,
+    "armBias": -0.05,
+    "elbowFlex": 1.45
+  },
+  "parts": [
+    {
+      "id": "head",
+      "file": "sg-chinese-female-photo/head.png",
+      "fileFar": "sg-chinese-female-photo/head-far.png",
+      "x": 262,
+      "y": 82,
+      "width": 197,
+      "height": 268,
+      "pivot": [
+        116,
+        143
+      ]
+    },
+    {
+      "id": "neck",
+      "file": "sg-chinese-female-photo/neck.png",
+      "fileFar": "sg-chinese-female-photo/neck-far.png",
+      "x": 317,
+      "y": 234,
+      "width": 128,
+      "height": 54,
+      "pivot": [
+        53,
+        41
+      ]
+    },
+    {
+      "id": "torso",
+      "file": "sg-chinese-female-photo/torso.png",
+      "fileFar": "sg-chinese-female-photo/torso-far.png",
+      "x": 290,
+      "y": 259,
+      "width": 185,
+      "height": 504,
+      "pivot": [
+        88,
+        441
+      ]
+    },
+    {
+      "id": "upperArm",
+      "file": "sg-chinese-female-photo/upperArm.png",
+      "fileFar": "sg-chinese-female-photo/upperArm-far.png",
+      "x": 267,
+      "y": 264,
+      "width": 115,
+      "height": 283,
+      "pivot": [
+        79,
+        36
+      ],
+      "far": {
+        "file": "sg-chinese-female-photo-far/upperArm.png",
+        "width": 109,
+        "height": 302,
+        "pivot": [
+          46,
+          41
+        ],
+        "neutral": 0
+      }
+    },
+    {
+      "id": "forearm",
+      "file": "sg-chinese-female-photo/forearm.png",
+      "fileFar": "sg-chinese-female-photo/forearm-far.png",
+      "x": 184,
+      "y": 520,
+      "width": 132,
+      "height": 297,
+      "pivot": [
+        99,
+        8
+      ],
+      "far": {
+        "file": "sg-chinese-female-photo-far/forearm.png",
+        "width": 100,
+        "height": 324,
+        "pivot": [
+          47,
+          22
+        ],
+        "neutral": -0.05832792372600618
+      }
+    },
+    {
+      "id": "thigh",
+      "file": "sg-chinese-female-photo/thigh.png",
+      "fileFar": "sg-chinese-female-photo/thigh-far.png",
+      "x": 305,
+      "y": 755,
+      "width": 155,
+      "height": 213,
+      "pivot": [
+        73,
+        -55
+      ],
+      "far": {
+        "file": "sg-chinese-female-photo-far/thigh.png",
+        "width": 165,
+        "height": 277,
+        "pivot": [
+          71,
+          -17
+        ],
+        "neutral": 0.06569480155246474
+      }
+    },
+    {
+      "id": "shin",
+      "file": "sg-chinese-female-photo/shin.png",
+      "fileFar": "sg-chinese-female-photo/shin-far.png",
+      "x": 310,
+      "y": 957,
+      "width": 97,
+      "height": 217,
+      "pivot": [
+        55,
+        5
+      ],
+      "far": {
+        "file": "sg-chinese-female-photo-far/shin.png",
+        "width": 111,
+        "height": 333,
+        "pivot": [
+          49,
+          24
+        ],
+        "neutral": -0.06656816377582381
+      }
+    },
+    {
+      "id": "shoe",
+      "file": "sg-chinese-female-photo/shoe.png",
+      "fileFar": "sg-chinese-female-photo/shoe-far.png",
+      "x": 299,
+      "y": 1161,
+      "width": 149,
+      "height": 146,
+      "pivot": [
+        66,
+        94
+      ],
+      "far": {
+        "file": "sg-chinese-female-photo-far/shoe.png",
+        "width": 182,
+        "height": 66,
+        "pivot": [
+          56,
+          11
+        ],
+        "neutral": 0
+      }
+    },
+    {
+      "id": "shoeToe",
+      "file": "sg-chinese-female-photo/shoeToe.png",
+      "fileFar": "sg-chinese-female-photo/shoeToe-far.png",
+      "x": 437,
+      "y": 1251,
+      "width": 64,
+      "height": 56,
+      "pivot": [
+        -17,
+        49
+      ],
+      "far": {
+        "file": "sg-chinese-female-photo-far/shoeToe.png",
+        "width": 81,
+        "height": 66,
+        "pivot": [
+          8,
+          56
+        ],
+        "neutral": 0
+      }
+    }
+  ]
+}

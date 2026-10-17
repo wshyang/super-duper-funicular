@@ -1,6 +1,6 @@
 import { COLORWAYS } from "../../lib/rig/palette.ts";
 import { GAIT_LIMITS, type GaitControls } from "../../lib/gait/gait.ts";
-import { PERSONAS } from "../../lib/rig/persona.ts";
+import { PERSONAS, PHOTO_PERSONAS } from "../../lib/rig/persona.ts";
 import {
   PLAYBACK_LIMITS,
   withGaitValue,
@@ -37,6 +37,7 @@ export function createControls(store: SettingsStore): ControlsPanel {
   element.append(heading("Gait controls", "Every value feeds the same biomechanical model."));
 
   element.append(createPersonaRow(store));
+  element.append(createPhotoRow(store));
   element.append(createColorwayRow(store));
   for (const spec of SLIDERS) element.append(createSlider(store, spec));
   element.append(createToggleRow(store));
@@ -89,6 +90,48 @@ function createPersonaRow(store: SettingsStore): HTMLElement {
       child.setAttribute("aria-pressed", String(active));
     });
     note.textContent = PERSONAS.find((persona) => persona.id === settings.personaId)?.blurb ?? "";
+  });
+  row.append(label, group, note);
+  return row;
+}
+
+/**
+ * The photographic personas sit in their own row below the vector ones: they
+ * are additional runners, not a replacement, and they render completely
+ * differently underneath the same gait controls.
+ */
+function createPhotoRow(store: SettingsStore): HTMLElement {
+  const row = document.createElement("div");
+  row.className = "field field--personas field--photo";
+  const label = document.createElement("span");
+  label.className = "field__label";
+  label.textContent = "Photo-real";
+  const group = document.createElement("div");
+  group.className = "segmented";
+  group.setAttribute("role", "group");
+  group.setAttribute("aria-label", "Photo-real runner");
+  const note = document.createElement("span");
+  note.className = "field__hint";
+  note.dataset.testid = "controls__photo-note";
+  for (const persona of PHOTO_PERSONAS) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "pill segmented__option";
+    button.textContent = persona.label;
+    button.dataset.testid = `controls__photo-${persona.id}`;
+    button.addEventListener("click", () => store.update((current) => withPersona(current, persona.id)));
+    group.append(button);
+  }
+  store.subscribe((settings) => {
+    let activeNote = "Photographic cut-outs from a separate reference shoot.";
+    [...group.children].forEach((child, index) => {
+      const persona = PHOTO_PERSONAS[index];
+      const active = persona?.id === settings.personaId;
+      child.classList.toggle("pill--active", active);
+      child.setAttribute("aria-pressed", String(active));
+      if (active) activeNote = persona.blurb;
+    });
+    note.textContent = activeNote;
   });
   row.append(label, group, note);
   return row;

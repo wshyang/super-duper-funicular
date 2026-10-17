@@ -1,5 +1,6 @@
 import { resolveGait, type GaitParameters } from "../../lib/gait/gait.ts";
-import { findPersona } from "../../lib/rig/persona.ts";
+import { findRunnerOption } from "../../lib/rig/persona.ts";
+import { FEMALE_BODY } from "../../lib/rig/body.ts";
 import type { BodyMetrics } from "../../lib/rig/body.ts";
 import type { AppSettings } from "../state/settings.ts";
 
@@ -74,7 +75,10 @@ export function createMetrics(): MetricsPanel {
   }
   const update = (settings: AppSettings) => {
     const gait = resolveGait(settings.gait);
-    const body = findPersona(settings.personaId).body;
+    const persona = findRunnerOption(settings.personaId);
+    // The photo rig loads asynchronously; its readouts use the female stature
+    // until the manifest is in, and the pose itself comes from the rig.
+    const body = persona.kind === "vector" ? persona.body : FEMALE_BODY;
     for (const spec of SPECS) {
       const output = outputs.get(spec.id);
       if (output !== undefined) output.textContent = spec.read(gait, body);

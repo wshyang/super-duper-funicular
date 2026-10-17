@@ -22,7 +22,10 @@
     "runner:filmstrip": "tsx tools/render-filmstrip.ts",
     "runner:filmstrips": "tsx tools/render-filmstrip.ts sg-chinese-male && tsx tools/render-filmstrip.ts sg-chinese-female",
     "runner:footroll": "tsx tools/render-foot-roll.ts",
-    "validate": "npm run typecheck && npm run test && npm run build"
+    "photo:extract": "tsx tools/extract-photo-rig.ts && tsx tools/extract-photo-far.ts",
+    "photo:filmstrip": "tsx tools/render-photo-filmstrip.ts",
+    "validate": "npm run typecheck && npm run test && npm run build",
+    "photo:far": "tsx tools/extract-photo-far.ts"
   },
   "dependencies": {
     "vite": "7.1.5"

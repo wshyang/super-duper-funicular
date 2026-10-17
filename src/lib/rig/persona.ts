@@ -37,12 +37,29 @@ export interface Skin {
 }
 
 export interface Persona {
+  readonly kind: "vector";
   readonly id: PersonaId;
   readonly label: string;
   readonly blurb: string;
   readonly body: BodyMetrics;
   readonly skin: Skin;
 }
+
+/**
+ * A photographic runner: the anatomy comes from a cut-out rig manifest, not
+ * from `BodyMetrics` geometry. It is an additional option, never a replacement
+ * for the vector personas.
+ */
+export interface PhotoPersona {
+  readonly kind: "photo";
+  readonly id: string;
+  readonly label: string;
+  readonly blurb: string;
+  /** Public URL of the cut-out rig manifest. */
+  readonly manifest: string;
+}
+
+export type RunnerOption = Persona | PhotoPersona;
 
 const MALE_SKIN: Skin = {
   id: "sg-track-male",
@@ -66,6 +83,7 @@ const FEMALE_SKIN: Skin = {
 
 export const PERSONAS: readonly Persona[] = [
   {
+    kind: "vector",
     id: "sg-chinese-male",
     label: "Singaporean Chinese, male",
     blurb: "1.73 m · longer legs, broader shoulders, short hair",
@@ -73,6 +91,7 @@ export const PERSONAS: readonly Persona[] = [
     skin: MALE_SKIN,
   },
   {
+    kind: "vector",
     id: "sg-chinese-female",
     label: "Singaporean Chinese, female",
     blurb: "1.61 m · wider pelvis, narrower shoulders, ponytail",
@@ -80,6 +99,25 @@ export const PERSONAS: readonly Persona[] = [
     skin: FEMALE_SKIN,
   },
 ];
+
+export const PHOTO_PERSONAS: readonly PhotoPersona[] = [
+  {
+    kind: "photo",
+    id: "sg-chinese-female-photo",
+    label: "Photo-real, female",
+    blurb: "Nine photographic cut-outs · separately shot medial far limbs",
+    manifest: "/sprites/photo/female-rig.json",
+  },
+];
+
+/** Every runner the UI can offer, vector first, photographic after. */
+export const RUNNER_OPTIONS: readonly RunnerOption[] = [...PERSONAS, ...PHOTO_PERSONAS];
+
+export function findRunnerOption(id: string): RunnerOption {
+  const persona = RUNNER_OPTIONS.find((candidate) => candidate.id === id);
+  if (persona === undefined) throw new Error(`Unknown runner: ${id}`);
+  return persona;
+}
 
 export function findPersona(id: string): Persona {
   const persona = PERSONAS.find((candidate) => candidate.id === id);

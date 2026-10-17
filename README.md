@@ -6,8 +6,13 @@ runner live and lets you change the biomechanics while it runs.
 
 ![16-phase generated cycle, male persona](reports/filmstrip-sg-chinese-male.png)
 
-Both personas are rendered by the same rig: `reports/filmstrip-sg-chinese-male.png` and
+Both vector personas are rendered by the same rig: `reports/filmstrip-sg-chinese-male.png` and
 `reports/filmstrip-sg-chinese-female.png`.
+
+A third runner is **photographic**: nine cut-out body parts from a neutral studio plate, animated by the
+same gait solver. Its far arm and leg are cut from separate reference shots that face their *inside*
+surfaces — palm to camera, medial ankle and shoe arch — so the far side is not a mirrored near side.
+`reports/photo-filmstrip.png` shows the cycle; switch to it in the app under "Photo-real".
 
 ## The six deliverables
 
