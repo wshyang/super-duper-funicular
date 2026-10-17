@@ -1,0 +1,21 @@
+{
+  "capturedAt": "2026-10-17T23:12:00.000Z",
+  "heads": [
+    {
+      "name": "arena/24e7b955-super-duper-funicular",
+      "sha": "pending-push"
+    },
+    {
+      "name": "arena/917ef347-super-duper-funicular",
+      "sha": "e172b0f1f8d9b640b65a4ba420f71965693adb23"
+    },
+    {
+      "name": "arena/263385da-super-duper-funicular",
+      "sha": "b227e2fe562be341f15f58955f539d325170729e"
+    },
+    {
+      "name": "arena/77ffb088-super-duper-funicular",
+      "sha": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac"
+    }
+  ]
+}

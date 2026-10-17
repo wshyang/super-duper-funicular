@@ -1,0 +1,27 @@
+:root {
+  color: #e8edf4;
+  background: #10161f;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
+}
+body { margin: 0; }
+.studio {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.stage canvas {
+  width: 100%;
+  background: #1c2430;
+  border-radius: 12px;
+}
+.controls {
+  display: grid;
+  gap: 0.75rem;
+}
+label { display: grid; gap: 0.25rem; }
+button, select, input {
+  font: inherit;
+}
+aside { color: #9db0c8; }
