@@ -10,7 +10,7 @@
 | 2 | `arena/263385da-super-duper-funicular` | #2 OPEN | `b227e2fe562be341f15f58955f539d325170729e` | Stride Lab — motion families, workbench UX, Playwright e2e (161 files, +14,194) |
 | 3 | `arena/77ffb088-super-duper-funicular` | #3 OPEN | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | Procedural runner — clean `lib/` domains, arc caps, photo rig, `branches:compare` origin (348 files, +45,740) |
 | 4 | `arena/ce6d2a6e-super-duper-funicular` | none | `bab689cdac3ba730138bfae09dda537978d61e09` | Cleanest small greenfield split, co-located pipeline tests, React 19 |
-| 5 | `arena/64422739-super-duper-funicular` (this) | this PR | local — record remote SHA after push (a doc cannot embed its own future hash; PR#3 rule adopted) | Harmonised synthesis (this ledger's owner) |
+| 5 | `arena/64422739-super-duper-funicular` (this) | this PR | `2dd05fa5661eeb38658b95451839764bd05aa51c` at first push (PR #4); this ledger update is its child — re-run `branches:compare` next turn | Harmonised synthesis (this ledger's owner) |
 
 ## 2. How branches progress relative to each other
 All four implementations branched independently from the same 1-image `main`; none is merged. #1 and #3 already built their own 3-way ledgers and converged on continuous-learning + parity discipline; #2 kept scope tightest with strongest browser e2e; `ce6d2a6e` kept the cleanest/most test-dense small core. Risk: four incompatible coordinate/asset models — parity must be defined behaviourally (matrix §3), not by file copying.
