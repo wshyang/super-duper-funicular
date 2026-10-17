@@ -134,6 +134,22 @@ function renderNearLegAndPelvisShorts(
   palette: RunnerPalette,
   bank: Record<BodyPartId, RasterImage>,
 ): void {
+  const pelvisTop: Point2D = {
+    x: pose.pelvis.x + 2.0,
+    y: pose.pelvis.y - 9.0,
+  };
+  const pelvisBottom: Point2D = {
+    x: pose.pelvis.x - 1.0,
+    y: pose.pelvis.y + 12.0,
+  };
+  warpPhotorealSegmentToQuad(canvas, bank.pelvis, {
+    dstStart: pelvisTop,
+    dstEnd: pelvisBottom,
+    dstHalfWidthPx: 28,
+    srcStart: { x: 82, y: 32 },
+    srcEnd: { x: 78, y: 120 },
+  });
+
   warpPhotorealSegmentToQuad(canvas, bank.nearShin, {
     dstStart: pose.nearLeg.midJoint,
     dstEnd: pose.nearLeg.endEffector,
@@ -143,22 +159,6 @@ function renderNearLegAndPelvisShorts(
     dstStart: pose.nearLeg.hipOrShoulder,
     dstEnd: pose.nearLeg.midJoint,
     dstHalfWidthPx: 29,
-  });
-
-  const pelvisTop: Point2D = {
-    x: pose.pelvis.x + 1.0,
-    y: pose.pelvis.y - 7.5,
-  };
-  const pelvisBottom: Point2D = {
-    x: pose.pelvis.x - 1.5,
-    y: pose.pelvis.y + 12.5,
-  };
-  warpPhotorealSegmentToQuad(canvas, bank.pelvis, {
-    dstStart: pelvisTop,
-    dstEnd: pelvisBottom,
-    dstHalfWidthPx: 25,
-    srcStart: { x: 82, y: 32 },
-    srcEnd: { x: 78, y: 120 },
   });
 
   warpPhotorealRollingShoe(

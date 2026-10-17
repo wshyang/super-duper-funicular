@@ -143,7 +143,7 @@ export function extractPhotorealSpriteParts(
     torso: extractTorsoCutout(sources.torsoSinglet),
     pelvis: extractPelvisCutout(sources.pelvisShorts),
     ...extractArmCutouts(nearArm, farArm),
-    ...extractLegCutouts(nearLeg, farLeg),
+    ...extractLegCutouts(nearLeg, farLeg, sources.pelvisShorts),
   };
 }
 
@@ -233,16 +233,16 @@ function extractTorsoCutout(src: RasterImage): RasterImage {
   const cleaned = cleanTorsoNeckStubAndSocket(src);
   const raw = extractSimilarityAlignedPart(cleaned, {
     srcStart: { x: 663, y: 165 },
-    srcEnd: { x: 706, y: 690 },
+    srcEnd: { x: 706, y: 605 },
     dstStart: { x: 74, y: 24 },
-    dstEnd: { x: 80, y: 128 },
-    cropBox: { minX: 534, minY: 142, maxX: 874, maxY: 724 },
+    dstEnd: { x: 80, y: 122 },
+    cropBox: { minX: 534, minY: 142, maxX: 874, maxY: 612 },
     shadeScale: 1.0,
   });
   return applyPivotArcRoundedCut(raw, {
-    pivot: { x: 80, y: 112 },
-    radiusX: 32,
-    radiusY: 22,
+    pivot: { x: 80, y: 108 },
+    radiusX: 31,
+    radiusY: 20,
     cutSide: 'below',
     featherPx: 3.5,
   });
@@ -376,15 +376,55 @@ function extractArmCutouts(
   };
 }
 
+function cutThighWithShortsCuff(
+  legSrc: RasterImage,
+  pelvisShorts: RasterImage,
+  spec: {
+    readonly srcTopY: number;
+    readonly srcBotY: number;
+    readonly rTop: number;
+    readonly rBot: number;
+    readonly sideStripeMode: 'with-stripe' | 'solid-fabric';
+    readonly shadeScale: number;
+  },
+): RasterImage {
+  return cutArticulatedLimbWithRoundedEnds(legSrc, {
+    srcTopY: spec.srcTopY,
+    srcBotY: spec.srcBotY,
+    dstRadiusTopPx: spec.rTop,
+    dstRadiusBotPx: spec.rBot,
+    roundTopEnd: true,
+    roundBotEnd: true,
+    shadeScale: spec.shadeScale,
+    endCapComposite: {
+      compositeSource: pelvisShorts,
+      end: 'top',
+      srcTopY: 460,
+      srcBotY: 690,
+      dstStraightCutY: 66,
+      sideStripeMode: spec.sideStripeMode,
+      shadeScale: spec.shadeScale,
+    },
+  });
+}
+
 function extractLegCutouts(
   nearLeg: RasterImage,
   farLeg: RasterImage,
+  pelvisShorts: RasterImage,
 ): Pick<
   Record<BodyPartId, RasterImage>,
   'nearThigh' | 'nearShin' | 'nearFoot' | 'farThigh' | 'farShin' | 'farFoot'
 > {
   return {
-    nearThigh: cutLimbBothEnds(nearLeg, 175, 380, 26, 20, 1.0),
+    nearThigh: cutThighWithShortsCuff(nearLeg, pelvisShorts, {
+      srcTopY: 175,
+      srcBotY: 380,
+      rTop: 26,
+      rBot: 20,
+      sideStripeMode: 'with-stripe',
+      shadeScale: 1.0,
+    }),
     nearShin: cutLimbBothEnds(nearLeg, 390, 635, 20, 14, 1.0),
     nearFoot: extractFootWithRoundedAnkleCut(nearLeg, {
       srcStart: { x: 632, y: 702 },
@@ -393,7 +433,14 @@ function extractLegCutouts(
       anklePivot: { x: 62, y: 82 },
       shadeScale: 1.0,
     }),
-    farThigh: cutLimbBothEnds(farLeg, 115, 375, 25, 20, 0.88),
+    farThigh: cutThighWithShortsCuff(farLeg, pelvisShorts, {
+      srcTopY: 115,
+      srcBotY: 375,
+      rTop: 25,
+      rBot: 20,
+      sideStripeMode: 'solid-fabric',
+      shadeScale: 0.88,
+    }),
     farShin: cutLimbBothEnds(farLeg, 385, 610, 20, 14, 0.88),
     farFoot: extractFootWithRoundedAnkleCut(farLeg, {
       srcStart: { x: 632, y: 690 },

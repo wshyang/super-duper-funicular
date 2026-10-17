@@ -209,5 +209,28 @@ describe('Real reference sprite sheet grid detection and extraction verification
     expect(vecSvg.fullSvgDocument).toContain('clipPath id="rounded-mask-farForearm"');
     expect(vecSvg.silhouettePathD.startsWith('M ')).toBe(true);
     expect(vecSvg.regionPaths.length).toBeGreaterThan(0);
+
+    const shortsSrc = createRaster(200, 300);
+    fillRaster(shortsSrc, { r: 28, g: 32, b: 38, a: 255 });
+    const thighWithShorts = cutArticulatedLimbWithRoundedEnds(src, {
+      srcTopY: 60,
+      srcBotY: 240,
+      dstRadiusTopPx: 26,
+      dstRadiusBotPx: 20,
+      roundTopEnd: true,
+      roundBotEnd: true,
+      shadeScale: 1.0,
+      endCapComposite: {
+        compositeSource: shortsSrc,
+        end: 'top',
+        srcTopY: 140,
+        srcBotY: 260,
+        dstStraightCutY: 66,
+        sideStripeMode: 'with-stripe',
+        shadeScale: 1.0,
+      },
+    });
+    expect(readPixel(thighWithShorts, 80, 40).r).toBeLessThan(50);
+    expect(readPixel(thighWithShorts, 80, 90).r).toBeGreaterThan(180);
   });
 });

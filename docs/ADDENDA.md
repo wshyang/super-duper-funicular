@@ -118,6 +118,16 @@ Every architectural, algorithmic, or tooling decision not fixed by a single lite
 - **Related Spec Section:** `docs/FDS.md#image-prompt-log`, `docs/FDS.md#svg-vector-assessment`, `docs/FDS.md#feat-svg-vectorizer`
 - **Practical Impact:** Updated `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-checklist.md`, `docs/FDS.md` (`v3.0.0`), `src/pipeline/svg-vectorizer.ts`, `src/runner/svg-rig-stitcher.ts`, `src/pipeline/algorithmic-sheet-builder.ts`, `src/app/hooks/studio-view-model.ts`, and `src/app/components/ArticulatedRigPanel.tsx`.
 
+## `ADD-019` — Optional End-Cap Composite Attachment (`EndCapCompositeSpec` & `attachEndCapComposite`) for Articulated Thigh Shorts Cuffs
+- **What was decided:**
+  1. Add `EndCapCompositeSpec` and `attachEndCapComposite` to `src/pipeline/rounded-joint-cutter.ts` and wire optional `endCapComposite?: EndCapCompositeSpec` into `cutArticulatedLimbWithRoundedEnds`.
+  2. In `src/pipeline/photoreal-extractor.ts` (`cutThighWithShortsCuff`), attach a proximal (`end: 'top'`) sprinter-shorts cuff extracted from the lower leg-hem section of `06-pelvis-sprinter-shorts.png` (`srcTopY: 460, srcBotY: 690`) onto both `nearThigh` (`sideStripeMode: 'with-stripe'`, preserving the vertical white side stripe) and `farThigh` (`sideStripeMode: 'solid-fabric'`, shaded medial charcoal fabric).
+  3. Shape the composite attachment so that its **top (`y = 10..36`) is semicircularly rounded** around the hip pivot `(80, 36)` to gel concentrically with the rounded base of the torso/pelvis, while its **bottom (`dstStraightCutY = 66`) is cut straight across** perpendicular to the thigh axis.
+- **Why:** When the base of the torso/pelvis shorts is rounded for hip articulation and the thigh elements are rendered as bare skin, the shorts appear rounded at the bottom as if the subject has no pants/shorts leg sleeves. Attaching a rounded-top, straight-bottom shorts cuff composite onto the proximal end of each thigh ensures that the hip joint rotates seamlessly while each swinging thigh displays a realistic straight-hemmed sprinter-shorts sleeve.
+- **Related Spec Section:** `docs/FDS.md#thought-process`, `docs/FDS.md#feat-photoreal-rig`, `docs/FDS.md#svg-vector-assessment`
+- **Practical Impact:** Updated `src/pipeline/rounded-joint-cutter.ts`, `src/pipeline/photoreal-extractor.ts`, `src/runner/photoreal-rig.ts`, `src/runner/svg-rig-stitcher.ts`, `src/pipeline/pipeline.test.ts`, and regenerated all PNG cutouts (`nearThigh.png`, `farThigh.png`, `torso.png`), SVG vector parts (`nearThigh.svg`, `farThigh.svg`), stitched SVG frames (`frame-01..08.svg`), and the 48-frame photorealistic sprite sheet.
+
+
 
 
 

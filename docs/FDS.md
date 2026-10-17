@@ -1,6 +1,6 @@
 # Functional Design Specification — Sprite Motion Lab & Algorithmic Running Engine
 
-- **Document Version:** 3.0.0
+- **Document Version:** 3.1.0
 - **Date:** 2026-10-17
 - **Status:** Active Canonical Specification (`[INTENT_ALIGNED]`)
 - **Meta Prompt Reference:** `FDS_BUILDER.md` v2.0 & `GREENFIELD.md` (`wshyang/greenfield`)
@@ -207,7 +207,9 @@ Because the camera stands on the runner's **right side** looking along `-Z` towa
 7. **Mandate Flat, Shadowless Studio Illumination Across the Full Limb Width.**
 8. **Enforce Pure `#FF00FF` Magenta Chroma-Key Backdrops Orthogonal to Subject Colors.**
 9. **Preserve Isotropic Aspect Ratio Between Cutout (`160 × 160`) and Destination Quad (`dstHalfWidthPx / 80 == dstLen / srcLen`).**
-10. **Apply Semicircular Rounded Cuts Centered on Every Joint Rotation Pivot (`rounded-joint-cutter.ts`).**
+10. **Apply Semicircular Rounded Cuts Centered on Every Joint Rotation Pivot & Optional End-Cap Composite Attachments (`rounded-joint-cutter.ts`):**
+    - Every articulated boundary passes through `cutArticulatedLimbWithRoundedEnds` or `applyPivotArcRoundedCut` so rotating layers superimpose concentrically over the joint axis.
+    - When rounding the bottom of the torso/pelvis shorts (`06-pelvis-sprinter-shorts.png`), rendering bare-skin thigh elements (`nearThigh`, `farThigh`) directly below a rounded pelvis makes the shorts look rounded at the bottom as if the runner has no pants leg sleeves. To solve this, `cutArticulatedLimbWithRoundedEnds` supports an optional **`endCapComposite` (`EndCapCompositeSpec` / `attachEndCapComposite`)** that grafts a composite segment extracted from the base of `pelvisShorts` (`y = 460..690`) onto the proximal (`top`) end of `nearThigh` (with the vertical white side stripe) and `farThigh` (solid shaded charcoal fabric). The composite cuff is **semicircularly rounded at the top (`y = 10..36`)** to gel concentrically with the rounded base of the torso/pelvis, and **cut straight across at the bottom (`dstStraightCutY = 66`)** so each swinging thigh carries a crisp, straight sprinter-shorts hem perpendicular to the femur axis.
 
 ---
 
@@ -472,3 +474,4 @@ Because both sub-groups anchor `(109, 116)` at the exact same `ballPoint` canvas
 | `1.0.0` | `2026-10-17` | `ADD-001`..`ADD-012` | Initial canonical FDS covering all 6 user deliverables under Greenfield discipline. |
 | `2.0.0` | `2026-10-17` | `ADD-013`..`ADD-017` | Expanded to 17-part articulated rig (`neck`, `hairAccessory`), 2-segment rolling foot, forward-fall running posture, photorealistic female persona (`photo-sg-chinese-female`), semicircular rounded-end joint cutter (`rounded-joint-cutter.ts`), and complete end-to-end documentation of element determination, prompt engineering, and left-arm chirality safeguards (`§8`). |
 | `3.0.0` | `2026-10-17` | `ADD-018` | Added complete chronological audit log of all 21 historical `generate_image` prompts and regeneration justifications (`§9`, `#image-prompt-log`), plus full technical assessment and reference implementation of Raster-to-SVG articulated element vectorization and hierarchical SVG rig stitching (`§10`, `#svg-vector-assessment`). |
+| `3.1.0` | `2026-10-17` | `ADD-019` | Added optional End-Cap Composite Attachment (`EndCapCompositeSpec` & `attachEndCapComposite` in `src/pipeline/rounded-joint-cutter.ts`) so `nearThigh` and `farThigh` carry a proximal sprinter-shorts leg cuff extracted from the base of `pelvisShorts` — rounded at the top hip pivot to gel with the rounded torso/pelvis base and cut straight across at the bottom (`dstStraightCutY = 66`). |

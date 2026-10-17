@@ -2,6 +2,16 @@ import type { Point2D, RasterImage, RgbaColor } from '../shared/types.js';
 import { sampleBilinearRgba } from '../runner/photoreal-warp.js';
 import { createRaster, readPixel, writePixel } from './raster.js';
 
+export interface EndCapCompositeSpec {
+  readonly compositeSource: RasterImage;
+  readonly end: 'top' | 'bottom';
+  readonly srcTopY: number;
+  readonly srcBotY: number;
+  readonly dstStraightCutY: number;
+  readonly sideStripeMode: 'with-stripe' | 'solid-fabric';
+  readonly shadeScale: number;
+}
+
 export interface RoundedLimbCutSpec {
   readonly srcTopY: number;
   readonly srcBotY: number;
@@ -13,6 +23,7 @@ export interface RoundedLimbCutSpec {
   readonly roundTopEnd: boolean;
   readonly roundBotEnd: boolean;
   readonly shadeScale: number;
+  readonly endCapComposite?: EndCapCompositeSpec;
 }
 
 export interface HorizontalLimbCutSpec {
@@ -53,6 +64,9 @@ export function cutArticulatedLimbWithRoundedEnds(
       topSpan,
       botSpan,
     });
+  }
+  if (spec.endCapComposite) {
+    return attachEndCapComposite(out, spec.endCapComposite);
   }
   return out;
 }
@@ -255,3 +269,54 @@ function writeShadedPixel(
     a: c.a,
   });
 }
+
+/**
+ * Attaches an optional composite segment (e.g. a sprinter-shorts leg cuff extracted from
+ * the pelvis/torso base) onto the proximal (`top`) or distal (`bottom`) end of a rounded-end
+ * limb cutout. The outer joint cap stays semicircularly rounded to gel with the mating torso/pelvis
+ * pivot while the inner boundary terminates in a crisp straight cut at `dstStraightCutY`.
+ */
+export function attachEndCapComposite(
+  limbCutout: RasterImage,
+  spec: EndCapCompositeSpec,
+): RasterImage {
+  const out = createRaster(limbCutout.width, limbCutout.height);
+  out.data.set(limbCutout.data);
+  const yStart = spec.end === 'top' ? 0 : spec.dstStraightCutY;
+  const yEnd = spec.end === 'top' ? spec.dstStraightCutY : limbCutout.height - 1;
+  for (let y = yStart; y <= yEnd; y++) {
+    sampleCompositeCuffRow(out, limbCutout, spec, y);
+  }
+  return out;
+}
+
+function sampleCompositeCuffRow(
+  out: RasterImage,
+  limbCutout: RasterImage,
+  spec: EndCapCompositeSpec,
+  y: number,
+): void {
+  const bandMinY = spec.end === 'top' ? 10 : spec.dstStraightCutY;
+  const bandMaxY = spec.end === 'top' ? spec.dstStraightCutY : 148;
+  const tY = Math.max(0, Math.min(1, (y - bandMinY) / Math.max(1, bandMaxY - bandMinY)));
+  const srcV = spec.srcTopY + tY * (spec.srcBotY - spec.srcTopY);
+  const srcSpan = measureForegroundRowSpan(spec.compositeSource, srcV);
+  const dstSpan = measureForegroundRowSpan(limbCutout, y);
+  const isHemEdge = Math.abs(y - spec.dstStraightCutY) <= 1;
+  const hemShade = isHemEdge ? spec.shadeScale * 0.82 : spec.shadeScale;
+
+  for (let x = 0; x < limbCutout.width; x++) {
+    const basePx = readPixel(limbCutout, x, y);
+    if (basePx.a <= 8) continue;
+    const nx = (x - dstSpan.midX) / Math.max(8, dstSpan.halfW);
+    const u =
+      spec.sideStripeMode === 'with-stripe'
+        ? srcSpan.midX + nx * srcSpan.halfW * 0.85
+        : srcSpan.midX - srcSpan.halfW * 0.38 + nx * srcSpan.halfW * 0.25;
+    const sampled = sampleBilinearRgba(spec.compositeSource, u, srcV);
+    if (sampled.a > 16) {
+      writeShadedPixel(out, { x, y }, { ...sampled, a: basePx.a }, hemShade);
+    }
+  }
+}
+
