@@ -1,0 +1,8 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Harmonised Runner — Greenfield</title></head><body>
+<h1>Harmonised Runner (n-way synthesis)</h1><p>Procedural articulated runner: 2-bone IK, foot-roll, personas, cycle audit. See docs/FDS.md & docs/N_WAY_COMPARISON.md.</p>
+<canvas data-testid="runner-stage__canvas" width="640" height="320"></canvas><p data-testid="runner-stage__audit"></p>
+<button data-testid="runner-controls__play">Play / Pause</button>
+<label>Motion <select data-testid="runner-controls__motion"><option value="run">Run</option><option value="walk">Walk</option></select></label>
+<label>Persona <select data-testid="runner-controls__persona"><option value="sg-female">SG female</option><option value="sg-male">SG male</option><option value="cobalt">Cobalt</option></select></label>
+<label>Scrub <input data-testid="runner-controls__scrub" type="range" min="0" max="1" step="0.01" value="0"></label>
+<script type="module" src="/src/app/main.ts"></script></body></html>

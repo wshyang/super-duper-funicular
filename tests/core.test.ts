@@ -1,0 +1,10 @@
+import { describe, it, expect } from 'vitest';
+import { solveTwoBoneIk } from '../src/lib/gait/ik'; import { vec, dist } from '../src/lib/geometry/vec';
+import { poseAt, PART_IDS } from '../src/lib/gait/gait'; import { buildScene } from '../src/lib/render/scene';
+import { PERSONAS, BODY } from '../src/lib/rig/body'; import { auditCycle } from '../src/lib/analysis/cycle';
+describe('IK', () => { it('reaches reachable target, preserves segment lengths', () => { const r = solveTwoBoneIk(vec(0,0), vec(0.3,0.4), .42,.42,1); expect(dist(vec(0,0), r.joint)).toBeCloseTo(.42); expect(dist(r.joint, r.end)).toBeCloseTo(.42); });
+  it('clamps unreachable target', () => { expect(solveTwoBoneIk(vec(0,0), vec(5,5), .42,.42,1).clamped).toBe(true); }); });
+describe('gait/rig', () => { it('pose is periodic and half-cycle symmetric', () => { expect(poseAt(0).hip.y).toBeCloseTo(poseAt(1).hip.y); expect(auditCycle(32).symmetric).toBe(true); });
+  it('declares 18 parts and paints far side before near', () => { expect(PART_IDS.length).toBe(18); const parts = buildScene(poseAt(.2), PERSONAS[0]!).map(o=>o.part); expect(parts.indexOf('farThigh')).toBeLessThan(parts.indexOf('nearThigh')); });
+  it('limb lengths are named constants', () => { expect(BODY.thigh).toBeGreaterThan(0); }); });
+describe('audit', () => { it('reports crossings over a full cycle', () => { expect(auditCycle(64).footCrossings).toBeGreaterThanOrEqual(2); }); });
