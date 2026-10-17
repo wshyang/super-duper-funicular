@@ -14,7 +14,7 @@ drifts from `src/generated/branch-tips.json`.
 ## 1. Latest observed remote tips
 
 <!-- branch-tips:start -->
-Observed (UTC): 2026-10-17T23:23:47.362Z
+Observed (UTC): 2026-10-17T23:37:42.315Z
 
 | Implementation | Branch | Full remote SHA | Commit time |
 | --- | --- | --- | --- |
@@ -22,7 +22,7 @@ Observed (UTC): 2026-10-17T23:23:47.362Z
 | Stride Lab | `arena/263385da-super-duper-funicular` | `b227e2fe562be341f15f58955f539d325170729e` | 2026-10-17T21:55:19+00:00 |
 | Funicular | `arena/77ffb088-super-duper-funicular` | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | 2026-10-17T23:05:53+00:00 |
 | Procedural Runner | `arena/ce6d2a6e-super-duper-funicular` | `bab689cdac3ba730138bfae09dda537978d61e09` | 2026-10-17T06:27:14+00:00 |
-| Funicular Motion Lab (ours) | `arena/110272a0-super-duper-funicular` | `396ce256debcb5bdc2419cc0f3f399730b61ab36` | 2026-10-17T13:53:48+08:00 |
+| Funicular Motion Lab (ours) | `arena/110272a0-super-duper-funicular` | `192898f5612a30e5c048cb43035146992f947a2a` | 2026-10-17T23:37:16+00:00 |
 <!-- branch-tips:end -->
 
 Refresh with:
@@ -49,7 +49,7 @@ described in §6. After publishing, re-run the command and the row updates itsel
 | Stride Lab | `b227e2fe562be341f15f58955f539d325170729e` | `CLAUDE.md`, `docs/{SPEC,FDS,ADDENDA,VALIDATION,MOTION-*,PHOTOGRAPHIC-RIG}.md`, `package.json`, `playwright.config.ts`, `.claude/skills/**` | **read** |
 | Funicular | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | `CLAUDE.md`, `CLAUDE-*.md`, `docs/{FDS,ADDENDA,THREE-WAY-COMPARISON,BRANCH-COMPARISON,BRANCH-TIPS,BRANCH-HISTORY,RIG-QUALITY-PLAN}.json/md`, `tools/compare-branches.ts` | **read** |
 | Procedural Runner | `bab689cdac3ba730138bfae09dda537978d61e09` | `CLAUDE.md`, `CLAUDE-*.md`, `docs/{ADDENDA,greenfield/README}.md` | **read** |
-| Funicular Motion Lab (ours) | this working tree | local gates and the viewed audit sheet | **executed + viewed** |
+| Funicular Motion Lab (ours) | `192898f5612a30e5c048cb43035146992f947a2a` | whole tree — `src/**`, `tests/**`, `docs/**`, `CLAUDE*.md`, container and SHIP-HATS files | **executed + viewed** |
 
 Legend for the matrix: **Yes** = implemented in the reviewed source, with acceptance evidence
 available; **Partial** = narrower scope, prototype, or unproven acceptance; **Gap** = not found in
@@ -120,7 +120,8 @@ the shallowest of the five; six explicit Gaps.
 
 | Priority | Work | Status | Exit evidence |
 |---|---|---|---|
-| P0 | Far-arm occlusion at φ≈0.55–0.75 and shoe/shin overlap at max dorsiflexion | Open (found by viewing the audit sheet) | Re-rendered 16-phase sheet where the near chain reads in front at every phase, viewed |
+| P0 | Far-arm occlusion at φ≈0.55–0.75 | Reduced, still open (far swing ×0.72, far shoulder −8 px, far elbow flex ×0.88) | Re-rendered 16-phase sheet where the near chain reads in front at every phase, viewed |
+| ~~P0~~ | ~~Shoe/shin overlap at max dorsiflexion~~ | **Closed** in T02: sock capsule merged into the shin part, shoe radii 6.7/5.5, dark navy body | φ 0.15–0.40 renders at 3× viewed |
 | P1 | Photographic persona (plates + matte pipeline) | Deferred | A cut-out persona that composites at any phase with a measured spill count of 0 |
 | P1 | Raster→SVG colour-band vectoriser | Deferred | A stitched SVG frame that renders identically to the raster within a stated tolerance |
 | P2 | Interactive joint/hip calibration with registered export | Deferred | Move a joint, re-download, verify pixels changed only inside the joint mask |
@@ -146,6 +147,18 @@ above and a ledger row, and the gate keeps them visible.
   **Parity:** ours 17 Yes / 6 Gap. The three-way siblings had each other at Partial for the live
   ledger because none of them tracked the fourth branch or our own; that row is now Yes for us and
   remains Partial for them.
+
+- **2026-10-17 / T02 — discipline gate executable, refactors, shoe/sock pass.** Our tip moved
+  `396ce25 → 192898f` (pushed). The gate is now a TypeScript AST walk (measured function bodies,
+  JSX-only interiors, brace-balanced testid detection) and the code was refactored to pass it:
+  `scene.ts` 404→304 via `scene-shapes.ts`, panels split, `analyseExtraction` 55→45 lines.
+  `runAnalysis` now creates `docs/`. Art: far-arm swing damped, ear moved to the back of the skull,
+  shoe bodies shrunk and darkened, red sock capsules added — the last one exposed a real bug where a
+  second part with the same id was dropped by `PART_ORDER.map(...).find(...)`.
+  **Gates:** `vitest run` 42/42 (gate 10/10), `npm run validate` green, eslint and prettier clean,
+  bundle 234.63 kB / 74.66 kB gzip. **Viewed:** five 3× phase renders and the four-frame source
+  sheet. **Still Gap:** browser E2E, Docker build, vectoriser, photographic persona, joint
+  calibration. Sibling tips unchanged since T01.
 
 ## 7. How to keep this document honest
 
