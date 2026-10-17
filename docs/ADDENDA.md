@@ -163,6 +163,18 @@ Every architectural, algorithmic, or tooling decision not fixed by a single lite
 - **Related Spec Section:** `docs/FDS.md#continuous-learning-log`, `docs/THREE_WAY_BRANCH_COMPARISON.md`
 - **Practical Impact:** Added `docs/THREE_WAY_BRANCH_COMPARISON.md`, `THREE_WAY_COMPARISON.md`, `src/pipeline/photoreal-matte-and-qc.ts`, updated `src/pipeline/photoreal-extractor.ts`, `src/shared/types.ts`, `src/runner/foot-roll.ts`, `src/runner/photoreal-rig.ts`, `src/app/hooks/usePhotorealRigAssets.ts`, `src/app/components/RunnerControls.tsx`, `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-checklist.md`, `docs/FDS.md` (`v3.4.0`), and test suites.
 
+## `ADD-023` — 3-Way FDS & Coding Discipline Comparison and Synchronization (`#fds-three-way-comparison`, `#discipline-three-way-comparison`, `CROSS-10`..`CROSS-12`)
+- **What was decided:**
+  1. Expand `docs/THREE_WAY_BRANCH_COMPARISON.md` (and `THREE_WAY_COMPARISON.md`) with dedicated sections comparing the **Functional Design Specifications (`§5` `#fds-three-way-comparison`)** and **Coding Disciplines (`§6` `#discipline-three-way-comparison`)** across all 3 active branches (`arena/917ef347`, `arena/263385da`, `arena/77ffb088`).
+  2. Synchronize our FDS and `CLAUDE*.md` discipline with the best practices of Branch 2 and Branch 3 (`CROSS-10`..`CROSS-12`):
+     - **`CROSS-10`:** Add dedicated `docs/VALIDATION.md` (tracking executed validation gates and honest environment/2D-rig limits) and codify the 4-way provenance vocabulary (`read source code`, `personally viewed visual output`, `locally executed validation gates`, `other branches' reported results`) in `CLAUDE-validation.md §8.1`.
+     - **`CROSS-11`:** Add a measured **Failed Experiments & Dead Ends Register ("Do Not Retry As-Is")** in `PLAN.md §4` (`docs/RECTIFICATION_PLAN.md §4`), synced with Branch 3's `docs/RIG-QUALITY-PLAN.md §1.3`.
+     - **`CROSS-12`:** Enforce the presence and synchronization of `docs/VALIDATION.md`, `#fds-three-way-comparison`, `#discipline-three-way-comparison`, and `TURN-L11` in `src/discipline/greenfield-gate.test.ts`.
+- **Why:** Keeping not only code features (`CROSS-01`..`CROSS-09`) but also the FDS document ecosystems and Greenfield `CLAUDE*.md` standing disciplines in sync across all 3 branches ensures uniform engineering rigor and zero repeat regressions.
+- **Related Spec Section:** `docs/THREE_WAY_BRANCH_COMPARISON.md#fds-three-way-comparison`, `docs/THREE_WAY_BRANCH_COMPARISON.md#discipline-three-way-comparison`, `docs/FDS.md#continuous-learning-log`
+- **Practical Impact:** Added `docs/VALIDATION.md`, updated `docs/THREE_WAY_BRANCH_COMPARISON.md`, `THREE_WAY_COMPARISON.md`, `PLAN.md`, `docs/RECTIFICATION_PLAN.md`, `CLAUDE-validation.md`, `docs/FDS.md` (`v3.5.0`), and `src/discipline/greenfield-gate.test.ts`.
+
+
 
 
 

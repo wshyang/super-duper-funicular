@@ -69,6 +69,7 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
       'CLAUDE-checklist.md',
       'docs/FDS.md',
       'docs/ADDENDA.md',
+      'docs/VALIDATION.md',
       'docs/SPRITE_ANIMATION_FLAW_ANALYSIS.md',
       'PLAN.md',
       'docs/RECTIFICATION_PLAN.md',
@@ -95,9 +96,11 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('#svg-vector-assessment');
     expect(fdsMd).toContain('#gait-cycle-visual-audit');
     expect(fdsMd).toContain('#continuous-learning-log');
-    expect(fdsMd).toContain('TURN-L10');
+    expect(fdsMd).toContain('TURN-L11');
     expect(threeWayMd).toContain('b227e2fe562be341f15f58955f539d325170729e');
     expect(threeWayMd).toContain('c6902014041359b595532a63faf739bbade38c5b');
+    expect(threeWayMd).toContain('#fds-three-way-comparison');
+    expect(threeWayMd).toContain('#discipline-three-way-comparison');
   });
 
   it('enforces file <= 800 LOC and named function <= 50 LOC across all TypeScript files', () => {
