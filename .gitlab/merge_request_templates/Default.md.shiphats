@@ -1,0 +1,11 @@
+## What changed
+
+## Evidence
+- Layers executed (typecheck / tests / build / pipeline / viewed output):
+- Provenance category for any comparative claim: read | viewed | executed | peer-reported | unverified
+
+## Discipline
+- [ ] Addendum added in this change (`docs/ADDENDA.md`)
+- [ ] Turn learning appended (`docs/FDS.md`)
+- [ ] Parity ledger updated (`docs/N_WAY_COMPARISON.md` + `src/shared/parity.ts`)
+- [ ] Tests observed failing first, then passing

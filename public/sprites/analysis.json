@@ -1,0 +1,235 @@
+{
+  "generatedBy": "npm run sprites:analyse",
+  "frameCount": 48,
+  "uniqueCount": 30,
+  "duplicateThreshold": 0.9,
+  "meanDuplicateIou": 0.9578,
+  "maxDuplicateIou": 0.975,
+  "duplicatePairs": [
+    {
+      "a": "runner-purple-01",
+      "b": "runner-purple-05",
+      "iou": 0.975
+    },
+    {
+      "a": "runner-orange-01",
+      "b": "runner-orange-05",
+      "iou": 0.9726
+    },
+    {
+      "a": "runner-green-01",
+      "b": "runner-green-05",
+      "iou": 0.971
+    },
+    {
+      "a": "runner-red-02",
+      "b": "runner-red-06",
+      "iou": 0.9694
+    },
+    {
+      "a": "runner-red-01",
+      "b": "runner-red-05",
+      "iou": 0.9641
+    },
+    {
+      "a": "runner-yellow-01",
+      "b": "runner-yellow-05",
+      "iou": 0.9641
+    },
+    {
+      "a": "runner-blue-02",
+      "b": "runner-blue-06",
+      "iou": 0.9631
+    },
+    {
+      "a": "runner-green-02",
+      "b": "runner-green-06",
+      "iou": 0.9621
+    },
+    {
+      "a": "runner-blue-01",
+      "b": "runner-blue-05",
+      "iou": 0.9618
+    },
+    {
+      "a": "runner-yellow-02",
+      "b": "runner-yellow-06",
+      "iou": 0.9589
+    },
+    {
+      "a": "runner-purple-02",
+      "b": "runner-purple-06",
+      "iou": 0.9579
+    },
+    {
+      "a": "runner-orange-02",
+      "b": "runner-orange-06",
+      "iou": 0.9579
+    },
+    {
+      "a": "runner-green-04",
+      "b": "runner-green-08",
+      "iou": 0.9576
+    },
+    {
+      "a": "runner-blue-04",
+      "b": "runner-blue-08",
+      "iou": 0.9562
+    },
+    {
+      "a": "runner-red-04",
+      "b": "runner-red-08",
+      "iou": 0.9506
+    },
+    {
+      "a": "runner-yellow-04",
+      "b": "runner-yellow-08",
+      "iou": 0.9434
+    },
+    {
+      "a": "runner-orange-04",
+      "b": "runner-orange-08",
+      "iou": 0.9279
+    },
+    {
+      "a": "runner-purple-04",
+      "b": "runner-purple-08",
+      "iou": 0.9263
+    }
+  ],
+  "nearDuplicates": [
+    {
+      "a": "runner-purple-01",
+      "b": "runner-purple-05",
+      "iou": 0.975
+    },
+    {
+      "a": "runner-orange-01",
+      "b": "runner-orange-05",
+      "iou": 0.9726
+    },
+    {
+      "a": "runner-green-01",
+      "b": "runner-green-05",
+      "iou": 0.971
+    },
+    {
+      "a": "runner-red-02",
+      "b": "runner-red-06",
+      "iou": 0.9694
+    },
+    {
+      "a": "runner-red-01",
+      "b": "runner-red-05",
+      "iou": 0.9641
+    },
+    {
+      "a": "runner-yellow-01",
+      "b": "runner-yellow-05",
+      "iou": 0.9641
+    },
+    {
+      "a": "runner-blue-02",
+      "b": "runner-blue-06",
+      "iou": 0.9631
+    },
+    {
+      "a": "runner-green-02",
+      "b": "runner-green-06",
+      "iou": 0.9621
+    },
+    {
+      "a": "runner-blue-01",
+      "b": "runner-blue-05",
+      "iou": 0.9618
+    },
+    {
+      "a": "runner-yellow-02",
+      "b": "runner-yellow-06",
+      "iou": 0.9589
+    },
+    {
+      "a": "runner-purple-02",
+      "b": "runner-purple-06",
+      "iou": 0.9579
+    },
+    {
+      "a": "runner-orange-02",
+      "b": "runner-orange-06",
+      "iou": 0.9579
+    },
+    {
+      "a": "runner-green-04",
+      "b": "runner-green-08",
+      "iou": 0.9576
+    },
+    {
+      "a": "runner-blue-04",
+      "b": "runner-blue-08",
+      "iou": 0.9562
+    },
+    {
+      "a": "runner-red-04",
+      "b": "runner-red-08",
+      "iou": 0.9506
+    },
+    {
+      "a": "runner-yellow-04",
+      "b": "runner-yellow-08",
+      "iou": 0.9434
+    },
+    {
+      "a": "runner-orange-04",
+      "b": "runner-orange-08",
+      "iou": 0.9279
+    },
+    {
+      "a": "runner-purple-04",
+      "b": "runner-purple-08",
+      "iou": 0.9263
+    },
+    {
+      "a": "runner-red-03",
+      "b": "runner-red-07",
+      "iou": 0.8867
+    },
+    {
+      "a": "runner-blue-03",
+      "b": "runner-blue-07",
+      "iou": 0.8717
+    },
+    {
+      "a": "runner-orange-03",
+      "b": "runner-orange-07",
+      "iou": 0.8667
+    },
+    {
+      "a": "runner-yellow-03",
+      "b": "runner-yellow-07",
+      "iou": 0.863
+    },
+    {
+      "a": "runner-purple-03",
+      "b": "runner-purple-07",
+      "iou": 0.8544
+    },
+    {
+      "a": "runner-green-03",
+      "b": "runner-green-07",
+      "iou": 0.8483
+    }
+  ],
+  "scaleJitterPx": 22.17,
+  "baselineJitterPx": 25.33,
+  "minFootSeparationPx": 92.5,
+  "maxFootSeparationPx": 177,
+  "leadLegLockRatio": 1,
+  "crossoverFrames": 12,
+  "findings": [
+    "18 frame pairs across the six colourways exceed 90% centroid-aligned silhouette IoU (mean 95.8%).",
+    "18 of those pairs are four columns apart, evidence that frames 5–8 replay frames 1–4 (mean 95.8% IoU).",
+    "Foot separation ranges from 92.5 px to 177.0 px; 12 frame(s) show crossed or merged feet.",
+    "The lower (stance) foot sits on the same front/back side in 100% of resolved frames (36 front, 0 back) — a high value indicates unilateral lead-leg lock.",
+    "Mean row bounding-box height range is 22.2 px and mean baseline range is 25.3 px, quantifying scale and ground-drift jitter."
+  ]
+}

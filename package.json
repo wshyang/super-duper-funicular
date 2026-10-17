@@ -1,0 +1,50 @@
+{
+  "name": "funicular-motion-lab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Greenfield motion laboratory: sprite forensics, a 17-part articulated runner engine and a live n-way branch parity ledger.",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 3000",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 3000",
+    "start": "vite preview --host 0.0.0.0 --port 3000",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write src tests tools *.ts *.json",
+    "format:check": "prettier --check src tests tools *.ts *.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "pipeline": "tsx tools/run-pipeline.ts",
+    "sprites:extract": "tsx tools/run-pipeline.ts extract",
+    "sprites:analyse": "tsx tools/run-pipeline.ts analyse",
+    "images:dedupe": "tsx tools/run-pipeline.ts dedupe",
+    "dump-cycle": "tsx tools/dump-cycle.ts",
+    "branches:compare": "tsx tools/compare-branches.ts",
+    "validate": "npm run typecheck && npm run test && npm run build"
+  },
+  "dependencies": {
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.34.0",
+    "@types/node": "22.18.5",
+    "@types/pngjs": "6.0.5",
+    "@types/react": "19.1.10",
+    "@types/react-dom": "19.1.9",
+    "@vitejs/plugin-react": "5.0.2",
+    "eslint": "9.34.0",
+    "jpeg-js": "0.4.4",
+    "pngjs": "7.0.0",
+    "prettier": "3.6.2",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.71.2",
+    "vite": "7.1.5",
+    "vitest": "3.2.4"
+  }
+}

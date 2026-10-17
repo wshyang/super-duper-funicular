@@ -1,0 +1,4 @@
+# Inert CODEOWNERS for @@SHIPHATS_PROJECT_PATH@@
+* @@@SHIPHATS_DEFAULT_BRANCH@@-maintainers
+/docs/ @@@SHIPHATS_DEFAULT_BRANCH@@-docs
+/src/runner/ @@@SHIPHATS_DEFAULT_BRANCH@@-engine

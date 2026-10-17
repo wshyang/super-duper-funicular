@@ -1,0 +1,9 @@
+# Inert helper pipeline for static analysis. Activate with ./activate-shiphats.sh.
+variables:
+  CF_LEVEL: "@@SHIPHATS_CF_LEVEL@@"
+
+sonarqube:
+  stage: static-test
+  extends: .sonarqube-scan
+  variables:
+    SONAR_PROJECTKEY: "$SONAR_PROJECTKEY"

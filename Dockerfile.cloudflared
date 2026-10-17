@@ -1,0 +1,5 @@
+# syntax=docker/dockerfile:1.7
+# Optional tunnel sidecar. TUNNEL_TOKEN is supplied at runtime, never baked in.
+FROM cloudflare/cloudflared:2024.12.2
+USER 1001:1001
+ENTRYPOINT ["cloudflared", "tunnel", "--no-autoupdate", "run"]

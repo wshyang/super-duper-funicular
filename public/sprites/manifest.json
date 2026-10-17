@@ -1,0 +1,982 @@
+{
+  "generatedBy": "npm run sprites:extract",
+  "source": {
+    "path": "src/images/source/runner-8frame-6-colorways-source.jpeg",
+    "sha256": "f99114235d61781f76a6b32c637edac16f13af6592a2866fe0e0528504727030",
+    "width": 2528,
+    "height": 1696
+  },
+  "layout": {
+    "rows": 6,
+    "columns": 8,
+    "headerPx": 129,
+    "cellWidth": 316,
+    "cellHeight": 262
+  },
+  "canvas": {
+    "width": 316,
+    "height": 262
+  },
+  "frames": [
+    {
+      "id": "runner-red-01",
+      "palette": "red",
+      "column": 0,
+      "url": "/sprites/reference/red/frame-01.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        59,
+        21,
+        235,
+        251
+      ],
+      "pivot": [
+        156,
+        130
+      ],
+      "sha256": "5a84041dd31d5a90bc6487cc8ca694e27926669946c0d6e0a871705b38a3b15b",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-red-02",
+      "palette": "red",
+      "column": 1,
+      "url": "/sprites/reference/red/frame-02.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        67,
+        38,
+        223,
+        251
+      ],
+      "pivot": [
+        159,
+        148
+      ],
+      "sha256": "608a53e994ac6d7d36b7a9295c2366eaa1efb704903e98a298d78af6970fcc58",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-red-03",
+      "palette": "red",
+      "column": 2,
+      "url": "/sprites/reference/red/frame-03.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        50,
+        32,
+        251,
+        242
+      ],
+      "pivot": [
+        170,
+        135
+      ],
+      "sha256": "ae5cdaf089daa1b9741079104acff489cce203025497d07b8f1b75095d1a286e",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-red-04",
+      "palette": "red",
+      "column": 3,
+      "url": "/sprites/reference/red/frame-04.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        70,
+        13,
+        248,
+        225
+      ],
+      "pivot": [
+        164,
+        117
+      ],
+      "sha256": "12e3f9d8c8d705daa6bc46bc62294f27d42b06643f6f69d96ad0b1b31e6abbab",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-red-05",
+      "palette": "red",
+      "column": 4,
+      "url": "/sprites/reference/red/frame-05.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        61,
+        21,
+        237,
+        251
+      ],
+      "pivot": [
+        159,
+        130
+      ],
+      "sha256": "761cd7c0b42e8bf121208b3272e01ec0fc361a217ea86a7bdc17278e286fa67d",
+      "duplicateOf": "runner-red-01"
+    },
+    {
+      "id": "runner-red-06",
+      "palette": "red",
+      "column": 5,
+      "url": "/sprites/reference/red/frame-06.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        75,
+        38,
+        230,
+        251
+      ],
+      "pivot": [
+        167,
+        148
+      ],
+      "sha256": "c6045ae64d65bb8536b03a7954650e1edebb285931942763a561317dfbcd4bfc",
+      "duplicateOf": "runner-red-02"
+    },
+    {
+      "id": "runner-red-07",
+      "palette": "red",
+      "column": 6,
+      "url": "/sprites/reference/red/frame-07.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        48,
+        26,
+        258,
+        239
+      ],
+      "pivot": [
+        175,
+        131
+      ],
+      "sha256": "a3153941bf2545d65a15c641c66859e39128088b926c471e4c8168a1966d403b",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-red-08",
+      "palette": "red",
+      "column": 7,
+      "url": "/sprites/reference/red/frame-08.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        76,
+        15,
+        253,
+        226
+      ],
+      "pivot": [
+        170,
+        119
+      ],
+      "sha256": "2100ce1a3fcc9e2aae45b4248684be12b238c68d216e2fbef4b944fa8f3f329a",
+      "duplicateOf": "runner-red-04"
+    },
+    {
+      "id": "runner-blue-01",
+      "palette": "blue",
+      "column": 0,
+      "url": "/sprites/reference/blue/frame-01.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        59,
+        25,
+        234,
+        254
+      ],
+      "pivot": [
+        156,
+        133
+      ],
+      "sha256": "cbc90f8842f8c3c86a6860274e08dd1177ba9503233b06119ac6da5105dfee91",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-blue-02",
+      "palette": "blue",
+      "column": 1,
+      "url": "/sprites/reference/blue/frame-02.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        67,
+        41,
+        223,
+        254
+      ],
+      "pivot": [
+        159,
+        151
+      ],
+      "sha256": "e9d18bfd9531dbba85c619d28cc58b52859c7e016b69faa253f1e6f33959a83a",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-blue-03",
+      "palette": "blue",
+      "column": 2,
+      "url": "/sprites/reference/blue/frame-03.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        51,
+        34,
+        251,
+        242
+      ],
+      "pivot": [
+        169,
+        138
+      ],
+      "sha256": "bce29653dedabb957227e449f8e2b9bb68a5e035f66dc030c2552a05cd77a6a7",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-blue-04",
+      "palette": "blue",
+      "column": 3,
+      "url": "/sprites/reference/blue/frame-04.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        70,
+        17,
+        247,
+        228
+      ],
+      "pivot": [
+        164,
+        121
+      ],
+      "sha256": "8ffc00c60a922af588d4c3cf1e80fb0694a44429444b18d1b03fc0ffc8488710",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-blue-05",
+      "palette": "blue",
+      "column": 4,
+      "url": "/sprites/reference/blue/frame-05.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        61,
+        24,
+        236,
+        254
+      ],
+      "pivot": [
+        159,
+        133
+      ],
+      "sha256": "3f33969f8e848284b1ba65c00c1c60ec522fcfad7e93d2574f404de44fc87751",
+      "duplicateOf": "runner-blue-01"
+    },
+    {
+      "id": "runner-blue-06",
+      "palette": "blue",
+      "column": 5,
+      "url": "/sprites/reference/blue/frame-06.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        75,
+        41,
+        231,
+        253
+      ],
+      "pivot": [
+        167,
+        150
+      ],
+      "sha256": "97873c6c5631c3dc1cd9c170b0475fc2ac292da582cafbd69a3cd7ccbf31a09c",
+      "duplicateOf": "runner-blue-02"
+    },
+    {
+      "id": "runner-blue-07",
+      "palette": "blue",
+      "column": 6,
+      "url": "/sprites/reference/blue/frame-07.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        48,
+        29,
+        258,
+        242
+      ],
+      "pivot": [
+        175,
+        134
+      ],
+      "sha256": "343a88e1d0437cf41e8d41d8d932a76e1cfe09374720718569275ad7ab6a7c57",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-blue-08",
+      "palette": "blue",
+      "column": 7,
+      "url": "/sprites/reference/blue/frame-08.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        76,
+        20,
+        252,
+        230
+      ],
+      "pivot": [
+        170,
+        123
+      ],
+      "sha256": "5d1c0ba042837234e3f727d834db25fee346458d23a0d26acef8a7505157645e",
+      "duplicateOf": "runner-blue-04"
+    },
+    {
+      "id": "runner-green-01",
+      "palette": "green",
+      "column": 0,
+      "url": "/sprites/reference/green/frame-01.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        58,
+        26,
+        233,
+        255
+      ],
+      "pivot": [
+        156,
+        134
+      ],
+      "sha256": "d9cd0b7fd92b4701cf665ea81620038a5aa3f5b056832f3f6647bc107cc12f06",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-green-02",
+      "palette": "green",
+      "column": 1,
+      "url": "/sprites/reference/green/frame-02.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        66,
+        42,
+        223,
+        254
+      ],
+      "pivot": [
+        159,
+        151
+      ],
+      "sha256": "8c631e6ab69971fb037626da167fb83a56f24d3741f02b702d50ce17718d0a18",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-green-03",
+      "palette": "green",
+      "column": 2,
+      "url": "/sprites/reference/green/frame-03.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        51,
+        36,
+        250,
+        243
+      ],
+      "pivot": [
+        170,
+        139
+      ],
+      "sha256": "c828569fc17a4f2687c9958bd77dcee583c909bd01417da6db6bc12d8228c0a7",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-green-04",
+      "palette": "green",
+      "column": 3,
+      "url": "/sprites/reference/green/frame-04.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        70,
+        21,
+        247,
+        230
+      ],
+      "pivot": [
+        165,
+        123
+      ],
+      "sha256": "90c32c5f0f54066583a0efd63ef404440a60ff4885188c554f9e429f46c36ef7",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-green-05",
+      "palette": "green",
+      "column": 4,
+      "url": "/sprites/reference/green/frame-05.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        61,
+        26,
+        236,
+        255
+      ],
+      "pivot": [
+        159,
+        134
+      ],
+      "sha256": "ed4ab43c78e16f5aabd284571b95a1dbbaf44cbb56bac0794a92d36aa0caaf73",
+      "duplicateOf": "runner-green-01"
+    },
+    {
+      "id": "runner-green-06",
+      "palette": "green",
+      "column": 5,
+      "url": "/sprites/reference/green/frame-06.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        74,
+        41,
+        231,
+        254
+      ],
+      "pivot": [
+        167,
+        151
+      ],
+      "sha256": "8a9a2579991ef5c15287d1ccce93c3a1d53ff3fe97e5e7a7f9c4941cc81b7fb8",
+      "duplicateOf": "runner-green-02"
+    },
+    {
+      "id": "runner-green-07",
+      "palette": "green",
+      "column": 6,
+      "url": "/sprites/reference/green/frame-07.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        48,
+        31,
+        257,
+        244
+      ],
+      "pivot": [
+        175,
+        136
+      ],
+      "sha256": "a006d970e95bbcdf71bb7606e2842d834e33bf9c0b5815ff22481c7c555d9d69",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-green-08",
+      "palette": "green",
+      "column": 7,
+      "url": "/sprites/reference/green/frame-08.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        77,
+        22,
+        253,
+        232
+      ],
+      "pivot": [
+        170,
+        125
+      ],
+      "sha256": "621413e1f6f361d03aa12b7b9a97e6af84c5d3a7d5e30e0e49cec79214796b4b",
+      "duplicateOf": "runner-green-04"
+    },
+    {
+      "id": "runner-yellow-01",
+      "palette": "yellow",
+      "column": 0,
+      "url": "/sprites/reference/yellow/frame-01.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        60,
+        25,
+        233,
+        254
+      ],
+      "pivot": [
+        156,
+        133
+      ],
+      "sha256": "31a5a53ab169dddf9280e71dd4643cc033eece5aac8945c999b0fba383931df9",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-yellow-02",
+      "palette": "yellow",
+      "column": 1,
+      "url": "/sprites/reference/yellow/frame-02.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        66,
+        41,
+        224,
+        253
+      ],
+      "pivot": [
+        159,
+        150
+      ],
+      "sha256": "e83cef3d54c3c9f581d63ba6ddebe0aea0c7a145917e90030ce1b04fcea982eb",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-yellow-03",
+      "palette": "yellow",
+      "column": 2,
+      "url": "/sprites/reference/yellow/frame-03.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        51,
+        33,
+        249,
+        241
+      ],
+      "pivot": [
+        170,
+        136
+      ],
+      "sha256": "c4cf1b2a10f5c21626784253d68ffed6a7517ae6201630a26e0716a3c9c77588",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-yellow-04",
+      "palette": "yellow",
+      "column": 3,
+      "url": "/sprites/reference/yellow/frame-04.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        70,
+        21,
+        247,
+        228
+      ],
+      "pivot": [
+        164,
+        122
+      ],
+      "sha256": "287b4322569d32102cac347b7e68f547ab1a0ffd5ffd3a33c914a1a12447c4c2",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-yellow-05",
+      "palette": "yellow",
+      "column": 4,
+      "url": "/sprites/reference/yellow/frame-05.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        62,
+        25,
+        236,
+        254
+      ],
+      "pivot": [
+        159,
+        133
+      ],
+      "sha256": "613f73b893274fc7334d1d480b51961e64cf372775dcc0b2561b8cb0e028715a",
+      "duplicateOf": "runner-yellow-01"
+    },
+    {
+      "id": "runner-yellow-06",
+      "palette": "yellow",
+      "column": 5,
+      "url": "/sprites/reference/yellow/frame-06.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        74,
+        39,
+        231,
+        253
+      ],
+      "pivot": [
+        167,
+        149
+      ],
+      "sha256": "2713b488442795c4a274834ac30c94c08efb2c5e1ad21c998d77ec7c4dd76c97",
+      "duplicateOf": "runner-yellow-02"
+    },
+    {
+      "id": "runner-yellow-07",
+      "palette": "yellow",
+      "column": 6,
+      "url": "/sprites/reference/yellow/frame-07.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        50,
+        30,
+        257,
+        243
+      ],
+      "pivot": [
+        175,
+        134
+      ],
+      "sha256": "cf8047543bfc26a00e8528ee02b3f064133ea519ecb53fa24e9d266e03bfc78c",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-yellow-08",
+      "palette": "yellow",
+      "column": 7,
+      "url": "/sprites/reference/yellow/frame-08.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        77,
+        23,
+        253,
+        231
+      ],
+      "pivot": [
+        170,
+        124
+      ],
+      "sha256": "2da0b22a9aa7a81287db90431ac3fe37f513e8b8137a9afc53c81017cc3d65a4",
+      "duplicateOf": "runner-yellow-04"
+    },
+    {
+      "id": "runner-purple-01",
+      "palette": "purple",
+      "column": 0,
+      "url": "/sprites/reference/purple/frame-01.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        58,
+        22,
+        232,
+        251
+      ],
+      "pivot": [
+        155,
+        129
+      ],
+      "sha256": "a0539c6ac50ae092a80106cbf05f880ba9d1827e3e78237e958dbc8c1b8e20fe",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-purple-02",
+      "palette": "purple",
+      "column": 1,
+      "url": "/sprites/reference/purple/frame-02.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        66,
+        37,
+        223,
+        249
+      ],
+      "pivot": [
+        159,
+        146
+      ],
+      "sha256": "3211eba3e3f719ef5f148bcd7655e12b3fb97a862ef78f3748212c101995d711",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-purple-03",
+      "palette": "purple",
+      "column": 2,
+      "url": "/sprites/reference/purple/frame-03.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        52,
+        30,
+        249,
+        238
+      ],
+      "pivot": [
+        170,
+        133
+      ],
+      "sha256": "434781c4bffc722c9c08df896764c89218b5444972c5ecf0cc8cefce2bbd8d4e",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-purple-04",
+      "palette": "purple",
+      "column": 3,
+      "url": "/sprites/reference/purple/frame-04.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        70,
+        20,
+        247,
+        226
+      ],
+      "pivot": [
+        164,
+        120
+      ],
+      "sha256": "2ff767f008389b6aefe44563f3b6fb3bb7f844b5c9c9724b0496a897091587f7",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-purple-05",
+      "palette": "purple",
+      "column": 4,
+      "url": "/sprites/reference/purple/frame-05.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        62,
+        22,
+        236,
+        251
+      ],
+      "pivot": [
+        159,
+        129
+      ],
+      "sha256": "a8133359c994a63b20acb3f20a01dd261e0e8db8160bf91d7f8fa730d06d1ab9",
+      "duplicateOf": "runner-purple-01"
+    },
+    {
+      "id": "runner-purple-06",
+      "palette": "purple",
+      "column": 5,
+      "url": "/sprites/reference/purple/frame-06.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        74,
+        35,
+        231,
+        249
+      ],
+      "pivot": [
+        166,
+        145
+      ],
+      "sha256": "c91b81c7a8d2defbead501d90c91db3bb02947af4d0340f5afcfca3af58c95f8",
+      "duplicateOf": "runner-purple-02"
+    },
+    {
+      "id": "runner-purple-07",
+      "palette": "purple",
+      "column": 6,
+      "url": "/sprites/reference/purple/frame-07.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        50,
+        27,
+        257,
+        240
+      ],
+      "pivot": [
+        175,
+        131
+      ],
+      "sha256": "a6458ebf91956bf11f3c190f9d3c99b7139ff7207f7116f0906a4d4717f1970b",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-purple-08",
+      "palette": "purple",
+      "column": 7,
+      "url": "/sprites/reference/purple/frame-08.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        78,
+        21,
+        253,
+        228
+      ],
+      "pivot": [
+        170,
+        122
+      ],
+      "sha256": "3650773c081e055687782ac6d7b5746c49efcf5bdb9c052d598859161f481a0a",
+      "duplicateOf": "runner-purple-04"
+    },
+    {
+      "id": "runner-orange-01",
+      "palette": "orange",
+      "column": 0,
+      "url": "/sprites/reference/orange/frame-01.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        58,
+        17,
+        233,
+        246
+      ],
+      "pivot": [
+        155,
+        125
+      ],
+      "sha256": "2387dffb0cb1183b00b60ae1536d03cb4c9b211331b5ac62afd9253567d97f50",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-orange-02",
+      "palette": "orange",
+      "column": 1,
+      "url": "/sprites/reference/orange/frame-02.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        66,
+        31,
+        225,
+        244
+      ],
+      "pivot": [
+        159,
+        141
+      ],
+      "sha256": "01aac8a87e4733f67c8e88ed7d65d953863d5d3a97ee8ce838cd1aa85c866e05",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-orange-03",
+      "palette": "orange",
+      "column": 2,
+      "url": "/sprites/reference/orange/frame-03.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        52,
+        25,
+        249,
+        234
+      ],
+      "pivot": [
+        169,
+        128
+      ],
+      "sha256": "b7e7740775de13d9f43950574dd2a30ed510789f2fbe88a348cba1db3dbb720c",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-orange-04",
+      "palette": "orange",
+      "column": 3,
+      "url": "/sprites/reference/orange/frame-04.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        70,
+        17,
+        247,
+        222
+      ],
+      "pivot": [
+        163,
+        116
+      ],
+      "sha256": "c137d22d987f46c38aa9775654355963472216443ab03228623432e981ce19be",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-orange-05",
+      "palette": "orange",
+      "column": 4,
+      "url": "/sprites/reference/orange/frame-05.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        62,
+        17,
+        237,
+        246
+      ],
+      "pivot": [
+        159,
+        125
+      ],
+      "sha256": "d6af2c118a6ea44939689e3eb948d8332272797ae215918ebe662d713ef59d33",
+      "duplicateOf": "runner-orange-01"
+    },
+    {
+      "id": "runner-orange-06",
+      "palette": "orange",
+      "column": 5,
+      "url": "/sprites/reference/orange/frame-06.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        73,
+        31,
+        232,
+        244
+      ],
+      "pivot": [
+        166,
+        140
+      ],
+      "sha256": "891215c6c3f3418387ea7d3802090a13a1e252ae1e5d47c0b848b50cf48cd786",
+      "duplicateOf": "runner-orange-02"
+    },
+    {
+      "id": "runner-orange-07",
+      "palette": "orange",
+      "column": 6,
+      "url": "/sprites/reference/orange/frame-07.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        50,
+        23,
+        256,
+        235
+      ],
+      "pivot": [
+        175,
+        127
+      ],
+      "sha256": "6e295e8c62e94be024d4548b1221581f933998a71685f0cea57514c52533bb25",
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-orange-08",
+      "palette": "orange",
+      "column": 7,
+      "url": "/sprites/reference/orange/frame-08.png",
+      "width": 316,
+      "height": 262,
+      "bounds": [
+        77,
+        18,
+        253,
+        223
+      ],
+      "pivot": [
+        170,
+        118
+      ],
+      "sha256": "ad54c61bf78d9a4796e66672288b396173a6fb7ebcc81f35b1f6761ea65457a3",
+      "duplicateOf": "runner-orange-04"
+    }
+  ]
+}
