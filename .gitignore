@@ -1,0 +1,15 @@
+node_modules
+dist
+coverage
+.env
+.env.*
+!.env.example
+!.env.test
+.vite
+.DS_Store
+*.tsbuildinfo
+reports/raw/
+reports/tmp/
+tmp/
+BranchTips.json
+audit-report*.json

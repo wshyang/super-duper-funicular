@@ -1,0 +1,6 @@
+# Contextualised cloudflared tunnel container per GREENFIELD.md §10.1
+FROM cloudflare/cloudflared:2024.12.2
+
+USER 65532:65532
+
+CMD ["tunnel", "--no-autoupdate", "run"]

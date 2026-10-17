@@ -1,0 +1,60 @@
+{
+  "fetchedAt": "2026-10-17T23:20:20.714Z",
+  "fetchedVia": "git ls-remote --heads origin (live)",
+  "tips": [
+    {
+      "ref": "refs/heads/arena/db7c86d4-super-duper-funicular",
+      "displayName": "arena/db7c86d4-super-duper-funicular",
+      "sha": "(not on remote)",
+      "timestamp": "(n/a)",
+      "pr": "— (session)",
+      "role": "This Branch — Harmonised Greenfield (Session)",
+      "status": "active"
+    },
+    {
+      "ref": "refs/heads/arena/917ef347-super-duper-funicular",
+      "displayName": "arena/917ef347-super-duper-funicular",
+      "sha": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+      "timestamp": "2026-10-17 23:09:40 +0000",
+      "pr": "PR #1 OPEN",
+      "role": "Sprite Motion Lab — Algorithmic + SVG + Photoreal Pipeline",
+      "status": "active"
+    },
+    {
+      "ref": "refs/heads/arena/263385da-super-duper-funicular",
+      "displayName": "arena/263385da-super-duper-funicular",
+      "sha": "b227e2fe562be341f15f58955f539d325170729e",
+      "timestamp": "2026-10-17 21:55:19 +0000",
+      "pr": "PR #2 OPEN",
+      "role": "Stride Lab — Motion Workbench + Multi-Locomotion + Calibration",
+      "status": "active"
+    },
+    {
+      "ref": "refs/heads/arena/77ffb088-super-duper-funicular",
+      "displayName": "arena/77ffb088-super-duper-funicular",
+      "sha": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+      "timestamp": "2026-10-17 23:05:53 +0000",
+      "pr": "PR #3 OPEN",
+      "role": "Photo-Rig & Matte Lab — Coherent Plates + Matte Invariants",
+      "status": "active"
+    },
+    {
+      "ref": "refs/heads/arena/ce6d2a6e-super-duper-funicular",
+      "displayName": "arena/ce6d2a6e-super-duper-funicular",
+      "sha": "bab689cdac3ba730138bfae09dda537978d61e09",
+      "timestamp": "2026-10-17 06:27:14 +0000",
+      "pr": "historic (superseded)",
+      "role": "Early Prototype — Foundational (Historic)",
+      "status": "historic"
+    },
+    {
+      "ref": "refs/heads/main",
+      "displayName": "main",
+      "sha": "396ce256debcb5bdc2419cc0f3f399730b61ab36",
+      "timestamp": "2026-10-17 13:53:48 +0800",
+      "pr": "-",
+      "role": "main @ 396ce25 base",
+      "status": "active"
+    }
+  ]
+}

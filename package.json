@@ -1,0 +1,62 @@
+{
+  "name": "super-duper-funicular",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Harmonised Greenfield Sprite Motion Lab — deduplication, magenta-key extraction, quantitative flaw analysis, 17-part algorithmic + photorealistic + SVG articulated running engine, multi-locomotion workbench, full-cycle audits, and live N-way branch parity ledger",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 3000",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 3000",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write src tools scripts tests *.ts *.json",
+    "format:check": "prettier --check src tools scripts tests *.ts *.json",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "test:watch": "vitest",
+    "test:e2e:sandbox": "node scripts/test-e2e-sandbox.mjs",
+    "dedupe": "tsx scripts/dedupe-images.ts",
+    "extract": "tsx scripts/extract-sprites.ts",
+    "analyse": "tsx scripts/analyze-sprites.ts",
+    "analyze": "tsx scripts/analyze-sprites.ts",
+    "generate-sheets": "tsx scripts/generate-algorithmic-sprites.ts",
+    "pipeline": "npm run dedupe && npm run extract && npm run analyse && npm run generate-sheets",
+    "dump-cycle": "tsx tools/dump-cycle.ts",
+    "sprites:extract": "tsx scripts/extract-sprites.ts",
+    "sprites:analyse": "tsx tools/analyze-source.ts",
+    "images:dedupe": "tsx tools/dedupe-images.ts",
+    "photo:extract": "tsx tools/extract-photo-rig.ts",
+    "photo:audit": "tsx tools/render-photo-audit.ts",
+    "runner:preview": "tsx scripts/render-runner-preview.ts",
+    "branches:compare": "tsx tools/compare-branches.ts",
+    "validate": "npm run typecheck && npm test && npm run build"
+  },
+  "dependencies": {
+    "jpeg-js": "0.4.4",
+    "pngjs": "7.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "0.1.71",
+    "@playwright/test": "1.49.1",
+    "@sparticuz/chromium": "138.0.2",
+    "@types/node": "22.20.5",
+    "@types/pngjs": "6.0.5",
+    "@types/react": "18.3.18",
+    "@types/react-dom": "18.3.5",
+    "@vitejs/plugin-react": "4.7.0",
+    "eslint": "9.34.0",
+    "jsdom": "25.0.1",
+    "prettier": "3.6.2",
+    "tsx": "4.23.15",
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.71.2",
+    "vite": "6.4.4",
+    "vitest": "5.0.5"
+  }
+}
