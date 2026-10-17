@@ -1,0 +1,320 @@
+{
+  "torso": {
+    "source": "torso",
+    "crop": [
+      220,
+      235,
+      555,
+      1000
+    ],
+    "start": [
+      390,
+      940
+    ],
+    "end": [
+      365,
+      325
+    ],
+    "surface": "left side, reconstructed under-arm fabric",
+    "fade": 22
+  },
+  "pelvis": {
+    "source": "torso",
+    "crop": [
+      220,
+      845,
+      555,
+      1215
+    ],
+    "start": [
+      390,
+      940
+    ],
+    "end": [
+      390,
+      1040
+    ],
+    "surface": "left-side shorts and pelvis",
+    "fade": 18
+  },
+  "head": {
+    "source": "head-neck",
+    "crop": [
+      30,
+      185,
+      700,
+      810
+    ],
+    "start": [
+      435,
+      760
+    ],
+    "end": [
+      435,
+      210
+    ],
+    "surface": "left profile, head and bun",
+    "fade": 20
+  },
+  "neck": {
+    "source": "head-neck",
+    "crop": [
+      215,
+      680,
+      555,
+      1080
+    ],
+    "start": [
+      390,
+      990
+    ],
+    "end": [
+      435,
+      760
+    ],
+    "surface": "left neck, overlapping head and collar",
+    "fade": 28
+  },
+  "near-upper-arm": {
+    "source": "near-left-arm",
+    "crop": [
+      270,
+      125,
+      500,
+      700
+    ],
+    "start": [
+      385,
+      240
+    ],
+    "end": [
+      359,
+      630
+    ],
+    "surface": "left lateral upper arm",
+    "fade": 32,
+    "roundEnd": 48
+  },
+  "near-forearm": {
+    "source": "near-left-arm",
+    "crop": [
+      280,
+      565,
+      475,
+      1090
+    ],
+    "start": [
+      359,
+      630
+    ],
+    "end": [
+      395,
+      1040
+    ],
+    "surface": "left outer forearm",
+    "fade": 40,
+    "roundStart": 48,
+    "roundEnd": 42
+  },
+  "near-hand": {
+    "source": "near-left-hand",
+    "crop": [
+      190,
+      400,
+      650,
+      1060
+    ],
+    "start": [
+      386,
+      470
+    ],
+    "end": [
+      425,
+      970
+    ],
+    "surface": "left dorsal hand, relaxed fist",
+    "fade": 32
+  },
+  "far-upper-arm": {
+    "source": "far-right-arm",
+    "crop": [
+      280,
+      125,
+      490,
+      700
+    ],
+    "start": [
+      380,
+      245
+    ],
+    "end": [
+      358,
+      630
+    ],
+    "surface": "right medial upper arm",
+    "fade": 32,
+    "roundEnd": 48
+  },
+  "far-forearm": {
+    "source": "far-right-arm",
+    "crop": [
+      280,
+      565,
+      475,
+      1070
+    ],
+    "start": [
+      358,
+      630
+    ],
+    "end": [
+      390,
+      1020
+    ],
+    "surface": "right inner forearm and wrist",
+    "fade": 40,
+    "roundStart": 48,
+    "roundEnd": 42
+  },
+  "far-hand": {
+    "source": "far-right-hand",
+    "crop": [
+      175,
+      400,
+      635,
+      1090
+    ],
+    "start": [
+      340,
+      470
+    ],
+    "end": [
+      390,
+      1000
+    ],
+    "surface": "right palmar hand, relaxed fist",
+    "fade": 32
+  },
+  "near-thigh": {
+    "source": "near-left-leg-shoe",
+    "crop": [
+      230,
+      195,
+      505,
+      750
+    ],
+    "start": [
+      365,
+      240
+    ],
+    "end": [
+      360,
+      690
+    ],
+    "surface": "left lateral thigh and shorts",
+    "fade": 40,
+    "roundEnd": 65,
+    "roundStart": 85
+  },
+  "near-shin": {
+    "source": "near-left-leg-shoe",
+    "crop": [
+      250,
+      625,
+      470,
+      1175
+    ],
+    "start": [
+      360,
+      690
+    ],
+    "end": [
+      350,
+      1145
+    ],
+    "surface": "left lateral calf and ankle sock",
+    "fade": 38,
+    "roundStart": 65,
+    "roundEnd": 45
+  },
+  "near-shoe": {
+    "source": "near-left-leg-shoe",
+    "crop": [
+      225,
+      1110,
+      610,
+      1310
+    ],
+    "start": [
+      235,
+      1298
+    ],
+    "end": [
+      598,
+      1298
+    ],
+    "surface": "left shoe, outer lateral panel",
+    "fade": 8
+  },
+  "far-thigh": {
+    "source": "far-right-leg-shoe",
+    "crop": [
+      195,
+      60,
+      520,
+      710
+    ],
+    "start": [
+      365,
+      190
+    ],
+    "end": [
+      355,
+      635
+    ],
+    "surface": "right medial thigh and shorts",
+    "fade": 40,
+    "roundEnd": 65,
+    "roundStart": 85
+  },
+  "far-shin": {
+    "source": "far-right-leg-shoe",
+    "crop": [
+      265,
+      570,
+      450,
+      1170
+    ],
+    "start": [
+      355,
+      635
+    ],
+    "end": [
+      345,
+      1145
+    ],
+    "surface": "right medial calf and ankle sock",
+    "fade": 38,
+    "roundStart": 65,
+    "roundEnd": 45
+  },
+  "far-shoe": {
+    "source": "far-right-leg-shoe",
+    "crop": [
+      230,
+      1100,
+      620,
+      1320
+    ],
+    "start": [
+      243,
+      1309
+    ],
+    "end": [
+      606,
+      1309
+    ],
+    "surface": "right shoe, inner medial arch panel",
+    "fade": 8
+  }
+}

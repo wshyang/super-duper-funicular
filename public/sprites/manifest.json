@@ -1,0 +1,1356 @@
+{
+  "source": "runner-six-palette-eight-frame-sheet.jpeg",
+  "mode": "grid",
+  "frameCount": 48,
+  "uniqueCount": 48,
+  "canvas": [
+    308,
+    258
+  ],
+  "frames": [
+    {
+      "id": "runner-crimson-01",
+      "row": 0,
+      "column": 0,
+      "url": "/sprites/runner-crimson-01.png",
+      "sha256": "9d50f66bb7b663809c5cbfb2c44bc0a8c4397597387e7219367a621d52b2d476",
+      "sourceBounds": [
+        2,
+        131,
+        308,
+        389
+      ],
+      "bounds": [
+        57,
+        19,
+        234,
+        250
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-crimson-02",
+      "row": 0,
+      "column": 1,
+      "url": "/sprites/runner-crimson-02.png",
+      "sha256": "e4d1b8563e21afd2b0d979c60eb84beb6d47b7cb799a96f7e2d952ad61ba6e89",
+      "sourceBounds": [
+        318,
+        131,
+        624,
+        389
+      ],
+      "bounds": [
+        65,
+        36,
+        222,
+        250
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-crimson-03",
+      "row": 0,
+      "column": 2,
+      "url": "/sprites/runner-crimson-03.png",
+      "sha256": "4be675c59686bddade9a8511e041157fa807b36b7b9bac2c774db7f36b209068",
+      "sourceBounds": [
+        635,
+        131,
+        942,
+        389
+      ],
+      "bounds": [
+        47,
+        30,
+        249,
+        241
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-crimson-04",
+      "row": 0,
+      "column": 3,
+      "url": "/sprites/runner-crimson-04.png",
+      "sha256": "bcf67fb9e7e307c07db7b35a4f655fdba05f67dd9d24031c75e7f43ac6e2346c",
+      "sourceBounds": [
+        953,
+        131,
+        1258,
+        389
+      ],
+      "bounds": [
+        65,
+        11,
+        244,
+        224
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-crimson-05",
+      "row": 0,
+      "column": 4,
+      "url": "/sprites/runner-crimson-05.png",
+      "sha256": "4991b0a4fe46caff2f3e9741f5db05d27665dd6cbd139cd5ff4268689af80f40",
+      "sourceBounds": [
+        1270,
+        131,
+        1575,
+        389
+      ],
+      "bounds": [
+        55,
+        19,
+        232,
+        250
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-crimson-06",
+      "row": 0,
+      "column": 5,
+      "url": "/sprites/runner-crimson-06.png",
+      "sha256": "5547cc52cfff065e8fdc203022752575a298ca517ef769afb87ece100e478b8f",
+      "sourceBounds": [
+        1586,
+        131,
+        1893,
+        389
+      ],
+      "bounds": [
+        69,
+        36,
+        225,
+        250
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-crimson-07",
+      "row": 0,
+      "column": 6,
+      "url": "/sprites/runner-crimson-07.png",
+      "sha256": "e1f3f7090fb53adda0cc25ac019fd993ab3cd0827c9df07257fb9c7e9e6ab004",
+      "sourceBounds": [
+        1903,
+        131,
+        2210,
+        389
+      ],
+      "bounds": [
+        41,
+        24,
+        252,
+        238
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-crimson-08",
+      "row": 0,
+      "column": 7,
+      "url": "/sprites/runner-crimson-08.png",
+      "sha256": "bddf126dca13ef8ce032226510a20a58017f3cf07ca7d52b82e5b67917787f14",
+      "sourceBounds": [
+        2220,
+        131,
+        2528,
+        389
+      ],
+      "bounds": [
+        68,
+        13,
+        246,
+        225
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-cobalt-01",
+      "row": 1,
+      "column": 0,
+      "url": "/sprites/runner-cobalt-01.png",
+      "sha256": "54b66a0651b8e4fbb4f18c0bbfc26f25a9d19bb9aa4e3e7762b81de4d8623e59",
+      "sourceBounds": [
+        2,
+        398,
+        308,
+        652
+      ],
+      "bounds": [
+        57,
+        17,
+        233,
+        248
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-cobalt-02",
+      "row": 1,
+      "column": 1,
+      "url": "/sprites/runner-cobalt-02.png",
+      "sha256": "7520c0b4f96162224360a92fc00fdaeb9075a694aa3727a4117290ad8a804db0",
+      "sourceBounds": [
+        318,
+        398,
+        624,
+        652
+      ],
+      "bounds": [
+        65,
+        34,
+        222,
+        247
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-cobalt-03",
+      "row": 1,
+      "column": 2,
+      "url": "/sprites/runner-cobalt-03.png",
+      "sha256": "581dd0e7d4f4bf9817177ad29291b30e2d5df6aa077dffcb0b2fd0e75f226dc2",
+      "sourceBounds": [
+        635,
+        398,
+        942,
+        652
+      ],
+      "bounds": [
+        48,
+        27,
+        249,
+        236
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-cobalt-04",
+      "row": 1,
+      "column": 3,
+      "url": "/sprites/runner-cobalt-04.png",
+      "sha256": "bef829a2e810b26d99307c2943b7836e1109fc2f370e76ba85ad459c4de71bf6",
+      "sourceBounds": [
+        953,
+        398,
+        1258,
+        652
+      ],
+      "bounds": [
+        65,
+        10,
+        243,
+        222
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-cobalt-05",
+      "row": 1,
+      "column": 4,
+      "url": "/sprites/runner-cobalt-05.png",
+      "sha256": "7987d8859613fd000925250828cebf08cd753c262cc79327069e77f758dd030f",
+      "sourceBounds": [
+        1270,
+        398,
+        1575,
+        652
+      ],
+      "bounds": [
+        55,
+        17,
+        231,
+        247
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-cobalt-06",
+      "row": 1,
+      "column": 5,
+      "url": "/sprites/runner-cobalt-06.png",
+      "sha256": "26992913a2812956ed350ba181962c847bbf11d2bcaf0395f7894ca60b54646c",
+      "sourceBounds": [
+        1586,
+        398,
+        1893,
+        652
+      ],
+      "bounds": [
+        69,
+        34,
+        226,
+        247
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-cobalt-07",
+      "row": 1,
+      "column": 6,
+      "url": "/sprites/runner-cobalt-07.png",
+      "sha256": "05bd292489607c1e058570fe2b647ee944d67f542e9808ab3ef70c288cc730b1",
+      "sourceBounds": [
+        1903,
+        398,
+        2210,
+        652
+      ],
+      "bounds": [
+        41,
+        22,
+        252,
+        236
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-cobalt-08",
+      "row": 1,
+      "column": 7,
+      "url": "/sprites/runner-cobalt-08.png",
+      "sha256": "0eb5cbfb37f43f8f269cf2f5828467a2083500730f648cce6af3d21baf765f1f",
+      "sourceBounds": [
+        2220,
+        398,
+        2528,
+        652
+      ],
+      "bounds": [
+        68,
+        13,
+        245,
+        225
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-leaf-01",
+      "row": 2,
+      "column": 0,
+      "url": "/sprites/runner-leaf-01.png",
+      "sha256": "4610addc73a16d53c5a89fddd944cc6a6920be2ba930f7c904b0f28002f5fe7e",
+      "sourceBounds": [
+        2,
+        662,
+        308,
+        914
+      ],
+      "bounds": [
+        56,
+        17,
+        233,
+        247
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-leaf-02",
+      "row": 2,
+      "column": 1,
+      "url": "/sprites/runner-leaf-02.png",
+      "sha256": "4fe4b49c97f5ca892067c20f2a197d47f6709c83ab1e616d996893b1d3962d62",
+      "sourceBounds": [
+        318,
+        662,
+        624,
+        914
+      ],
+      "bounds": [
+        64,
+        33,
+        222,
+        246
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-leaf-03",
+      "row": 2,
+      "column": 2,
+      "url": "/sprites/runner-leaf-03.png",
+      "sha256": "64517fc30949431ba70ce10add9c8642fdc30714c2e76c79446d913df5cace29",
+      "sourceBounds": [
+        635,
+        662,
+        942,
+        914
+      ],
+      "bounds": [
+        48,
+        27,
+        248,
+        235
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-leaf-04",
+      "row": 2,
+      "column": 3,
+      "url": "/sprites/runner-leaf-04.png",
+      "sha256": "37bcf037cd279fd7e83b3d3fd0a3e181bd04b4f4d53bff4097d029c2af70e4ea",
+      "sourceBounds": [
+        953,
+        662,
+        1258,
+        914
+      ],
+      "bounds": [
+        65,
+        12,
+        243,
+        222
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-leaf-05",
+      "row": 2,
+      "column": 4,
+      "url": "/sprites/runner-leaf-05.png",
+      "sha256": "1cfd345c540b017ac9e2d34b1499410b1bc572bca89653480d2e01b5ac4705bf",
+      "sourceBounds": [
+        1270,
+        662,
+        1575,
+        914
+      ],
+      "bounds": [
+        55,
+        17,
+        231,
+        247
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-leaf-06",
+      "row": 2,
+      "column": 5,
+      "url": "/sprites/runner-leaf-06.png",
+      "sha256": "f2bd5fd6b03b38eebd7dbd3bf840f47cf032a8157f8aa6c6494c73cec07a527b",
+      "sourceBounds": [
+        1586,
+        662,
+        1893,
+        914
+      ],
+      "bounds": [
+        68,
+        32,
+        226,
+        246
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-leaf-07",
+      "row": 2,
+      "column": 6,
+      "url": "/sprites/runner-leaf-07.png",
+      "sha256": "40b942575f279a7872b346624cb203cba037faa1c380fe07d70a9ee473bca6af",
+      "sourceBounds": [
+        1903,
+        662,
+        2210,
+        914
+      ],
+      "bounds": [
+        41,
+        21,
+        251,
+        236
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-leaf-08",
+      "row": 2,
+      "column": 7,
+      "url": "/sprites/runner-leaf-08.png",
+      "sha256": "71e213506cd32e66b32b1c173adea37bc8c502a946a8e3fb3521cbe60fbb255c",
+      "sourceBounds": [
+        2220,
+        662,
+        2528,
+        914
+      ],
+      "bounds": [
+        69,
+        13,
+        246,
+        224
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-sunshine-01",
+      "row": 3,
+      "column": 0,
+      "url": "/sprites/runner-sunshine-01.png",
+      "sha256": "73683eb824867c40bb66c5e5e7a5ebaae063aa08f7029343b2af2dd761025eda",
+      "sourceBounds": [
+        2,
+        925,
+        308,
+        1175
+      ],
+      "bounds": [
+        58,
+        15,
+        232,
+        245
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-sunshine-02",
+      "row": 3,
+      "column": 1,
+      "url": "/sprites/runner-sunshine-02.png",
+      "sha256": "aba258975c0f227dd3c5a6622d0b51ace6e4f770ba47a911fe99e4952523c06d",
+      "sourceBounds": [
+        318,
+        925,
+        624,
+        1175
+      ],
+      "bounds": [
+        64,
+        31,
+        223,
+        244
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-sunshine-03",
+      "row": 3,
+      "column": 2,
+      "url": "/sprites/runner-sunshine-03.png",
+      "sha256": "ec6682a14c0b9190c36c34c8bb456f9114123c8458f0e0e485dfb6a612ee2626",
+      "sourceBounds": [
+        635,
+        925,
+        942,
+        1175
+      ],
+      "bounds": [
+        48,
+        23,
+        247,
+        232
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-sunshine-04",
+      "row": 3,
+      "column": 3,
+      "url": "/sprites/runner-sunshine-04.png",
+      "sha256": "78eac46bb18f142ff13b860c2c7fc59c25e94d1818ad32ba8f81f32f06dbf0c9",
+      "sourceBounds": [
+        953,
+        925,
+        1258,
+        1175
+      ],
+      "bounds": [
+        65,
+        10,
+        243,
+        219
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-sunshine-05",
+      "row": 3,
+      "column": 4,
+      "url": "/sprites/runner-sunshine-05.png",
+      "sha256": "eae8fcd12de308bc5add03a0737e5a3083ebd1ecf5fb270447dd95a11cdc1f75",
+      "sourceBounds": [
+        1270,
+        925,
+        1575,
+        1175
+      ],
+      "bounds": [
+        57,
+        15,
+        231,
+        245
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-sunshine-06",
+      "row": 3,
+      "column": 5,
+      "url": "/sprites/runner-sunshine-06.png",
+      "sha256": "5db4c47491355db933d2e201f0c53a692b678e25bb4060e6b3cad8f41d48dc51",
+      "sourceBounds": [
+        1586,
+        925,
+        1893,
+        1175
+      ],
+      "bounds": [
+        68,
+        29,
+        226,
+        244
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-sunshine-07",
+      "row": 3,
+      "column": 6,
+      "url": "/sprites/runner-sunshine-07.png",
+      "sha256": "c52707914aa443d056d4dddf101f44ec41ee226fe513e49bc3340ec71316fff6",
+      "sourceBounds": [
+        1903,
+        925,
+        2210,
+        1175
+      ],
+      "bounds": [
+        42,
+        20,
+        251,
+        234
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-sunshine-08",
+      "row": 3,
+      "column": 7,
+      "url": "/sprites/runner-sunshine-08.png",
+      "sha256": "199c3e553789e380dfacc20d039021a825e5259819708e1bf28a824fe12a2072",
+      "sourceBounds": [
+        2220,
+        925,
+        2528,
+        1175
+      ],
+      "bounds": [
+        69,
+        13,
+        246,
+        222
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-violet-01",
+      "row": 4,
+      "column": 0,
+      "url": "/sprites/runner-violet-01.png",
+      "sha256": "e3b8ca14dda4a867ac548fe0dae75bf5efd96ac396fe49dda89ad71f8be88ad3",
+      "sourceBounds": [
+        2,
+        1186,
+        308,
+        1433
+      ],
+      "bounds": [
+        56,
+        13,
+        231,
+        243
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-violet-02",
+      "row": 4,
+      "column": 1,
+      "url": "/sprites/runner-violet-02.png",
+      "sha256": "a3bd1f4f0be416f19093ee7480b2fec28c7e31eeadc5740909f5575aceef1fe2",
+      "sourceBounds": [
+        318,
+        1186,
+        624,
+        1433
+      ],
+      "bounds": [
+        64,
+        28,
+        223,
+        241
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-violet-03",
+      "row": 4,
+      "column": 2,
+      "url": "/sprites/runner-violet-03.png",
+      "sha256": "6a31e2ed27228c400ca645818de4927936e7e5753ad4711ccedd3e87f3b68c47",
+      "sourceBounds": [
+        635,
+        1186,
+        942,
+        1433
+      ],
+      "bounds": [
+        49,
+        21,
+        247,
+        230
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-violet-04",
+      "row": 4,
+      "column": 3,
+      "url": "/sprites/runner-violet-04.png",
+      "sha256": "f6809e47649cbd97b5728984a8d02494846ef32f0c0db6b0a567630a08d6aded",
+      "sourceBounds": [
+        953,
+        1186,
+        1258,
+        1433
+      ],
+      "bounds": [
+        65,
+        11,
+        243,
+        218
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-violet-05",
+      "row": 4,
+      "column": 4,
+      "url": "/sprites/runner-violet-05.png",
+      "sha256": "2a4c67823ee18d43d0eaf73db210589fc9dc03eb49917cd1a28f7f1c3d5a5f31",
+      "sourceBounds": [
+        1270,
+        1186,
+        1575,
+        1433
+      ],
+      "bounds": [
+        56,
+        13,
+        231,
+        243
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-violet-06",
+      "row": 4,
+      "column": 5,
+      "url": "/sprites/runner-violet-06.png",
+      "sha256": "07accb1e4dc7fb9b38d47af353afd4fe32204dcc279367c932c0e8b0ceebc905",
+      "sourceBounds": [
+        1586,
+        1186,
+        1893,
+        1433
+      ],
+      "bounds": [
+        67,
+        26,
+        226,
+        241
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-violet-07",
+      "row": 4,
+      "column": 6,
+      "url": "/sprites/runner-violet-07.png",
+      "sha256": "ce4453509a8a9472f0f5c0643770200b6482c506076c7c3665c90f04cc1ca84b",
+      "sourceBounds": [
+        1903,
+        1186,
+        2210,
+        1433
+      ],
+      "bounds": [
+        43,
+        18,
+        250,
+        232
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-violet-08",
+      "row": 4,
+      "column": 7,
+      "url": "/sprites/runner-violet-08.png",
+      "sha256": "ed7486710de919b1696c73e7533cf0a7ecb5a4d90f65a7d65ad0fdc79c2532aa",
+      "sourceBounds": [
+        2220,
+        1186,
+        2528,
+        1433
+      ],
+      "bounds": [
+        70,
+        12,
+        246,
+        220
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-tangerine-01",
+      "row": 5,
+      "column": 0,
+      "url": "/sprites/runner-tangerine-01.png",
+      "sha256": "eab8499703b4aa894ac8246afb26c722c8be4d500f24e036fb284ea9c2fbaed4",
+      "sourceBounds": [
+        2,
+        1444,
+        308,
+        1690
+      ],
+      "bounds": [
+        56,
+        12,
+        232,
+        242
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-tangerine-02",
+      "row": 5,
+      "column": 1,
+      "url": "/sprites/runner-tangerine-02.png",
+      "sha256": "9066bb12554f1e99ceb56e4291e17d63728a605dcc528cb33acb53095aa3bfd0",
+      "sourceBounds": [
+        318,
+        1444,
+        624,
+        1690
+      ],
+      "bounds": [
+        64,
+        26,
+        224,
+        241
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-tangerine-03",
+      "row": 5,
+      "column": 2,
+      "url": "/sprites/runner-tangerine-03.png",
+      "sha256": "a1460a8a151b6f5ca0b42fddbfedb0810885e2635b2da6be8ae4115c42a4dea5",
+      "sourceBounds": [
+        635,
+        1444,
+        942,
+        1690
+      ],
+      "bounds": [
+        49,
+        20,
+        247,
+        230
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-tangerine-04",
+      "row": 5,
+      "column": 3,
+      "url": "/sprites/runner-tangerine-04.png",
+      "sha256": "ef4723332797bfd8654bffd9316f0715aa082585644080cea82bb14f9b537fa5",
+      "sourceBounds": [
+        953,
+        1444,
+        1258,
+        1690
+      ],
+      "bounds": [
+        65,
+        12,
+        243,
+        218
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-tangerine-05",
+      "row": 5,
+      "column": 4,
+      "url": "/sprites/runner-tangerine-05.png",
+      "sha256": "e40e7b100ed3bdee2dbb21e082462428c292aa87b09147bace7fcaca22386453",
+      "sourceBounds": [
+        1270,
+        1444,
+        1575,
+        1690
+      ],
+      "bounds": [
+        56,
+        12,
+        232,
+        242
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-tangerine-06",
+      "row": 5,
+      "column": 5,
+      "url": "/sprites/runner-tangerine-06.png",
+      "sha256": "a17085c965550d968c70c80b663e0e9864e137ec5d42d4eb501e9dffb14d2ffa",
+      "sourceBounds": [
+        1586,
+        1444,
+        1893,
+        1690
+      ],
+      "bounds": [
+        67,
+        26,
+        227,
+        240
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-tangerine-07",
+      "row": 5,
+      "column": 6,
+      "url": "/sprites/runner-tangerine-07.png",
+      "sha256": "9862e4128e3c0fdb6a3b3115fc495f27cbc5b470618f40aa2f4e657535cf0999",
+      "sourceBounds": [
+        1903,
+        1444,
+        2210,
+        1690
+      ],
+      "bounds": [
+        43,
+        18,
+        250,
+        231
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    },
+    {
+      "id": "runner-tangerine-08",
+      "row": 5,
+      "column": 7,
+      "url": "/sprites/runner-tangerine-08.png",
+      "sha256": "c6a57eec2e7f482457c83da712ad610aae0786873e998af5d4a0a0837f6956c5",
+      "sourceBounds": [
+        2220,
+        1444,
+        2528,
+        1690
+      ],
+      "bounds": [
+        69,
+        13,
+        246,
+        219
+      ],
+      "pivot": [
+        154,
+        255
+      ],
+      "size": [
+        308,
+        258
+      ],
+      "duplicateOf": null
+    }
+  ]
+}

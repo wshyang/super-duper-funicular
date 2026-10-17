@@ -1,0 +1,391 @@
+{
+  "persona": "mei-lin-photo",
+  "kind": "AI-generated photographic cutout rig",
+  "generationCount": 9,
+  "parts": {
+    "torso": {
+      "url": "/photo-runner/torso.png",
+      "source": "torso.png",
+      "surface": "left side, reconstructed under-arm fabric",
+      "crop": [
+        220,
+        235,
+        555,
+        1000
+      ],
+      "start": [
+        170,
+        705
+      ],
+      "end": [
+        145,
+        90
+      ],
+      "size": [
+        335,
+        765
+      ],
+      "sha256": "4580e6c913cbb23d6bc369076c35fa43bd6b96b207b9b768ff9c66de9877046b"
+    },
+    "pelvis": {
+      "url": "/photo-runner/pelvis.png",
+      "source": "torso.png",
+      "surface": "left-side shorts and pelvis",
+      "crop": [
+        220,
+        845,
+        555,
+        1215
+      ],
+      "start": [
+        170,
+        95
+      ],
+      "end": [
+        170,
+        195
+      ],
+      "size": [
+        335,
+        370
+      ],
+      "sha256": "fb0e96985f063ab96618ab928f8ed8345bf43511f281249e54f0620b099d9a21"
+    },
+    "head": {
+      "url": "/photo-runner/head.png",
+      "source": "head-neck.png",
+      "surface": "left profile, head and bun",
+      "crop": [
+        30,
+        185,
+        700,
+        810
+      ],
+      "start": [
+        405,
+        575
+      ],
+      "end": [
+        405,
+        25
+      ],
+      "size": [
+        670,
+        625
+      ],
+      "sha256": "8c00f673368c5b5abb019e63d4661f0cbc34c1cd13cd5e952a310fb71d51edbe"
+    },
+    "neck": {
+      "url": "/photo-runner/neck.png",
+      "source": "head-neck.png",
+      "surface": "left neck, overlapping head and collar",
+      "crop": [
+        215,
+        680,
+        555,
+        1080
+      ],
+      "start": [
+        175,
+        310
+      ],
+      "end": [
+        220,
+        80
+      ],
+      "size": [
+        340,
+        400
+      ],
+      "sha256": "20990cd9c374d6eec1fdc33cc2081aade5e705b6104e792e7b12a8b8ccf4c644"
+    },
+    "near-upper-arm": {
+      "url": "/photo-runner/near-upper-arm.png",
+      "source": "near-left-arm.png",
+      "surface": "left lateral upper arm",
+      "crop": [
+        270,
+        125,
+        500,
+        700
+      ],
+      "start": [
+        115,
+        115
+      ],
+      "end": [
+        89,
+        505
+      ],
+      "size": [
+        230,
+        575
+      ],
+      "sha256": "59cc624c5787ce59e25e5e76da489af73bbb0fc40f64dcf229327624f2f2b39a"
+    },
+    "near-forearm": {
+      "url": "/photo-runner/near-forearm.png",
+      "source": "near-left-arm.png",
+      "surface": "left outer forearm",
+      "crop": [
+        280,
+        565,
+        475,
+        1090
+      ],
+      "start": [
+        79,
+        65
+      ],
+      "end": [
+        115,
+        475
+      ],
+      "size": [
+        195,
+        525
+      ],
+      "sha256": "d7cd716383423844e7992ffac02182b44699b7151988e1e10f4078a8e2932d97"
+    },
+    "near-hand": {
+      "url": "/photo-runner/near-hand.png",
+      "source": "near-left-hand.png",
+      "surface": "left dorsal hand, relaxed fist",
+      "crop": [
+        190,
+        400,
+        650,
+        1060
+      ],
+      "start": [
+        196,
+        70
+      ],
+      "end": [
+        235,
+        570
+      ],
+      "size": [
+        460,
+        660
+      ],
+      "sha256": "471ca1b1af446c2c451d6713234b56f4d5d59403ebe11ea6a7341d5e50552da7"
+    },
+    "far-upper-arm": {
+      "url": "/photo-runner/far-upper-arm.png",
+      "source": "far-right-arm.png",
+      "surface": "right medial upper arm",
+      "crop": [
+        280,
+        125,
+        490,
+        700
+      ],
+      "start": [
+        100,
+        120
+      ],
+      "end": [
+        78,
+        505
+      ],
+      "size": [
+        210,
+        575
+      ],
+      "sha256": "fcddfc31bd94aed4d6aee9f315ae038399baec18cbe9cff7e0db65290c541495"
+    },
+    "far-forearm": {
+      "url": "/photo-runner/far-forearm.png",
+      "source": "far-right-arm.png",
+      "surface": "right inner forearm and wrist",
+      "crop": [
+        280,
+        565,
+        475,
+        1070
+      ],
+      "start": [
+        78,
+        65
+      ],
+      "end": [
+        110,
+        455
+      ],
+      "size": [
+        195,
+        505
+      ],
+      "sha256": "8ebd7cd3f9c971ea3fd00b0ef7daba4d9867dd07b61eca4c11d7ab2ab56da960"
+    },
+    "far-hand": {
+      "url": "/photo-runner/far-hand.png",
+      "source": "far-right-hand.png",
+      "surface": "right palmar hand, relaxed fist",
+      "crop": [
+        175,
+        400,
+        635,
+        1090
+      ],
+      "start": [
+        165,
+        70
+      ],
+      "end": [
+        215,
+        600
+      ],
+      "size": [
+        460,
+        690
+      ],
+      "sha256": "07903aa0cab357a3e437a01ce38e4efee4d1a425ad5e30cd70d8bcbcf9c452b3"
+    },
+    "near-thigh": {
+      "url": "/photo-runner/near-thigh.png",
+      "source": "near-left-leg-shoe.png",
+      "surface": "left lateral thigh and shorts",
+      "crop": [
+        230,
+        195,
+        505,
+        750
+      ],
+      "start": [
+        135,
+        45
+      ],
+      "end": [
+        130,
+        495
+      ],
+      "size": [
+        275,
+        555
+      ],
+      "sha256": "aa5787e760a66e614e39a400bc15b1ad5891ab1bff0b5e0c49a28e1ee1c36d58"
+    },
+    "near-shin": {
+      "url": "/photo-runner/near-shin.png",
+      "source": "near-left-leg-shoe.png",
+      "surface": "left lateral calf and ankle sock",
+      "crop": [
+        250,
+        625,
+        470,
+        1175
+      ],
+      "start": [
+        110,
+        65
+      ],
+      "end": [
+        100,
+        520
+      ],
+      "size": [
+        220,
+        550
+      ],
+      "sha256": "2670ba5201a2c64c9d8be780876325ae0d4ce1e1bf5ce406c02528200cc5b093"
+    },
+    "near-shoe": {
+      "url": "/photo-runner/near-shoe.png",
+      "source": "near-left-leg-shoe.png",
+      "surface": "left shoe, outer lateral panel",
+      "crop": [
+        225,
+        1110,
+        610,
+        1310
+      ],
+      "start": [
+        10,
+        188
+      ],
+      "end": [
+        373,
+        188
+      ],
+      "size": [
+        385,
+        200
+      ],
+      "sha256": "c509637f4b9bae2e14ce66d2bc26585790b4cfe725119cccfb0c7fad8814cbcb"
+    },
+    "far-thigh": {
+      "url": "/photo-runner/far-thigh.png",
+      "source": "far-right-leg-shoe.png",
+      "surface": "right medial thigh and shorts",
+      "crop": [
+        195,
+        60,
+        520,
+        710
+      ],
+      "start": [
+        170,
+        130
+      ],
+      "end": [
+        160,
+        575
+      ],
+      "size": [
+        325,
+        650
+      ],
+      "sha256": "6f2591351e86628a640417cfca9c9f9f610cd8cf7f990f21565804a04c3af9b6"
+    },
+    "far-shin": {
+      "url": "/photo-runner/far-shin.png",
+      "source": "far-right-leg-shoe.png",
+      "surface": "right medial calf and ankle sock",
+      "crop": [
+        265,
+        570,
+        450,
+        1170
+      ],
+      "start": [
+        90,
+        65
+      ],
+      "end": [
+        80,
+        575
+      ],
+      "size": [
+        185,
+        600
+      ],
+      "sha256": "8d21066550df5fd0b200fdf9511a96de43e41fcf067c4575ba5180b07a2769ad"
+    },
+    "far-shoe": {
+      "url": "/photo-runner/far-shoe.png",
+      "source": "far-right-leg-shoe.png",
+      "surface": "right shoe, inner medial arch panel",
+      "crop": [
+        230,
+        1100,
+        620,
+        1320
+      ],
+      "start": [
+        13,
+        209
+      ],
+      "end": [
+        376,
+        209
+      ],
+      "size": [
+        390,
+        220
+      ],
+      "sha256": "17a28271889c991381112321dfd5d3baded02020b70194428e8c5764d58f8b73"
+    }
+  }
+}

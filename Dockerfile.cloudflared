@@ -1,0 +1,3 @@
+# Supply TUNNEL_TOKEN at runtime; configure ingress to http://app:3000.
+FROM cloudflare/cloudflared:2026.2.0
+CMD ["tunnel", "--no-autoupdate", "run"]

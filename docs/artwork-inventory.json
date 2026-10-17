@@ -1,0 +1,112 @@
+[
+  {
+    "path": "src/images/photo-runner/far-right-arm.png",
+    "sha256": "5f414f9894fe5370e2596ca9b29fe389c7b06401b3b039d46fadb9ae68ac897f",
+    "pixelSha256": "4de4d7d814ed5cbc70a3696b524aecf1fc65463e02b634a6c302483ba1865578",
+    "size": [
+      768,
+      1376
+    ],
+    "duplicateOf": null,
+    "classification": "generated-photographic-part-source"
+  },
+  {
+    "path": "src/images/photo-runner/far-right-hand.png",
+    "sha256": "542c508e69a168178db062a0e3247f6698cbb9ff47dbda5401e2421b6e22bd04",
+    "pixelSha256": "cbe7b71bf60512adbd3239798effeb5f201a17f4896b6e5631220cd836e9db68",
+    "size": [
+      768,
+      1376
+    ],
+    "duplicateOf": null,
+    "classification": "generated-photographic-part-source"
+  },
+  {
+    "path": "src/images/photo-runner/far-right-leg-shoe.png",
+    "sha256": "8799f1cbedf50315cf115c03e5ba42bd9c6fcdbf69eb9c500392b9747a02af78",
+    "pixelSha256": "fa7b4f21690126a5d6c4b279b9a811ec9967f677facbc8063ae9815e5b2688d3",
+    "size": [
+      768,
+      1376
+    ],
+    "duplicateOf": null,
+    "classification": "generated-photographic-part-source"
+  },
+  {
+    "path": "src/images/photo-runner/head-neck.png",
+    "sha256": "29990acc5bb5a3d3ce3be0a97a2743a88f52e45adbbe9cd9045fe08aac3ed76e",
+    "pixelSha256": "3e5b5db3e603b1b97294ca72521d56a9f34f8c97b08a2114beb0aae3fea1ef0f",
+    "size": [
+      768,
+      1376
+    ],
+    "duplicateOf": null,
+    "classification": "generated-photographic-part-source"
+  },
+  {
+    "path": "src/images/photo-runner/near-left-arm.png",
+    "sha256": "3ff8e359347ae0f6ace4c1e1fd144fd370d08bd922e971d750c272d1810604f4",
+    "pixelSha256": "2b31d3b21b5441dde3ef19ab823d36ff21e738ce9e1e01986e70beb3f1ea6fb0",
+    "size": [
+      768,
+      1376
+    ],
+    "duplicateOf": null,
+    "classification": "generated-photographic-part-source"
+  },
+  {
+    "path": "src/images/photo-runner/near-left-hand.png",
+    "sha256": "d41b5cd5e63f0a11adc1c0caf80a026a75604f01189fdb31c072850c59839c2b",
+    "pixelSha256": "e782c636e0324cb7b70ca974c50dcca98c3a236e3e19035b3ed3830cfa4dc1c7",
+    "size": [
+      848,
+      1264
+    ],
+    "duplicateOf": null,
+    "classification": "generated-photographic-part-source"
+  },
+  {
+    "path": "src/images/photo-runner/near-left-leg-shoe.png",
+    "sha256": "846a9686e126a630bc4cba9ba204442d252e4c5e4d0326a9555ead0950197a36",
+    "pixelSha256": "a144350c96d138ecca041bc94d43c82c9add2da68451012f16f8cbad0c3af21a",
+    "size": [
+      768,
+      1376
+    ],
+    "duplicateOf": null,
+    "classification": "generated-photographic-part-source"
+  },
+  {
+    "path": "src/images/photo-runner/reference.png",
+    "sha256": "829ff88c52217e9cc8640f86167a39f0f6c087ebab4989ae378990007e981426",
+    "pixelSha256": "cb50759c669c13c39cffbe8bdbc367f7e9412671a1c209bb484a285d175b2a6b",
+    "size": [
+      768,
+      1376
+    ],
+    "duplicateOf": null,
+    "classification": "generated-photographic-reference"
+  },
+  {
+    "path": "src/images/photo-runner/torso.png",
+    "sha256": "60487afa4884bb6833a48f060808798d6ee89aee554a96069a8a414b949c14d2",
+    "pixelSha256": "98c607173745a9fc6e76dc195286c731efe18554cdc62eeacc86632086c94f39",
+    "size": [
+      768,
+      1376
+    ],
+    "duplicateOf": null,
+    "classification": "generated-photographic-part-source"
+  },
+  {
+    "path": "src/images/runner-six-palette-eight-frame-sheet.jpeg",
+    "sha256": "f99114235d61781f76a6b32c637edac16f13af6592a2866fe0e0528504727030",
+    "pixelSha256": "1cef17717f0299811758600b7aa55b1861f762c9323501c6ecf1d158017973f2",
+    "size": [
+      2528,
+      1696
+    ],
+    "duplicateOf": null,
+    "classification": "character-animation-sheet"
+  }
+]

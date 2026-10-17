@@ -1,0 +1,302 @@
+@media (min-width: 1400px) {
+  .stage {
+    height: 414px;
+  }
+  .controls section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  .frame canvas {
+    max-height: 135px;
+  }
+}
+@media (max-width: 1100px) {
+  .brand small {
+    display: none;
+  }
+  .studio-layout {
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 16px;
+  }
+  .stage {
+    height: 365px;
+  }
+  .transport {
+    gap: 10px;
+    padding: 0 15px;
+  }
+  .loop-label {
+    display: none;
+  }
+  .preview-stats {
+    padding: 18px 15px;
+    gap: 8px;
+  }
+  .stat-icon {
+    display: none;
+  }
+  .preview-stats small {
+    font-size: 6px;
+  }
+  .preview-heading {
+    padding: 0 13px;
+  }
+  .segmented button {
+    padding: 6px;
+    font-size: 8px;
+  }
+  .frame-strip {
+    gap: 6px;
+    padding: 12px;
+  }
+  .frame {
+    padding: 7px 4px;
+  }
+  .subtle {
+    display: none;
+  }
+  h1 {
+    font-size: 27px;
+  }
+  .export-button {
+    font-size: 10px;
+  }
+  .controls section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .note-cards article {
+    padding: 20px;
+  }
+  .swatches {
+    gap: 8px;
+  }
+}
+@media (max-width: 800px) {
+  .site-header {
+    height: 70px;
+  }
+  .project-label {
+    display: none;
+  }
+  main {
+    padding-top: 24px;
+  }
+  .page-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 0;
+  }
+  .export-button {
+    margin-top: 18px;
+  }
+  .breadcrumb {
+    margin-bottom: 25px;
+  }
+  .page-heading h1 {
+    font-size: 26px;
+  }
+  .local-badge {
+    display: none;
+  }
+  .tab-bar > div {
+    gap: 22px;
+  }
+  .studio-layout {
+    grid-template-columns: 1fr;
+  }
+  .controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .controls > .panel-heading {
+    grid-column: 1/-1;
+  }
+  .controls section {
+    border-right: 1px solid #eee;
+  }
+  .controls .overlays {
+    grid-column: 1/2;
+    grid-row: 3;
+    margin-top: 0;
+  }
+  .controls section:nth-of-type(2) {
+    grid-column: 2;
+    grid-row: 2/4;
+  }
+  .control-note {
+    grid-column: 1/-1;
+  }
+  .stage {
+    height: 390px;
+  }
+  .frame-strip {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .frame canvas {
+    max-height: 105px;
+  }
+  .cycle-meta {
+    display: none;
+  }
+  .insight-banner {
+    flex-wrap: wrap;
+  }
+  .insight-banner button {
+    margin-left: 50px;
+  }
+  footer {
+    font-size: 7px;
+  }
+  footer > span:last-child {
+    display: none;
+  }
+  .library-grid {
+    grid-template-columns: 1fr;
+  }
+  .library-summary {
+    gap: 20px;
+  }
+  .library-summary h2 {
+    font-size: 24px;
+  }
+  .audit-count b {
+    font-size: 24px;
+  }
+  .note-cards {
+    grid-template-columns: 1fr;
+  }
+  .note-cards p {
+    min-height: 0;
+  }
+  .method-steps {
+    grid-template-columns: 1fr 1fr;
+  }
+  .note-cards article {
+    padding: 25px;
+  }
+}
+@media (max-width: 450px) {
+  h1 {
+    font-size: 24px !important;
+  }
+  .header-right {
+    gap: 12px;
+  }
+  .brand {
+    font-size: 23px;
+  }
+  .stage {
+    height: 300px;
+  }
+  .preview-heading {
+    font-size: 9px;
+    padding: 0 10px;
+    gap: 10px;
+  }
+  .stage-top {
+    font-size: 6px;
+  }
+  .stage-bottom {
+    bottom: 12px;
+  }
+  .transport {
+    gap: 9px;
+    padding: 0 12px;
+  }
+  .phase-label {
+    font-size: 6px;
+    gap: 4px;
+  }
+  .phase-label b {
+    font-size: 10px;
+  }
+  .preview-stats b {
+    font-size: 9px;
+  }
+  .preview-caption {
+    font-size: 7px;
+    padding: 12px;
+  }
+  .controls .overlays {
+    margin-top: 0;
+  }
+  .swatches {
+    gap: 4px;
+  }
+  .swatches button {
+    width: 21px;
+    height: 21px;
+  }
+  .controls section {
+    padding: 15px 12px;
+  }
+  .character-name {
+    font-size: 9px;
+    gap: 6px;
+  }
+  .character-name small {
+    font-size: 7px;
+  }
+  .character-dot {
+    width: 27px;
+  }
+  .tiny-tag {
+    display: none;
+  }
+  .insight-banner {
+    gap: 10px;
+    padding: 15px;
+  }
+  .insight-banner p {
+    font-size: 9px;
+  }
+  .insight-banner b {
+    font-size: 10px;
+  }
+  .insight-icon {
+    display: none;
+  }
+  .insight-banner button {
+    margin-left: 0;
+  }
+  .frame-name {
+    font-size: 8px;
+  }
+  .tab-bar > div {
+    gap: 16px;
+  }
+  .tab-bar button {
+    font-size: 10px;
+    gap: 5px;
+  }
+  .library-summary {
+    flex-wrap: wrap;
+  }
+  .library-summary > div:first-child {
+    flex-basis: 100%;
+  }
+  .method {
+    padding: 22px;
+  }
+  .method-steps {
+    gap: 15px;
+  }
+  .stage:before {
+    width: 235px;
+    height: 235px;
+  }
+  .subtle {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .stage canvas {
+    width: 160%;
+    left: -30%;
+  }
+  .stage-top {
+    font-size: 6px;
+  }
+}
