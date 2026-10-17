@@ -1,6 +1,6 @@
 # Functional Design Specification — Sprite Motion Lab & Algorithmic Running Engine
 
-- **Document Version:** 3.1.0
+- **Document Version:** 3.2.0
 - **Date:** 2026-10-17
 - **Status:** Active Canonical Specification (`[INTENT_ALIGNED]`)
 - **Meta Prompt Reference:** `FDS_BUILDER.md` v2.0 & `GREENFIELD.md` (`wshyang/greenfield`)
@@ -20,9 +20,10 @@
 8. [End-to-End Engineering Thought Process: Articulated Element Decomposition, Image Prompt Design, Anatomical/Chirality Safeguards & Rounded-End Joint Superimposition](#thought-process)
 9. [Complete Chronological Image Generation Prompt & Regeneration Justification Audit Log (`#image-prompt-log`)](#image-prompt-log)
 10. [Technical Assessment & Reference Implementation: Raster-to-SVG Articulated Element Vectorization & Hierarchical SVG Rig Stitching (`#svg-vector-assessment`)](#svg-vector-assessment)
-11. [Day-Zero Bootstrap (`R4`)](#day-zero-bootstrap)
-12. [Non-Functional Requirements (`#nfr-*`)](#nfr)
-13. [Changelog](#changelog)
+11. [Full-Cycle Temporary Frame Dump & Agent Visual Defect Audit Workflow (`#gait-cycle-visual-audit`)](#gait-cycle-visual-audit)
+12. [Day-Zero Bootstrap (`R4`)](#day-zero-bootstrap)
+13. [Non-Functional Requirements (`#nfr-*`)](#nfr)
+14. [Changelog](#changelog)
 
 ---
 
@@ -449,7 +450,38 @@ Because both sub-groups anchor `(109, 116)` at the exact same `ballPoint` canvas
 
 ---
 
-## 11. Day-Zero Bootstrap (`R4`) {#day-zero-bootstrap}
+## 11. Full-Cycle Temporary Frame Dump & Agent Visual Defect Audit Workflow (`#gait-cycle-visual-audit`) {#gait-cycle-visual-audit}
+
+### 11.1 Workflow Architecture & Reusable Agent Skill (`.claude/skills/audit-gait-cycle/SKILL.md`)
+
+Because 8 coarse keyframes on a transparent or magenta background can conceal intermediate joint-rotation steps, detached 2–3 px resampling islands, or garment-stripe collisions at half-step phases ($\phi = 0.0625, 0.1875, \dots$), we implemented a dedicated **Full-Cycle Temporary Frame Dumper** (`src/pipeline/cycle-frame-dumper.ts`, CLI `npm run dump-cycle`) and codified it as a reusable **Agent Skill** at `.claude/skills/audit-gait-cycle/SKILL.md` (`CLAUDE-validation.md §9`).
+
+Running `npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female red` populates `/tmp/gait-cycle-audit/` with:
+1. **16 High-Density Cycle Frames ($\Delta\phi = 22.5^\circ$):**
+   - `frames/raw-frame-01-deg-000.png` .. `raw-frame-16-deg-338.png` (`220 × 256` RGBA).
+   - `frames/audit-frame-01-deg-000.png` .. `audit-frame-16-deg-338.png` (`660 × 256` 3-panel diagnostic plates: **Left** = neutral warm-grey `#E2E6EE` + track ground line `y = 212`; **Center** = dark slate `#181C26` with cyan `#00FFFF` chroma-spill highlights; **Right** = kinematic joint-pivot crosshairs).
+2. **`contact-sheet-16frame.png` (`880 × 1024`):** Full `4 × 4` stride overview grid for single-call multimodal inspection via `read_file`.
+3. **`joint-crops-sheet.png` (`720 × 480`):** `2×` magnified crop grid across $\phi \in \{0.00, 0.25, 0.50, 0.75\}$ and 3 critical articulation zones (**Row 1:** Head/Neck/Shoulder Socket; **Row 2:** Lower Torso/Pelvis/Thigh Shorts-Cuffs; **Row 3:** Ankle Socks & 2-Segment Rolling Shoes).
+4. **`audit-report.json`:** Quantitative per-frame defect scanner measuring `disconnectedIslandsCount` (`listOpaqueComponentSizes`), `detachedIslandPixels`, `magentaSpillPixelsCount`, `semiTransparentFringeCount`, `lowestFootY`, and `uncoveredJointNames`.
+
+---
+
+### 11.2 Findings & Rectifications from Exercising the `audit-gait-cycle` Skill
+
+Executing `npm run dump-cycle` and inspecting `/tmp/gait-cycle-audit/{audit-report.json,contact-sheet-16frame.png,joint-crops-sheet.png}` and individual `audit-frame-*.png` plates via `read_file` uncovered **6 specific rendering defects**, of which **3 immediate rectifications (`RECT-01`..`RECT-03`)** were applied and verified in the same turn and **3 deeper structural rectifications (`RECT-04`..`RECT-06`)** are cataloged for next-stage refinement:
+
+| Defect ID | Observed Visual / Quantitative Defect in Temporary Dump | Root Cause | Rectification Status & Engineering Solution |
+|---|---|---|---|
+| `DEFECT-01` (`RECT-01` Applied) | **Crossing Double White Side-Stripes on Sprinter Shorts** (`joint-crops-sheet.png` Row 2, Cols 1–4): When `nearThigh` rotated to `+40°` or `-35°`, its white side stripe crossed over `pelvis.png`'s vertical white stripe, and at $\phi = 0.75$ (`270°`) a detached white stripe stub poked out at the bottom of `pelvis`. | Both `pelvis.png` and `nearThigh.png` contained the white outer side stripe. Because `nearThigh` rotates relative to `pelvis`, two overlapping layers with the same stripe created an "X" intersection. | **Rectified & Verified:** Suppressed the duplicate white stripe on the underlying `pelvis` hip basin (`extractPelvisCutout`) so `nearThigh`'s composite shorts sleeve (`y = 18..66`) carries the single continuous outer white side stripe across all 16 frames. |
+| `DEFECT-02` (`RECT-02` Applied) | **6 Detached 2–3 px Floating Pixel Islands** (`audit-report.json`: Frames 2, 3, 4, 9, 11, 12 had `disconnectedIslandsCount = 1`, total `6` islands): A 2 px speck appeared in front of the neck (`x ≈ 114, y ≈ 68`) and 2 px wispy hair tips detached during ponytail bounce. | Bilinear inverse-warping of thin sub-pixel features near cutout edges occasionally produced isolated 2–3 px islands separated by a 1 px transparent gap. | **Rectified & Verified:** Added a post-compositing connected-component pruning pass (`removeSmallOpaqueIslands(canvas, 8)`) in `renderPhotorealFemalePoseOntoCanvas`. Re-running `npm run dump-cycle` verified `totalDisconnectedIslands = 0` across all 16 frames. |
+| `DEFECT-03` (`RECT-03` Applied) | **Over-Darkened Far Left Forearm (`farForearm`)** (`joint-crops-sheet.png` Row 2, Col 1): At $\phi = 0.00$, the forward-swinging `farForearm` appeared noticeably darker/browner than `farUpperArm` and `nearForearm`. | The horizontal forearm in `08-far-left-arm-medial-inside-palm.png` had slightly lower studio luminance than the vertical upper arm, compounded by `shadeScale = 0.90`. | **Rectified & Verified:** Calibrated `farForearm` and `farHand` `shadeScale` to `1.08` in `extractArmCutouts`, matching warm Southeast Asian skin luminance while retaining subtle far-limb depth contrast. |
+| `DEFECT-04` (`RECT-04` Proposed) | **Rear-Swinging Far Forearm (`farForearm`) Peeking Behind Back/Hip at $\phi = 0.50$ (`180°`)** (`audit-frame-09-deg-180.png` & `joint-crops-sheet.png` Row 2, Col 3): A thin 3 px vertical strip of brown skin from `farForearm` peeks out behind the posterior edge of the crimson singlet and black shorts, resembling a skin fringe on the back of the shorts. | At $\phi = 0.50$, the far left shoulder swings backward (`-28°`) while the elbow bends nearly `85°`, placing `farForearm` almost collinear with the posterior torso/glute contour (`x ≈ 72`). | **Proposed Rectification:** Adjust far-arm backward swing elbow flexion in `solveArmPose` by `+8°` during rear extension ($\phi \in [0.40, 0.65]$) so the rear-swinging `farForearm` Either tucks cleanly behind the torso silhouette or extends clearly past the back as an unmistakable forearm/wrist. |
+| `DEFECT-05` (`RECT-05` Proposed) | **Shoulder Socket Illumination Boundary Between `nearUpperArm` and `torso`** (`joint-crops-sheet.png` Row 1 & Row 2, Cols 1–4): The circular deltoid cap of `nearUpperArm` has slightly brighter studio specular highlights than the surrounding shoulder-socket skin of `torso.png`. | `05-torso-racerback-singlet.png` and `07-near-right-arm-lateral-outside.png` were photographed as separate plates; hard alpha-over compositing at `r = rTop - 1.6 px` leaves a 1.6 px feather ring at the deltoid-to-scapula boundary. | **Proposed Rectification:** Widen the proximal deltoid radial feather on `nearUpperArm` (`feather = 4.5 px` over `y < dstTopY` in `evaluateRoundedEndMask`) and apply a luminance-matching transfer at the proximal cap (`y = 10..36`) against `torso`'s shoulder socket mean RGB. |
+| `DEFECT-06` (`RECT-06` Proposed) | **Distal Shin-to-Ankle Sock Collar Step at High Dorsiflexion** (`joint-crops-sheet.png` Row 3, Cols 1 & 4): When the ankle dorsiflexes sharply (`phase = 0.00` and `0.75`), the white ankle sock collar on `nearFoot`/`farFoot` projects `2–3 px` anterior to the bare lower shin edge. | `nearShin` terminates in bare skin at the ankle pivot `(80, 124)` while the white sock collar belongs entirely to `nearFoot`. When `nearFoot` pitches upward, the top-front corner of the sock collar rotates ahead of the shin shaft. | **Proposed Rectification:** Use `attachEndCapComposite` (`end: 'bottom'`, `dstStraightCutY = 108`) on `nearShin` and `farShin` to attach the upper white ankle-sock cuff (straight rib cut across the lower shin, semicircularly rounded at the bottom ankle pivot `(80, 124)`), and lower the sock collar height on `nearFoot`/`farFoot` to the malleolus pivot. |
+
+---
+
+## 12. Day-Zero Bootstrap (`R4`) {#day-zero-bootstrap}
 
 | Step | Actor | Surface | Object Populated | Unlock |
 |---|---|---|---|---|
@@ -459,7 +491,7 @@ Because both sub-groups anchor `(109, 116)` at the exact same `ballPoint` canvas
 
 ---
 
-## 12. Non-Functional Requirements (`#nfr-*`) {#nfr}
+## 13. Non-Functional Requirements (`#nfr-*`) {#nfr}
 
 - **`#nfr-perf` (`PERF-2`):** Real-time 60 FPS (`<= 16.6 ms` per frame) algorithmic and photorealistic pose + raster synthesis in browser for a `220 × 256` canvas.
 - **`#nfr-sec` (`SEC-2`):** Zero external runtime network calls; container runs as unprivileged numeric UID `1001:1001`.
@@ -467,7 +499,7 @@ Because both sub-groups anchor `(109, 116)` at the exact same `ballPoint` canvas
 
 ---
 
-## 13. Changelog {#changelog}
+## 14. Changelog {#changelog}
 
 | Version | Date | Decision Context | Summary |
 |---|---|---|---|
@@ -475,3 +507,4 @@ Because both sub-groups anchor `(109, 116)` at the exact same `ballPoint` canvas
 | `2.0.0` | `2026-10-17` | `ADD-013`..`ADD-017` | Expanded to 17-part articulated rig (`neck`, `hairAccessory`), 2-segment rolling foot, forward-fall running posture, photorealistic female persona (`photo-sg-chinese-female`), semicircular rounded-end joint cutter (`rounded-joint-cutter.ts`), and complete end-to-end documentation of element determination, prompt engineering, and left-arm chirality safeguards (`§8`). |
 | `3.0.0` | `2026-10-17` | `ADD-018` | Added complete chronological audit log of all 21 historical `generate_image` prompts and regeneration justifications (`§9`, `#image-prompt-log`), plus full technical assessment and reference implementation of Raster-to-SVG articulated element vectorization and hierarchical SVG rig stitching (`§10`, `#svg-vector-assessment`). |
 | `3.1.0` | `2026-10-17` | `ADD-019` | Added optional End-Cap Composite Attachment (`EndCapCompositeSpec` & `attachEndCapComposite` in `src/pipeline/rounded-joint-cutter.ts`) so `nearThigh` and `farThigh` carry a proximal sprinter-shorts leg cuff extracted from the base of `pelvisShorts` — rounded at the top hip pivot to gel with the rounded torso/pelvis base and cut straight across at the bottom (`dstStraightCutY = 66`). |
+| `3.2.0` | `2026-10-17` | `ADD-020` | Added Full-Cycle Temporary Frame Dumper (`src/pipeline/cycle-frame-dumper.ts`, `npm run dump-cycle`), reusable Agent Skill (`.claude/skills/audit-gait-cycle/SKILL.md`), and complete visual defect audit & rectification report (`§11`, `#gait-cycle-visual-audit`). |

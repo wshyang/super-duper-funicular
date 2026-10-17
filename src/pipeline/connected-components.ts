@@ -21,6 +21,23 @@ export function removeSmallOpaqueIslands(raster: RasterImage, minAreaPx: number)
   return out;
 }
 
+export function listOpaqueComponentSizes(
+  raster: RasterImage,
+  minAreaPx: number,
+): number[] {
+  const visited = new Uint8Array(raster.width * raster.height);
+  const sizes: number[] = [];
+  for (let i = 0; i < visited.length; i++) {
+    if (visited[i] === 0 && (raster.data[i * 4 + 3] ?? 0) >= 32) {
+      const comp = collectComponentIndices(raster, visited, i);
+      if (comp.length >= minAreaPx) {
+        sizes.push(comp.length);
+      }
+    }
+  }
+  return sizes.sort((a, b) => b - a);
+}
+
 interface PruneOptions {
   readonly startIdx: number;
   readonly minAreaPx: number;

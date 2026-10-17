@@ -6,6 +6,7 @@ import type {
   RasterImage,
   RunnerPalette,
 } from '../shared/types.js';
+import { removeSmallOpaqueIslands } from '../pipeline/connected-components.js';
 import { parseHexColor } from './palette.js';
 import {
   warpPhotorealRollingShoe,
@@ -44,6 +45,8 @@ export function renderPhotorealFemalePoseOntoCanvas(
   renderNearLegAndPelvisShorts(canvas, pose, palette, bank);
   renderHeadAndPonytail(canvas, pose, palette, bank);
   renderNearArmChain(canvas, pose, palette, bank);
+  const cleaned = removeSmallOpaqueIslands(canvas, 8);
+  canvas.data.set(cleaned.data);
   return true;
 }
 

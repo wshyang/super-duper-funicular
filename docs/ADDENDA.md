@@ -127,6 +127,16 @@ Every architectural, algorithmic, or tooling decision not fixed by a single lite
 - **Related Spec Section:** `docs/FDS.md#thought-process`, `docs/FDS.md#feat-photoreal-rig`, `docs/FDS.md#svg-vector-assessment`
 - **Practical Impact:** Updated `src/pipeline/rounded-joint-cutter.ts`, `src/pipeline/photoreal-extractor.ts`, `src/runner/photoreal-rig.ts`, `src/runner/svg-rig-stitcher.ts`, `src/pipeline/pipeline.test.ts`, and regenerated all PNG cutouts (`nearThigh.png`, `farThigh.png`, `torso.png`), SVG vector parts (`nearThigh.svg`, `farThigh.svg`), stitched SVG frames (`frame-01..08.svg`), and the 48-frame photorealistic sprite sheet.
 
+## `ADD-020` — Full-Cycle Temporary Frame Dumper (`npm run dump-cycle`) & Multimodal Agent Visual Audit Skill (`audit-gait-cycle`)
+- **What was decided:**
+  1. Implement `dumpFullGaitCycleToTempDir` (`src/pipeline/cycle-frame-dumper.ts`) and CLI `scripts/dump-cycle-frames.ts` (`npm run dump-cycle`) to render a high-density 16-frame gait cycle ($\Delta\phi = 22.5^\circ$) into a temporary directory (`/tmp/gait-cycle-audit`), producing raw RGBA frames, 3-panel diagnostic plates (`frames/audit-frame-XX-deg-YYY.png` with neutral grey + ground line, dark-slate anomaly highlight, and joint-pivot crosshairs), a `4 × 4` full-cycle `contact-sheet-16frame.png`, a `2×` magnified `joint-crops-sheet.png`, and `audit-report.json`.
+  2. Codify the reusable **Agent Skill** at `.claude/skills/audit-gait-cycle/SKILL.md` and register it in `CLAUDE-validation.md` (`§9`), `CLAUDE.md`, and `CLAUDE-checklist.md` (`#15`).
+  3. Exercise the skill on `photo-sg-chinese-female`, apply immediate rectifications `RECT-01`..`RECT-03` (eliminating the duplicate crossing white stripe on `pelvis`, pruning all 6 detached 2–3 px islands via `removeSmallOpaqueIslands(canvas, 8)` so `totalDisconnectedIslands = 0`, and calibrating `farForearm`/`farHand` skin luminance to `1.08`), and document the complete 6-defect audit and rectification roadmap (`DEFECT-01`..`DEFECT-06`) in `docs/FDS.md` (`v3.2.0`, `§11`).
+- **Why:** Inspecting only 8 keyframes on a uniform background misses intermediate half-step joint rotation artifacts and tiny detached resampling specks. Dumping a 16-frame cycle with `2×` zoomed joint crops and connected-component telemetry to `/tmp` gives the agent a repeatable multimodal inspection loop.
+- **Related Spec Section:** `docs/FDS.md#gait-cycle-visual-audit`, `.claude/skills/audit-gait-cycle/SKILL.md`
+- **Practical Impact:** Added `src/pipeline/cycle-frame-dumper.ts`, `scripts/dump-cycle-frames.ts`, `.claude/skills/audit-gait-cycle/SKILL.md`, updated `src/pipeline/connected-components.ts`, `src/pipeline/photoreal-extractor.ts`, `src/runner/photoreal-rig.ts`, and `docs/FDS.md` (`v3.2.0`).
+
+
 
 
 

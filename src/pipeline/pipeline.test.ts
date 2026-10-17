@@ -1,6 +1,8 @@
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { dumpFullGaitCycleToTempDir } from './cycle-frame-dumper.js';
 import { detectSpriteSheetGrid } from './grid-detection.js';
 import {
   computeAlphaSilhouetteIoU,
@@ -232,5 +234,21 @@ describe('Real reference sprite sheet grid detection and extraction verification
     });
     expect(readPixel(thighWithShorts, 80, 40).r).toBeLessThan(50);
     expect(readPixel(thighWithShorts, 80, 90).r).toBeGreaterThan(180);
+  });
+
+  it('dumps a full gait cycle with 3-panel diagnostic plates and zero detached islands to a temp directory', () => {
+    const tmpAuditDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cycle-audit-test-'));
+    const report = dumpFullGaitCycleToTempDir({
+      outDir: tmpAuditDir,
+      frameCount: 8,
+      personaId: 'photo-sg-chinese-female',
+      variant: 'red',
+    });
+    expect(report.frameCount).toBe(8);
+    expect(report.totalDisconnectedIslands).toBe(0);
+    expect(report.totalMagentaSpillPixels).toBe(0);
+    expect(fs.existsSync(report.contactSheetPath)).toBe(true);
+    expect(fs.existsSync(report.jointCropsSheetPath)).toBe(true);
+    fs.rmSync(tmpAuditDir, { recursive: true, force: true });
   });
 });

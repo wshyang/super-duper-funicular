@@ -43,7 +43,7 @@ This repository adopts the coding discipline from [`wshyang/greenfield`](https:/
 - [`CLAUDE-database.md`](./CLAUDE-database.md) — §4–§5 Single-casing domain model & manifest schema evolution discipline.
 - [`CLAUDE-conventions.md`](./CLAUDE-conventions.md) — §6 `data-testid` contract, shared typed manifests (`src/shared/`), user-facing vs internal copy rules.
 - [`CLAUDE-function-design.md`](./CLAUDE-function-design.md) — §7 Function size (≤ 50 lines), guard clauses, parameter objects (≤ 3 params), hook/component split, JSX purity.
-- [`CLAUDE-validation.md`](./CLAUDE-validation.md) — §8–§9 Honest validation reporting, reproducible local dev (`./dev.sh`, `.env.example`, `.env.test`).
+- [`CLAUDE-validation.md`](./CLAUDE-validation.md) — §8–§10 Honest validation reporting, Full-Cycle Frame Dump & Multimodal Visual Audit Skill (`.claude/skills/audit-gait-cycle/SKILL.md`), and reproducible local dev (`./dev.sh`, `.env.example`, `.env.test`).
 - [`CLAUDE-deployment.md`](./CLAUDE-deployment.md) — §10 Container contract (`0.0.0.0:3000`, `Dockerfile`, `Dockerfile.dev`, `Dockerfile.cloudflared`, `.dockerignore`) and inert SHIP-HATS pipeline (`*.shiphats` + `activate-shiphats.sh`).
 - [`CLAUDE-checklist.md`](./CLAUDE-checklist.md) — §11 Up-front 13-point greenfield checklist mapped to this repository.
 - [`GREENFIELD.md`](./GREENFIELD.md) — Upstream reference copy from `wshyang/greenfield`.

@@ -15,6 +15,7 @@
     "extract": "tsx scripts/extract-sprites.ts",
     "analyze": "tsx scripts/analyze-sprites.ts",
     "generate-sheets": "tsx scripts/generate-algorithmic-sprites.ts",
+    "dump-cycle": "tsx scripts/dump-cycle-frames.ts",
     "pipeline": "npm run dedupe && npm run extract && npm run analyze && npm run generate-sheets"
   },
   "dependencies": {

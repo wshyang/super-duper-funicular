@@ -296,6 +296,16 @@ function extractPelvisCutout(src: RasterImage): RasterImage {
     cropBox: { minX: 435, minY: 40, maxX: 918, maxY: 732 },
     shadeScale: 1.0,
   });
+  for (let y = 20; y < raw.height; y++) {
+    const refFabric = readPixel(raw, 60, y);
+    if (refFabric.a < 128) continue;
+    for (let x = 66; x <= 96; x++) {
+      const p = readPixel(raw, x, y);
+      if (p.a > 32 && p.r > 70 && p.g > 70 && p.b > 70) {
+        writePixel(raw, { x, y }, { ...refFabric, a: p.a });
+      }
+    }
+  }
   const topRounded = applyPivotArcRoundedCut(raw, {
     pivot: { x: 80, y: 40 },
     radiusX: 36,
@@ -363,7 +373,7 @@ function extractArmCutouts(
       srcMinY: 495,
       dstRadiusTopPx: 18,
       dstRadiusBotPx: 15,
-      shadeScale: 0.9,
+      shadeScale: 1.08,
     }),
     farHand: cutHorizontalLimbWithRoundedEnds(farArm, {
       srcLeftX: 895,
@@ -371,7 +381,7 @@ function extractArmCutouts(
       srcMinY: 455,
       dstRadiusTopPx: 16,
       dstRadiusBotPx: 21,
-      shadeScale: 0.9,
+      shadeScale: 1.08,
     }),
   };
 }

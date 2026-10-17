@@ -304,15 +304,15 @@ function sampleCompositeCuffRow(
   const dstSpan = measureForegroundRowSpan(limbCutout, y);
   const isHemEdge = Math.abs(y - spec.dstStraightCutY) <= 1;
   const hemShade = isHemEdge ? spec.shadeScale * 0.82 : spec.shadeScale;
+  const allowStripe = spec.sideStripeMode === 'with-stripe' && (spec.end !== 'top' || y >= 18);
 
   for (let x = 0; x < limbCutout.width; x++) {
     const basePx = readPixel(limbCutout, x, y);
     if (basePx.a <= 8) continue;
     const nx = (x - dstSpan.midX) / Math.max(8, dstSpan.halfW);
-    const u =
-      spec.sideStripeMode === 'with-stripe'
-        ? srcSpan.midX + nx * srcSpan.halfW * 0.85
-        : srcSpan.midX - srcSpan.halfW * 0.38 + nx * srcSpan.halfW * 0.25;
+    const u = allowStripe
+      ? srcSpan.midX + nx * srcSpan.halfW * 0.85
+      : srcSpan.midX - srcSpan.halfW * 0.38 + nx * srcSpan.halfW * 0.25;
     const sampled = sampleBilinearRgba(spec.compositeSource, u, srcV);
     if (sampled.a > 16) {
       writeShadedPixel(out, { x, y }, { ...sampled, a: basePx.a }, hemShade);

@@ -70,6 +70,7 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
       'docs/FDS.md',
       'docs/ADDENDA.md',
       'docs/SPRITE_ANIMATION_FLAW_ANALYSIS.md',
+      '.claude/skills/audit-gait-cycle/SKILL.md',
     ];
     for (const rel of requiredDocs) {
       expect(fs.existsSync(path.join(repoRoot, rel)), `Missing ${rel}`).toBe(true);
@@ -82,6 +83,7 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('Call `#21`');
     expect(fdsMd).toContain('Regeneration Justification:');
     expect(fdsMd).toContain('#svg-vector-assessment');
+    expect(fdsMd).toContain('#gait-cycle-visual-audit');
   });
 
   it('enforces file <= 800 LOC and named function <= 50 LOC across all TypeScript files', () => {
