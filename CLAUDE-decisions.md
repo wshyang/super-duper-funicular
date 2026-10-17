@@ -21,3 +21,15 @@ Adopted from `wshyang/greenfield` `GREENFIELD.md §1` and `FDS_BUILDER.md`.
   2. **Regeneration Justification:** A concrete technical explanation of why the additional call was required (e.g., `45°` three-quarter camera twist instead of `90°` sagittal profile, right-arm chirality illusion instead of medial left arm with inner palm facing viewer, arm occluding torso side panel, or harsh side-shadow grooves) and what prompt constraints were added to solve it.
 - **Historical Completeness:** `docs/FDS.md` must maintain the complete history of all image generation prompts and explanations across the entire project conversation.
 
+## 3. Mandatory Continuous Per-Turn Learning Register (`#continuous-learning-log`)
+
+- **Update Learnings Constantly Every Turn:** Read `docs/FDS.md` before starting work and update `docs/FDS.md` (`#continuous-learning-log`) **during every single turn** (including investigative runs, visual audits, and cross-branch reviews).
+- **Structured Turn-by-Turn Learning Entries (`TURN-L01`, `TURN-L02`, …):** Every turn must record:
+  1. **Context & Trigger:** The user request, audit trigger, or architectural question addressed in that turn.
+  2. **Evidence & Provenance:** Exact file paths, CLI commands, telemetry (`audit-report.json`), visual sheets inspected via `read_file`, or external branch commit SHAs and timestamps inspected in `/tmp/...`.
+  3. **Learnings & Comparative Analysis:** What worked, what failed and why (dead ends), what good ideas were learned from other branches, and what our own implementation does better with concrete measurements.
+  4. **Decisions (`Adopted` / `Rectified` / `Deferred` / `Rejected`):** How findings were translated into code, plan files (`PLAN.md`), and specification updates.
+  5. **Executed Validation & Next Actions:** Exact test/build/audit gates executed in that turn (never claim unrun gates passed) and remaining open items.
+- **Cross-Branch Inspection Safety:** When referencing another branch of the repository, always clone or extract into `/tmp/...` outside `/home/user/super-duper-funicular` so the active working branch is never switched or polluted.
+
+

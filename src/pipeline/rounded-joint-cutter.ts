@@ -195,14 +195,23 @@ function evaluateRoundedEndMask(
 ): number {
   let dist = Math.abs(pt.x - 80);
   let rRef = geom.rAtY;
+  const shaftBlendPx = 6;
   if (pt.y < geom.dstTopY && geom.roundTop) {
     dist = Math.hypot(pt.x - 80, pt.y - geom.dstTopY);
     rRef = geom.rTop;
   } else if (pt.y > geom.dstBotY && geom.roundBot) {
     dist = Math.hypot(pt.x - 80, pt.y - geom.dstBotY);
     rRef = geom.rBot;
+  } else if (pt.y < geom.dstTopY + shaftBlendPx && geom.roundTop) {
+    const t = (pt.y - geom.dstTopY) / shaftBlendPx;
+    const h = t * t * (3 - 2 * t);
+    rRef = geom.rTop * (1 - h) + geom.rAtY * h;
+  } else if (pt.y > geom.dstBotY - shaftBlendPx && geom.roundBot) {
+    const t = (geom.dstBotY - pt.y) / shaftBlendPx;
+    const h = t * t * (3 - 2 * t);
+    rRef = geom.rBot * (1 - h) + geom.rAtY * h;
   }
-  const feather = 1.6;
+  const feather = 1.9;
   if (dist <= rRef - feather + 0.4) return 1.0;
   if (dist >= rRef + 0.4) return 0.0;
   return (rRef + 0.4 - dist) / feather;

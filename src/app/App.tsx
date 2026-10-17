@@ -3,6 +3,7 @@ import { ArticulatedRigPanel } from './components/ArticulatedRigPanel.js';
 import { ComparisonStage } from './components/ComparisonStage.js';
 import { DiagnosticsPanel } from './components/DiagnosticsPanel.js';
 import { GaitFilmstrip } from './components/GaitFilmstrip.js';
+import { JointAndCycleAuditPanel } from './components/JointAndCycleAuditPanel.js';
 import { RunnerControls } from './components/RunnerControls.js';
 import { WorkspaceHeader } from './components/WorkspaceHeader.js';
 import { useRunnerStudio } from './hooks/useRunnerStudio.js';
@@ -99,10 +100,19 @@ function StudioMainContent({
         />
       )}
       {showRig && (
-        <ArticulatedRigPanel
-          partReadouts={studio.partReadouts}
-          activePersonaSkin={studio.activePersonaSkin}
-        />
+        <>
+          <JointAndCycleAuditPanel
+            input={{
+              personaId: studio.personaId,
+              variant: studio.variant,
+              gaitConfig: studio.gaitConfig,
+            }}
+          />
+          <ArticulatedRigPanel
+            partReadouts={studio.partReadouts}
+            activePersonaSkin={studio.activePersonaSkin}
+          />
+        </>
       )}
       {showDiagnostics && (
         <DiagnosticsPanel

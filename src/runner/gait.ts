@@ -44,15 +44,11 @@ export function solveArticulatedPose(
   const pelvis = computePelvisPosition(phase, config, rig);
   const upper = computeUpperBodyArticulation(pelvis, phase, { config, rig });
   const nearLeg = solveLegKinematics(pelvis, phase, { config, rig });
-  const farLegPhase = normalizePhase(phase + 0.5);
-  const farLeg = solveLegKinematics(pelvis, farLegPhase, { config, rig });
-  const nearArmPhase = normalizePhase(phase + 0.5);
-  const nearArm = solveArmKinematics(upper.shoulderOrigin, nearArmPhase, { config, rig });
-  const farArm = solveArmKinematics(upper.shoulderOrigin, phase, { config, rig });
+  const farLeg = solveLegKinematics(pelvis, normalizePhase(phase + 0.5), { config, rig });
+  const nearArm = solveArmKinematics(upper.shoulderOrigin, normalizePhase(phase + 0.5), { config, rig, side: 'near' });
+  const farArm = solveArmKinematics(upper.shoulderOrigin, phase, { config, rig, side: 'far' });
   const isFlightPhase = !nearLeg.isGrounded && !farLeg.isGrounded;
-  const footCrossoverDeltaX = Number(
-    (nearLeg.endEffector.x - farLeg.endEffector.x).toFixed(2),
-  );
+  const footCrossoverDeltaX = Number((nearLeg.endEffector.x - farLeg.endEffector.x).toFixed(2));
   const pelvisTiltRad = 0.14 + Math.sin(phase * Math.PI * 4) * 0.06;
   const fallForwardComLeadPx = Number((upper.collar.x - pelvis.x).toFixed(1));
   return {
@@ -99,6 +95,7 @@ function computePelvisPosition(
 interface LimbContext {
   readonly config: GaitConfig;
   readonly rig: AnatomicalRigSpec;
+  readonly side?: 'near' | 'far';
 }
 
 interface UpperBodyKinematics {
@@ -200,11 +197,14 @@ function solveArmKinematics(
   ctx: LimbContext,
 ): LimbKinematics {
   const swingWave = Math.cos(armPhase * Math.PI * 2) * ctx.config.armSwingScale;
-  const upperAngleRad = 1.58 - 0.72 * swingWave;
-  const forearmFlexRad = 1.22 + 0.36 * swingWave;
+  const farRearTuck = ctx.side === 'far' ? Math.max(0, -swingWave) : 0;
+  const upperAngleRad = 1.58 - 0.72 * swingWave - 0.56 * farRearTuck;
+  const forearmFlexRad = 1.22 + 0.36 * swingWave + 0.42 * farRearTuck;
   const lowerAngleRad = upperAngleRad - forearmFlexRad;
-  const midJoint = projectPoint(shoulder, upperAngleRad, ctx.rig.upperArmLength);
-  const endEffector = projectPoint(midJoint, lowerAngleRad, ctx.rig.forearmLength);
+  const upperLen = ctx.rig.upperArmLength * (1 - 0.18 * farRearTuck);
+  const lowerLen = ctx.rig.forearmLength * (1 - 0.28 * farRearTuck);
+  const midJoint = projectPoint(shoulder, upperAngleRad, upperLen);
+  const endEffector = projectPoint(midJoint, lowerAngleRad, lowerLen);
   const tipPoint = projectPoint(endEffector, lowerAngleRad, ctx.rig.handRadius * 0.75);
   return {
     hipOrShoulder: shoulder,

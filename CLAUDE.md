@@ -24,8 +24,12 @@ This repository adopts the coding discipline from [`wshyang/greenfield`](https:/
 2. **Mandatory Image Generation Prompt & Regeneration Justification Audit Log (`CLAUDE-decisions.md` §2 & `docs/FDS.md#image-prompt-log`)**:
    - With **every image generation call (`generate_image`)**, you MUST log into `docs/FDS.md` the **exact verbatim image prompt used**, along with the target `file_path` and any reference `images` passed.
    - If the **same image needs to be regenerated** (any subsequent call targeting the same `file_path`), you MUST preserve all earlier prompt entries and append the **subsequent exact prompt** together with an explicit **Regeneration Justification** explaining **why** the additional call was needed (what specific anatomical, camera-yaw/twist, left/right chirality, illumination, or segmentation defect was observed in the prior image and how the updated prompt fixes it), so `docs/FDS.md` permanently contains all historical image prompts and their explanations.
-3. **Write real tests with no mocks where it counts** — exercise the real image decoder, real chroma-key and grid detector, real deduplicator, and real IK/gait rasterizer (`CLAUDE-testing.md`).
-4. **Strict function and module design (`CLAUDE-function-design.md`)**:
+3. **Mandatory Continuous Per-Turn Learning Discipline (`CLAUDE-decisions.md §3` & `docs/FDS.md#continuous-learning-log`)**:
+   - You MUST update learnings into `docs/FDS.md` **constantly during each of your turns** (including investigative, audit, and cross-branch comparison turns).
+   - Before ending **every turn**, append or update a sequentially numbered learning entry (`TURN-L01`, `TURN-L02`, …) in `docs/FDS.md#continuous-learning-log` recording: (a) Turn Context & Trigger, (b) Concrete Evidence Inspected (commit SHAs, paths, telemetry, visual sheets), (c) Technical Learnings & Cross-Branch Comparisons (both good practices adopted from reference branches and strengths our implementation achieves better), (d) Adopted / Rectified / Deferred Decisions, and (e) Executed Validation & Next Actions.
+   - For cross-branch reference checks, always inspect external branches in a temporary directory (`/tmp/...`) without switching the active session branch.
+4. **Write real tests with no mocks where it counts** — exercise the real image decoder, real chroma-key and grid detector, real deduplicator, and real IK/gait rasterizer (`CLAUDE-testing.md`).
+5. **Strict function and module design (`CLAUDE-function-design.md`)**:
    - Function body target **≤ 20 lines**, hard limit **≤ 50 lines**.
    - Guard clauses over nesting; max nesting depth **3 levels**.
    - **≤ 3 parameters** per function; use a typed Parameter Object beyond 3; **no boolean flag parameters**.

@@ -136,6 +136,19 @@ Every architectural, algorithmic, or tooling decision not fixed by a single lite
 - **Related Spec Section:** `docs/FDS.md#gait-cycle-visual-audit`, `.claude/skills/audit-gait-cycle/SKILL.md`
 - **Practical Impact:** Added `src/pipeline/cycle-frame-dumper.ts`, `scripts/dump-cycle-frames.ts`, `.claude/skills/audit-gait-cycle/SKILL.md`, updated `src/pipeline/connected-components.ts`, `src/pipeline/photoreal-extractor.ts`, `src/runner/photoreal-rig.ts`, and `docs/FDS.md` (`v3.2.0`).
 
+## `ADD-021` — Investigative Rectification Plan (`PLAN.md`), Cross-Branch Reference Synthesis (`arena/263385da` @ `b227e2f` & `arena/77ffb088` @ `d0e12b5`), `RECT-04`..`RECT-06`, and Mandatory Continuous Per-Turn Learning Discipline (`#continuous-learning-log`)
+- **What was decided:**
+  1. Document the complete findings from the 16-frame temporary cycle investigative run (`DEFECT-01`..`DEFECT-06`), the six-part rectification roadmap (`RECT-01`..`RECT-06`), and the cross-branch synthesis (`CROSS-01`..`CROSS-04`) in `PLAN.md` (and `docs/RECTIFICATION_PLAN.md`).
+  2. Check out the latest commit on another branch (`origin/arena/263385da-super-duper-funicular` @ `b227e2fe562be341f15f58955f539d325170729e`, `2026-10-17 21:55:19 UTC`) into `/tmp/other-branch-repo` (plus `origin/arena/77ffb088-super-duper-funicular` @ `d0e12b5` into `/tmp/other-branch-77ffb088`) without switching the active session branch, compare their strengths against our implementation, and adopt:
+     - **`CROSS-01` + `RECT-05`:** Internal `6 px` Hermite shaft-shoulder cap blending inside `[dstTopY, dstTopY + 6]` and `[dstBotY - 6, dstBotY]` in `evaluateRoundedEndMask` (`src/pipeline/rounded-joint-cutter.ts`) plus `softenProximalShoulderCap` (`src/pipeline/photoreal-extractor.ts`).
+     - **`CROSS-02` + `CROSS-03`:** Interactive **Articulated Element End-Cutter & 16-Phase Full-Cycle Visual Audit Workbench** (`src/app/components/JointAndCycleAuditPanel.tsx` & `src/app/hooks/useJointAndAuditInspector.ts`) with isolated pivot rotation testing (`-75°..+75°`), rounded+composite vs square-corner overlay comparison, live 16-phase 3-panel (Light / Dark / Joint Overlay + ground-contact support readout) preview, and one-click PNG export.
+     - **`RECT-04` & `RECT-06`:** Rear-swing `farArm` sagittal tuck in `solveArmKinematics` (`src/runner/gait.ts`) eliminating the 3 px rear forearm peek at $\phi = 0.50$ (`180°`), and distal shin ankle-sock collar integration (`srcBotY = 642 / 622` in `src/pipeline/photoreal-extractor.ts`).
+  3. Codify the **Mandatory Continuous Per-Turn Learning Discipline (`#continuous-learning-log`)** in `CLAUDE.md` (Rule 3), `CLAUDE-decisions.md` (`§3`), `CLAUDE-checklist.md` (`#16`), and `src/discipline/greenfield-gate.test.ts`, and populate `docs/FDS.md` (`v3.3.0`, `§12`) with the cross-branch comparison and `TURN-L01`..`TURN-L09` learning register.
+- **Why:** Combining our quantitative pipeline and additive end-cap composite architecture with the interactive joint-end inspector, internal shaft-shoulder cap blend, in-browser 16-phase audit exporter, and turn-by-turn FDS learning register from `arena/263385da` produces a unified, self-auditing engineering workflow.
+- **Related Spec Section:** `docs/FDS.md#gait-cycle-visual-audit`, `docs/FDS.md#continuous-learning-log`, `PLAN.md`
+- **Practical Impact:** Added `PLAN.md`, `docs/RECTIFICATION_PLAN.md`, `src/app/components/JointAndCycleAuditPanel.tsx`, `src/app/hooks/useJointAndAuditInspector.ts`, updated `src/runner/gait.ts`, `src/pipeline/rounded-joint-cutter.ts`, `src/pipeline/photoreal-extractor.ts`, `src/app/App.tsx`, `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-checklist.md`, `src/discipline/greenfield-gate.test.ts`, `docs/FDS.md` (`v3.3.0`), and regenerated all sprite sheets and SVG frames.
+
+
 
 
 

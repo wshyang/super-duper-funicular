@@ -353,8 +353,9 @@ function extractArmCutouts(
   | 'farForearm'
   | 'farHand'
 > {
+  const rawNearUpperArm = cutLimbBothEnds(nearArm, 140, 380, 25, 18, 1.0);
   return {
-    nearUpperArm: cutLimbBothEnds(nearArm, 140, 380, 25, 18, 1.0),
+    nearUpperArm: softenProximalShoulderCap(rawNearUpperArm),
     nearForearm: cutLimbBothEnds(nearArm, 390, 618, 18, 15, 1.0),
     nearHand: cutLimbBothEnds(nearArm, 605, 722, 16, 21, 1.0),
     farUpperArm: cutArticulatedLimbWithRoundedEnds(farArm, {
@@ -384,6 +385,30 @@ function extractArmCutouts(
       shadeScale: 1.08,
     }),
   };
+}
+
+function softenProximalShoulderCap(img: RasterImage): RasterImage {
+  const out = createRaster(img.width, img.height);
+  out.data.set(img.data);
+  const refMid = readPixel(out, 80, 48);
+  for (let y = 8; y <= 38; y++) {
+    const t = Math.max(0, Math.min(1, (38 - y) / 28)) * 0.45;
+    for (let x = 50; x <= 110; x++) {
+      const p = readPixel(out, x, y);
+      if (p.a === 0) continue;
+      writePixel(
+        out,
+        { x, y },
+        {
+          r: Math.round(p.r * (1 - t) + refMid.r * t),
+          g: Math.round(p.g * (1 - t) + refMid.g * t),
+          b: Math.round(p.b * (1 - t) + refMid.b * t),
+          a: p.a,
+        },
+      );
+    }
+  }
+  return out;
 }
 
 function cutThighWithShortsCuff(
@@ -435,7 +460,7 @@ function extractLegCutouts(
       sideStripeMode: 'with-stripe',
       shadeScale: 1.0,
     }),
-    nearShin: cutLimbBothEnds(nearLeg, 390, 635, 20, 14, 1.0),
+    nearShin: cutLimbBothEnds(nearLeg, 390, 642, 20, 14, 1.0),
     nearFoot: extractFootWithRoundedAnkleCut(nearLeg, {
       srcStart: { x: 632, y: 702 },
       srcEnd: { x: 822, y: 716 },
@@ -451,7 +476,7 @@ function extractLegCutouts(
       sideStripeMode: 'solid-fabric',
       shadeScale: 0.88,
     }),
-    farShin: cutLimbBothEnds(farLeg, 385, 610, 20, 14, 0.88),
+    farShin: cutLimbBothEnds(farLeg, 385, 622, 20, 14, 0.88),
     farFoot: extractFootWithRoundedAnkleCut(farLeg, {
       srcStart: { x: 632, y: 690 },
       srcEnd: { x: 846, y: 706 },
