@@ -1,0 +1,9 @@
+## Summary
+- Project: `@@SHIPHATS_PROJECT_NAME@@`
+- Related Specification / Addendum (`docs/FDS.md` / `docs/ADDENDA.md`):
+
+## Verification Checklist
+- [ ] `npm run typecheck` passes
+- [ ] `npm run pipeline` regenerates deterministic sprite & analysis manifests
+- [ ] `npm test` passes against real image assets with zero mocks
+- [ ] `docs/ADDENDA.md` updated in the same commit for any design decisions
