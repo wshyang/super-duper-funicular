@@ -2,10 +2,12 @@ import type { BodyPartId, Point2D, RasterImage, RgbaColor } from '../shared/type
 import { sampleBilinearRgba } from '../runner/photoreal-warp.js';
 import { applyPivotArcRoundedCut } from './rounded-joint-cutter.js';
 import { removeSmallOpaqueIslands } from './connected-components.js';
+import { extractAthleticNeck } from './athletic-reference-extractor.js';
 import { createRaster, readPixel, writePixel } from './raster.js';
 
 export interface RebuiltAthleticSources {
   readonly master: RasterImage;
+  readonly neckProfile: RasterImage;
   readonly head: RasterImage;
   readonly ponytail: RasterImage;
   readonly torsoPortrait: RasterImage;
@@ -31,9 +33,9 @@ export function extractRebuiltAthleticParts(
   const parts: Record<BodyPartId, RasterImage> = {
     head: extractHead(src.head),
     hairAccessory: extractPonytail(src.ponytail),
-    neck: extractNeck(src.master),
+    neck: extractAthleticNeck(src.neckProfile),
     torso: extractTorso(src.torsoPortrait),
-    pelvis: scaleHorizontally(extractPelvis(src.pelvis), 0.94),
+    pelvis: refineAthleticPelvisContour(scaleHorizontally(extractPelvis(src.pelvis), 0.94)),
     ...extractNearArm(src.nearArm),
     ...extractFarArm(src.farArm),
     ...extractLegs(src.nearLeg, src.farLeg),
@@ -57,16 +59,6 @@ function extractPonytail(src: RasterImage): RasterImage {
     srcStart: { x: 1185, y: 205 }, srcEnd: { x: 210, y: 334 },
     dstStart: { x: 142, y: 82 }, dstEnd: { x: 14, y: 86 },
     crop: { minX: 195, minY: 115, maxX: 1260, maxY: 660 },
-  });
-}
-
-function extractNeck(src: RasterImage): RasterImage {
-  const crop = { minX: 650, minY: 120, maxX: 740, maxY: 185 };
-  const skin = retainSkinRegion(src, crop);
-  return align(skin, {
-    srcStart: { x: 726, y: 132 }, srcEnd: { x: 687, y: 174 },
-    dstStart: { x: 80, y: 36 }, dstEnd: { x: 80, y: 124 },
-    crop,
   });
 }
 
@@ -129,10 +121,10 @@ function extractLegs(
     nearThigh: cutBone(near, { x: 710, y: 112 }, { x: 690, y: 386 }, { minX: 610, minY: 75, maxX: 810, maxY: 410 }, 25, 20),
     nearShin: cutBone(near, { x: 690, y: 386 }, { x: 680, y: 630 }, { minX: 610, minY: 355, maxX: 780, maxY: 655 }, 20, 14),
     nearFoot: extractFoot(near, { x: 640, y: 702 }, { x: 835, y: 710 }, { minX: 610, minY: 620, maxX: 850, maxY: 750 }, { x: 62, y: 82 }),
-    farThigh: scaleHorizontally(
+    farThigh: trimPosteriorShortsCuff(scaleHorizontally(
       cutBone(far, { x: 704, y: 110 }, { x: 690, y: 390 }, { minX: 610, minY: 75, maxX: 800, maxY: 420 }, 24, 19, 0.88),
-      1.05,
-    ),
+      0.98,
+    )),
     farShin: cutBone(far, { x: 690, y: 390 }, { x: 690, y: 640 }, { minX: 610, minY: 360, maxX: 790, maxY: 660 }, 19, 14, 0.88),
     farFoot: extractFoot(far, { x: 620, y: 710 }, { x: 850, y: 718 }, { minX: 605, minY: 625, maxX: 865, maxY: 755 }, { x: 60, y: 80 }, 0.88),
   };
@@ -192,14 +184,32 @@ function scaleHorizontally(src: RasterImage, factor: number): RasterImage {
   return out;
 }
 
-function retainSkinRegion(
-  src: RasterImage,
-  region: ExtractSpec['crop'],
-): RasterImage {
-  return retainRegion(src, region, (p) =>
-    p.a > 0 && p.r > 70 && p.g > 35 && p.r > p.g * 1.08 && p.g > p.b * 1.03
-      && p.b < p.g * 1.15 && p.r - p.g < 96 && p.b > p.r * 0.3,
-  );
+function refineAthleticPelvisContour(src: RasterImage): RasterImage {
+  const out = createRaster(src.width, src.height);
+  for (let y = 0; y < src.height; y++) {
+    const t = Math.max(0, Math.min(1, (y - 32) / 88));
+    const posteriorScale = 0.93 - 0.23 * Math.sin(Math.PI * t);
+    for (let x = 0; x < src.width; x++) {
+      const sourceX = x < 80 ? 80 + (x - 80) / posteriorScale : x;
+      const p = sampleBilinearRgba(src, sourceX, y);
+      if (p.a > 8) writePixel(out, { x, y }, p);
+    }
+  }
+  return out;
+}
+
+function trimPosteriorShortsCuff(src: RasterImage): RasterImage {
+  const out = createRaster(src.width, src.height);
+  out.data.set(src.data);
+  for (let y = 18; y <= 52; y++) {
+    const posteriorCut = Math.round(72 + ((y - 18) / 34) * 8);
+    for (let x = 0; x < posteriorCut; x++) {
+      const p = readPixel(out, x, y);
+      const isShortsFabric = p.a > 0 && p.r < 96 && p.g < 100 && p.b < 112;
+      if (isShortsFabric) writePixel(out, { x, y }, { r: 0, g: 0, b: 0, a: 0 });
+    }
+  }
+  return out;
 }
 
 function retainTorsoGarment(src: RasterImage, crop: ExtractSpec['crop']): RasterImage {

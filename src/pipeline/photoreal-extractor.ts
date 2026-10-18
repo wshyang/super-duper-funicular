@@ -202,7 +202,8 @@ export function extractPhotorealSpriteParts(
   const tier = resolveBuildTier(personaId);
   if (tier === 'athletic' && sources.masterLateral.width === 1408) {
     return extractRebuiltAthleticParts({
-      master: sources.masterLateral, head: sources.headProfile, ponytail: sources.ponytail,
+      master: sources.masterLateral, neckProfile: sources.neckCylinder,
+      head: sources.headProfile, ponytail: sources.ponytail,
       torsoPortrait: sources.torsoSinglet, pelvis: sources.pelvisShorts,
       nearArm: sources.nearArmLateral, farArm: sources.farArmMedial,
       nearLeg: sources.nearLegLateral, farLeg: sources.farLegMedial,

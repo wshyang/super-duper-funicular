@@ -112,6 +112,7 @@ describe('Real reference sprite sheet grid detection and extraction verification
       }
     }
     expect(clothingOrHairPixels).toBe(0);
+    expect(readPixel(neck, 80, 100).a).toBeGreaterThan(200);
 
     // A solid jersey pixel inside the shoulder closure guards against reopening
     // the armhole and exposing the inner lining.

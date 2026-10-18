@@ -10,8 +10,10 @@ describe('Neutral standing profile calibration', () => {
       const rig = applyAssetTuningToRigSpec(DEFAULT_RIG_SPEC, tuning);
       const pose = solveStandingUprightPose(rig);
       expect(pose.torsoAngleRad).toBeCloseTo(-Math.PI / 2, 6);
+      expect(pose.neutralStanding).toBe(true);
       expect(pose.nearLeg.isGrounded).toBe(true);
       expect(pose.farLeg.isGrounded).toBe(true);
+      expect(pose.nearLeg.tipPoint.x).toBeCloseTo(pose.farLeg.tipPoint.x, 6);
       expect(pose.nearLeg.endEffector.y).toBe(rig.groundY - 8);
       expect(pose.nearLeg.hipOrShoulder.y).toBeLessThan(pose.nearLeg.midJoint.y);
       expect(pose.nearArm.midJoint.y).toBeGreaterThan(pose.nearArm.hipOrShoulder.y);

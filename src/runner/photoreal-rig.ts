@@ -132,13 +132,15 @@ function renderFarSideLimbs(
     dstEnd: pose.farLeg.midJoint,
     dstHalfWidthPx: tuning.thighWidthPx * 0.96,
   });
-  warpPhotorealRollingShoe(
-    canvas,
-    bank.farFoot,
-    pose.farLeg,
-    parseHexColor(palette.jerseyMain),
-    13.5,
-  );
+  if (!pose.neutralStanding) {
+    warpPhotorealRollingShoe(
+      canvas,
+      bank.farFoot,
+      pose.farLeg,
+      parseHexColor(palette.jerseyMain),
+      13.5,
+    );
+  }
 }
 
 function renderTorsoAndNeck(

@@ -35,7 +35,7 @@ export function solveStandingUprightPose(
     pelvisTiltRad: 0,
     fallForwardComLeadPx: 0,
     nearLeg: standingLeg(pelvis, feet.kneeY, feet.ankleY, 1, rig),
-    farLeg: standingLeg(pelvis, feet.kneeY, feet.ankleY, -2, rig),
+    farLeg: standingLeg(pelvis, feet.kneeY, feet.ankleY, 1, rig),
     nearArm,
     farArm,
     isFlightPhase: false,

@@ -97,23 +97,66 @@ function isSinglet(p: RgbaColor): boolean {
 
 export function extractAthleticNeck(src: RasterImage): RasterImage {
   const neckSource = createRaster(src.width, src.height);
-  for (let y = 350; y <= 420; y++) {
-    const t = (y - 350) / 70;
-    const minX = Math.round(725 - 80 * t);
-    const maxX = Math.round(765 - 65 * t + 15 * Math.sin(t * Math.PI));
-    for (let x = minX; x <= maxX; x++) {
+  const topY = 224;
+  const bottomY = 342;
+  for (let y = topY; y <= bottomY; y++) {
+    const t = (y - topY) / (bottomY - topY);
+    const posteriorX = Math.round(684 - 52 * t);
+    const anteriorX = Math.round(782 - 65 * t);
+    for (let x = posteriorX; x <= anteriorX; x++) {
       const p = readPixel(src, x, y);
-      const isSkin = p.a > 32 && p.r > 75 && p.g > 48 && p.b > 28 &&
-        p.r > p.g * 1.08 && p.g > p.b * 1.08 && p.g < 205;
-      if (isSkin) writePixel(neckSource, { x, y }, p);
+      if (isAthleticSkinPixel(p)) writePixel(neckSource, { x, y }, p);
     }
   }
-  const cropped = extractAlignedPart(neckSource, {
-    srcStart: { x: 748, y: 352 }, srcEnd: { x: 680, y: 410 },
+  const aligned = extractAlignedPart(neckSource, {
+    srcStart: { x: 772, y: 229 }, srcEnd: { x: 654, y: 338 },
     dstStart: { x: 80, y: 36 }, dstEnd: { x: 80, y: 124 },
-    cropBox: { minX: 640, minY: 345, maxX: 775, maxY: 425 }, shadeScale: 0.98,
+    cropBox: { minX: 610, minY: 220, maxX: 790, maxY: 345 }, shadeScale: 0.98,
   });
-  return widenPart(cropped, 1.5);
+  return fillNarrowNeckGaps(aligned, 24);
+}
+
+function isAthleticSkinPixel(p: RgbaColor): boolean {
+  return p.a > 32 && p.r > 75 && p.g > 48 && p.b > 28 &&
+    p.r > p.g * 1.08 && p.g > p.b * 1.08 && p.g < 205;
+}
+
+function fillNarrowNeckGaps(src: RasterImage, maxGapPx: number): RasterImage {
+  const out = createRaster(src.width, src.height);
+  out.data.set(src.data);
+  for (let y = 28; y <= 136; y++) {
+    let previousOpaqueX = -1;
+    for (let x = 0; x < src.width; x++) {
+      if (readPixel(src, x, y).a <= 20) continue;
+      if (previousOpaqueX >= 0 && x - previousOpaqueX - 1 > 0 && x - previousOpaqueX - 1 <= maxGapPx) {
+        const left = readPixel(src, previousOpaqueX, y);
+        const right = readPixel(src, x, y);
+        if (isAthleticSkinPixel(left) && isAthleticSkinPixel(right)) {
+          const gapLength = x - previousOpaqueX;
+          for (let fillX = previousOpaqueX + 1; fillX < x; fillX++) {
+            const t = (fillX - previousOpaqueX) / gapLength;
+            writePixel(out, { x: fillX, y }, {
+              r: Math.round(left.r + (right.r - left.r) * t),
+              g: Math.round(left.g + (right.g - left.g) * t),
+              b: Math.round(left.b + (right.b - left.b) * t),
+              a: 255,
+            });
+          }
+        }
+      }
+      previousOpaqueX = x;
+    }
+  }
+  for (let y = 0; y < out.height; y++) {
+    for (let x = 0; x < out.width; x++) {
+      const p = readPixel(out, x, y);
+      const clothingOrHair =
+        (p.r > 135 && p.g < 52 && p.b < 65) ||
+        (p.r < 45 && p.g < 45 && p.b < 45);
+      if (p.a >= 128 && clothingOrHair) writePixel(out, { x, y }, { ...p, a: 0 });
+    }
+  }
+  return out;
 }
 
 export function extractAthleticFarArmParts(
@@ -185,15 +228,4 @@ function extractAlignedPart(src: RasterImage, spec: SimilarityExtractSpec): Rast
 
 function shade(p: RgbaColor, scale: number): RgbaColor {
   return { r: Math.round(p.r * scale), g: Math.round(p.g * scale), b: Math.round(p.b * scale), a: p.a };
-}
-
-function widenPart(src: RasterImage, scaleX: number): RasterImage {
-  const out = createRaster(src.width, src.height);
-  for (let y = 0; y < src.height; y++) {
-    for (let x = 0; x < src.width; x++) {
-      const p = sampleBilinearRgba(src, 80 + (x - 80) / scaleX, y);
-      if (p.a > 0) writePixel(out, { x, y }, p);
-    }
-  }
-  return out;
 }
