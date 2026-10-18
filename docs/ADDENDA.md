@@ -293,3 +293,10 @@ Every architectural, algorithmic, or tooling decision not fixed by a single lite
 - **Validation:** Added a unit test that verifies the bust landmark rises while the waist anchor remains fixed. Regenerated all sheets and visually inspected `/tmp/standing-bust-compare.png` and `/tmp/gait-bust-raised/contact-sheet-16frame.png`; inspect the neutral source-to-rig comparison again whenever torso source geometry changes. Structural cycle telemetry is not a substitute for anatomical review.
 - **Related Spec Section:** `docs/FDS.md §12.4` (`TURN-L19`)
 - **Practical Impact:** Updated `src/pipeline/photoreal-extractor.ts`, `src/pipeline/athletic-reference-extractor.ts`, generated athletic torso/frames, and pipeline regression tests.
+
+## `ADD-037` — Athletic Bust Recheck, Local Projection Reduction & Cache-Busted Part Loading
+- **What was decided:** Give every photoreal part load a per-load `?v=` revision, lift the athletic bust landmark from output `y=67` to `y=57`, and compress only the anterior chest profile by 22% near that landmark. The torso top/waist anchors, generic rig, and petite/average source maps remain unchanged.
+- **Why:** User visual review saw no change and questioned cached assets; browser inspection confirmed all cutouts used fixed URLs. The athletic bust also appeared too prominent, so correct both cache visibility and the local silhouette without shrinking the whole torso.
+- **Validation:** Unit tests cover distinct cache revisions and preserve the lifted chest/waist anchors while reducing the anterior edge. A fresh process rendered `/tmp/standing-bust-final-compare.png`; visually inspected that neutral comparison and `/tmp/gait-bust-final/contact-sheet-16frame.png`. All 16 phases retain zero detached islands, magenta spill, or uncovered joints. Reload the app after deployment so its in-memory part bank is reconstructed with the revisioned URLs.
+- **Related Spec Section:** `docs/FDS.md §12.4` (`TURN-L20`)
+- **Practical Impact:** Updated `src/app/hooks/usePhotorealRigAssets.ts`, `src/pipeline/athletic-reference-extractor.ts`, extraction/UI tests, generated sprite parts, and manifests.

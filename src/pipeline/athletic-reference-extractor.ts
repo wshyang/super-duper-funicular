@@ -28,7 +28,10 @@ export function raiseAthleticBustLandmark(src: RasterImage): RasterImage {
       } else if (y > raisedBustY && y <= bottomY) {
         sourceY = oldBustY + ((y - raisedBustY) * (bottomY - oldBustY)) / (bottomY - raisedBustY);
       }
-      const p = sampleBilinearRgba(src, x, sourceY);
+      const bustInfluence = Math.max(0, 1 - Math.abs(sourceY - oldBustY) / 18);
+      const anteriorScale = 1 - 0.22 * bustInfluence;
+      const sourceX = x < 80 ? 80 + (x - 80) / anteriorScale : x;
+      const p = sampleBilinearRgba(src, sourceX, sourceY);
       if (p.a > 0) writePixel(out, { x, y }, p);
     }
   }

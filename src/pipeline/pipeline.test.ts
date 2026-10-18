@@ -34,11 +34,15 @@ import type { ExtractedSheetManifest, SpriteFlawAnalysisReport } from '../shared
 describe('Magenta chroma-key and raster primitives', () => {
   it('raises the athletic torso bust landmark while preserving the waist anchor', () => {
     const torso = createRaster(160, 160);
-    writePixel(torso, { x: 80, y: 67 }, { r: 220, g: 40, b: 50, a: 255 });
-    writePixel(torso, { x: 80, y: 122 }, { r: 30, g: 40, b: 220, a: 255 });
+    for (let x = 50; x <= 110; x++) {
+      writePixel(torso, { x, y: 67 }, { r: 220, g: 40, b: 50, a: 255 });
+      writePixel(torso, { x, y: 122 }, { r: 30, g: 40, b: 220, a: 255 });
+    }
     const corrected = raiseAthleticBustLandmark(torso);
     expect(readPixel(corrected, 80, 57)).toEqual({ r: 220, g: 40, b: 50, a: 255 });
-    expect(readPixel(corrected, 80, 122)).toEqual({ r: 30, g: 40, b: 220, a: 255 });
+    expect(readPixel(corrected, 56, 57).a).toBeLessThan(128);
+    expect(readPixel(corrected, 57, 57).a).toBeGreaterThan(128);
+    expect(readPixel(corrected, 50, 122)).toEqual({ r: 30, g: 40, b: 220, a: 255 });
   });
   it('identifies pure #FF00FF dividers and pink cell backdrops while preserving purple jersey pixels', () => {
     expect(isPureMagentaDivider({ r: 253, g: 0, b: 252, a: 255 })).toBe(true);

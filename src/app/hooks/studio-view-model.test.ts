@@ -16,9 +16,22 @@ import {
   sampleFootOrbitTrail,
   VARIANT_OPTIONS,
 } from './studio-view-model.js';
-import { isPhotorealExportBlocked } from './usePhotorealRigAssets.js';
+import {
+  buildPhotorealPartAssetUrl,
+  isPhotorealExportBlocked,
+} from './usePhotorealRigAssets.js';
 
 describe('Studio View-Model Builders', () => {
+  it('cache-busts photoreal cutouts whenever the asset bank is reloaded', () => {
+    expect(buildPhotorealPartAssetUrl('sg-chinese-female', 'torso', 'rev-next')).toBe(
+      '/sprites/photoreal/sg-chinese-female/parts/torso.png?v=rev-next',
+    );
+    expect(
+      buildPhotorealPartAssetUrl('sg-chinese-female', 'torso', 'rev-next'),
+    ).not.toBe(
+      buildPhotorealPartAssetUrl('sg-chinese-female', 'torso', 'rev-before'),
+    );
+  });
   it('builds 8 filmstrip cards with persona-specific algorithmic URLs', () => {
     const maleCards = buildFilmstripCards('blue', 2, 'sg-chinese-male');
     const femaleCards = buildFilmstripCards('blue', 2, 'sg-chinese-female');
