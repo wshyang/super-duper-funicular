@@ -1,0 +1,30 @@
+# Inert SHIP-HATS root pipeline (GREENFIELD §10.3). Activated by
+# activate-shiphats.sh; placeholders only, never secrets.
+include:
+  - project: 'innersource/sgts/ship-hats/ship-hats-templates'
+    ref: '@@SHIPHATS_TEMPLATES_REF@@'
+    file: '/templates/.gitlab-ci-template.yml'
+
+stages: [.pre, build, test, static-test, sign, runtime-test, deploy]
+
+variables:
+  SHIPHATS_REGISTRY: '@@SHIPHATS_REGISTRY@@'
+  IMAGE_NAME: '@@SHIPHATS_IMAGE_NAME@@'
+
+build-job:
+  stage: build
+  tags: [ship_docker]
+  extends: .build-and-push-docker-image
+  variables:
+    DOCKERFILE_PATH: Dockerfile
+    IMAGE_NAME: $SHIPHATS_REGISTRY/$IMAGE_NAME
+
+test-job:
+  stage: test
+  image: node:22.22.3-bookworm-slim
+  script:
+    - npm ci --no-audit --no-fund
+    - npm run validate
+  artifacts:
+    reports:
+      junit: reports/junit.xml

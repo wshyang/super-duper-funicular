@@ -1,0 +1,40 @@
+{
+  "name": "stride-harmonised-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Harmonised running-sprite forensics + procedural articulated runner workbench (n-way parity branch)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 3000",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 3000",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "sprites:extract": "tsx tools/extract-sprites.ts",
+    "sprites:analyse": "tsx tools/analyse-source.ts",
+    "images:dedupe": "tsx tools/dedupe-images.ts",
+    "runner:filmstrip": "tsx tools/render-filmstrip.ts",
+    "runner:audit": "tsx tools/render-audit.ts",
+    "runner:svg": "tsx tools/render-svg-frames.ts",
+    "pipeline": "npm run sprites:extract && npm run sprites:analyse && npm run runner:filmstrip && npm run runner:audit && npm run runner:svg",
+    "branches:compare": "tsx tools/compare-branches.ts",
+    "validate": "npm run typecheck && npm run test && npm run build"
+  },
+  "dependencies": {
+    "jpeg-js": "0.4.4",
+    "pngjs": "7.0.0",
+    "vite": "6.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "22.18.5",
+    "@types/pngjs": "6.0.5",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2",
+    "vitest": "3.2.4"
+  }
+}

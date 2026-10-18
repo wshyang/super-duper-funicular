@@ -1,0 +1,4 @@
+# Tunnel sidecar (GREENFIELD §10.1): pinned release, no autoupdate, token at
+# runtime only, routed to the app service on port 3000.
+FROM cloudflare/cloudflared:2026.9.1
+CMD ["tunnel", "--no-autoupdate", "run", "--token", "${TUNNEL_TOKEN}"]

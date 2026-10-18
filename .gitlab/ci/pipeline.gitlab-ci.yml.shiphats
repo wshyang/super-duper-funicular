@@ -1,0 +1,23 @@
+# Inert SHIP-HATS stage jobs (mirrors the local gates; GREENFIELD §10.3).
+static-test:
+  stage: static-test
+  tags: [ship_docker]
+  extends: .trivy-scan
+  variables:
+    IMAGE: $SHIPHATS_REGISTRY/$IMAGE_NAME:$CI_COMMIT_SHA
+
+sign:
+  stage: sign
+  tags: [ship_docker]
+  extends: .sign-container
+
+verify:
+  stage: runtime-test
+  tags: [ship_docker]
+  extends: .verify-container
+
+deploy-prod-manual-job:
+  stage: deploy
+  tags: [ship_docker]
+  extends: .invoke-awscli-commands-with-assumerole
+  when: manual

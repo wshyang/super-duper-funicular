@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "sourceSha256": "f99114235d61781f76a6b32c637edac16f13af6592a2866fe0e0528504727030",
+  "flaws": [
+    {
+      "id": "FLAW-01",
+      "severity": "critical",
+      "title": "Half-cycle frame duplication",
+      "detected": true,
+      "evidence": "mean IoU(frame k, k+4) = 0.921 (threshold 0.75)"
+    },
+    {
+      "id": "FLAW-02",
+      "severity": "critical",
+      "title": "Missing alternating gait (unilateral lead)",
+      "detected": true,
+      "evidence": "lead-sign sequence [0,-1,-1,-1,0,1,0,-1] with 0 swaps across 8 frames"
+    },
+    {
+      "id": "FLAW-03",
+      "severity": "critical",
+      "title": "Zero leg crossover (no pass phase)",
+      "detected": true,
+      "evidence": "min foot separation 75px vs figure width 202px (crossover needs < 40.4px)"
+    },
+    {
+      "id": "FLAW-04",
+      "severity": "major",
+      "title": "Unregistered pivot and scale jitter",
+      "detected": true,
+      "evidence": "raw ground-line jitter 26px, height spread 21px (threshold 8px)"
+    },
+    {
+      "id": "FLAW-05",
+      "severity": "moderate",
+      "title": "Two-tone magenta + JPEG chroma spill",
+      "detected": true,
+      "evidence": "naive single-tone key leaves 490669 magenta-like px; flood+despill key leaves 0"
+    }
+  ],
+  "halfCycleIou": [
+    0.946,
+    0.972,
+    0.847,
+    0.921
+  ],
+  "meanHalfCycleIou": 0.921,
+  "meanAdjacentIou": 0.495,
+  "groundJitterPx": 26,
+  "centroidDriftPx": 13.93,
+  "heightVariancePx": 21,
+  "minFootSeparationPx": 75,
+  "leadSwaps": 0,
+  "generatedCycleAudit": {
+    "run": {
+      "minFootSeparationPx": 0.09,
+      "crossovers": 2,
+      "leadSwaps": 2,
+      "flightPhases": 16,
+      "doubleSupportPhases": 0,
+      "maxBoneLengthError": 0,
+      "soleClearanceMinPx": 0
+    },
+    "walk": {
+      "minFootSeparationPx": 0.61,
+      "crossovers": 2,
+      "leadSwaps": 2,
+      "flightPhases": 0,
+      "doubleSupportPhases": 16,
+      "maxBoneLengthError": 0,
+      "soleClearanceMinPx": 0.06
+    },
+    "brisk-walk": {
+      "minFootSeparationPx": 0.21,
+      "crossovers": 2,
+      "leadSwaps": 2,
+      "flightPhases": 0,
+      "doubleSupportPhases": 8,
+      "maxBoneLengthError": 0,
+      "soleClearanceMinPx": 0.02
+    }
+  }
+}

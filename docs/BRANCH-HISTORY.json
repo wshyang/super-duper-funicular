@@ -1,0 +1,138 @@
+[
+  {
+    "observedAt": "2026-10-17T23:27:31Z",
+    "tips": [
+      {
+        "sha": "396ce256debcb5bdc2419cc0f3f399730b61ab36",
+        "committedAt": "2026-10-17T13:53:48+08:00",
+        "subject": "Add files via upload",
+        "row": "0",
+        "branch": "main",
+        "pr": "—",
+        "source": "remote"
+      },
+      {
+        "sha": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "row": "1",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "pr": "#1",
+        "source": "remote"
+      },
+      {
+        "sha": "b227e2fe562be341f15f58955f539d325170729e",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "row": "2",
+        "branch": "arena/263385da-super-duper-funicular",
+        "pr": "#2",
+        "source": "remote"
+      },
+      {
+        "sha": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "row": "3",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "pr": "#3",
+        "source": "remote"
+      },
+      {
+        "sha": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "row": "4",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "pr": "none",
+        "source": "remote"
+      },
+      {
+        "sha": "1a815d502f87cc88c5ded7ccd41f454c72a31b38",
+        "committedAt": "2026-10-17T23:13:29+00:00",
+        "subject": "docs(ledger): record first-pushed SHA 2dd05fa per post-push refresh rule",
+        "row": "5",
+        "branch": "arena/64422739-super-duper-funicular",
+        "pr": "#4",
+        "source": "remote"
+      },
+      {
+        "sha": "396ce256debcb5bdc2419cc0f3f399730b61ab36",
+        "committedAt": "2026-10-17T13:53:48+08:00",
+        "subject": "Add files via upload",
+        "row": "6",
+        "branch": "arena/8dcf54e8-super-duper-funicular",
+        "pr": "this PR",
+        "source": "local-unpushed"
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T00:04:17Z",
+    "tips": [
+      {
+        "sha": "396ce256debcb5bdc2419cc0f3f399730b61ab36",
+        "committedAt": "2026-10-17T13:53:48+08:00",
+        "subject": "Add files via upload",
+        "row": "0",
+        "branch": "main",
+        "pr": "—",
+        "source": "remote"
+      },
+      {
+        "sha": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "row": "1",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "pr": "#1",
+        "source": "remote"
+      },
+      {
+        "sha": "b227e2fe562be341f15f58955f539d325170729e",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "row": "2",
+        "branch": "arena/263385da-super-duper-funicular",
+        "pr": "#2",
+        "source": "remote"
+      },
+      {
+        "sha": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "row": "3",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "pr": "#3",
+        "source": "remote"
+      },
+      {
+        "sha": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "row": "4",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "pr": "none",
+        "source": "remote"
+      },
+      {
+        "sha": "1a815d502f87cc88c5ded7ccd41f454c72a31b38",
+        "committedAt": "2026-10-17T23:13:29+00:00",
+        "subject": "docs(ledger): record first-pushed SHA 2dd05fa per post-push refresh rule",
+        "row": "5",
+        "branch": "arena/64422739-super-duper-funicular",
+        "pr": "#4",
+        "source": "remote"
+      },
+      {
+        "sha": "3708af7c59a41f6dd1059dc921a794106fa0c34d",
+        "committedAt": "2026-10-18T00:04:07+00:00",
+        "subject": "Stage 1+2: harmonised greenfield discipline, live n-way ledger, FDS/addenda, procedural runner engine + forensics + workbench",
+        "row": "6",
+        "branch": "arena/8dcf54e8-super-duper-funicular",
+        "pr": "this PR",
+        "source": "remote"
+      }
+    ]
+  }
+]

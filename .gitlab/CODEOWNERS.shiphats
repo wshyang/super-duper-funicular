@@ -1,0 +1,3 @@
+# Inert CODEOWNERS (activated by activate-shiphats.sh).
+/docs/ @@SHIPHATS_IMAGE_NAME@@-maintainers
+CLAUDE.md @@SHIPHATS_IMAGE_NAME@@-maintainers

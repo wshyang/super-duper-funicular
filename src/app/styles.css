@@ -1,0 +1,152 @@
+:root {
+  color-scheme: light;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --ink: #16181d;
+  --panel: #ffffff;
+  --line: #d8dce3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #eef1f5;
+  color: var(--ink);
+}
+
+#app {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+header[data-testid='workspace-header'] h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+}
+
+header[data-testid='workspace-header'] p {
+  margin: 0;
+  color: #5a6472;
+  font-size: 13px;
+}
+
+section {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+section h2 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+[data-testid='runner-stage__canvas'] {
+  width: 100%;
+  max-width: 640px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f5f5f5;
+  image-rendering: pixelated;
+}
+
+[data-testid='runner-stage__support'],
+[data-testid='runner-stage__phase'] {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #37414e;
+}
+
+[data-testid='runner-controls'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+button {
+  border: 1px solid var(--line);
+  background: #f8fafc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #eef2f7;
+}
+
+input[type='range'] {
+  width: 220px;
+}
+
+label {
+  font-size: 13px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+[data-testid='filmstrip__strip'] {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 8px;
+}
+
+[data-testid='filmstrip__frame'] {
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+[data-testid='filmstrip__canvas'] {
+  width: 100%;
+  border-radius: 6px;
+  background: #f5f5f5;
+}
+
+[data-testid='filmstrip__label'] {
+  font-size: 11px;
+  color: #5a6472;
+}
+
+[data-testid='asset-library__source-sheet'] {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+
+[data-testid='asset-library__extracted'] {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 6px;
+  margin-top: 10px;
+}
+
+[data-testid='asset-library__frame'] {
+  width: 100%;
+  background: repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%) 50% / 12px 12px;
+  border-radius: 4px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+}
+
+td {
+  border: 1px solid var(--line);
+  padding: 6px 8px;
+  vertical-align: top;
+}
