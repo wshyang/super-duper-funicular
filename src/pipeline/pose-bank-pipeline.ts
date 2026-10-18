@@ -2,7 +2,18 @@ import { CANONICAL_PHASE_NAMES } from '../runner/gait.js';
 
 export type PoseBankFrameKey = 'H00' | 'H01' | 'H02' | 'H03' | 'H04' | 'H05' | 'H06' | 'H07' | 'H08';
 export type VisibilityScore = 0 | 1 | 2 | 3;
-export type PoseCandidateStatus = 'planned' | 'accepted' | 'conditional' | 'rejected' | 'needs-regeneration';
+/**
+ * `accepted-for-pose` (docs/POSE_BANK_ACCEPTANCE.md): the frame passed all
+ * automated + visual acceptance gates (G1-G6) for pose coverage, but has not
+ * yet passed per-part crop review. Harvest selection still requires `accepted`.
+ */
+export type PoseCandidateStatus =
+  | 'planned'
+  | 'accepted'
+  | 'accepted-for-pose'
+  | 'conditional'
+  | 'rejected'
+  | 'needs-regeneration';
 
 export interface PoseBankCharacterProfile {
   readonly characterId: string;

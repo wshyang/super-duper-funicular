@@ -33,7 +33,7 @@
       ],
       "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H01-pose-guide.png",
       "promptPath": "src/images/photoreal-female-pose-bank/prompts/H01.txt",
-      "status": "conditional",
+      "status": "accepted-for-pose",
       "attempts": [
         {
           "attemptId": "#73",
@@ -67,7 +67,8 @@
         "thighs": 2,
         "shins": 2,
         "shoes": 2
-      }
+      },
+      "acceptanceNote": "Upgraded conditional -> accepted-for-pose under docs/POSE_BANK_ACCEPTANCE.md: all automated gates pass on #74; floor shadow reclassified as key-recoverable (normalized plate verified, residual 0px)."
     },
     {
       "key": "H02",
@@ -81,7 +82,7 @@
       ],
       "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H02-pose-guide.png",
       "promptPath": "src/images/photoreal-female-pose-bank/prompts/H02.txt",
-      "status": "conditional",
+      "status": "accepted-for-pose",
       "attempts": [
         {
           "attemptId": "#75",
@@ -104,7 +105,8 @@
         "thighs": 2,
         "shins": 2,
         "shoes": 2
-      }
+      },
+      "acceptanceNote": "Upgraded conditional -> accepted-for-pose: all automated gates pass on #75; support shadow key-recoverable; subtle-flexion caveat retained."
     },
     {
       "key": "H03",
@@ -118,7 +120,7 @@
       ],
       "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H03-pose-guide.png",
       "promptPath": "src/images/photoreal-female-pose-bank/prompts/H03.txt",
-      "status": "needs-regeneration",
+      "status": "accepted-for-pose",
       "attempts": [
         {
           "attemptId": "#76",
@@ -141,6 +143,30 @@
           "reviewNote": "Full-size color-coded skeleton guide did not prevent high-knee generic sprint drift; support contact unclear.",
           "candidateSha256": "a65c7f52832f5f1ff42d77d88e9f34966409719d79625bb3f204268ba206e7b5",
           "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H03-phase-250.png"
+        },
+        {
+          "attemptId": "#91",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-delta.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-91",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "baseImagePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-refined.png",
+          "baseImageSha256": "a65c7f52832f5f1ff42d77d88e9f34966409719d79625bb3f204268ba206e7b5",
+          "status": "rejected",
+          "reviewNote": "Delta edit escaped the sprint attractor (compact toe-off geometry) but figure floated off the ground band and the trailing shoe ghosted into a 2388px spill island.",
+          "candidateSha256": "e00a95078c760ab8735fe1903646b2362b99a26f8d790048fe3a7591ae43ec5c",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H03-phase-250.png",
+          "poseGuideSha256": "3a2306eab9a2175583183edc3591846c4edfb19578d2d8aea2504719a4c1d852"
+        },
+        {
+          "attemptId": "#92",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-delta2.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-92",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "baseImagePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-delta.png",
+          "baseImageSha256": "e00a95078c760ab8735fe1903646b2362b99a26f8d790048fe3a7591ae43ec5c",
+          "status": "accepted-for-pose",
+          "reviewNote": "All automated gates pass (toe contact w=32px, separation 155px, swing lift 138px, key recoverable); visual identity/wardrobe/profile intact. Near/far chirality pixel-unverifiable; crop approval separate.",
+          "candidateSha256": "595f31cd8cd15fcd65661e2fd40a829f37e8a55e755befcec2b6653304fac90b"
         }
       ],
       "visibility": {}
@@ -156,7 +182,7 @@
       ],
       "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H04-pose-guide.png",
       "promptPath": "src/images/photoreal-female-pose-bank/prompts/H04.txt",
-      "status": "conditional",
+      "status": "accepted-for-pose",
       "attempts": [
         {
           "attemptId": "#77",
@@ -179,7 +205,8 @@
         "thighs": 2,
         "shins": 3,
         "shoes": 3
-      }
+      },
+      "acceptanceNote": "Upgraded conditional -> accepted-for-pose: both shoes clear baseline by >=48px; key recoverable; stride-more-extended-than-guide caveat retained for exact-angle use."
     },
     {
       "key": "H05",
@@ -193,7 +220,7 @@
       ],
       "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H05-pose-guide.png",
       "promptPath": "src/images/photoreal-female-pose-bank/prompts/H05.txt",
-      "status": "conditional",
+      "status": "accepted-for-pose",
       "attempts": [
         {
           "attemptId": "#78",
@@ -216,7 +243,8 @@
         "thighs": 2,
         "shins": 2,
         "shoes": 2
-      }
+      },
+      "acceptanceNote": "Upgraded conditional -> accepted-for-pose: front flat contact (w=107px), rear shoe clear; key recoverable."
     },
     {
       "key": "H06",
@@ -230,7 +258,7 @@
       ],
       "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H06-pose-guide.png",
       "promptPath": "src/images/photoreal-female-pose-bank/prompts/H06.txt",
-      "status": "needs-regeneration",
+      "status": "accepted-for-pose",
       "attempts": [
         {
           "attemptId": "#79",
@@ -242,6 +270,30 @@
           "reviewNote": "Near-identical generic contact pose; loaded-knee/sole-roll phase and far/near support could not be verified.",
           "candidateSha256": "cadf088f65f9426c5826001ad9ce06a11f79547dc2caa256f7be5f33470e5af3",
           "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H06-rig-pose-reference.png"
+        },
+        {
+          "attemptId": "#93",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H06-left-down-delta.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-93",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "baseImagePath": "src/images/photoreal-female-pose-bank/candidates/H06-left-down.png",
+          "baseImageSha256": "cadf088f65f9426c5826001ad9ce06a11f79547dc2caa256f7be5f33470e5af3",
+          "status": "rejected",
+          "reviewNote": "Phase landmarks pass (flat support sole under hips, trailing shoe tucked 213px clear) but tucked shoe detached as 2776px magenta-spill island.",
+          "candidateSha256": "cb06078a2cdcfc32580955494d813d7e09e084543c6d06e6271f6d2c98fd5234",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H06-pose-guide.png",
+          "poseGuideSha256": "941c6c439f5d65489669996cb36b78ffc494296bc7aa24e867f62d58a670ffe3"
+        },
+        {
+          "attemptId": "#94",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H06-left-down-delta2.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-94",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "baseImagePath": "src/images/photoreal-female-pose-bank/candidates/H06-left-down-delta.png",
+          "baseImageSha256": "cb06078a2cdcfc32580955494d813d7e09e084543c6d06e6271f6d2c98fd5234",
+          "status": "accepted-for-pose",
+          "reviewNote": "All automated gates pass; tucked shoe solid and connected. Caveats: support-knee flexion subtler than guide (H02-equivalent tolerance); far-leg support chirality pixel-unverifiable.",
+          "candidateSha256": "ad9fb08dc079e252a319aed692384cff7561f3bd2eff33d606c94acc60b038cd"
         }
       ],
       "visibility": {}
@@ -258,7 +310,7 @@
       ],
       "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H07-pose-guide.png",
       "promptPath": "src/images/photoreal-female-pose-bank/prompts/H07.txt",
-      "status": "needs-regeneration",
+      "status": "accepted-for-pose",
       "attempts": [
         {
           "attemptId": "#80",
@@ -270,6 +322,17 @@
           "reviewNote": "Output appears airborne instead of far-side toe-off contact; phase wrong.",
           "candidateSha256": "5c95bb0fe399c61576ee05a45a414513b15891b17eefbe64da7dad3c3454c58d",
           "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H07-rig-pose-reference.png"
+        },
+        {
+          "attemptId": "#95",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H07-left-pass-delta.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-95",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "baseImagePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-delta2.png",
+          "baseImageSha256": "595f31cd8cd15fcd65661e2fd40a829f37e8a55e755befcec2b6653304fac90b",
+          "status": "accepted-for-pose",
+          "reviewNote": "Opposite half-cycle derived from accepted H03 by swapping arm counter-swing and near-leg occlusion; all automated gates pass; IoU vs H03 0.893 (<0.90 duplicate cap, expected for pass-phase mirrors).",
+          "candidateSha256": "6639f95fb6e2e1f603bf9077de50e759836edce0f2807ca23eca1e2582cf0038"
         }
       ],
       "visibility": {}
@@ -285,7 +348,7 @@
       ],
       "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H08-pose-guide.png",
       "promptPath": "src/images/photoreal-female-pose-bank/prompts/H08.txt",
-      "status": "conditional",
+      "status": "accepted-for-pose",
       "attempts": [
         {
           "attemptId": "#81",
@@ -308,10 +371,15 @@
         "thighs": 2,
         "shins": 3,
         "shoes": 3
-      }
+      },
+      "acceptanceNote": "Upgraded conditional -> accepted-for-pose: both shoes airborne (38-61px clearance); key recoverable; extended-stride caveat retained."
     }
   ],
   "canonicalJigSources": [],
   "poseVariants": [],
-  "poseInstances": []
+  "poseInstances": [],
+  "acceptanceCriteria": "docs/POSE_BANK_ACCEPTANCE.md",
+  "auditTool": "scripts/audit_pose_bank.py",
+  "auditReport": "docs/pose-bank-audit.json",
+  "normalizedPlatesDirectory": "src/images/photoreal-female-pose-bank/normalized"
 }

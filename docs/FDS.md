@@ -972,6 +972,10 @@ Do not duplicate a raster merely because it appears in multiple frames. Store on
 
 #### Pilot decision gate and current outcome
 
+#### 9.9.1 Acceptance-criteria-driven delta-edit regeneration (Calls `#91`–`#95`)
+
+Adopted `docs/POSE_BANK_ACCEPTANCE.md` as the measurable definition of done and `scripts/audit_pose_bank.py` as the automated gate (key recoverability, phase foot/ground landmarks, silhouette IoU diversity), calibrated to reproduce the human verdicts of Calls `#73`–`#90`. Regenerated the three `needs-regeneration` phases with small pose-delta edits of the nearest reviewed photo candidates instead of from-scratch diagram re-poses: `#91`→`#92` (H03 compact toe-off, accepted on the second delta after fixing a ghosted trailing shoe and restoring toe contact), `#93`→`#94` (H06 loaded mid-stance with tucked trailing shoe, accepted after a repaint-only despill delta), `#95` (H07 derived from the accepted H03 by swapping the arm counter-swing and near-leg occlusion order). All exact verbatim prompts, base/guide/output SHA-256 hashes, regeneration justifications and audit outcomes are logged in `docs/POSE_HARVEST_LOG.md` Calls `#91`–`#95`. All eight canonical phases now pass every automated gate and hold `accepted-for-pose`; key-normalized plates are in `src/images/photoreal-female-pose-bank/normalized/` and the machine audit report in `docs/pose-bank-audit.json`.
+
 The Athletic pilot uses the existing accepted master as `H00` and generated calls `#73`–`#82` as immutable candidates for `H01`–`H08`. Calls `#73`–`#74` and their exact prompts are in `docs/FDS.md §9.9`; calls `#75`–`#82`, reference hashes, visual reviews, and refinement results are in the linked `docs/POSE_HARVEST_LOG.md`. The machine-readable status/attempt manifest is `src/images/photoreal-female-pose-bank/pose-bank.json`.
 
 | Frame | Pilot outcome | Limitation / next action |
@@ -1170,5 +1174,6 @@ See [`docs/THREE_WAY_BRANCH_COMPARISON.md`](./THREE_WAY_BRANCH_COMPARISON.md) (`
 | `4.15.0` | `2026-10-19` | `ADD-044` | Retried X04 with a custom solved-joint guide that explicitly encoded opposed near/far leg geometry; the new candidate has stronger angle diversity than the prior long-stride outputs, but remains pose-only evidence because near/far identity and background key quality are unverified. No crop or canonical manifest status changed (`TURN-L26`). |
 | `4.16.0` | `2026-10-19` | `ADD-045` | Corrected the Athletic head/neck overlap by trimming the head cutout at the jaw/nape join, sharing the rig pivot, and narrowing the neck warp; visually rechecked the assembled five-persona standing/cycle views and added a targeted regression assertion (`TURN-L27`). |
 | `4.17.0` | `2026-10-19` | `ADD-046` | Tested far-arm diversity with two custom guides that held the H02 pose constant while opening forward/up and rear/down camera-far forearm silhouettes. Calls #89–#90 yielded additional pose coverage but not crop/key approval; logged the new per-side visibility gate and kept canonical phases unchanged (`TURN-L28`). |
+| `4.18.0` | `2026-10-18` | `ADD-047` | Defined measurable pose-bank acceptance criteria (`docs/POSE_BANK_ACCEPTANCE.md`), built the automated candidate audit + key normalizer (`scripts/audit_pose_bank.py`, `docs/pose-bank-audit.json`), and converged the stalled pose-variation pilot with a delta-edit regeneration loop (Calls `#91`–`#95`): H03/H06/H07 regenerated and all eight canonical phases upgraded to `accepted-for-pose` with flat-key normalized plates (`TURN-L29`). |
 
 

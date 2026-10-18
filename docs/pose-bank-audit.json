@@ -1,0 +1,531 @@
+{
+ "baseline_y": 745,
+ "records": [
+  {
+   "path": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact-refined.png",
+   "sha256": "7c7959c34741ba6dd72170cba6f87ed0fcc088d252e56792924adb978f72ee97",
+   "size": [
+    1408,
+    768
+   ],
+   "key_rgb": [
+    222.6,
+    64.0,
+    164.7
+   ],
+   "key_hue": 321.9,
+   "silhouette_px": 75042,
+   "silhouette_bbox": [
+    514,
+    41,
+    850,
+    740
+   ],
+   "margins": {
+    "top": 41,
+    "bottom": 27,
+    "left": 514,
+    "right": 557
+   },
+   "centroid_x": 698.1,
+   "island_px": 15,
+   "island_blobs": 0,
+   "island_blob_max": 3,
+   "shade_px": 6724,
+   "shade_blob": 3441,
+   "residual_after_normalize_px": 15,
+   "feet": [
+    {
+     "bottom": 568,
+     "top": 466,
+     "height": 102,
+     "width": 87,
+     "contact_width": 19,
+     "cx": 546.8413471722092,
+     "cy": 510.049565769964,
+     "px": 4721
+    },
+    {
+     "bottom": 740,
+     "top": 648,
+     "height": 92,
+     "width": 110,
+     "contact_width": 98,
+     "cx": 763.4411658218683,
+     "cy": 704.2516292541636,
+     "px": 5524
+    }
+   ],
+   "phase_ok": true,
+   "phase_notes": [
+    "phase landmarks satisfied"
+   ],
+   "frame_ok": true,
+   "key_ok": true
+  },
+  {
+   "path": "src/images/photoreal-female-pose-bank/candidates/H02-right-down.png",
+   "sha256": "4126bff23c16d55757092609681ba0f3852c227ba9cd793d5d22dbed3066c5d7",
+   "size": [
+    1408,
+    768
+   ],
+   "key_rgb": [
+    218.9,
+    65.5,
+    161.3
+   ],
+   "key_hue": 322.5,
+   "silhouette_px": 75638,
+   "silhouette_bbox": [
+    482,
+    41,
+    872,
+    727
+   ],
+   "margins": {
+    "top": 41,
+    "bottom": 40,
+    "left": 482,
+    "right": 535
+   },
+   "centroid_x": 700.0,
+   "island_px": 40,
+   "island_blobs": 0,
+   "island_blob_max": 5,
+   "shade_px": 7688,
+   "shade_blob": 3883,
+   "residual_after_normalize_px": 40,
+   "feet": [
+    {
+     "bottom": 566,
+     "top": 471,
+     "height": 95,
+     "width": 112,
+     "contact_width": 15,
+     "cx": 536.2307529610829,
+     "cy": 517.6837986463621,
+     "px": 4728
+    },
+    {
+     "bottom": 727,
+     "top": 636,
+     "height": 91,
+     "width": 108,
+     "contact_width": 94,
+     "cx": 807.752370532458,
+     "cy": 693.7859226841722,
+     "px": 5484
+    }
+   ],
+   "phase_ok": true,
+   "phase_notes": [
+    "phase landmarks satisfied"
+   ],
+   "frame_ok": true,
+   "key_ok": true
+  },
+  {
+   "path": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-delta2.png",
+   "sha256": "595f31cd8cd15fcd65661e2fd40a829f37e8a55e755befcec2b6653304fac90b",
+   "size": [
+    1408,
+    768
+   ],
+   "key_rgb": [
+    223.0,
+    28.5,
+    157.8
+   ],
+   "key_hue": 320.1,
+   "silhouette_px": 81128,
+   "silhouette_bbox": [
+    535,
+    39,
+    866,
+    727
+   ],
+   "margins": {
+    "top": 39,
+    "bottom": 40,
+    "left": 535,
+    "right": 541
+   },
+   "centroid_x": 700.7,
+   "island_px": 6,
+   "island_blobs": 0,
+   "island_blob_max": 1,
+   "shade_px": 6189,
+   "shade_blob": 1786,
+   "residual_after_normalize_px": 6,
+   "feet": [
+    {
+     "bottom": 727,
+     "top": 604,
+     "height": 123,
+     "width": 81,
+     "contact_width": 32,
+     "cx": 576.5763440860215,
+     "cy": 665.7335483870968,
+     "px": 4650
+    },
+    {
+     "bottom": 607,
+     "top": 482,
+     "height": 125,
+     "width": 88,
+     "contact_width": 20,
+     "cx": 731.8712411705349,
+     "cy": 539.2916246215943,
+     "px": 4955
+    }
+   ],
+   "phase_ok": true,
+   "phase_notes": [
+    "phase landmarks satisfied"
+   ],
+   "frame_ok": true,
+   "key_ok": true
+  },
+  {
+   "path": "src/images/photoreal-female-pose-bank/candidates/H04-right-flight.png",
+   "sha256": "9fbd36b7bd6246eb7e591bd40eecb6f93c1e345c3f5e76c00be036544db308c1",
+   "size": [
+    1408,
+    768
+   ],
+   "key_rgb": [
+    219.0,
+    64.7,
+    160.9
+   ],
+   "key_hue": 322.6,
+   "silhouette_px": 75626,
+   "silhouette_bbox": [
+    488,
+    49,
+    901,
+    697
+   ],
+   "margins": {
+    "top": 49,
+    "bottom": 70,
+    "left": 488,
+    "right": 506
+   },
+   "centroid_x": 704.1,
+   "island_px": 58,
+   "island_blobs": 0,
+   "island_blob_max": 7,
+   "shade_px": 8951,
+   "shade_blob": 4788,
+   "residual_after_normalize_px": 58,
+   "feet": [
+    {
+     "bottom": 681,
+     "top": 560,
+     "height": 121,
+     "width": 87,
+     "contact_width": 15,
+     "cx": 524.0795698924732,
+     "cy": 612.2843010752688,
+     "px": 4650
+    },
+    {
+     "bottom": 697,
+     "top": 599,
+     "height": 98,
+     "width": 106,
+     "contact_width": 53,
+     "cx": 840.4965020987407,
+     "cy": 660.384169498301,
+     "px": 5003
+    }
+   ],
+   "phase_ok": true,
+   "phase_notes": [
+    "phase landmarks satisfied"
+   ],
+   "frame_ok": true,
+   "key_ok": true
+  },
+  {
+   "path": "src/images/photoreal-female-pose-bank/candidates/H05-left-contact.png",
+   "sha256": "ff4157241b564548a9a35b15d8eede05f928071788fd62b88b33712b48356374",
+   "size": [
+    1408,
+    768
+   ],
+   "key_rgb": [
+    219.3,
+    64.3,
+    161.7
+   ],
+   "key_hue": 322.3,
+   "silhouette_px": 71283,
+   "silhouette_bbox": [
+    509,
+    42,
+    851,
+    744
+   ],
+   "margins": {
+    "top": 42,
+    "bottom": 23,
+    "left": 509,
+    "right": 556
+   },
+   "centroid_x": 694.0,
+   "island_px": 46,
+   "island_blobs": 0,
+   "island_blob_max": 13,
+   "shade_px": 7300,
+   "shade_blob": 4059,
+   "residual_after_normalize_px": 46,
+   "feet": [
+    {
+     "bottom": 624,
+     "top": 514,
+     "height": 110,
+     "width": 106,
+     "contact_width": 14,
+     "cx": 555.6822209096279,
+     "cy": 562.6016932467021,
+     "px": 5079
+    },
+    {
+     "bottom": 743,
+     "top": 654,
+     "height": 89,
+     "width": 115,
+     "contact_width": 107,
+     "cx": 732.0133429498737,
+     "cy": 709.6709340064912,
+     "px": 5546
+    }
+   ],
+   "phase_ok": true,
+   "phase_notes": [
+    "phase landmarks satisfied"
+   ],
+   "frame_ok": true,
+   "key_ok": true
+  },
+  {
+   "path": "src/images/photoreal-female-pose-bank/candidates/H06-left-down-delta2.png",
+   "sha256": "ad9fb08dc079e252a319aed692384cff7561f3bd2eff33d606c94acc60b038cd",
+   "size": [
+    1408,
+    768
+   ],
+   "key_rgb": [
+    218.4,
+    44.5,
+    157.5
+   ],
+   "key_hue": 321.0,
+   "silhouette_px": 68658,
+   "silhouette_bbox": [
+    530,
+    42,
+    867,
+    717
+   ],
+   "margins": {
+    "top": 42,
+    "bottom": 50,
+    "left": 530,
+    "right": 540
+   },
+   "centroid_x": 708.2,
+   "island_px": 9,
+   "island_blobs": 0,
+   "island_blob_max": 2,
+   "shade_px": 7649,
+   "shade_blob": 3145,
+   "residual_after_normalize_px": 9,
+   "feet": [
+    {
+     "bottom": 535,
+     "top": 438,
+     "height": 97,
+     "width": 109,
+     "contact_width": 14,
+     "cx": 577.9238578680203,
+     "cy": 485.41180203045684,
+     "px": 4728
+    },
+    {
+     "bottom": 717,
+     "top": 628,
+     "height": 89,
+     "width": 104,
+     "contact_width": 88,
+     "cx": 803.3341826734614,
+     "cy": 683.6268130145041,
+     "px": 5102
+    }
+   ],
+   "phase_ok": true,
+   "phase_notes": [
+    "phase landmarks satisfied"
+   ],
+   "frame_ok": true,
+   "key_ok": true
+  },
+  {
+   "path": "src/images/photoreal-female-pose-bank/candidates/H07-left-pass-delta.png",
+   "sha256": "6639f95fb6e2e1f603bf9077de50e759836edce0f2807ca23eca1e2582cf0038",
+   "size": [
+    1408,
+    768
+   ],
+   "key_rgb": [
+    222.6,
+    20.5,
+    157.5
+   ],
+   "key_hue": 319.3,
+   "silhouette_px": 79729,
+   "silhouette_bbox": [
+    536,
+    39,
+    873,
+    726
+   ],
+   "margins": {
+    "top": 39,
+    "bottom": 41,
+    "left": 536,
+    "right": 534
+   },
+   "centroid_x": 705.4,
+   "island_px": 7,
+   "island_blobs": 0,
+   "island_blob_max": 1,
+   "shade_px": 6810,
+   "shade_blob": 2693,
+   "residual_after_normalize_px": 7,
+   "feet": [
+    {
+     "bottom": 726,
+     "top": 605,
+     "height": 121,
+     "width": 80,
+     "contact_width": 33,
+     "cx": 576.9948256467942,
+     "cy": 665.258492688414,
+     "px": 4445
+    },
+    {
+     "bottom": 607,
+     "top": 482,
+     "height": 125,
+     "width": 88,
+     "contact_width": 19,
+     "cx": 731.8157948717949,
+     "cy": 539.1848205128205,
+     "px": 4875
+    }
+   ],
+   "phase_ok": true,
+   "phase_notes": [
+    "phase landmarks satisfied"
+   ],
+   "frame_ok": true,
+   "key_ok": true
+  },
+  {
+   "path": "src/images/photoreal-female-pose-bank/candidates/H08-left-flight.png",
+   "sha256": "8ae890a5865efaade88d86825285894ce06ba1f947127ce6b621198dd2d51f45",
+   "size": [
+    1408,
+    768
+   ],
+   "key_rgb": [
+    221.3,
+    64.8,
+    161.8
+   ],
+   "key_hue": 322.8,
+   "silhouette_px": 75419,
+   "silhouette_bbox": [
+    481,
+    41,
+    886,
+    707
+   ],
+   "margins": {
+    "top": 41,
+    "bottom": 60,
+    "left": 481,
+    "right": 521
+   },
+   "centroid_x": 696.2,
+   "island_px": 49,
+   "island_blobs": 1,
+   "island_blob_max": 21,
+   "shade_px": 8373,
+   "shade_blob": 3801,
+   "residual_after_normalize_px": 49,
+   "feet": [
+    {
+     "bottom": 684,
+     "top": 562,
+     "height": 122,
+     "width": 85,
+     "contact_width": 14,
+     "cx": 517.025959860384,
+     "cy": 614.5900959860384,
+     "px": 4584
+    },
+    {
+     "bottom": 707,
+     "top": 610,
+     "height": 97,
+     "width": 108,
+     "contact_width": 53,
+     "cx": 823.1688336891132,
+     "cy": 670.8206869784591,
+     "px": 5153
+    }
+   ],
+   "phase_ok": true,
+   "phase_notes": [
+    "phase landmarks satisfied"
+   ],
+   "frame_ok": true,
+   "key_ok": true
+  }
+ ],
+ "iou": {
+  "H01-right-contact-refined.png|H02-right-down.png": 0.674,
+  "H01-right-contact-refined.png|H03-right-pass-delta2.png": 0.505,
+  "H01-right-contact-refined.png|H04-right-flight.png": 0.376,
+  "H01-right-contact-refined.png|H05-left-contact.png": 0.579,
+  "H01-right-contact-refined.png|H06-left-down-delta2.png": 0.602,
+  "H01-right-contact-refined.png|H07-left-pass-delta.png": 0.505,
+  "H01-right-contact-refined.png|H08-left-flight.png": 0.42,
+  "H02-right-down.png|H03-right-pass-delta2.png": 0.456,
+  "H02-right-down.png|H04-right-flight.png": 0.399,
+  "H02-right-down.png|H05-left-contact.png": 0.523,
+  "H02-right-down.png|H06-left-down-delta2.png": 0.691,
+  "H02-right-down.png|H07-left-pass-delta.png": 0.467,
+  "H02-right-down.png|H08-left-flight.png": 0.505,
+  "H03-right-pass-delta2.png|H04-right-flight.png": 0.446,
+  "H03-right-pass-delta2.png|H05-left-contact.png": 0.432,
+  "H03-right-pass-delta2.png|H06-left-down-delta2.png": 0.489,
+  "H03-right-pass-delta2.png|H07-left-pass-delta.png": 0.915,
+  "H03-right-pass-delta2.png|H08-left-flight.png": 0.424,
+  "H04-right-flight.png|H05-left-contact.png": 0.371,
+  "H04-right-flight.png|H06-left-down-delta2.png": 0.388,
+  "H04-right-flight.png|H07-left-pass-delta.png": 0.437,
+  "H04-right-flight.png|H08-left-flight.png": 0.653,
+  "H05-left-contact.png|H06-left-down-delta2.png": 0.467,
+  "H05-left-contact.png|H07-left-pass-delta.png": 0.44,
+  "H05-left-contact.png|H08-left-flight.png": 0.414,
+  "H06-left-down-delta2.png|H07-left-pass-delta.png": 0.498,
+  "H06-left-down-delta2.png|H08-left-flight.png": 0.479,
+  "H07-left-pass-delta.png|H08-left-flight.png": 0.421
+ }
+}
