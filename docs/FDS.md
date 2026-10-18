@@ -95,6 +95,13 @@ Per `CLAUDE.md` Rule 2 and `CLAUDE-decisions.md §2`: every `generate_image` cal
 - **Decisions:** `Adopted` — GREENFIELD/CLAUDE discipline verbatim (`ADD-001`); dual-worktree assessment method (`ADD-002`); inheritance of error catalogs by reference (`ADD-003`); Pipeline Rev-2 design (`ADD-005`, `docs/PIPELINE_REV2.md`). `Deferred` — Rev-2 implementation phases P1–P4 pending user answers to `docs/PIPELINE_REV2.md` §7 Q1–Q4. `Rejected` — one-shot cycle-sheet generation, 3D-render pipeline (now), vector-as-source, patch-in-place (documented with rationale in `docs/PIPELINE_REV2.md` §8).
 - **Executed Validation & Next Actions:** This branch: `npm test` (docs/code-invariant greenfield gate, see `docs/VALIDATION.md`). Next: user decision gate on Q1–Q4; then P1 (Part Contract suite + calibration schema).
 
+### TURN-L02 — 2026-10-18 · Rev-2 decision gate presented as chat questions
+- **Context & Trigger:** User instruction: present the `docs/PIPELINE_REV2.md` §7 open questions (Q1–Q4) as AI (LLM) questions directly in the chat session, not only inside the design document.
+- **Evidence & Provenance:** `docs/PIPELINE_REV2.md` §7–§9 on this branch @ `3342c87`; no new branch inspection, no code changes this turn.
+- **Learnings & Comparative Analysis:** No new technical learning — presentation/handoff turn. Reason: the decision-gate content (options, trade-offs, recommendations) was finalised and evidenced in TURN-L01; this turn only changes the delivery channel of the questions to in-chat form with per-option trade-offs and recommendations.
+- **Decisions:** `Adopted` — pose Q1 (medial synthesis strategy), Q2 (master pose), Q3 (primary deliverable format), Q4 (implementation scope on this branch) as numbered chat questions with options A/B(/C) and a stated recommendation each. `Deferred` — P1–P4 implementation and any new addendum until the user answers; answers will be recorded as an addendum (`ADD-007`) in the same change that starts implementation.
+- **Executed Validation & Next Actions:** `npm test` (6/6 gate green) and `npm run typecheck` (exit 0) re-executed after appending this entry; committed and pushed to `arena/5ae6f17a-super-duper-funicular`. Next: await user answers, then open `ADD-007` and begin the chosen phase.
+
 ## 11. Non-Functional Requirements (`#nfr-*`) {#nfr}
 
 - `#nfr-determinism`: decomposition and baking are pure functions of (master bytes, calibration record, rig spec); identical inputs ⇒ identical part hashes (PC-12).
