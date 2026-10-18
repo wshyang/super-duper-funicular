@@ -1,16 +1,16 @@
 {
-  "observedAt": "2026-10-18T00:43:49.617Z",
+  "observedAt": "2026-10-18T00:49:41.875Z",
   "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
       "branch": "arena/e1300d3c-super-duper-funicular",
       "prStatus": "Active Session Branch",
-      "hash": "396ce256debcb5bdc2419cc0f3f399730b61ab36",
-      "shortHash": "396ce25",
-      "committedAt": "2026-10-17T13:53:48+08:00",
-      "subject": "Add files via upload",
-      "commitCountFromMain": 0
+      "hash": "1296db38ea6b07c4f7031b398f2ed1067790e3ca",
+      "shortHash": "1296db3",
+      "committedAt": "2026-10-18T00:49:37+00:00",
+      "subject": "feat(rig,assets,discipline): regenerate female arms & fuller body-positive torso/neck, fix T-rex arm scaling, add side-profile arm extractor & codify asset examination gate (ADD-029..031)",
+      "commitCountFromMain": 1
     },
     {
       "role": "Branch 1 (Sprite Motion Lab)",
