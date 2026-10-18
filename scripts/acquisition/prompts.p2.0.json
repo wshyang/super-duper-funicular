@@ -1,0 +1,52 @@
+{
+  "callIdPrefix": "P2-2026-10-18",
+  "personaId": "sg-chinese-female",
+  "targetDirectory": "src/images/p2/sg-chinese-female",
+  "prompts": {
+    "P2-2026-10-18-01": {
+      "file": "00-master.png",
+      "references": [],
+      "prompt": "Full-body studio reference photograph of a fit 25-year-old Singaporean Chinese female track-and-field sprinter with warm light Southeast Asian skin tone, sleek black hair in a high ponytail tied with a red hair tie, fitted crimson-red racing singlet with a thin white side stripe, charcoal-black sprinter shorts, sky-blue terry wrist sweatbands, white ankle socks, white-and-crimson running shoes. She stands upright in a strict 90-degree orthographic right-facing side profile facing right, neutral anatomical posture, arms relaxed at her sides, both legs straight. Natural realistic adult proportions, flat even shadowless studio lighting, crisp edges, photorealistic. Single person, full figure from head to shoes completely inside the frame with generous margins, isolated on a solid pure #FF00FF magenta chroma-key background with zero floor shadow."
+    },
+    "P2-2026-10-18-02": {
+      "file": "key-01-phi-000.png",
+      "references": ["00-master.png"],
+      "prompt": "Running cycle keyframe photograph of the same fit 25-year-old Singaporean Chinese female track-and-field sprinter from the reference image: her right foot strikes the ground ahead of her body in a midfoot strike, left leg trailing extended behind with the heel kicked up toward the back, right arm bent 90 degrees swinging forward, left arm bent swinging backward, torso leaning slightly forward. Strict 90-degree orthographic right-facing side profile facing right, dynamic running posture, full body from head to shoes completely inside the frame with generous margins, identical camera framing and identical flat shadowless studio lighting as the reference woman, identical wardrobe and appearance, photorealistic, single person, isolated on a solid pure #FF00FF magenta chroma-key background with zero floor shadow."
+    },
+    "P2-2026-10-18-03": {
+      "file": "key-02-phi-125.png",
+      "references": ["00-master.png"],
+      "prompt": "Running cycle keyframe photograph of the same fit 25-year-old Singaporean Chinese female track-and-field sprinter from the reference image: her right foot is flat on the ground beneath her body absorbing landing load with the knee slightly bent, her left knee driving forward up past her hip with the shin folded, right arm bent swinging forward, left arm bent swinging backward, torso leaning forward. Strict 90-degree orthographic right-facing side profile facing right, dynamic running posture, full body from head to shoes completely inside the frame with generous margins, identical camera framing and identical flat shadowless studio lighting as the reference woman, identical wardrobe and appearance, photorealistic, single person, isolated on a solid pure #FF00FF magenta chroma-key background with zero floor shadow."
+    },
+    "P2-2026-10-18-04": {
+      "file": "key-03-phi-250.png",
+      "references": ["00-master.png"],
+      "prompt": "Running cycle keyframe photograph of the same fit 25-year-old Singaporean Chinese female track-and-field sprinter from the reference image: her right foot is planted vertically directly under her torso supporting her full weight, her left knee swinging forward passing beneath her hips with the shin folded horizontally, arms in opposite counter-swing, torso leaning forward. Strict 90-degree orthographic right-facing side profile facing right, dynamic running posture, full body from head to shoes completely inside the frame with generous margins, identical camera framing and identical flat shadowless studio lighting as the reference woman, identical wardrobe and appearance, photorealistic, single person, isolated on a solid pure #FF00FF magenta chroma-key background with zero floor shadow."
+    },
+    "P2-2026-10-18-05": {
+      "file": "key-04-phi-375.png",
+      "references": ["00-master.png"],
+      "prompt": "Running cycle keyframe photograph of the same fit 25-year-old Singaporean Chinese female track-and-field sprinter from the reference image: airborne flight phase, both feet clearly off the ground, her left leg reaching forward with the knee lifted high, right leg trailing bent behind her, right arm bent swinging forward, left arm bent swinging backward, torso leaning forward. Strict 90-degree orthographic right-facing side profile facing right, dynamic running posture, full body from head to shoes completely inside the frame with generous margins, identical camera framing and identical flat shadowless studio lighting as the reference woman, identical wardrobe and appearance, photorealistic, single person, isolated on a solid pure #FF00FF magenta chroma-key background with zero floor shadow."
+    },
+    "P2-2026-10-18-06": {
+      "file": "key-05-phi-500.png",
+      "references": ["00-master.png"],
+      "prompt": "Running cycle keyframe photograph of the same fit 25-year-old Singaporean Chinese female track-and-field sprinter from the reference image: her left foot strikes the ground ahead of her body in a midfoot strike, right leg trailing extended behind with the heel kicked up toward the back, left arm bent 90 degrees swinging forward, right arm bent swinging backward, torso leaning slightly forward. Strict 90-degree orthographic right-facing side profile facing right, dynamic running posture, full body from head to shoes completely inside the frame with generous margins, identical camera framing and identical flat shadowless studio lighting as the reference woman, identical wardrobe and appearance, photorealistic, single person, isolated on a solid pure #FF00FF magenta chroma-key background with zero floor shadow."
+    },
+    "P2-2026-10-18-07": {
+      "file": "key-06-phi-625.png",
+      "references": ["00-master.png"],
+      "prompt": "Running cycle keyframe photograph of the same fit 25-year-old Singaporean Chinese female track-and-field sprinter from the reference image: her left foot is flat on the ground beneath her body absorbing landing load with the knee slightly bent, her right knee driving forward up past her hip with the shin folded, left arm bent swinging forward, right arm bent swinging backward, torso leaning forward. Strict 90-degree orthographic right-facing side profile facing right, dynamic running posture, full body from head to shoes completely inside the frame with generous margins, identical camera framing and identical flat shadowless studio lighting as the reference woman, identical wardrobe and appearance, photorealistic, single person, isolated on a solid pure #FF00FF magenta chroma-key background with zero floor shadow."
+    },
+    "P2-2026-10-18-08": {
+      "file": "key-07-phi-750.png",
+      "references": ["00-master.png"],
+      "prompt": "Running cycle keyframe photograph of the same fit 25-year-old Singaporean Chinese female track-and-field sprinter from the reference image: her left foot is planted vertically directly under her torso supporting her full weight, her right knee swinging forward passing beneath her hips with the shin folded horizontally, arms in opposite counter-swing, torso leaning forward. Strict 90-degree orthographic right-facing side profile facing right, dynamic running posture, full body from head to shoes completely inside the frame with generous margins, identical camera framing and identical flat shadowless studio lighting as the reference woman, identical wardrobe and appearance, photorealistic, single person, isolated on a solid pure #FF00FF magenta chroma-key background with zero floor shadow."
+    },
+    "P2-2026-10-18-09": {
+      "file": "key-08-phi-875.png",
+      "references": ["00-master.png"],
+      "prompt": "Running cycle keyframe photograph of the same fit 25-year-old Singaporean Chinese female track-and-field sprinter from the reference image: airborne flight phase, both feet clearly off the ground, her right leg reaching forward with the knee lifted high, left leg trailing bent behind her, left arm bent swinging forward, right arm bent swinging backward, torso leaning forward. Strict 90-degree orthographic right-facing side profile facing right, dynamic running posture, full body from head to shoes completely inside the frame with generous margins, identical camera framing and identical flat shadowless studio lighting as the reference woman, identical wardrobe and appearance, photorealistic, single person, isolated on a solid pure #FF00FF magenta chroma-key background with zero floor shadow."
+    }
+  }
+}

@@ -1,0 +1,163 @@
+:root {
+  color-scheme: light;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f4f6fa;
+  color: #1c2026;
+}
+
+.workspace {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.workspace__header h1 {
+  font-size: 1.35rem;
+  margin: 0 0 4px;
+}
+
+.workspace__subtitle {
+  margin: 0 0 20px;
+  color: #5a6270;
+}
+
+.apng-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.apng-preview h2,
+.keyframe-strip h2,
+.audit h2 {
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+}
+
+.apng-preview__hint {
+  color: #5a6270;
+  font-size: 0.85rem;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.player canvas {
+  border: 1px solid #c8cedb;
+  border-radius: 8px;
+  background: #e2e6ee;
+  width: 256px;
+  height: 320px;
+}
+
+.player__controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.player__controls button {
+  border: 1px solid #9aa3b5;
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+
+.player__controls button:hover {
+  background: #eef1f7;
+}
+
+.player__controls label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.keyframe-strip {
+  margin-bottom: 24px;
+}
+
+.keyframe-strip__row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.keyframe-strip__cell {
+  border: 1px solid #c8cedb;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 6px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+}
+
+.keyframe-strip__cell img {
+  width: 96px;
+  height: 120px;
+  object-fit: contain;
+  background: #f4f6fa;
+  border-radius: 4px;
+}
+
+.audit__links {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.audit table {
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+}
+
+.audit th,
+.audit td {
+  border: 1px solid #d5dae6;
+  padding: 4px 10px;
+  text-align: right;
+}
+
+.audit th:first-child,
+.audit td:first-child {
+  text-align: left;
+}
+
+.audit__plates {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.audit__plates figure {
+  margin: 0;
+}
+
+.audit__plates figcaption {
+  font-size: 0.8rem;
+  color: #5a6270;
+  margin-bottom: 4px;
+}
+
+.audit__plates img {
+  max-width: 360px;
+  border: 1px solid #c8cedb;
+  border-radius: 8px;
+}

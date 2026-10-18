@@ -46,3 +46,39 @@ Per `CLAUDE-validation.md §8` (honest validation) and §8.1 (4-way provenance s
 ### Next actions requiring validation
 - P2.0: implement the extended audit dump (display-resolution strips + texture/tone/identity metrics) and publish baseline numbers for both branches' current assets.
 - P2.1: persona bible + 8-key pilot with full K2 conformance telemetry.
+
+---
+
+## 2026-10-18 — `TURN-L02` (KAPP implementation turn: acquisition → conformance → composition → APNG → workbench)
+
+### Layer 1 — Source code read
+- Own pipeline modules as written (`src/pipeline/*.ts`, `scripts/*.ts`, `src/app/**`) — plus the two watched-branch worktrees' warp/extractor code where countermeasures were inherited.
+
+### Layer 2 — Personally viewed visuals (`read_file`)
+- All 9 generated plates immediately after generation: `src/images/p2/sg-chinese-female/00-master.png`, `key-01..08-phi-*.png` (verdicts in `docs/FDS.md#image-prompt-log`).
+- Post-fix `public/sprites/p2/sg-chinese-female/contact-sheet-16frame-1x.png` (mag-сatter spill eliminated, headroom restored, ground line locked).
+- (Intermediate broken contact sheet also viewed before the two fixes — that inspection is what caught both.)
+
+### Layer 3 — Locally executed gates
+| Command (this repo) | Result |
+|---|---|
+| `npm install` | ✅ 185 packages |
+| `npx tsc --noEmit` | ✅ clean (after fixes) |
+| `npm test` (`vitest run`) | ✅ **13/13** (9 real-asset pipeline tests incl. APNG structure + ground-lock; 4 discipline-gate tests) |
+| `npm run conform` | ✅ 8/8 keyframes conformant (min cross-key dHash hamming 6–12) |
+| `npm run compose` | ✅ 16 frames + APNG + sheets + report |
+| `npm run build` (`tsc -b && vite build`) | ✅ built |
+| APNG structure probe (node script) | ✅ 16 fcTL, acTL present, sequence numbers 0..30 monotonic, default frame decodes via pngjs |
+| Dev server `npm run dev` (`0.0.0.0:3000`) | ✅ HTTP 200 on `/`, APNG, frames, contact sheet |
+| `generate_image` calls | 9/10 budget used (`P2-2026-10-18-01..09`), all logged verbatim in `scripts/acquisition/prompts.p2.0.json` + examined via `read_file` |
+
+### Layer 4 — Other branches' reported results (cited, not re-verified)
+- Ground-line thresholds (−9..+2 px, ≤2 px support) inherited from PR8's five-persona audit; our stance frames measured −1..0 px (better), flight frames on the designed lift curve.
+
+### Honest caveats
+- The two intermediate defects (enclosed magenta spill; head crop from plate/canvas fraction confusion) existed in the first compose output and were caught by the mandated visual audit + pixel probes before delivery; both now have regression tests or named-constant guards.
+- Cross-fade blend ghosting on the φ 0.375→0.500 and 0.875→0.000 spans is visible at 1× and recorded as telemetry with a design fix path (spare keyframes); not yet rectified.
+
+### Next actions requiring validation
+- Spend spare keyframe slots on the two flagged blend spans (pending user review).
+- 6-colour garment-tint export; additional personas; K7 texture/tone/identity numeric scores.

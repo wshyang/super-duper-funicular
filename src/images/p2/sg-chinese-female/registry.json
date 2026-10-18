@@ -1,0 +1,157 @@
+{
+  "personaId": "sg-chinese-female",
+  "canvas": {
+    "widthPx": 256,
+    "heightPx": 320,
+    "groundY": 290
+  },
+  "masterPath": "src/images/p2/sg-chinese-female/00-master.png",
+  "masterHeightFraction": 0.9128,
+  "keys": [
+    {
+      "path": "src/images/p2/sg-chinese-female/key-01-phi-000.png",
+      "kind": "key",
+      "canonicalPhase": 0,
+      "widthPx": 1376,
+      "heightPx": 768,
+      "pixelSha256": "278d56560e2d986a893b3030498faf70c466e4d860e9050a5fb3f30bd2118a8a",
+      "dHash64": "d9179390d4b490f0",
+      "conformance": {
+        "heightFraction": 0.8568,
+        "widthFraction": 0.3372,
+        "minDHashHammingToOthers": 12,
+        "soleBaselineYInPlate": 704,
+        "contactClass": "stance",
+        "passed": true,
+        "failureReasons": []
+      }
+    },
+    {
+      "path": "src/images/p2/sg-chinese-female/key-02-phi-125.png",
+      "kind": "key",
+      "canonicalPhase": 0.125,
+      "widthPx": 1376,
+      "heightPx": 768,
+      "pixelSha256": "783d26acb74bd7286c4c394e8ba995fd2fe6b71d640dcc9038c3164ad0821dd0",
+      "dHash64": "f50e2e169494d1f0",
+      "conformance": {
+        "heightFraction": 0.8815,
+        "widthFraction": 0.2682,
+        "minDHashHammingToOthers": 12,
+        "soleBaselineYInPlate": 739,
+        "contactClass": "stance",
+        "passed": true,
+        "failureReasons": []
+      }
+    },
+    {
+      "path": "src/images/p2/sg-chinese-female/key-03-phi-250.png",
+      "kind": "key",
+      "canonicalPhase": 0.25,
+      "widthPx": 1376,
+      "heightPx": 768,
+      "pixelSha256": "5eed0bd3f6a73ed2caec366051c75b1ab2e650c952555186e1832891c747e203",
+      "dHash64": "e5168e741595d1e0",
+      "conformance": {
+        "heightFraction": 0.8659,
+        "widthFraction": 0.306,
+        "minDHashHammingToOthers": 12,
+        "soleBaselineYInPlate": 737,
+        "contactClass": "stance",
+        "passed": true,
+        "failureReasons": []
+      }
+    },
+    {
+      "path": "src/images/p2/sg-chinese-female/key-04-phi-375.png",
+      "kind": "key",
+      "canonicalPhase": 0.375,
+      "widthPx": 1376,
+      "heightPx": 768,
+      "pixelSha256": "ba6384b858320535727262fad3541ccb049a3875bdcc8b4e5711898e90f5de43",
+      "dHash64": "751696b6d6d490d0",
+      "conformance": {
+        "heightFraction": 0.8529,
+        "widthFraction": 0.2624,
+        "minDHashHammingToOthers": 6,
+        "soleBaselineYInPlate": 707,
+        "contactClass": "flight",
+        "passed": true,
+        "failureReasons": []
+      }
+    },
+    {
+      "path": "src/images/p2/sg-chinese-female/key-05-phi-500.png",
+      "kind": "key",
+      "canonicalPhase": 0.5,
+      "widthPx": 1376,
+      "heightPx": 768,
+      "pixelSha256": "d0d9db1bea35f084a9258484d472a6c7683288467544502ad0798f975bd0da82",
+      "dHash64": "dd169296f4d550f4",
+      "conformance": {
+        "heightFraction": 0.8737,
+        "widthFraction": 0.3249,
+        "minDHashHammingToOthers": 10,
+        "soleBaselineYInPlate": 727,
+        "contactClass": "stance",
+        "passed": true,
+        "failureReasons": []
+      }
+    },
+    {
+      "path": "src/images/p2/sg-chinese-female/key-06-phi-625.png",
+      "kind": "key",
+      "canonicalPhase": 0.625,
+      "widthPx": 1376,
+      "heightPx": 768,
+      "pixelSha256": "b8bdb221f5f0df64ee3b237dcd990c9082eafdc3b5e5c842ac77b8a42b73dea3",
+      "dHash64": "c5168ef6d4d692f0",
+      "conformance": {
+        "heightFraction": 0.9023,
+        "widthFraction": 0.2776,
+        "minDHashHammingToOthers": 10,
+        "soleBaselineYInPlate": 737,
+        "contactClass": "stance",
+        "passed": true,
+        "failureReasons": []
+      }
+    },
+    {
+      "path": "src/images/p2/sg-chinese-female/key-07-phi-750.png",
+      "kind": "key",
+      "canonicalPhase": 0.75,
+      "widthPx": 1376,
+      "heightPx": 768,
+      "pixelSha256": "864f1f73c77dd50aaffca06ba7acfec0617f497ef1ad47a1b9250259a1c379b4",
+      "dHash64": "e50eae14f65591e2",
+      "conformance": {
+        "heightFraction": 0.8711,
+        "widthFraction": 0.2994,
+        "minDHashHammingToOthers": 12,
+        "soleBaselineYInPlate": 739,
+        "contactClass": "stance",
+        "passed": true,
+        "failureReasons": []
+      }
+    },
+    {
+      "path": "src/images/p2/sg-chinese-female/key-08-phi-875.png",
+      "kind": "key",
+      "canonicalPhase": 0.875,
+      "widthPx": 1376,
+      "heightPx": 768,
+      "pixelSha256": "1801660ebd9115671cb9dbbd9731361f9c308672b2daa5fa036c2f063da9c3cc",
+      "dHash64": "f5179296d2d4d0d0",
+      "conformance": {
+        "heightFraction": 0.8594,
+        "widthFraction": 0.3227,
+        "minDHashHammingToOthers": 6,
+        "soleBaselineYInPlate": 711,
+        "contactClass": "flight",
+        "passed": true,
+        "failureReasons": []
+      }
+    }
+  ],
+  "generatedAtUtc": "2026-10-18T07:40:59.567Z"
+}

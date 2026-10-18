@@ -1,0 +1,189 @@
+{
+  "personaId": "sg-chinese-female",
+  "outputPhases": [
+    0,
+    0.0625,
+    0.125,
+    0.1875,
+    0.25,
+    0.3125,
+    0.375,
+    0.4375,
+    0.5,
+    0.5625,
+    0.625,
+    0.6875,
+    0.75,
+    0.8125,
+    0.875,
+    0.9375
+  ],
+  "canvas": {
+    "widthPx": 256,
+    "heightPx": 320,
+    "groundY": 290
+  },
+  "groundAdherence": [
+    {
+      "frameIndex": 1,
+      "phase": 0,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 0,
+      "baseKeyPhase": 0,
+      "blendKeyPhase": null,
+      "blendWeight": 0
+    },
+    {
+      "frameIndex": 2,
+      "phase": 0.0625,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 0,
+      "baseKeyPhase": 0,
+      "blendKeyPhase": 0.125,
+      "blendWeight": 0.5
+    },
+    {
+      "frameIndex": 3,
+      "phase": 0.125,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 0,
+      "baseKeyPhase": 0.125,
+      "blendKeyPhase": null,
+      "blendWeight": 0
+    },
+    {
+      "frameIndex": 4,
+      "phase": 0.1875,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 0,
+      "baseKeyPhase": 0.125,
+      "blendKeyPhase": 0.25,
+      "blendWeight": 0.5
+    },
+    {
+      "frameIndex": 5,
+      "phase": 0.25,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 0,
+      "baseKeyPhase": 0.25,
+      "blendKeyPhase": null,
+      "blendWeight": 0
+    },
+    {
+      "frameIndex": 6,
+      "phase": 0.3125,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 14,
+      "baseKeyPhase": 0.25,
+      "blendKeyPhase": 0.375,
+      "blendWeight": 0.5
+    },
+    {
+      "frameIndex": 7,
+      "phase": 0.375,
+      "soleY": 261,
+      "groundDeltaPx": -29,
+      "liftPx": 28,
+      "baseKeyPhase": 0.375,
+      "blendKeyPhase": null,
+      "blendWeight": 0
+    },
+    {
+      "frameIndex": 8,
+      "phase": 0.4375,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 14,
+      "baseKeyPhase": 0.375,
+      "blendKeyPhase": 0.5,
+      "blendWeight": 0.5
+    },
+    {
+      "frameIndex": 9,
+      "phase": 0.5,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 0,
+      "baseKeyPhase": 0.5,
+      "blendKeyPhase": null,
+      "blendWeight": 0
+    },
+    {
+      "frameIndex": 10,
+      "phase": 0.5625,
+      "soleY": 290,
+      "groundDeltaPx": 0,
+      "liftPx": 0,
+      "baseKeyPhase": 0.5,
+      "blendKeyPhase": 0.625,
+      "blendWeight": 0.5
+    },
+    {
+      "frameIndex": 11,
+      "phase": 0.625,
+      "soleY": 290,
+      "groundDeltaPx": 0,
+      "liftPx": 0,
+      "baseKeyPhase": 0.625,
+      "blendKeyPhase": null,
+      "blendWeight": 0
+    },
+    {
+      "frameIndex": 12,
+      "phase": 0.6875,
+      "soleY": 290,
+      "groundDeltaPx": 0,
+      "liftPx": 0,
+      "baseKeyPhase": 0.625,
+      "blendKeyPhase": 0.75,
+      "blendWeight": 0.5
+    },
+    {
+      "frameIndex": 13,
+      "phase": 0.75,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 0,
+      "baseKeyPhase": 0.75,
+      "blendKeyPhase": null,
+      "blendWeight": 0
+    },
+    {
+      "frameIndex": 14,
+      "phase": 0.8125,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 14,
+      "baseKeyPhase": 0.75,
+      "blendKeyPhase": 0.875,
+      "blendWeight": 0.5
+    },
+    {
+      "frameIndex": 15,
+      "phase": 0.875,
+      "soleY": 263,
+      "groundDeltaPx": -27,
+      "liftPx": 28,
+      "baseKeyPhase": 0.875,
+      "blendKeyPhase": null,
+      "blendWeight": 0
+    },
+    {
+      "frameIndex": 16,
+      "phase": 0.9375,
+      "soleY": 289,
+      "groundDeltaPx": -1,
+      "liftPx": 14,
+      "baseKeyPhase": 0.875,
+      "blendKeyPhase": 0,
+      "blendWeight": 0.5
+    }
+  ],
+  "composedAtUtc": "2026-10-18T07:46:45.460Z"
+}

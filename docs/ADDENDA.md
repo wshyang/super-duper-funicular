@@ -80,3 +80,38 @@ Per `CLAUDE-decisions.md §1`: append-only, independent of `docs/FDS.md` section
 - **Why:** satisfies `GREENFIELD §1`-style inspection safety and `CLAUDE-decisions.md §3`; both branches' 57 MB/48 MB trees stay out of this branch's history; worktree metadata is Git-local (`.git/worktrees`) and the worktrees themselves live outside the branch payload.
 - **Anchor:** `docs/BRANCH_ASSESSMENT_PR1_PR8.md §2`; `CLAUDE-decisions.md §4`.
 - **Impact:** review commands are reproducible verbatim; audit artifacts in `/tmp` remain uncommitted; worktrees can be pruned (`git worktree remove`) once P2 implementation supersedes them.
+
+## ADD-012 — KAPP implemented (P2.1 pilot complete for the first persona)
+
+- **Decided:** the KAPP design (`docs/PIPELINE_PROPOSAL.md`) is implemented end-to-end for persona `sg-chinese-female`: pure-TypeScript modules (`src/pipeline/{chroma-key,dhash,silhouette-metrics,normalize-frame,composer,apng,contact-sheet,spritesheet}.ts`), acquisition CLIs (`scripts/register-plates.ts` = K2 conformance, `scripts/compose.ts` = K6 composition/export), 9 acquired plates under `src/images/p2/sg-chinese-female/`, composed outputs under `public/sprites/p2/sg-chinese-female/`, and a React playback workbench (`src/app/`) on `0.0.0.0:3000`.
+- **Why:** the user instructed implementation with a reviewable animated result; the pilot validates the doctrine (D1–D6) against real generated art.
+- **Anchor:** `docs/FDS.md §3–§6` (`#obj-keyframe-plate`, `#obj-conformance-report`, `#obj-frame-composite`, `#feat-plate-acquisition`, `#feat-conformance`, `#feat-inbetween`, `#feat-ground-lock`, `#feat-assembly`).
+- **Impact:** outputs are now the canonical review artifacts: `runner-16phase.apng` (native-animation deliverable), `spritesheet-8frame.png`, 16 frame PNGs, `compose-report.json` (mirrored to `src/app/data/compose-report.json` for the workbench).
+
+## ADD-013 — Animated sequence delivered as APNG plus a controllable canvas player
+
+- **Decided:** the reviewable animated sequence ships in two forms: a committed, self-contained **APNG** (`public/sprites/p2/sg-chinese-female/runner-16phase.apng`, 16 phases @ 24 fps, hand-rolled encoder with spec-compliant fcTL/fdAT sequencing) and a browser **canvas stepper** (play/pause, fps 4–30, per-frame step, onion skin) in the workbench.
+- **Why:** the user asked "where is your animated sequence?" — APNG plays natively in browsers/file viewers with zero dependencies and is a single downloadable artifact; the stepper provides frame-accurate inspection the APNG cannot.
+- **Anchor:** `#obj-frame-composite`; `#surf-ui-workbench`.
+- **Impact:** every future persona/cycle ships the same pair; the APNG encoder is pure TS (`src/pipeline/apng.ts`) with structure verified by a test (16 fcTL, monotonic sequence numbers, default-frame decodes).
+
+## ADD-014 — Canvas layout constant and plate-normalization rule
+
+- **Decided:** canvas figure height is an explicit named constant `CANVAS_FIGURE_FRACTION = 0.75` (fraction of canvas height), and every keyframe is scaled by `targetFigureHeightPx / (plateSilhouetteFraction × platePixelHeight)` with its measured sole baseline pinned to the ground line.
+- **Why:** the first compose run conflated the plate silhouette fraction (≈0.9) with the canvas layout fraction (0.75), rendering the figure 292 px tall and cropping heads — found by pairing the 1× sheet with pixel probes. Fractions in two different reference frames must never be divided directly.
+- **Anchor:** `src/pipeline/composer.ts`; `#feat-ground-lock`; reinforces `ADD-008` (no magic numbers without named provenance).
+- **Impact:** any future canvas-size change is one constant; conformance's measured fractions remain plate-frame quantities.
+
+## ADD-015 — Chroma-key enclosed-pocket sweep
+
+- **Decided:** after border-seeded flood-fill, the keyer runs a global sweep that keys **any** remaining magenta-like pixel (e.g. pockets enclosed between arm and torso that the flood cannot reach).
+- **Why:** the first 1× contact sheet showed magenta patches inside closed regions (arm–torso gap) — border seeding alone is insufficient for humanoid poses; visible spill passed all numeric telemetry, re-proving the telemetry-never-replaces-vision rule.
+- **Anchor:** `src/pipeline/chroma-key.ts` (`sweepEnclosedMagenta`); `CLAUDE-validation.md §9`.
+- **Impact:** keying is now pose-safe; the synthetic fixture test (`__fixtures__/enclosed-magenta.png`) locks the behaviour in.
+
+## ADD-016 — Mechanical discipline gate live; declarative test suites exempt from function-length rule
+
+- **Decided:** `src/discipline/greenfield-gate.test.ts` (TypeScript AST-based) enforces: file ≤ 800 LOC, function body ≤ 50 lines, no boolean flag parameters. Declarative test suites (`*.test.ts/tsx`) are exempt from the function-body limit only (describe blocks are grouping, not logic); all other rules apply everywhere.
+- **Why:** `ADD-010` promised the gate with the first code change; on its first run it caught a 66-line component and two boolean-flag parameters in newly written workbench code.
+- **Anchor:** `CLAUDE-function-design.md`; `CLAUDE-testing.md §2`.
+- **Impact:** the gate runs in `npm test`; future violations fail CI locally before review.
