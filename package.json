@@ -1,0 +1,25 @@
+{
+  "name": "sprite-anchor-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Rig-anchored photographic sprite synthesis for running cycles",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "profile": "tsx scripts/profile-master.ts",
+    "plates": "tsx scripts/render-cycle.ts",
+    "audit": "tsx scripts/audit-cycle.ts",
+    "validate": "npm run typecheck && npm test && npm run profile && npm run plates && npm run audit"
+  },
+  "dependencies": {
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/pngjs": "^6.0.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.9"
+  }
+}
