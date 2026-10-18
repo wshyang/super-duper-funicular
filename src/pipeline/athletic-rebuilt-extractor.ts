@@ -47,11 +47,50 @@ export function extractRebuiltAthleticParts(
 }
 
 function extractHead(src: RasterImage): RasterImage {
-  return align(src, {
+  const crop = { minX: 340, minY: 58, maxX: 972, maxY: 615 };
+  const headOnly = retainHeadAboveNeckJoin(src, crop);
+  return align(headOnly, {
     srcStart: { x: 666, y: 66 }, srcEnd: { x: 772, y: 600 },
     dstStart: { x: 76, y: 12 }, dstEnd: { x: 74, y: 120 },
-    crop: { minX: 340, minY: 58, maxX: 972, maxY: 615 },
+    crop,
   });
+}
+
+function retainHeadAboveNeckJoin(
+  src: RasterImage,
+  crop: ExtractSpec['crop'],
+): RasterImage {
+  // Source-plate coordinates follow the underside of the jaw into the nape.
+  // Keep the head cap above this contour; the separate neck segment supplies
+  // the lower cervical column so the same skin is not stacked in both sprites.
+  const boundary = [
+    { x: 560, y: 465 }, { x: 600, y: 500 }, { x: 650, y: 530 },
+    { x: 700, y: 565 }, { x: 760, y: 590 }, { x: 820, y: 607 },
+    { x: 850, y: 610 },
+  ];
+  const out = createRaster(src.width, src.height);
+  for (let y = Math.max(0, crop.minY); y <= Math.min(src.height - 1, crop.maxY); y++) {
+    for (let x = Math.max(0, crop.minX); x <= Math.min(src.width - 1, crop.maxX); x++) {
+      if (y > interpolateBoundaryY(boundary, x)) continue;
+      const pixel = readPixel(src, x, y);
+      if (pixel.a > 0) writePixel(out, { x, y }, pixel);
+    }
+  }
+  return out;
+}
+
+function interpolateBoundaryY(points: readonly Point2D[], x: number): number {
+  const first = points[0]!;
+  if (x <= first.x) return first.y;
+  for (let i = 1; i < points.length; i++) {
+    const previous = points[i - 1]!;
+    const current = points[i]!;
+    if (x <= current.x) {
+      const t = (x - previous.x) / (current.x - previous.x);
+      return previous.y + (current.y - previous.y) * t;
+    }
+  }
+  return points.at(-1)!.y;
 }
 
 function extractPonytail(src: RasterImage): RasterImage {

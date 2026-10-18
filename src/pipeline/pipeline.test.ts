@@ -96,8 +96,14 @@ describe('Real reference sprite sheet grid detection and extraction verification
   it('keeps the athletic neck isolated, the armhole filled, and the left-thumb/fingers intact', () => {
     const partsDir = path.join(repoRoot, 'public/sprites/photoreal/sg-chinese-female/parts');
     const neck = readImageFile(path.join(partsDir, 'neck.png'));
+    const head = readImageFile(path.join(partsDir, 'head.png'));
     const torso = readImageFile(path.join(partsDir, 'torso.png'));
     const farHand = readImageFile(path.join(partsDir, 'farHand.png'));
+
+    // Keep the head cut above the lower neck; the articulated neck segment owns
+    // that contour so the two pieces do not stack into a bulky throat.
+    expect(readPixel(head, 68, 120).a).toBeLessThan(32);
+    expect(readPixel(head, 96, 123).a).toBeGreaterThan(128);
 
     // The revised neck crop is skin-only: a red/white singlet fragment or
     // dark ponytail pixels here would signal a crop spill from the full portrait.

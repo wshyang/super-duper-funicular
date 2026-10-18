@@ -143,24 +143,29 @@ function renderFarSideLimbs(
   }
 }
 
+function resolveHeadNeckPivot(pose: ArticulatedPose): Point2D {
+  return { x: pose.neck.x + 2.0, y: pose.neck.y + 2.0 };
+}
+
 function renderTorsoAndNeck(
   canvas: RasterImage,
   pose: ArticulatedPose,
   ctx: RigLayerContext,
 ): void {
   const { bank, palette, tuning } = ctx;
-  const headPivot: Point2D = {
-    x: pose.neck.x + 2.2,
-    y: pose.neck.y - 1.5,
-  };
+  const headNeckPivot = resolveHeadNeckPivot(pose);
+  const neckTop: Point2D = {
+    x: headNeckPivot.x,
+    y: headNeckPivot.y - 2.0,
+  }; // Two-pixel overlap closes resampling gaps without stacking a long neck piece.
   const neckBottom: Point2D = {
     x: pose.collar.x + 1.0,
     y: pose.collar.y + 3.5,
   };
   warpPhotorealSegmentToQuad(canvas, bank.neck, {
-    dstStart: headPivot,
+    dstStart: neckTop,
     dstEnd: neckBottom,
-    dstHalfWidthPx: Math.round(tuning.torsoWidthPx * 0.48),
+    dstHalfWidthPx: Math.round(tuning.torsoWidthPx * 0.30),
   });
   const torsoTop: Point2D = {
     x: pose.collar.x - 0.5,
@@ -227,10 +232,7 @@ function renderHeadAndHairDynamics(
   ctx: RigLayerContext,
 ): void {
   const { bank, palette } = ctx;
-  const headPivot: Point2D = {
-    x: pose.neck.x + 2.0,
-    y: pose.neck.y + 2.0,
-  };
+  const headPivot = resolveHeadNeckPivot(pose);
   const headCrown: Point2D = {
     x: headPivot.x + 1.0 + Math.sin(pose.neckAngleRad) * 2.0,
     y: headPivot.y - 26.5 * ctx.tuning.headScale,
