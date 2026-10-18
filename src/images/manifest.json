@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "note": "Canonical artwork filing register (GREENFIELD ADD-002 convention). SHA-256 over file bytes; dHash deferred until the pipeline stage that needs perceptual dedupe (PIPE-REV stage 3).",
+  "assets": [
+    {
+      "path": "src/images/spritesheets/runner-8frame-6color-flawed-sheet.jpeg",
+      "originalPath": "incorrect running sprites.jpeg",
+      "role": "reference-defective-sheet",
+      "width": 1376,
+      "height": 768,
+      "sha256": "f99114235d61781f76a6b32c637edac16f13af6592a2866fe0e0528504727030",
+      "filedIn": "ADD-002",
+      "provenance": "Repository root at main commit 396ce256debcb5bdc2419cc0f3f399730b61ab36; git-moved, bytes unchanged."
+    }
+  ]
+}

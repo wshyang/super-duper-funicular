@@ -1,0 +1,34 @@
+# SHIP-HATS Pipeline Jobs (kept inert per GREENFIELD.md §10.2-10.3)
+typecheck-and-unit-test:
+  stage: test
+  image: $NODE_IMAGE
+  script:
+    - npm ci --ignore-scripts
+    - npm run typecheck
+    - npm test
+
+build-job:
+  stage: build
+  tags:
+    - ship_docker
+  extends: .build-and-push-docker-image
+  variables:
+    DOCKERFILE_PATH: 'Dockerfile'
+    IMAGE_NAME: '@@SHIPHATS_PROJECT_NAME@@'
+
+container-contract-smoke:
+  stage: runtime-test
+  image: $NODE_IMAGE
+  needs:
+    - build-job
+  script:
+    - npm ci --ignore-scripts
+    - npm run build
+
+deploy-final-job:
+  stage: deploy
+  when: manual
+  needs:
+    - container-contract-smoke
+  script:
+    - echo "Promoting verified image for @@SHIPHATS_PROJECT_NAME@@ in @@SHIPHATS_AGENCY_NAMESPACE@@"

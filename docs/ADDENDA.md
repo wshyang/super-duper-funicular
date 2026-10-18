@@ -1,0 +1,36 @@
+# Sequentially-Numbered Addenda Register (`GREENFIELD.md §1`)
+
+- **Repository:** `wshyang/super-duper-funicular` — **Branch:** `arena/62955c1e-super-duper-funicular`
+- **Rule:** every decision not dictated by the base prompt or `GREENFIELD.md` is appended here in the same change, with what/why/anchor/impact (`CLAUDE-decisions.md §1`).
+
+---
+
+## `ADD-001` — Adoption and Section Split of the Harmonised `wshyang/greenfield` Discipline (from PR `#1` / PR `#8`)
+- **What was decided:** Adopt verbatim the discipline corpus carried identically by `arena/917ef347-super-duper-funicular` @ `936f37c` and `arena/e1300d3c-super-duper-funicular` @ `04d5caf`: `GREENFIELD.md`, `FDS_BUILDER.md`, `docs/greenfield/GREENFIELD.md`, the eight `CLAUDE-*.md` section files, `.claude/skills/audit-gait-cycle/SKILL.md`, `tsconfig.json`, `vitest.config.ts`, `.gitignore`, the Dockerfile triplet + `.dockerignore`, the inert `*.shiphats` set + `activate-shiphats.sh`, `dev.sh`, `.env.example`, `.env.test`. Re-author `CLAUDE.md` bindings for this branch (mission, reference-only watchlist, scoped ledger) and adapt `src/discipline/greenfield-gate.test.ts` to this branch's document set.
+- **Why:** The user instructed this branch to adopt the same coding discipline as GREENFIELD and CLAUDE md. The two reference branches carry a byte-identical harmonised corpus (differs only in branch bindings), so one adoption serves both lineages and keeps the mechanical gate as the enforcement surface.
+- **Related Spec Section:** `docs/FDS.md §6.1` (`#feat-discipline-gate`), `docs/SPEC.md §1`
+- **Practical Impact:** Every future change on this branch is gated by `src/discipline/greenfield-gate.test.ts` (doc corpus, sequential addenda, manifest hash integrity, ≤ 800 LOC / ≤ 50 LOC functions, JSX purity + `data-testid`, Docker contract, inert SHIP-HATS activation). The N-way parity-ledger rule of the sibling branches is scoped down here to **reference-branch observation** (`CLAUDE.md` Rule 3) because this branch's mission is assessment + redesign, not parity.
+
+## `ADD-002` — Canonical Filing of the Reference Sprite Sheet into `/src/images/` with SHA-256 Manifest
+- **What was decided:** `git mv "incorrect running sprites.jpeg" src/images/spritesheets/runner-8frame-6color-flawed-sheet.jpeg` (bytes unchanged) and register it in `src/images/manifest.json` (`schemaVersion 1`: `path`, `originalPath`, `role`, `width`, `height`, `sha256`, `filedIn`, `provenance`).
+- **Why:** `GREENFIELD.md`/PR `#1` `ADD-002` convention: artwork is filed canonically and hash-provenanced so no asset enters the pipeline unfiled and no filed asset drifts silently.
+- **Related Spec Section:** `docs/FDS.md §3.1` (`#obj-image-asset`), `docs/SPEC.md §1`
+- **Practical Impact:** `greenfield-gate.test.ts` recomputes SHA-256 over every manifest entry on every test run; dHash is deliberately deferred to the pipeline stage that needs perceptual dedupe (recorded in the manifest `note`).
+
+## `ADD-003` — Revised Photographic Sprite Pipeline Adopted as Design of Record (`#revised-pipeline`)
+- **What was decided:** Adopt `docs/PIPELINE_REVISION_PROPOSAL.md` v1.0.0 as this branch's design of record: inversion principle (§1.3), principles `P-R1`..`P-R8` (§2), Stages 0–7 (character lock → pose atlas → landmark/skeleton solve → canonical part extraction with material ownership → albedo/shading split → retained rig/render → optional reference-fitted motion → perceptual gates + committed evidence), retained/discarded lists (§4–5), Sprint 1–4 migration (§6), dead-ends register (§7), quantitative acceptance criteria (§8).
+- **Why:** PR `#1` and PR `#8` both converge on a pipeline that over-constrains diffusion per isolated part and repairs violations with hand-tuned pixel windows; eight failure families (`F1..F8`) and a four-turn regression chain on PR `#8` show the repair surface is where defects are born. The proposal gives diffusion only whole-body constraints and moves geometry into deterministic, testable code.
+- **Related Spec Section:** `docs/FDS.md §2`, `§3.2`–`§3.4`, `§6.2`–`§6.6`; `docs/SPEC.md §2`–§5
+- **Practical Impact:** Sprint 1 builds a synthetic ground-truth harness before any generation; Sprint 2 baselines perceptual metrics on the reference branches' assets; `§9 Open Questions` are pending user decision (3D endgame, identity tolerance, frame targets, motion licence, sibling-branch freeze).
+
+## `ADD-004` — PR `#1` / PR `#8` Recorded as Read-Only Reference Branches with Observed & Reviewed SHAs
+- **What was decided:** Assess both branches in detached working directories outside the repository (`/home/user/workdirs/pr1`, `/home/user/workdirs/pr8`); record observed tip = reviewed SHA (`936f37ce07f18e38fc4f5b3880c80029ec9f55cf`, `04d5caf432ff81be0307a3ec79e894da1b60045c`) in `docs/BRANCH_ASSESSMENT_PR1_PR8.md §1`; never merge, cherry-pick, or check them out inside the repository; recommend freezing them as references pending user answer to `PIPELINE_REVISION_PROPOSAL.md §9.5`.
+- **Why:** The user asked for assessment of exactly these two branches; the discipline requires observed-vs-reviewed SHA separation and detached inspection safety.
+- **Related Spec Section:** `docs/FDS.md §8`, `#branch-assessment`
+- **Practical Impact:** Adoption of code from either branch happens only as re-implementation under this branch's design (retained-list in `PROPOSAL §4`), with provenance cited per item.
+
+## `ADD-005` — Committed Evidence Packs, Documentation Size NFR, and Prompt-Log JSONL Threshold
+- **What was decided:** (1) Any audit whose findings drive a decision commits a downscaled evidence pack (`docs/evidence/<run-id>/`, ≤ ~2 MB: contact sheet, `audit-report.json`, `SHA256SUMS`) — `CLAUDE.md` Rule 6 (`PIPE-REV-08`). (2) `docs/FDS.md` is capped at 60 KB (`#nfr-doc-size`); beyond 20 logged image calls the verbatim prompt log moves to `docs/image-prompt-log.jsonl` with the FDS keeping the audit rule and a pointer. (3) `semiTransparentFringeCount`-style metrics may only be declared "baseline" together with a personally-viewed plate citation (`#feat-perceptual-gates`).
+- **Why:** On the reference branches all audit evidence lives in `/tmp` and evaporates (findings not re-verifiable), while the FDS grew to 250 KB of prose logs — the discipline meant to prevent drift became the largest artifact (`F8`).
+- **Related Spec Section:** `docs/FDS.md §3.6` (`#obj-evidence-pack`), `§12` (`#nfr-evidence`, `#nfr-doc-size`)
+- **Practical Impact:** Evidence survives in Git for re-verification; documentation stays navigable; metric baselining requires eyes plus numbers.
