@@ -1,16 +1,16 @@
 {
-  "observedAt": "2026-10-18T02:42:07.271Z",
+  "observedAt": "2026-10-18T02:42:23.411Z",
   "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
       "branch": "arena/e1300d3c-super-duper-funicular",
       "prStatus": "Active Session Branch",
-      "hash": "591a40cbc5a7653bb4901750204204862b21616c",
-      "shortHash": "591a40c",
-      "committedAt": "2026-10-18T01:39:37+00:00",
-      "subject": "docs(branches): update live branch comparison snapshot for Wave 7",
-      "commitCountFromMain": 6
+      "hash": "c8c8a50b0b74a07c9de9d37c60ce3db7fa859f99",
+      "shortHash": "c8c8a50",
+      "committedAt": "2026-10-18T02:42:15+00:00",
+      "subject": "feat(photoreal): add neutral standing profile calibration and source-ratio defaults",
+      "commitCountFromMain": 7
     },
     {
       "role": "Branch 1 (Sprite Motion Lab)",
