@@ -21,18 +21,18 @@ silhouette proxy, not limb tracking.
 
 ## Measurements
 
-| Metric | Value |
-| --- | --- |
-| Duplicate threshold | 90% IoU |
-| Duplicate pairs | 18 |
-| Near-duplicate pairs (≥78%) | 24 |
-| Mean duplicate IoU | 95.8% |
-| Maximum duplicate IoU | 97.5% |
-| Mean row scale jitter | 22.2 px |
-| Mean row baseline jitter | 25.3 px |
-| Foot separation range | 92.5–177.0 px |
-| Stance-side lock ratio | 100% |
-| Crossed / merged-foot frames | 12 |
+| Metric                       | Value         |
+| ---------------------------- | ------------- |
+| Duplicate threshold          | 90% IoU       |
+| Duplicate pairs              | 18            |
+| Near-duplicate pairs (≥78%)  | 24            |
+| Mean duplicate IoU           | 95.8%         |
+| Maximum duplicate IoU        | 97.5%         |
+| Mean row scale jitter        | 22.2 px       |
+| Mean row baseline jitter     | 25.3 px       |
+| Foot separation range        | 92.5–177.0 px |
+| Stance-side lock ratio       | 100%          |
+| Crossed / merged-foot frames | 12            |
 
 ## Limits
 

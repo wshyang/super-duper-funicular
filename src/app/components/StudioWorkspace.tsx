@@ -69,6 +69,7 @@ export const StudioWorkspace = ({ workspace }: StudioWorkspaceProps): React.JSX.
           referenceUrl={reference.url}
           referenceLabel={reference.label}
           info={info}
+          calibration={workspace.calibration.calibration}
         />
         <PlaybackBar clock={clock} phase={clock.phase} onSeek={clock.seek} />
         <Filmstrip

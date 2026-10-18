@@ -184,8 +184,8 @@ export const PARITY_ROWS: readonly ParityRow[] = [
     strideLab: 'yes',
     funicular: 'gap',
     proceduralRunner: 'gap',
-    ours: 'gap',
-    acceptance: 'Deferred; requires photo/texture cut editing, not procedural knobs.',
+    ours: 'yes',
+    acceptance: 'Six clamped offsets; leg roots stay fixed; JSON + calibrated PNG export.',
   },
   {
     capability: 'Asset failure / retry handling',

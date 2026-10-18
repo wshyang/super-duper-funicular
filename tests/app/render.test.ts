@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { App } from '../../src/app/App.tsx';
 import { VectorsPanel } from '../../src/app/components/VectorsPanel.tsx';
+import { CalibrationPanel } from '../../src/app/components/CalibrationPanel.tsx';
 
 describe('app shell', () => {
   it('renders the studio without a browser runtime', () => {
@@ -52,5 +53,36 @@ describe('vector output panel', () => {
     expect(html).toContain('src="/vectors/red/frame-01.svg"');
     expect(html).toContain('data-testid="vectors__download-red-08"');
     expect(html).toContain('data-testid="vectors__palette-blue"');
+  });
+});
+
+describe('joint calibration panel', () => {
+  const state = {
+    calibration: {
+      hip: { x: 2, y: -1 },
+      shoulder: { x: 0, y: 0 },
+      head: { x: -3, y: 4 },
+    },
+    setOffset: () => undefined,
+    reset: () => undefined,
+  };
+
+  it('exposes six clamped sliders and registered exports', () => {
+    const html = renderToStaticMarkup(
+      createElement(CalibrationPanel, {
+        state,
+        busy: false,
+        onExportJson: () => undefined,
+        onExportSheet: () => undefined,
+      }),
+    );
+    for (const joint of ['hip', 'shoulder', 'head']) {
+      for (const axis of ['x', 'y']) {
+        expect(html, `${joint}-${axis}`).toContain(`data-testid="calibration__${joint}-${axis}"`);
+      }
+    }
+    expect(html).toContain('data-testid="calibration__export-json"');
+    expect(html).toContain('data-testid="calibration__export-sheet"');
+    expect(html).toContain('+2.0 px');
   });
 });

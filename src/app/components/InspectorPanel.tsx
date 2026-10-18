@@ -2,6 +2,8 @@ import type { BodyPartId, GaitSettings } from '../../shared/types.ts';
 import { PART_LABELS, PART_ORDER } from '../../shared/constants.ts';
 import { Stage } from './Stage.tsx';
 import type { PoseInfo } from '../hooks/usePoseInfo.ts';
+import type { CalibrationState } from '../hooks/useCalibration.ts';
+import { CalibrationPanel } from './CalibrationPanel.tsx';
 
 export interface InspectorPanelProps {
   readonly settings: GaitSettings;
@@ -9,6 +11,10 @@ export interface InspectorPanelProps {
   readonly info: PoseInfo;
   readonly selected: BodyPartId | 'all';
   readonly onSelect: (part: BodyPartId | 'all') => void;
+  readonly calibration: CalibrationState;
+  readonly busy: boolean;
+  readonly onExportJson: () => void;
+  readonly onExportSheet: () => void;
 }
 
 const PART_LISTS = [
@@ -61,6 +67,10 @@ export const InspectorPanel = ({
   info,
   selected,
   onSelect,
+  calibration,
+  busy,
+  onExportJson,
+  onExportSheet,
 }: InspectorPanelProps): React.JSX.Element => {
   const visibleParts = selected === 'all' ? undefined : [selected];
   return (
@@ -83,10 +93,17 @@ export const InspectorPanel = ({
             info={info}
             visibleParts={visibleParts}
             isolatedLabel={isolatedLabelFor(selected)}
+            calibration={calibration.calibration}
           />
         </div>
         <PartList selected={selected} onSelect={onSelect} />
       </div>
+      <CalibrationPanel
+        state={calibration}
+        busy={busy}
+        onExportJson={onExportJson}
+        onExportSheet={onExportSheet}
+      />
     </section>
   );
 };

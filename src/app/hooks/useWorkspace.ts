@@ -4,6 +4,7 @@ import { DEFAULT_GAIT } from '../../shared/constants.ts';
 import { useAnimationClock, type AnimationClock } from './useAnimationClock.ts';
 import { useSpriteData, type SpriteData } from './useSpriteData.ts';
 import { useExports, type ExportController } from './useExports.ts';
+import { useCalibration, type CalibrationState } from './useCalibration.ts';
 
 export type TabId = 'studio' | 'inspector' | 'diagnostics' | 'gallery' | 'vectors' | 'parity';
 export type OverlayKey = 'skeleton' | 'ground' | 'onion' | 'compare';
@@ -24,6 +25,7 @@ export interface Workspace {
   readonly clock: AnimationClock;
   readonly sprite: SpriteData;
   readonly exports: ExportController;
+  readonly calibration: CalibrationState;
   readonly setTab: (tab: TabId) => void;
   readonly update: (patch: Partial<GaitSettings>) => void;
   readonly reset: () => void;
@@ -68,7 +70,8 @@ export const useWorkspace = (): Workspace => {
 
   const sprite = useSpriteData();
   const clock = useAnimationClock({ cadence: settings.cadence, initialPlaying: !reducedMotion });
-  const exports = useExports(settings);
+  const calibration = useCalibration();
+  const exports = useExports(settings, calibration.calibration);
 
   const toggleOverlay = useCallback((key: OverlayKey) => {
     setOverlays((current) => ({ ...current, [key]: !current[key] }));
@@ -88,6 +91,7 @@ export const useWorkspace = (): Workspace => {
     clock,
     sprite,
     exports,
+    calibration,
     setTab,
     update,
     reset,

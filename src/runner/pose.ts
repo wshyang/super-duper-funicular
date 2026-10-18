@@ -1,6 +1,7 @@
 import type {
   ArmChain,
   BodyPose,
+  Calibration,
   FootState,
   GaitSettings,
   LimbChain,
@@ -20,6 +21,7 @@ import {
   type ResolvedGait,
 } from './gait.ts';
 import { add, normalizePhase, rotate, scale, vec } from './vec.ts';
+import { DEFAULT_CALIBRATION } from '../shared/calibration.ts';
 
 const DEG = Math.PI / 180;
 
@@ -98,16 +100,29 @@ const ponytailPoints = (
   ];
 };
 
-export const solvePose = (settings: GaitSettings, phase: number): PoseFrame => {
-  const persona = PERSONA_BY_ID[settings.persona];
-  const rig = rigForPersona(persona);
-  const gait = resolveGait(settings, rig);
-  const phi = normalizePhase(phase);
-  const lean = gait.leanDeg * DEG + Math.sin(4 * Math.PI * phi) * 1.4 * DEG;
-  const bob = bodyBob(phi, gait);
-  const hip = vec(gait.hipX, gait.hipY + bob);
+export interface PoseOptions {
+  readonly calibration?: Calibration;
+}
+
+interface UpperBody {
+  readonly hip: Vec2;
+  readonly shoulder: Vec2;
+  readonly neckBase: Vec2;
+  readonly neckTop: Vec2;
+  readonly headCenter: Vec2;
+  readonly headAngleRad: number;
+  readonly torsoAngleRad: number;
+}
+
+const upperBodyOf = (
+  baseHip: Vec2,
+  lean: number,
+  rig: RigMetrics,
+  calibration: Calibration,
+): UpperBody => {
+  const hip = add(baseHip, calibration.hip);
   const torsoVector = rotate(vec(0, -rig.torso), lean);
-  const shoulderCenter = add(hip, scale(torsoVector, 0.86));
+  const shoulderCenter = add(add(hip, scale(torsoVector, 0.86)), calibration.shoulder);
   const neckBase = add(hip, scale(torsoVector, 0.985));
   const neckAngle = lean * 0.45;
   const neckTop = add(
@@ -116,18 +131,16 @@ export const solvePose = (settings: GaitSettings, phase: number): PoseFrame => {
   );
   const headAngle = lean * 0.3;
   const headCenter = add(
-    neckTop,
-    vec(
-      Math.sin(headAngle) * rig.headRadiusY * 0.78,
-      -Math.cos(headAngle) * rig.headRadiusY * 0.78,
+    add(
+      neckTop,
+      vec(
+        Math.sin(headAngle) * rig.headRadiusY * 0.78,
+        -Math.cos(headAngle) * rig.headRadiusY * 0.78,
+      ),
     ),
+    calibration.head,
   );
-  const nearHip = add(hip, vec(rig.hipWidth * 0.18, 5));
-  const farHip = add(hip, vec(-rig.hipWidth * 0.18, 4));
-  const nearShoulder = add(shoulderCenter, vec(3, rig.shoulderDrop));
-  const farShoulder = add(shoulderCenter, vec(-8, rig.shoulderDrop + 1));
-  const pose: BodyPose = {
-    origin: vec(gait.hipX, gait.hipY),
+  return {
     hip,
     shoulder: shoulderCenter,
     neckBase,
@@ -135,11 +148,36 @@ export const solvePose = (settings: GaitSettings, phase: number): PoseFrame => {
     headCenter,
     headAngleRad: headAngle,
     torsoAngleRad: lean,
+  };
+};
+
+export const solvePose = (
+  settings: GaitSettings,
+  phase: number,
+  options: PoseOptions = {},
+): PoseFrame => {
+  const calibration = options.calibration ?? DEFAULT_CALIBRATION;
+  const persona = PERSONA_BY_ID[settings.persona];
+  const rig = rigForPersona(persona);
+  const gait = resolveGait(settings, rig);
+  const phi = normalizePhase(phase);
+  const lean = gait.leanDeg * DEG + Math.sin(4 * Math.PI * phi) * 1.4 * DEG;
+  const bob = bodyBob(phi, gait);
+  const baseHip = vec(gait.hipX, gait.hipY + bob);
+  const upper = upperBodyOf(baseHip, lean, rig, calibration);
+  // Leg roots stay on the uncalibrated pelvis so hip nudges never stretch a leg chain.
+  const nearHip = add(baseHip, vec(rig.hipWidth * 0.18, 5));
+  const farHip = add(baseHip, vec(-rig.hipWidth * 0.18, 4));
+  const nearShoulder = add(upper.shoulder, vec(3, rig.shoulderDrop));
+  const farShoulder = add(upper.shoulder, vec(-8, rig.shoulderDrop + 1));
+  const pose: BodyPose = {
+    origin: baseHip,
+    ...upper,
     nearLeg: legChain(nearHip, phi, gait, rig),
     farLeg: legChain(farHip, normalizePhase(phi + 0.5), gait, rig),
     nearArm: armChain(nearShoulder, phi, gait, rig, 'near'),
     farArm: armChain(farShoulder, phi, gait, rig, 'far'),
-    ponytail: ponytailPoints(headCenter, headAngle, phi, rig),
+    ponytail: ponytailPoints(upper.headCenter, upper.headAngleRad, phi, rig),
   };
   return {
     phase: phi,

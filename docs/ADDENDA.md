@@ -56,7 +56,7 @@ Each entry: **Decided · Why · Area · Impact.**
 ## ADD-005: Extraction uses a border-seeded flood fill
 
 - **Decided:** chroma keying seeds a flood fill from the cell border with a loose magenta predicate,
-  then sweeps interior *strong* magenta, then despills magenta fringes.
+  then sweeps interior _strong_ magenta, then despills magenta fringes.
 - **Why:** a global threshold erodes the purple jersey — magenta and violet are neighbours in RGB.
   Seeding from the border only removes the connected background, which is the definition of "keyed".
 - **Area:** `#feat-extract`.
@@ -118,7 +118,7 @@ Each entry: **Decided · Why · Area · Impact.**
 ## ADD-011: Motion profiles are duty-cycle definitions, not presets
 
 - **Decided:** `run` duty 0.38 (flight permitted), `brisk-walk` 0.56, `walk` 0.62 (double support
-  required); flight and double support are *derived* from the duty values plus contralateral phase.
+  required); flight and double support are _derived_ from the duty values plus contralateral phase.
 - **Why:** the siblings' walking implementations prove the concept, but importing their contact knots
   into a different coordinate model would have produced plausible-looking wrong motion. Deriving the
   support state from duty makes the invariant testable: a walking profile cannot contain flight.

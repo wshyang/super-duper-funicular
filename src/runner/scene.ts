@@ -1,5 +1,6 @@
 import type {
   BodyPartId,
+  Calibration,
   GaitSettings,
   PoseFrame,
   Primitive,
@@ -281,6 +282,7 @@ const skeletonLines = (frame: PoseFrame): Vec2[][] => {
 export interface SceneOptions {
   readonly visibleParts?: readonly BodyPartId[];
   readonly dimHidden?: boolean;
+  readonly calibration?: Calibration;
 }
 
 export const buildScene = (
@@ -288,7 +290,7 @@ export const buildScene = (
   phase: number,
   options: SceneOptions = {},
 ): RenderScene => {
-  const frame = solvePose(settings, phase);
+  const frame = solvePose(settings, phase, { calibration: options.calibration });
   const persona = PERSONA_BY_ID[settings.persona];
   const palette = PALETTE_BY_ID[settings.palette];
   const rig = rigFor(settings);

@@ -27,12 +27,12 @@ Node 20.19+ (developed on 22). No server, no database, no accounts.
 | Area | What it does |
 | --- | --- |
 | **Motion studio** | Live articulated runner, reference-frame comparison, playback with phase scrub and eight phase buttons, persona / colourway / motion switching that preserves phase, four gait sliders, skeleton / ground / onion-skin overlays |
-| **Rig inspector** | Isolate any of the 17 parts, listed in painter order (far chain first) |
+| **Rig inspector** | Isolate any of the 17 parts in painter order, and nudge the pelvis, shoulder socket or head with six clamped offset sliders |
 | **Source diagnostics** | The measured verdict on the original sheet: duplicate pose pairs, stance-side lock, foot separation, scale and baseline jitter |
 | **Asset library** | All 48 extracted reference frames, six colourways, with a lightbox |
 | **Vector output** | All 48 frames traced to pure SVG paths (median-cut palette, marching squares, RDP), each with its measured mask IoU and a download link |
 | **Parity ledger** | 23-capability union across five implementations, with the observed tip of each branch and an explicit acceptance note per row |
-| **Exports** | A transparent 8-cell sprite sheet and a 16-phase × 3-panel audit sheet, both painted by the same scene the stage uses |
+| **Exports** | A transparent 8-cell sprite sheet, a 16-phase × 3-panel audit sheet and a calibrated sheet + JSON pair, all painted by the same scene the stage uses |
 
 ## Artwork
 
@@ -58,9 +58,9 @@ flaw report. Re-running it reproduces the committed output byte-for-byte.
 
 ## Honest limits
 
-- **No photographic persona and no interactive joint calibration.** These are `Gap` rows in
-  `docs/N_WAY_COMPARISON.md`, each with an exit criterion. Pure-SVG output is shipped and measured
-  (mean mask IoU 0.926 against the quantised source), with its speckle artefacts documented.
+- **No photographic persona and no photo-plate joint cutter.** Those remain `Gap` rows in
+  `docs/N_WAY_COMPARISON.md`, each with an exit criterion. Pure-SVG output and interactive joint
+  calibration are shipped and measured (mean mask IoU 0.926; leg-chain invariants asserted in tests).
 - **No browser E2E suite.** This sandbox has no browser runtime; `docs/VALIDATION.md` says so
   explicitly rather than implying coverage.
 - **The Dockerfiles are statically gate-checked, not built here.**

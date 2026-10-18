@@ -19,7 +19,7 @@ project.
   its own file (`CLAUDE-testing.md`, `CLAUDE-database.md`, …) with a
   top-level `CLAUDE.md` index, so agents `grep` a focused section instead of
   loading the whole corpus. A top-level index + sectioned files is a
-  *documentation architecture*, decided on day one — retrofitting it later is
+  _documentation architecture_, decided on day one — retrofitting it later is
   churn you don't need.
 - Keep the "record every decision" and "write tests first" rules in the very
   first sections: they are the two that prevent the most rework.
@@ -63,7 +63,7 @@ authorization hole that a manual review missed, because "the happy path works."
   hides exactly the class of bug you care about (bad SQL, wrong column names,
   FK violations, JSONB round-tripping).
 - **Every route/endpoint needs BOTH a positive test AND a session-scoping
-  negative test**: a real, valid, logged-in session that is the *wrong party*
+  negative test**: a real, valid, logged-in session that is the _wrong party_
   for THIS resource (IDOR-style id substitution) must be rejected. A generic
   "no token → 401" proves auth, not authorization scoping.
 - **Add/update tests in the same change as the route** — never as a follow-up.
@@ -96,7 +96,7 @@ policy up front:
 
 - **One casing, one mapper, by the ORM — never hand-written mappers.** If you
   use an ORM with a property→column mapping (e.g. Drizzle), the ORM is the
-  *only* translation you write. Pick one casing for the TypeScript domain
+  _only_ translation you write. Pick one casing for the TypeScript domain
   (camelCase) and let the ORM map to snake_case DB columns. **Do not add a
   second, redundant mapper layer** — it is a two-sources-of-truth trap that
   every field must keep in agreement by hand.
@@ -159,27 +159,32 @@ Establish these rules before the first line of application code ships; retrofitt
 them into an existing codebase is expensive.
 
 ### Function size and extraction
+
 - **≤ 20 lines** target per function body; **50 lines hard limit**.
 - If you need a comment to explain a block, extract the block as a named function.
 - A function does one thing at one level of abstraction — no orchestration code
   mixed with implementation detail inside the same function.
 
 ### Guard clauses over nesting
+
 - Exit early with guard clauses at the top; never nest `if/if` for the happy path.
 - Maximum nesting depth: **3 levels**. Beyond 3, extract to a function.
 
 ### Parameter discipline
+
 - **≤ 3 parameters**. Beyond 3, introduce a Parameter Object (typed interface).
 - No boolean/flag parameters — split into two named functions.
 - Preserve Whole Object: pass the domain object, not extracted fields.
 
 ### Naming
+
 - Names reveal intent. Rename liberally as understanding evolves.
 - Booleans: `is`, `has`, `should`, `can` prefix.
 - Functions: verb + noun (`getUser`, `validateEmail`).
 - No abbreviations in domain code.
 
 ### Encapsulation and mutation
+
 - **Never mutate in place** — always produce a new object (`{ ...old, field: value }`).
 - Separate Query from Modifier: a function either returns a value OR has a side
   effect, never both.
@@ -192,7 +197,7 @@ Decide this before the first component ships — retrofitting it across a
 codebase costs weeks (we spent 22 extractions getting there).
 
 - **Split along the server boundary, not the "looks like state" boundary.**
-  The component owns layout/JSX, view-only state, event *wiring*, and DOM-only
+  The component owns layout/JSX, view-only state, event _wiring_, and DOM-only
   side effects. The hook owns anything calling the API layer, any computation
   over server data, any validation, and any fetching effect.
 - **The hook returns a plain object; the component destructures it.** No JSX in
@@ -215,7 +220,7 @@ domain rules per render — and most static gates never look inside the `return`
 - No `.filter()` / `.reduce()` / `.sort()` / `.find()` / `.some()` / `.every()`
   in JSX. A bare `.map()` that renders a list is fine.
 - **Compute a derivation once.** `{xs.filter(p).length === 0 ? <Empty/> :
-  xs.filter(p).map(…)}` runs the predicate twice and reads as two rules that
+xs.filter(p).map(…)}` runs the predicate twice and reads as two rules that
   happen to agree.
 - Inline handlers are wiring only — a setter, a navigation, a `.focus()`. The
   moment one needs a branch or a computation, name it above the return.
@@ -226,6 +231,7 @@ it can drift; and a cascade rule buried in an `onChange` is domain logic no test
 can reach.
 
 ### Module and directory structure
+
 - **Group by domain feature, not by type** (`routes-requests/`, `db/entities/`,
   not `controllers/`, `models/`, `services/`).
 - Files ≤ 400 LOC typical; **800 LOC hard limit**. Files above 800 must be split
@@ -237,23 +243,23 @@ can reach.
 
 ### Code smell → remedy (quick reference)
 
-| Smell | Remedy |
-|---|---|
-| Long Function (> 50 lines) | Extract Function |
-| Deep Nesting (> 3 levels) | Guard Clauses |
-| Long Parameter List (> 3) | Introduce Parameter Object |
-| Boolean parameter | Remove Flag Argument |
-| Feature Envy | Move Function |
-| Message Chain | Hide Delegate |
-| God Module (> 800 lines) | Per-domain split + barrel |
-| Mutable Data | Encapsulate Variable, Separate Query from Modifier |
-| Duplicated Code | Extract Function |
-| Logic inside JSX (`filter`/`reduce` in the `return`) | Extract to a named binding above the return, or into the hook |
-| Same derivation computed twice in one expression | Introduce Explaining Variable |
+| Smell                                                              | Remedy                                                           |
+| ------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| Long Function (> 50 lines)                                         | Extract Function                                                 |
+| Deep Nesting (> 3 levels)                                          | Guard Clauses                                                    |
+| Long Parameter List (> 3)                                          | Introduce Parameter Object                                       |
+| Boolean parameter                                                  | Remove Flag Argument                                             |
+| Feature Envy                                                       | Move Function                                                    |
+| Message Chain                                                      | Hide Delegate                                                    |
+| God Module (> 800 lines)                                           | Per-domain split + barrel                                        |
+| Mutable Data                                                       | Encapsulate Variable, Separate Query from Modifier               |
+| Duplicated Code                                                    | Extract Function                                                 |
+| Logic inside JSX (`filter`/`reduce` in the `return`)               | Extract to a named binding above the return, or into the hook    |
+| Same derivation computed twice in one expression                   | Introduce Explaining Variable                                    |
 | Fat inline `onChange`/`onClick` carrying a branch or a computation | Extract Function (or move to the hook if it touches server data) |
-| Speculative Generality | Remove (YAGNI) |
+| Speculative Generality                                             | Remove (YAGNI)                                                   |
 
-Source: Martin Fowler's *Refactoring* (2nd ed.) via
+Source: Martin Fowler's _Refactoring_ (2nd ed.) via
 [5-minutes-or-less-refactoring](https://github.com/mikaelvesavuori/5-minutes-or-less-refactoring).
 For full details, see `CLAUDE-function-design.md` in project repos that carry this template.
 
@@ -314,8 +320,7 @@ images, secrets in config, scripts that only run on one shell.
   `VIPER_APP_PORT=3001`), and configure the dev server for a forwarded host
   name behind HTTPS (the dev server's host allowlist, proxy trust).
 - `Dockerfile.cloudflared`: pin the release, run with `--no-autoupdate`, take
-  `TUNNEL_TOKEN` at runtime only, route the tunnel to the app's service on port
-  3000.
+  `TUNNEL_TOKEN` at runtime only, route the tunnel to the app's service on port 3000.
 - **Behind a proxy, trust it by address, not by hop count.** The platform's
   ingress reaches the container from a private address: believe
   `X-Forwarded-For`/`-Proto` only from loopback, link-local and private ranges.
@@ -367,22 +372,23 @@ platform's GitLab and template sources need TechPass and SEED.
   tool credentials, the framework falls back to GitLab's native scanners.
 - **Compliance levels.** `CF_LEVEL` runs from 1 to 4, default 4:
 
-  | Level | Adds                                                   |
-  | ----- | ------------------------------------------------------ |
-  | 1     | Static scans (`.pre` and `static-test` stages)         |
-  | 2     | DAST and deployment gating                             |
-  | 3     | Signing and verification                               |
-  | 4     | SLSA L1/L2 provenance and SBOMs                        |
+  | Level | Adds                                           |
+  | ----- | ---------------------------------------------- |
+  | 1     | Static scans (`.pre` and `static-test` stages) |
+  | 2     | DAST and deployment gating                     |
+  | 3     | Signing and verification                       |
+  | 4     | SLSA L1/L2 provenance and SBOMs                |
 
 - **Runners.**
 
-  | Runner                    | Tags                                             | Notes                                                                                   |
-  | ------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------- |
-  | CStack                    | none (the default)                               | Kubernetes, non-root UID 65533, 4 vCPU / 8 GB; cannot build images                      |
-  | SHIP-HATS Docker runners  | `ship_docker`, `_med`, `_large`, `_arm`           | Root but not privileged: build images with Kaniko, not Docker-in-Docker                 |
-  | GitLab-hosted (pilot)     | `linux-small-amd64`, `-medium-`, `-large-`       | Privileged, ephemeral VMs                                                               |
+  | Runner                   | Tags                                       | Notes                                                                   |
+  | ------------------------ | ------------------------------------------ | ----------------------------------------------------------------------- |
+  | CStack                   | none (the default)                         | Kubernetes, non-root UID 65533, 4 vCPU / 8 GB; cannot build images      |
+  | SHIP-HATS Docker runners | `ship_docker`, `_med`, `_large`, `_arm`    | Root but not privileged: build images with Kaniko, not Docker-in-Docker |
+  | GitLab-hosted (pilot)    | `linux-small-amd64`, `-medium-`, `-large-` | Privileged, ephemeral VMs                                               |
 
   Jobs cannot exceed two hours.
+
 - **Supply chain.**
   - Pull images and packages through the Nexus proxies
     (`nexus-docker.ship.gov.sg`, `nexus-docker-mcr.ship.gov.sg`,

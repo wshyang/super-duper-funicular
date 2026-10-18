@@ -16,7 +16,7 @@ Live priorities. Completed items leave this file only when their outcome is reco
 
 - Photographic persona with a matte pipeline (`Gap` → `Partial`).
 - ~~Raster→SVG colour-band vectoriser~~ — closed in T03 (`npm run vectors:build`, mean IoU 0.926).
-- Interactive joint calibration with registered PNG/JSON export (`Gap` → `Yes`).
+- ~~Interactive joint calibration with registered PNG/JSON export~~ — closed in T04 (six clamped offsets, JSON + PNG).
 
 ## 3. Later
 

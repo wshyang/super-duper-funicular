@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import type { BodyPartId, GaitSettings } from '../../shared/types.ts';
+import type { BodyPartId, Calibration, GaitSettings } from '../../shared/types.ts';
 import { buildScene } from '../../runner/scene.ts';
 import { cartoonGround, paintScene, paintSkeleton } from '../../runner/paint-canvas.ts';
 
@@ -11,6 +11,7 @@ export interface StageCanvasOptions {
   readonly showGround: boolean;
   readonly onionSkin: boolean;
   readonly visibleParts?: readonly BodyPartId[];
+  readonly calibration?: Calibration;
 }
 
 const paintGhosts = (ctx: CanvasRenderingContext2D, options: StageCanvasOptions): void => {
@@ -18,6 +19,7 @@ const paintGhosts = (ctx: CanvasRenderingContext2D, options: StageCanvasOptions)
   ghosts.forEach((offset, index) => {
     const scene = buildScene(options.settings, options.phase - offset, {
       visibleParts: options.visibleParts,
+      calibration: options.calibration,
     });
     paintScene(ctx, scene, options.scale, {
       clear: index === 0 ? false : false,
@@ -40,6 +42,7 @@ export const useStageCanvas = (
     if (options.onionSkin) paintGhosts(context, options);
     const scene = buildScene(options.settings, options.phase, {
       visibleParts: options.visibleParts,
+      calibration: options.calibration,
     });
     if (options.showGround) cartoonGround(context, scene, options.scale);
     paintScene(context, scene, options.scale, { clear: false });
@@ -53,5 +56,6 @@ export const useStageCanvas = (
     options.showGround,
     options.onionSkin,
     options.visibleParts,
+    options.calibration,
   ]);
 };

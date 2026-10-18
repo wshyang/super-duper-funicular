@@ -228,3 +228,14 @@ export interface VectorManifest {
   readonly meanMaskIou: number;
   readonly meanColourAgreement: number;
 }
+
+export interface JointOffsets {
+  readonly x: number;
+  readonly y: number;
+}
+
+export interface Calibration {
+  readonly hip: JointOffsets;
+  readonly shoulder: JointOffsets;
+  readonly head: JointOffsets;
+}

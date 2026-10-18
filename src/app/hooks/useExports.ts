@@ -1,8 +1,14 @@
 import { useCallback, useState } from 'react';
-import type { GaitSettings } from '../../shared/types.ts';
+import type { Calibration, GaitSettings } from '../../shared/types.ts';
+import {
+  calibrationFileName,
+  calibrationPayload,
+  calibratedSheetFileName,
+} from '../../shared/calibration.ts';
 import {
   auditSheetFileName,
   downloadCanvas,
+  downloadJson,
   renderAuditSheet,
   renderSpriteSheet,
   spriteSheetFileName,
@@ -13,10 +19,29 @@ export interface ExportController {
   readonly error: string | null;
   readonly exportSpriteSheet: () => void;
   readonly exportAuditSheet: () => void;
+  readonly exportCalibrationJson: () => void;
+  readonly exportCalibratedSheet: () => void;
 }
 
 /** Canvas exports are browser side effects; the component only wires the callbacks. */
-export const useExports = (settings: GaitSettings): ExportController => {
+const useCalibrationExports = (
+  settings: GaitSettings,
+  calibration: Calibration,
+  run: (task: () => void) => void,
+): { exportCalibrationJson: () => void; exportCalibratedSheet: () => void } => {
+  const exportCalibrationJson = useCallback(() => {
+    downloadJson(calibrationPayload(settings, calibration), calibrationFileName(settings));
+  }, [settings, calibration]);
+  const exportCalibratedSheet = useCallback(() => {
+    run(() => {
+      const canvas = renderSpriteSheet(settings, 2, calibration);
+      downloadCanvas(canvas, calibratedSheetFileName(settings));
+    });
+  }, [run, settings, calibration]);
+  return { exportCalibrationJson, exportCalibratedSheet };
+};
+
+export const useExports = (settings: GaitSettings, calibration: Calibration): ExportController => {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -36,17 +61,18 @@ export const useExports = (settings: GaitSettings): ExportController => {
 
   const exportSpriteSheet = useCallback(() => {
     run(() => {
-      const canvas = renderSpriteSheet(settings);
+      const canvas = renderSpriteSheet(settings, 2, calibration);
       downloadCanvas(canvas, spriteSheetFileName(settings));
     });
-  }, [run, settings]);
+  }, [run, settings, calibration]);
 
   const exportAuditSheet = useCallback(() => {
     run(() => {
-      const canvas = renderAuditSheet(settings);
+      const canvas = renderAuditSheet(settings, calibration);
       downloadCanvas(canvas, auditSheetFileName(settings));
     });
-  }, [run, settings]);
+  }, [run, settings, calibration]);
 
-  return { busy, error, exportSpriteSheet, exportAuditSheet };
+  const calibrationExports = useCalibrationExports(settings, calibration, run);
+  return { busy, error, exportSpriteSheet, exportAuditSheet, ...calibrationExports };
 };

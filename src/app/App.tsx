@@ -82,6 +82,10 @@ const InspectorTab = ({ workspace }: { workspace: WorkspaceState }): React.JSX.E
         info={info}
         selected={workspace.selectedPart}
         onSelect={workspace.selectPart}
+        calibration={workspace.calibration}
+        busy={workspace.exports.busy}
+        onExportJson={workspace.exports.exportCalibrationJson}
+        onExportSheet={workspace.exports.exportCalibratedSheet}
       />
     </main>
   );

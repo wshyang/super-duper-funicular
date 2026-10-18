@@ -1,4 +1,4 @@
-import type { GaitSettings } from '../../shared/types.ts';
+import type { Calibration, GaitSettings } from '../../shared/types.ts';
 import { CANVAS } from '../../shared/constants.ts';
 import { buildScene } from '../../runner/scene.ts';
 import { cartoonGround, paintScene, paintSkeleton } from '../../runner/paint-canvas.ts';
@@ -42,14 +42,18 @@ export const auditSheetFileName = (settings: GaitSettings): string =>
   `funicular-${settings.persona}-${settings.motion}-${settings.palette}-16phase-audit.png`;
 
 /** Eight transparent cells, painted by the same scene painter as the live stage. */
-export const renderSpriteSheet = (settings: GaitSettings, scale = 2): HTMLCanvasElement => {
+export const renderSpriteSheet = (
+  settings: GaitSettings,
+  scale = 2,
+  calibration?: Calibration,
+): HTMLCanvasElement => {
   const cellWidth = CANVAS.width * scale;
   const cellHeight = CANVAS.height * scale;
   const canvas = createCanvas(cellWidth * 8, cellHeight);
   const context = canvas.getContext('2d');
   if (!context) return canvas;
   for (let index = 0; index < 8; index += 1) {
-    const scene = buildScene(settings, index / 8);
+    const scene = buildScene(settings, index / 8, { calibration });
     context.save();
     context.translate(index * cellWidth, 0);
     paintScene(context, scene, scale);
@@ -62,7 +66,10 @@ const ROW_BACKGROUNDS = ['#f4f4f5', '#101318', '#101318'] as const;
 const ROW_LABELS = ['Floor light', 'Floor dark', 'Joint overlay'] as const;
 
 /** 16 phases × light/dark/skeleton panels, exactly the audit format used by peers. */
-export const renderAuditSheet = (settings: GaitSettings): HTMLCanvasElement => {
+export const renderAuditSheet = (
+  settings: GaitSettings,
+  calibration?: Calibration,
+): HTMLCanvasElement => {
   const { columns, rows, panelWidth, panelHeight, footer } = AUDIT_LAYOUT;
   const canvas = createCanvas(columns * panelWidth, rows * (panelHeight + footer));
   const context = canvas.getContext('2d');
@@ -73,7 +80,7 @@ export const renderAuditSheet = (settings: GaitSettings): HTMLCanvasElement => {
       const phase = column / columns;
       context.fillStyle = ROW_BACKGROUNDS[row] ?? '#101318';
       context.fillRect(origin.x, origin.y, panelWidth, panelHeight + footer);
-      const scene = buildScene(settings, phase);
+      const scene = buildScene(settings, phase, { calibration });
       context.save();
       context.translate(origin.x, origin.y);
       if (row === 0) cartoonGround(context, scene, 1);
@@ -102,4 +109,14 @@ export const downloadCanvas = (canvas: HTMLCanvasElement, filename: string): voi
     anchor.click();
     URL.revokeObjectURL(url);
   }, 'image/png');
+};
+
+export const downloadJson = (payload: unknown, filename: string): void => {
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  anchor.click();
+  URL.revokeObjectURL(url);
 };

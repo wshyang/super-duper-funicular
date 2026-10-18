@@ -115,3 +115,41 @@ describe('pose solver', () => {
     expect(Math.abs(pose.headAngleRad)).toBeLessThan(Math.abs(pose.torsoAngleRad));
   });
 });
+
+describe('joint calibration', () => {
+  const settings = settingsFor('run');
+  const calibration = {
+    hip: { x: 6, y: -4 },
+    shoulder: { x: 3, y: 2 },
+    head: { x: -2, y: 3 },
+  };
+
+  it('moves the pelvis, shoulder and head by the requested offsets', () => {
+    const base = solvePose(settings, 0.3);
+    const moved = solvePose(settings, 0.3, { calibration });
+    expect(moved.pose.hip.x - base.pose.hip.x).toBeCloseTo(6, 6);
+    expect(moved.pose.hip.y - base.pose.hip.y).toBeCloseTo(-4, 6);
+    expect(moved.pose.shoulder.x - base.pose.shoulder.x).toBeCloseTo(9, 6);
+    expect(moved.pose.shoulder.y - base.pose.shoulder.y).toBeCloseTo(-2, 6);
+    expect(moved.pose.headCenter.x - base.pose.headCenter.x).toBeCloseTo(4, 6);
+    expect(moved.pose.headCenter.y - base.pose.headCenter.y).toBeCloseTo(-1, 6);
+  });
+
+  it('keeps leg roots and feet planted while the pelvis moves', () => {
+    const base = solvePose(settings, 0.3);
+    const moved = solvePose(settings, 0.3, { calibration });
+    for (const leg of ['nearLeg', 'farLeg'] as const) {
+      expect(moved.pose[leg].hip).toEqual(base.pose[leg].hip);
+      expect(moved.pose[leg].knee).toEqual(base.pose[leg].knee);
+      expect(moved.pose[leg].ankle).toEqual(base.pose[leg].ankle);
+    }
+  });
+
+  it('is a no-op at the default offsets', () => {
+    const base = solvePose(settings, 0.42);
+    const same = solvePose(settings, 0.42, {
+      calibration: { hip: { x: 0, y: 0 }, shoulder: { x: 0, y: 0 }, head: { x: 0, y: 0 } },
+    });
+    expect(same).toEqual(base);
+  });
+});

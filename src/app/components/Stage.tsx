@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import type { BodyPartId, GaitSettings } from '../../shared/types.ts';
+import type { BodyPartId, Calibration, GaitSettings } from '../../shared/types.ts';
 import { CANVAS } from '../../shared/constants.ts';
 import { useStageCanvas } from '../hooks/useStageCanvas.ts';
 import type { PoseInfo } from '../hooks/usePoseInfo.ts';
@@ -15,6 +15,7 @@ export interface StageProps {
   readonly referenceLabel: string;
   readonly info: PoseInfo;
   readonly visibleParts?: readonly BodyPartId[];
+  readonly calibration?: Calibration;
   readonly isolatedLabel?: string;
 }
 
@@ -79,6 +80,7 @@ export const Stage = (props: StageProps): React.JSX.Element => {
     showGround: props.showGround,
     onionSkin: props.onionSkin,
     visibleParts: props.visibleParts,
+    calibration: props.calibration,
   });
   const support = supportFor(props.info);
   const partLabel = props.isolatedLabel ?? `${String(props.info.partCount)} parts`;
