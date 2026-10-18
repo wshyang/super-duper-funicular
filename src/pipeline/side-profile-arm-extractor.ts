@@ -203,3 +203,44 @@ export function cleanTorsoNeckStubAndSocket(src: RasterImage): RasterImage {
   }
   return out;
 }
+
+export function fillInteriorHandPinholes(img: RasterImage): RasterImage {
+  const out = createRaster(img.width, img.height);
+  out.data.set(img.data);
+  for (let pass = 0; pass < 3; pass++) {
+    for (let y = 38; y < img.height - 2; y++) {
+      for (let x = 45; x < img.width - 2; x++) {
+        if (readPixel(out, x, y).a > 32) continue;
+        let count = 0;
+        let sr = 0;
+        let sg = 0;
+        let sb = 0;
+        for (let dy = -1; dy <= 1; dy++) {
+          for (let dx = -1; dx <= 1; dx++) {
+            const p = readPixel(out, x + dx, y + dy);
+            if (p.a > 128) {
+              count++;
+              sr += p.r;
+              sg += p.g;
+              sb += p.b;
+            }
+          }
+        }
+        if (count >= 4) {
+          writePixel(
+            out,
+            { x, y },
+            {
+              r: Math.round(sr / count),
+              g: Math.round(sg / count),
+              b: Math.round(sb / count),
+              a: 255,
+            },
+          );
+        }
+      }
+    }
+  }
+  return out;
+}
+

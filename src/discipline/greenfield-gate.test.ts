@@ -106,6 +106,8 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('Call `#41`');
     expect(fdsMd).toContain('Call `#42`');
     expect(fdsMd).toContain('Call `#51`');
+    expect(fdsMd).toContain('Call `#52`');
+    expect(fdsMd).toContain('Call `#61`');
     expect(fdsMd).toContain('Regeneration Justification:');
     expect(fdsMd).toContain('#svg-vector-assessment');
     expect(fdsMd).toContain('#gait-cycle-visual-audit');
@@ -114,6 +116,7 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('TURN-L13');
     expect(fdsMd).toContain('TURN-L14');
     expect(fdsMd).toContain('TURN-L15');
+    expect(fdsMd).toContain('TURN-L16');
     expect(nWayMd).toContain('e172b0f1f8d9b640b65a4ba420f71965693adb23');
     expect(nWayMd).toContain('b227e2fe562be341f15f58955f539d325170729e');
     expect(nWayMd).toContain('43352cf3fe8cb6c486aa79a59954d5972a5e13ac');

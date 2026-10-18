@@ -148,17 +148,17 @@ function renderTorsoAndNeck(
 ): void {
   const { bank, palette, tuning } = ctx;
   const headPivot: Point2D = {
-    x: pose.neck.x + 1.5,
+    x: pose.neck.x + 2.2,
     y: pose.neck.y - 1.5,
   };
   const neckBottom: Point2D = {
-    x: pose.collar.x + 0.5,
+    x: pose.collar.x + 1.0,
     y: pose.collar.y + 3.5,
   };
   warpPhotorealSegmentToQuad(canvas, bank.neck, {
     dstStart: headPivot,
     dstEnd: neckBottom,
-    dstHalfWidthPx: Math.round(tuning.torsoWidthPx * 0.44),
+    dstHalfWidthPx: Math.round(tuning.torsoWidthPx * 0.48),
   });
   const torsoTop: Point2D = {
     x: pose.collar.x - 0.5,

@@ -258,6 +258,16 @@ Every architectural, algorithmic, or tooling decision not fixed by a single lite
 - **Related Spec Section:** `docs/FDS.md#image-prompt-log` (`Calls #42`..`#51`), `docs/FDS.md#continuous-learning-log` (`TURN-L15`)
 - **Practical Impact:** Added `src/images/photoreal-female-petite/01..10.png`, `public/sprites/photoreal/sg-chinese-female-petite/parts/*.png`, `src/images/spritesheets/runner-8frame-6color-photoreal-female-petite-sheet.png`, and updated `src/shared/types.ts`, `src/runner/body-proportions.ts`, `src/runner/skin-registry.ts`, `src/runner/photoreal-rig.ts`, `src/runner/rasterizer.ts`, `src/pipeline/photoreal-extractor.ts`, `src/pipeline/side-profile-arm-extractor.ts`, `src/pipeline/algorithmic-sheet-builder.ts`, `src/pipeline/cycle-frame-dumper.ts`, `src/pipeline/dedupe-catalog.ts`, `src/app/hooks/usePhotorealRigAssets.ts`, and `src/app/hooks/studio-view-model.ts`.
 
+## `ADD-033` — Uncropped Anterior Neck, Medial Shoulder-Stump Far Arm & Single-Shoe Far Leg Regeneration (`Calls #52`..`#61`)
+- **What was decided:**
+  1. **Anterior Neck Uncropping (`04-cervical-neck-cylinder.png`, `head.png`, `neck.png`):** Regenerate and horizontally scale (`0.78×` around `cx = 704`) `src/images/photoreal-female-petite/04-cervical-neck-cylinder.png` (`Call #52`) with zero right-edge clipping so the entire front throat contour and submental under-chin curve are 100% uncropped; widen `extractHeadCutout` (`pivot: { x: 73, y: 122 }, radiusX: 42`) and align `headPivot.x = pose.neck.x + 2.2` (`dstHalfWidthPx = Math.round(tuning.torsoWidthPx * 0.48)`) in `src/runner/photoreal-rig.ts`.
+  2. **Medial Shoulder-Stump Far Arm (`08-far-left-arm-medial-inside-palm.png`, `farUpperArm.png`, `farHand.png`):** Regenerate `src/images/photoreal-female-petite/08-far-left-arm-medial-inside-palm.png` (`Calls #53`, `#57`) and update `photoreal-female/08` and `photoreal-female-average/08` so the top of the far upper arm depicts a smooth oval shoulder attachment stump to the body and inner armpit crease (matching the torso shoulder stump on `05-torso-racerback-singlet.png`) rather than an outside elbow; extract `farHand` using `extractSimilarityAlignedPart` + `fillInteriorHandPinholes` to preserve the volar palm and thumb without column-span step distortion.
+  3. **Single-Shoe Far Leg (`10-far-left-leg-medial-inside-shoe.png`, `farFoot.png`):** Regenerate `src/images/photoreal-female-petite/10-far-left-leg-medial-inside-shoe.png` (`Call #54`) and `src/images/photoreal-female-average/10-far-left-leg-medial-inside-shoe.png` (`Call #55`) using `photoreal-female/10` as a single-shoe reference, eliminating the overlapping second foot/shoe behind and above the toe box.
+- **Why:** Directly resolves user visual review findings on the neck front crop, far-arm shoulder/armpit stump, and far-leg overlapping second shoe.
+- **Related Spec Section:** `docs/FDS.md#image-prompt-log` (`Calls #52`..`#61`), `docs/FDS.md#continuous-learning-log` (`TURN-L16`)
+- **Practical Impact:** Updated `src/images/photoreal-female-petite/{04,08,10}.png`, `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png`, `src/images/photoreal-female-average/{08,10}.png`, `src/pipeline/photoreal-extractor.ts`, `src/pipeline/side-profile-arm-extractor.ts`, and `src/runner/photoreal-rig.ts`.
+
+
 
 
 

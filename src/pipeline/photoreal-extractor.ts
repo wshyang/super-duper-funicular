@@ -28,6 +28,7 @@ import {
   cleanAverageTorsoNeckStub,
   cleanTorsoNeckStubAndSocket,
   extractArmSegmentsFromMasterSideProfile,
+  fillInteriorHandPinholes,
   normalizeFingertipMagentaShadow,
 } from './side-profile-arm-extractor.js';
 
@@ -288,8 +289,8 @@ function extractHeadCutout(src: RasterImage): RasterImage {
     shadeScale: 1.0,
   });
   return applyPivotArcRoundedCut(raw, {
-    pivot: { x: 66, y: 121 },
-    radiusX: 35,
+    pivot: { x: 73, y: 122 },
+    radiusX: 42,
     radiusY: 11,
     cutSide: 'below',
     featherPx: 2.5,
@@ -315,17 +316,17 @@ function extractNeckCutout(
   const isAvg = tier === 'average';
   const isPetite = tier === 'petite';
   const raw = cutArticulatedLimbWithRoundedEnds(purged, {
-    srcTopY: isAvg ? 235 : isPetite ? 270 : 340,
-    srcBotY: isAvg ? 585 : isPetite ? 535 : 540,
-    dstRadiusTopPx: isAvg ? 35 : isPetite ? 23 : 28,
-    dstRadiusBotPx: isAvg ? 39 : isPetite ? 25 : 31,
+    srcTopY: isAvg ? 290 : isPetite ? 310 : 340,
+    srcBotY: isAvg ? 585 : isPetite ? 545 : 540,
+    dstRadiusTopPx: isAvg ? 35 : isPetite ? 24 : 28,
+    dstRadiusBotPx: isAvg ? 39 : isPetite ? 26 : 31,
     roundTopEnd: true,
     roundBotEnd: true,
     shadeScale: 0.98,
   });
   return fillHollowJointBallByJacobiRelaxation(raw, {
     pivot: { x: 80, y: 36 },
-    radiusPx: isAvg ? 33 : isPetite ? 21 : 26,
+    radiusPx: isAvg ? 33 : isPetite ? 22 : 26,
   });
 }
 
@@ -491,9 +492,9 @@ function extractFarArmParts(
   return {
     farUpperArm: purgeSkinPartFabricSpill(
       cutArticulatedLimbWithRoundedEnds(cleanFar, {
-        srcTopY: isPetite ? 120 : 130,
-        srcBotY: 485,
-        srcMaxX: isAvg ? 580 : isPetite ? 500 : 510,
+        srcTopY: isPetite ? 175 : 155,
+        srcBotY: isPetite ? 560 : 485,
+        srcMaxX: isAvg ? 580 : isPetite ? 490 : 510,
         dstRadiusTopPx: rUpTop,
         dstRadiusBotPx: rUpBot,
         roundTopEnd: true,
@@ -503,25 +504,44 @@ function extractFarArmParts(
     ).cleaned,
     farForearm: purgeSkinPartFabricSpill(
       cutHorizontalLimbWithRoundedEnds(cleanFar, {
-        srcLeftX: isAvg ? 565 : isPetite ? 515 : 550,
-        srcRightX: isAvg ? 1020 : isPetite ? 852 : 910,
+        srcLeftX: isAvg ? 565 : isPetite ? 530 : 550,
+        srcRightX: isAvg ? 1020 : isPetite ? 895 : 910,
         srcMinY: 485,
         dstRadiusTopPx: rForeTop,
         dstRadiusBotPx: rForeBot,
         shadeScale: 1.05,
       }),
     ).cleaned,
-    farHand: purgeSkinPartFabricSpill(
-      cutHorizontalLimbWithRoundedEnds(cleanFar, {
-        srcLeftX: isAvg ? 1010 : isPetite ? 842 : 895,
-        srcRightX: isAvg ? 1245 : isPetite ? 1092 : 1135,
-        srcMinY: 455,
-        dstRadiusTopPx: isPetite ? 13 : 15,
-        dstRadiusBotPx: isPetite ? 16 : 19,
-        shadeScale: 1.05,
-      }),
-    ).cleaned,
+    farHand: extractFarHandCutout(cleanFar, tier),
   };
+}
+
+function extractFarHandCutout(
+  cleanFar: RasterImage,
+  tier: PersonaBuildTier,
+): RasterImage {
+  const isAvg = tier === 'average';
+  const isPetite = tier === 'petite';
+  const rawFarHand = extractSimilarityAlignedPart(cleanFar, {
+    srcStart: isAvg ? { x: 1015, y: 560 } : isPetite ? { x: 890, y: 575 } : { x: 895, y: 550 },
+    srcEnd: isAvg ? { x: 1235, y: 560 } : isPetite ? { x: 1125, y: 565 } : { x: 1125, y: 550 },
+    dstStart: { x: 80, y: 36 },
+    dstEnd: { x: 80, y: 124 },
+    cropBox: isAvg
+      ? { minX: 1000, minY: 430, maxX: 1255, maxY: 675 }
+      : isPetite
+        ? { minX: 880, minY: 465, maxX: 1148, maxY: 655 }
+        : { minX: 885, minY: 435, maxX: 1145, maxY: 660 },
+    shadeScale: 1.05,
+  });
+  const rounded = applyPivotArcRoundedCut(rawFarHand, {
+    pivot: { x: 80, y: 36 },
+    radiusX: isPetite ? 16 : 19,
+    radiusY: isPetite ? 14 : 16,
+    cutSide: 'above',
+    featherPx: 2.5,
+  });
+  return fillInteriorHandPinholes(purgeSkinPartFabricSpill(rounded).cleaned);
 }
 
 function softenProximalShoulderCap(img: RasterImage): RasterImage {
@@ -621,11 +641,13 @@ function extractLegCutouts(
     }),
     farShin: cutLimbBothEnds(farLeg, isPetite ? 375 : 385, isPetite ? 620 : 622, rShinTop, rShinBot, 0.88),
     farFoot: extractFootWithRoundedAnkleCut(farLeg, {
-      srcStart: isPetite ? { x: 632, y: 710 } : { x: 632, y: 690 },
-      srcEnd: isPetite ? { x: 848, y: 724 } : { x: 846, y: 706 },
+      srcStart: isPetite ? { x: 632, y: 710 } : isAvg ? { x: 625, y: 702 } : { x: 632, y: 690 },
+      srcEnd: isPetite ? { x: 848, y: 724 } : isAvg ? { x: 848, y: 716 } : { x: 846, y: 706 },
       cropBox: isPetite
         ? { minX: 612, minY: 615, maxX: 865, maxY: 736 }
-        : { minX: 626, minY: 595, maxX: 856, maxY: 718 },
+        : isAvg
+          ? { minX: 595, minY: 605, maxX: 865, maxY: 734 }
+          : { minX: 626, minY: 595, maxX: 856, maxY: 718 },
       anklePivot: { x: 60, y: 80 }, shadeScale: 0.88,
     }),
   };
