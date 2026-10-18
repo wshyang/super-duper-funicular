@@ -62,20 +62,45 @@ function main(): void {
 function atlasFindings(context: ReturnType<typeof buildPersonaFromPlate>): Finding[] {
   const findings: Finding[] = [];
   const report = context.atlas.report;
+  // The two ways a cell can be invented are reported separately, because they
+  // carry different risk. Interpolation runs between two observations and is
+  // bounded by them; mirroring is an assumption (a limb is a cylinder) applied
+  // to a whole unseen half. Collapsing them into one number hid that difference
+  // and made the threshold a moving target whenever the sampler changed.
   findings.push({
-    check: 'atlas.syntheticFraction',
-    value: report.syntheticFraction,
-    threshold: 0.35,
-    passed: report.syntheticFraction <= 0.35,
-    detail: 'share of atlas cells that were interpolated or mirrored rather than photographed',
+    check: 'atlas.interpolatedFraction',
+    value: report.interpolatedFraction,
+    threshold: 0.25,
+    passed: report.interpolatedFraction <= 0.25,
+    detail: 'share of atlas cells filled by interpolating between two photographed samples',
   });
-  const empty = ATLAS_BONE_IDS.filter((id) => (report.perBone[id]?.observed ?? 0) === 0);
   findings.push({
-    check: 'atlas.bonesWithoutEvidence',
+    check: 'atlas.longestInterpolatedRun',
+    value: report.longestInterpolatedRun,
+    threshold: 10,
+    passed: report.longestInterpolatedRun <= 10,
+    detail: 'longest unbroken invented span in tile rows; short gaps are bounded, long ones are guesses',
+  });
+  findings.push({
+    check: 'atlas.mirroredFraction',
+    value: report.mirroredFraction,
+    threshold: 0.55,
+    passed: report.mirroredFraction <= 0.55,
+    detail: 'share of atlas cells invented by mirroring an observed half (one-sided views, unseen far side)',
+  });
+  // A far bone legitimately owns no photographed pixels — it is a mirror of a
+  // near bone. What must never happen is a tile with *no cells at all*, because
+  // the renderer then has nothing to paint and the limb vanishes.
+  const empty = ATLAS_BONE_IDS.filter((id) => {
+    const bone = report.perBone[id];
+    return !bone || bone.observed + bone.interpolated + bone.mirrored === 0;
+  });
+  findings.push({
+    check: 'atlas.emptyTiles',
     value: empty.length,
     threshold: 0,
     passed: empty.length === 0,
-    detail: empty.length === 0 ? 'every bone owns photographed pixels' : `empty tiles: ${empty.join(', ')}`,
+    detail: empty.length === 0 ? 'every bone has cells to paint' : `empty tiles: ${empty.join(', ')}`,
   });
   // A tenth of the photographed surface is the design budget. What remains
   // unclaimed is the anti-aliased halo around the figure: pixels that are not

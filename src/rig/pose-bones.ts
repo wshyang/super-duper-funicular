@@ -58,6 +58,7 @@ export function poseBones(pose: PoseFrame): Bone[] {
       halfWidthDistal: 4.4,
       priority: 2,
       paintOrder: PAINT_ORDER.nearFoot,
+      jointFill: pose.nearFoot.ankle,
     },
     {
       id: 'farFoot',
@@ -68,6 +69,7 @@ export function poseBones(pose: PoseFrame): Bone[] {
       halfWidthDistal: 4,
       priority: 1,
       paintOrder: PAINT_ORDER.farFoot,
+      jointFill: pose.farFoot.ankle,
     },
   ];
 }

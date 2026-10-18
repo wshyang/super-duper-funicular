@@ -69,14 +69,29 @@ stage only sees what the previous stage did not take:
 
 Synthesis happens strictly after all three.
 
-**Invariant A3 (counted synthesis).** Every cell that is not `observed` is either
-left transparent or filled by `interpolateGap`, which requires an observation on
-*both* sides of the hole. There is no extrapolation past the last observation.
-`report.syntheticFraction` counts what was filled, including the mirrored far
-side.
+**Invariant A3 (counted synthesis, by kind).** Every cell that is not `observed`
+is either left transparent or filled by exactly one of two operations, each
+counted separately:
 
-**Invariant A4 (no invented fringe).** The sampler clamps `v` to `[-1, 1]`; the
-renderer never reads outside that band. The tile is therefore a closed surface.
+- `interpolateGap` requires an observation on *both* sides of the hole and
+  refuses a span wider than `MAX_INTERPOLATION_SPAN` (8 rows);
+- `mirrorAcrossAxis` reflects the observed half of the column across the bone
+  axis, and only runs where interpolation declined.
+
+`report.interpolatedFraction`, `report.mirroredFraction`,
+`report.syntheticFraction` and `report.longestInterpolatedRun` describe the
+result. A whole far bone mirrored from its near counterpart is counted in
+`mirrored` too.
+
+**Invariant A4 (no invented fringe).** Only pixels inside an eroded subject mask
+(`interiorMask`, radius 3) contribute colour: the keying boundary is a blend of
+subject and backdrop and must never become texture. Edge pixels are still
+claimed, so ownership counts are unaffected.
+
+**Invariant A5 (no undefined sample).** `sampleAtlas` returns `{ r, g, b, a }`.
+It never reads an empty cell: `v` is clamped per column into that column's filled
+extent, an empty column is replaced by the nearest filled column, and `a = 0` is
+returned only when a tile has no filled column at all.
 
 ---
 
@@ -115,8 +130,10 @@ Two levels, both machine-readable.
 
 | Check | Threshold | Why |
 |---|---|---|
-| `atlas.syntheticFraction` | `≤ 0.35` | bounds invention |
-| `atlas.bonesWithoutEvidence` | `0` | a bone with no photograph is a drawing |
+| `atlas.interpolatedFraction` | `≤ 0.25` | bounds invention that has two anchors |
+| `atlas.longestInterpolatedRun` | `≤ 10` rows | bounds invention that has *distant* anchors |
+| `atlas.mirroredFraction` | `≤ 0.55` | bounds the single-view assumption, declared |
+| `atlas.emptyTiles` | `0` | a bone with nothing to paint is a hole |
 | `atlas.unassignedFraction` | `≤ 0.12` | bounds photographed surface that is lost |
 | `correspondence.silhouetteIou` | `≥ 0.35` | the rig at least resembles the plate |
 | `keying.holesInsideSubject` | `≤ 0.002` | the key must not eat the subject |
@@ -150,9 +167,10 @@ threshold edited to make a build pass is a lie with a decimal point.
 }
 ```
 
-`atlas-report.json` — per bone: observed cells, synthetic cells, measured
-half-width. Plus `subjectPixels`, `unassignedSubjectPixels`,
-`syntheticFraction`.
+`atlas-report.json` — per bone: observed / interpolated / mirrored cells and the
+measured half-width. Plus `subjectPixels`, `unassignedSubjectPixels`,
+`syntheticFraction`, `interpolatedFraction`, `mirroredFraction` and
+`longestInterpolatedRun`.
 
 `manifest.json` — written **after** every frame it names. Contains the phase
 list, pivots, foot anchors, gates, and the atlas report.

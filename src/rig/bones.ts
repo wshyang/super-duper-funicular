@@ -43,6 +43,16 @@ export interface Bone {
    * the face, torso behind the arm), not of a photograph.
    */
   readonly paintOrder: number;
+  /**
+   * A joint this bone must physically reach even though it is not one of its two
+   * endpoints. The foot is the case that needs it: its capsule runs heel → toe
+   * along the sole, which sits `ankleHeight` below the ankle, while the shin ends
+   * *at* the ankle. During toe-off the pitch opens a one-pixel gap and the shoe
+   * detaches from the leg. Filling to the ankle closes it with the bone's own
+   * texture; ownership and atlas addressing are unaffected, so no metric moves
+   * except the one that should.
+   */
+  readonly jointFill?: Point2D;
 }
 
 export const ATLAS_BONE_IDS: readonly BoneId[] = [
@@ -139,10 +149,16 @@ export function restBones(rig: RigSpec = DEFAULT_RIG): Bone[] {
     bone('farHand', 'back', { x: x - 5, y: wrist }, { x: x - 5, y: handTip }, 4.6, 3.6, 1, 5),
     bone('nearThigh', 'front', { x: x + 2, y: hip }, { x: x + 2, y: knee }, rig.limbRadius.thigh + 1, rig.limbRadius.thigh * 0.86, 2, 6),
     bone('nearShin', 'front', { x: x + 2, y: knee }, { x: x + 2, y: ankle }, rig.limbRadius.shin + 1, rig.limbRadius.shin * 0.66, 2, 7),
-    bone('nearFoot', 'front', { x: x - 9, y: ankle + 4 }, { x: x + 21, y: ankle + 4 }, 6, 5, 2, 8),
+    {
+      ...bone('nearFoot', 'front', { x: x - 9, y: ankle + 4 }, { x: x + 21, y: ankle + 4 }, 6, 5, 2, 8),
+      jointFill: { x, y: ankle },
+    },
     bone('farThigh', 'back', { x: x - 4, y: hip }, { x: x - 4, y: knee }, rig.limbRadius.thigh, rig.limbRadius.thigh * 0.86, 1, 3),
     bone('farShin', 'back', { x: x - 4, y: knee }, { x: x - 4, y: ankle }, rig.limbRadius.shin, rig.limbRadius.shin * 0.66, 1, 4),
-    bone('farFoot', 'back', { x: x - 12, y: ankle + 4 }, { x: x + 18, y: ankle + 4 }, 5.6, 4.6, 1, 5),
+    {
+      ...bone('farFoot', 'back', { x: x - 12, y: ankle + 4 }, { x: x + 18, y: ankle + 4 }, 5.6, 4.6, 1, 5),
+      jointFill: { x: x - 4, y: ankle },
+    },
   ];
 }
 
@@ -174,6 +190,7 @@ export function transformBones(bones: readonly Bone[], scale: number, origin: Po
     ...source,
     proximal: map(source.proximal),
     distal: map(source.distal),
+    ...(source.jointFill ? { jointFill: map(source.jointFill) } : {}),
     halfWidthProximal: source.halfWidthProximal * scale,
     halfWidthDistal: source.halfWidthDistal * scale,
   }));

@@ -1,12 +1,12 @@
 import type { PoseFrame, RasterImage } from '../core/types.js';
+import type { Palette } from '../profile/palette.js';
 import { buildAtlas, type Atlas } from '../atlas/unwrap.js';
 import { BONE_LAYER, type Bone, type BoneId } from '../rig/bones.js';
 import { poseBones } from '../rig/pose-bones.js';
 import { DEFAULT_RIG } from '../rig/spec.js';
 import {
-  detectKeyColour,
-  keyMaster,
   measureMaster,
+  measurePlate,
   type KeyedMaster,
   type MasterProfile,
   type Rgb,
@@ -42,6 +42,8 @@ export interface PersonaContext {
   readonly profile: MasterProfile;
   readonly atlas: Atlas;
   readonly key: Rgb;
+  /** The five measured material colours this plate is classified against. */
+  readonly palette: Palette;
   /** master pixels per sprite pixel. */
   readonly masterScale: number;
   readonly masterOrigin: { readonly x: number; readonly y: number };
@@ -61,18 +63,18 @@ export interface PersonaContext {
  * they are measured, printed to `persona.json`, and never hand-edited.
  */
 export function buildPersonaFromPlate(id: string, plate: RasterImage): PersonaContext {
-  const key = detectKeyColour(plate);
-  const keyed = keyMaster(plate, key);
+  const { key, keyed, palette } = measurePlate(plate);
   const profile = measureMaster(keyed);
   const rest0 = poseBones(solveStandingPose());
   const fit = measureCorrespondence(plate, key, keyed, profile, rest0);
   const masterBones = trustBoneWidths(plate, key, applyCorrespondence(rest0, fit));
-  const atlas = buildAtlas(plate, key, masterBones);
+  const atlas = buildAtlas(plate, key, masterBones, palette);
   return {
     id,
     profile,
     atlas,
     key,
+    palette,
     fit,
     masterScale: fit.scale,
     masterOrigin: { x: fit.originX, y: fit.originY },

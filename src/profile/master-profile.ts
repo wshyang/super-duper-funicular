@@ -1,5 +1,6 @@
 import { pixelIndex } from '../core/raster.js';
 import { isChromaPixel } from '../analysis/chroma.js';
+import { classifyByPalette, measurePalette, type Palette } from './palette.js';
 
 export { isChromaPixel };
 import type { RasterImage } from '../core/types.js';
@@ -61,6 +62,7 @@ export interface RowRegions {
 }
 
 export interface KeyedMaster {
+  readonly palette: Palette | null;
   readonly image: RasterImage;
   readonly key: Rgb;
   readonly rows: readonly RowSpan[];
@@ -90,25 +92,28 @@ export function detectKeyColour(image: RasterImage): Rgb {
 }
 
 /**
- * Material classification. Warm skin is separated from crimson fabric by the
- * green channel (fabric dye absorbs green), and from dark shorts and hair by
- * luminance. These tests are intentionally loose: they are used for band
- * statistics, not for matting.
+ * Material classification, nearest measured palette colour.
+ *
+ * The previous version encoded one photograph's colour scheme: "fabric is red,
+ * skin is warm, shorts are dark". Those rules are not a classifier, they are a
+ * description of the first persona, and they collapsed on the second one. The
+ * palette is measured per plate (see `palette.ts`) and this function is now a
+ * five-point nearest-neighbour lookup, which is colour-agnostic by construction.
  */
-export function classifyPixel(r: number, g: number, b: number, key: Rgb): RegionId {
+export function classifyPixel(
+  r: number,
+  g: number,
+  b: number,
+  key: Rgb,
+  palette: Palette,
+  y?: number,
+): RegionId {
   if (isChromaPixel(r, g, b, key)) return 'key';
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  if (max < 78) return 'hair';
-  if (min > 168 && max - min < 26) return 'white';
-  if (r > 95 && g > 78 && b > 45 && r > g + 18 && g > b + 6) return 'skin';
-  if (r > 70 && r - g > 40 && r - b > 25 && g < 95) return 'fabric';
-  if (max < 110 && max - min < 45) return 'dark';
-  return 'other';
+  return classifyByPalette(r, g, b, palette, y);
 }
 
 /** Keys the backdrop and returns both per-row silhouette spans and region counts. */
-export function keyMaster(image: RasterImage, key: Rgb): KeyedMaster {
+export function keyMaster(image: RasterImage, key: Rgb, palette: Palette | null): KeyedMaster {
   const rows: RowSpan[] = [];
   const regions: RowRegions[] = [];
   let topY = image.height;
@@ -124,9 +129,14 @@ export function keyMaster(image: RasterImage, key: Rgb): KeyedMaster {
       const r = image.data[i] ?? 0;
       const g = image.data[i + 1] ?? 0;
       const b = image.data[i + 2] ?? 0;
-      const region = classifyPixel(r, g, b, key);
+      // The backdrop test must run even when there is no palette yet — the
+      // bounds pass exists precisely to *find* the bounds the palette is
+      // sampled from, and without this line every pixel counts as subject and
+      // the five sample bands land in the wrong place.
+      const backdrop = isChromaPixel(r, g, b, key);
+      const region: RegionId = backdrop ? 'key' : palette ? classifyByPalette(r, g, b, palette, y) : 'other';
       counts[region]++;
-      if (region === 'key') continue;
+      if (backdrop) continue;
       if (x < rowMin) rowMin = x;
       if (x > rowMax) rowMax = x;
     }
@@ -138,7 +148,27 @@ export function keyMaster(image: RasterImage, key: Rgb): KeyedMaster {
     minX = Math.min(minX, rowMin);
     maxX = Math.max(maxX, rowMax);
   }
-  return { image, key, rows, regions, topY, soleY, minX, maxX };
+  return { palette, image, key, rows, regions, topY, soleY, minX, maxX };
+}
+
+/**
+ * Two-pass plate measurement: bounds first, palette second, region statistics
+ * third. The bounds pass needs no material knowledge — only "is this pixel
+ * backdrop" — so the palette can be sampled before anything is classified, which
+ * is what removes the need for any per-persona colour rule.
+ */
+export function measurePlate(image: RasterImage): { key: Rgb; keyed: KeyedMaster; palette: Palette } {
+  const key = detectKeyColour(image);
+  const bounds = keyMaster(image, key, null);
+  const palette = measurePalette({
+    master: image,
+    key,
+    topY: bounds.topY,
+    soleY: bounds.soleY,
+    minX: bounds.minX,
+    maxX: bounds.maxX,
+  });
+  return { key, keyed: keyMaster(image, key, palette), palette };
 }
 
 export function widthAt(rows: readonly RowSpan[], y: number): number {
@@ -277,7 +307,7 @@ function skinColumnCentre(keyed: KeyedMaster, y: number): number | null {
     const r = keyed.image.data[i] ?? 0;
     const g = keyed.image.data[i + 1] ?? 0;
     const b = keyed.image.data[i + 2] ?? 0;
-    if (classifyPixel(r, g, b, keyed.key) !== 'skin') continue;
+    if (!keyed.palette || classifyPixel(r, g, b, keyed.key, keyed.palette) !== 'skin') continue;
     sum += x;
     count++;
   }
@@ -309,7 +339,7 @@ function medianRegionColour(
       const r = keyed.image.data[i] ?? 0;
       const g = keyed.image.data[i + 1] ?? 0;
       const b = keyed.image.data[i + 2] ?? 0;
-      if (classifyPixel(r, g, b, keyed.key) !== region) continue;
+      if (!keyed.palette || classifyPixel(r, g, b, keyed.key, keyed.palette) !== region) continue;
       reds.push(r);
       greens.push(g);
       blues.push(b);

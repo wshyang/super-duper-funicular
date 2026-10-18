@@ -2,10 +2,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { readPngFile, writePngFile } from '../src/core/png.js';
 import { cloneRaster, writePixel } from '../src/core/raster.js';
-import { detectKeyColour, keyMaster, measureMaster, type MasterProfile } from '../src/profile/master-profile.js';
+import { measureMaster, measurePlate, type MasterProfile } from '../src/profile/master-profile.js';
+import { describePalette } from '../src/profile/palette.js';
 
-const MASTER_PATH = process.argv[2] ?? 'assets/personas/athletic/01-master-lateral.png';
-const OUT_DIR = process.argv[3] ?? 'out/profile/athletic';
+// Accept either a persona id (`npm run profile -- jiamin`) or explicit paths,
+// because the id form is the one the other two scripts already use.
+const FIRST = process.argv[2] ?? 'athletic';
+const IS_ID = !FIRST.includes('/');
+const PERSONA_ID = IS_ID ? FIRST : 'custom';
+const MASTER_PATH = IS_ID ? `assets/personas/${FIRST}/01-master-lateral.png` : FIRST;
+const OUT_DIR = process.argv[3] ?? `out/profile/${PERSONA_ID}`;
 
 const LANDMARK_COLOURS: Record<string, { r: number; g: number; b: number }> = {
   headTop: { r: 0, g: 200, b: 255 },
@@ -33,11 +39,11 @@ function paintLandmarks(image: ReturnType<typeof readPngFile>, profile: MasterPr
 
 function main(): void {
   const master = readPngFile(MASTER_PATH);
-  const key = detectKeyColour(master);
-  const keyed = keyMaster(master, key);
+  const { keyed, palette } = measurePlate(master);
   const profile = measureMaster(keyed);
   writePngFile(path.join(OUT_DIR, 'profile-overlay.png'), paintLandmarks(master, profile));
   const derived = {
+    paletteDescription: describePalette(palette),
     note: 'Knee is placed at the midpoint of the measured hip and ankle anchors; the silhouette alone cannot locate a joint centre.',
     knee: profile.landmarks.knee,
   };

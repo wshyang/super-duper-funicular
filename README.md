@@ -23,6 +23,13 @@ npm ci
 npm run validate        # typecheck → 18 tests → profile → 16 frames → audit
 ```
 
+Two personas ship with the repository, and both pass every gate:
+
+```bash
+npm run plates -- jiamin     # a second, deliberately out-of-distribution persona
+npm run audit  -- jiamin
+```
+
 Individual stages:
 
 | Command | Produces |
@@ -31,6 +38,7 @@ Individual stages:
 | `npm run plates` | `out/frames/athletic/{frames,control,manifest.json,standing.png}` |
 | `npm run audit` | `out/audit/athletic/audit-report.{json,txt}` |
 | `npx tsx scripts/dump-atlas.ts` | `out/atlas/athletic/atlas-sheet.png` — every tile, synthetic cells tinted |
+| `node sheet.cjs out/frames/<id>/frames sheet.png` | a 4 × 4 contact sheet of a cycle |
 
 Add a persona by dropping a PNG at
 `assets/personas/<id>/01-master-lateral.png` and running
@@ -64,9 +72,10 @@ Add a persona by dropping a PNG at
 | Image generations | 72 for 30 plates | 0 |
 | Crop / pivot constants | ~50 | 0 |
 | Per-persona ternaries | ~80 | 0 |
-| Code | 13 507 TS lines | 3 952 TS lines |
+| Code | 13 507 TS lines | 4 645 TS lines |
 | Appearance model | rigid parts with hard caps | continuous surface, one atlas |
-| Quality signal | 0 islands / 0 spill | 9 checks, each able to fail |
+| Quality signal | 0 islands / 0 spill | 11 checks, each able to fail |
+| Second persona | a second set of constants | the same code, one new PNG |
 
 Details and measurements: [`docs/BRANCH_REVIEW.md`](./docs/BRANCH_REVIEW.md) §3.
 
@@ -82,14 +91,18 @@ Details and measurements: [`docs/BRANCH_REVIEW.md`](./docs/BRANCH_REVIEW.md) §3
 | [`docs/SPEC.md`](./docs/SPEC.md) | module contracts and invariants |
 | [`docs/VALIDATION.md`](./docs/VALIDATION.md) | what was measured, and what was not |
 | [`docs/ADDENDA.md`](./docs/ADDENDA.md) | decisions taken while building, with evidence |
+| [`docs/REVIEW.md`](./docs/REVIEW.md) | stage-by-stage self-review: what holds, what does not |
 | [`GREENFIELD.md`](./GREENFIELD.md), [`CLAUDE.md`](./CLAUDE.md) | the engineering discipline adopted from the upstream project |
 
 ---
 
 ## Honest limits
 
-The pipeline ships with one persona, one camera angle, and a head that reads as a
-head only at sprite scale. The far limbs are mirrored from the near ones and
-darkened by a constant. All of that is counted, gated where possible, and listed
-in [`docs/VALIDATION.md`](./docs/VALIDATION.md) §7 rather than left for a viewer
-to discover.
+The pipeline ships with two personas, one camera angle, and a head that reads as
+a head only at sprite scale. The far limbs are mirrored from the near ones, and
+about a third of the atlas is mirrored because a single lateral view photographs
+only the near half of every limb. Limbs carry some dark texels that belong to
+whatever the limb hung in front of — a one-view parallax no sampler can undo.
+All of that is counted, gated where possible, and listed in
+[`docs/VALIDATION.md`](./docs/VALIDATION.md) §8 rather than left for a viewer to
+discover.

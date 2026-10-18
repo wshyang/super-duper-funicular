@@ -42,8 +42,17 @@ describe.skipIf(!existsSync(MASTER))('atlas unwrap', () => {
 
   it('counts what it invents instead of hiding it', () => {
     const report = context.atlas.report;
-    expect(report.syntheticFraction).toBeGreaterThanOrEqual(0);
-    expect(report.syntheticFraction).toBeLessThan(0.35);
+    const cells = report.observedPixels + report.interpolatedPixels + report.mirroredPixels;
+    expect(cells).toBeGreaterThan(0);
+    // The two kinds of invention are reported apart, and the reported shares
+    // must add up to the combined one: a metric that cannot be checked against
+    // its own parts is how `syntheticFraction` drifted into meaninglessness.
+    expect(report.syntheticFraction).toBeCloseTo((report.interpolatedPixels + report.mirroredPixels) / cells, 4);
+    expect(report.interpolatedFraction).toBeLessThan(0.25);
+    expect(report.mirroredFraction).toBeLessThan(0.55);
+    // A share alone cannot distinguish a one-row gap from a thirty-row guess;
+    // the run length can, and it is the bound that actually constrains the fill.
+    expect(report.longestInterpolatedRun).toBeLessThanOrEqual(10);
   });
 });
 

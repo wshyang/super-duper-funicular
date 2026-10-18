@@ -45,7 +45,7 @@ function main(): void {
       }
     }
     const coverage = context.atlas.report.perBone[id];
-    const label = `${id} w${coverage.halfWidthPx.toFixed(1)} s${coverage.synthetic}`;
+    const label = `${id} w${coverage.halfWidthPx.toFixed(1)} o${coverage.observed} i${coverage.interpolated} m${coverage.mirrored}`;
     paintLabel(sheet, label, ox, oy + ATLAS_TILE_HEIGHT + 1);
     console.log(label);
   });

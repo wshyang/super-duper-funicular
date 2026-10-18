@@ -115,8 +115,9 @@ an empty far arm renders as a hole. Mirroring is the honest alternative to
 inventing: it produces a visually consistent far limb, and the cost appears in
 `syntheticFraction` rather than being hidden.
 
-**Evidence.** `atlas-report.json → syntheticFraction = 0.2171` (was 0.60 before
-the keying and assignment fixes).
+**Evidence.** `atlas-report.json → mirroredFraction = 0.337` (the combined
+invented fraction was 0.60 before the keying and assignment fixes, and 0.217
+while the unseen half of a near limb was still being hidden).
 
 ---
 
@@ -217,3 +218,104 @@ contact sheets, which is how six weeks disappear. The font exists because adding
 a text dependency to a project with one dependency is a bad trade.
 
 **Evidence.** `out/atlas/athletic/atlas-sheet.png`.
+
+---
+
+## A15 — Sampling an empty atlas cell is a colour, and the colour is black
+
+**Decision.** `sampleAtlas` returns `{ r, g, b, a }` and never samples a cell that
+holds no data. Addresses outside a column's filled rows are clamped *into* that
+column's extent; an empty column is replaced by the nearest filled column
+(`RowExtent.nearestColumn`); a tile with no filled column at all returns
+`a = 0` and the renderer skips the sample.
+
+**Why.** The first version indexed `tile.data` unconditionally. Unfilled cells are
+zeroed RGBA, so "no observation" arrived at the renderer as opaque black. On the
+reference persona this was almost invisible — her arms and legs are densely
+observed. On the second persona it put a black sleeve on both forearms, and the
+defect had nothing to do with her; it was latent in every persona and only a
+different silhouette exposed it.
+
+**Evidence.** `ADDENDA` A16's before/after contact sheets; the fix converts a
+near-side forearm tile with 18 of 44 rows observed from "black bands" to skin.
+
+---
+
+## A16 — The unseen half of a limb is mirrored, not stretched
+
+**Decision.** Cells that no photograph reached and that interpolation cannot bound
+are filled by mirroring the observed half of the column across the bone axis,
+darkened for the turning-away side, and counted as `mirrored`.
+
+**Why.** A single lateral view photographs the near half of every limb. Clamping
+the last observed row across the rest — the obvious fix from A15 — turns a rounded
+limb into a flat plank with one hard edge, which is what the frames looked like
+immediately after A15. A limb is approximately a cylinder; the unseen half is the
+seen half reflected. Marking those cells synthetic keeps the assumption visible in
+the audit instead of hiding it in the sampler.
+
+**Evidence.** `docs/VALIDATION.md` §6 (second persona), `atlas.mirroredFraction`.
+
+---
+
+## A17 — Interpolation is bounded by run length, not by share
+
+**Decision.** `interpolateGap` refuses to bridge more than `MAX_INTERPOLATION_SPAN`
+(8 rows) and the audit reports `longestInterpolatedRun` (budget 10) beside
+`interpolatedFraction`.
+
+**Why.** The share of invented cells is a weak signal: a two-row gap is invisible
+and a thirty-eight-row ramp between two distant observations is a guess, yet both
+are "a few percent". The first persona's worst column bridged 38 of 44 rows while
+`interpolatedFraction` read a healthy-looking 0.14. Past the bound the column is
+left to the mirror pass, whose result is at least measured on one side.
+
+**Evidence.** `atlas.longestInterpolatedRun`: 38 → 7 on both personas.
+
+---
+
+## A18 — Painting must composite, not replace
+
+**Decision.** `compositeOver` alpha-composites each bone sample over the canvas.
+
+**Why.** Writing `alpha = coverage` straight into the destination made a bone's
+feathered edge *erase* the alpha of whatever was already painted. At a joint the
+later bone's edge crosses a solid neighbour and leaves a one-pixel translucent
+seam; thresholded, that seam is a gap, and the near shoe detached from the leg at
+one phase of the cycle. Four islands per frame came from a compositing bug, not
+from geometry.
+
+**Evidence.** `frames.maxIslands`: 4 → 0 on persona 02, `docs/VALIDATION.md` §6.
+
+---
+
+## A19 — Texture is never sampled from the keying boundary
+
+**Decision.** Only pixels inside an eroded subject mask (`interiorMask`, radius 3
+in master px) may accumulate colour into a tile. Edge pixels are still *claimed*,
+so ownership and coverage metrics are unchanged.
+
+**Why.** The outermost two or three pixels of a soft-lit plate are a physical blend
+of subject and backdrop. They pass the chromatic key test, so they entered the
+atlas, and every place the sampler mirrored or clamped onto one painted violet
+fringe onto a limb: 109 `spillPixels` on the first persona with no visible cause.
+Erosion radius 2 left 22; radius 3 leaves 0 on both personas at the cost of
+repeating one interior row at the silhouette — which the mirror pass already does
+by construction.
+
+**Evidence.** `frames.spillPixels`: 109 → 0 on persona 01.
+
+---
+
+## A20 — A metric must be checkable against its own parts
+
+**Decision.** `AtlasReport` reports `observedPixels`, `interpolatedPixels`,
+`mirroredPixels` and the three shares, and a unit test asserts the shares add up.
+
+**Why.** The single `syntheticFraction` mixed two assumptions with different risk
+and moved every time the sampler changed — 0.22, then 0.37, then 0.40 — so its
+threshold was quietly re-tuned instead of the pipeline being fixed. Split apart,
+each number means one thing, and `interpolatedFraction` fell from 0.14 to 0.05
+while `mirroredFraction` rose: the split was hiding a real change in behaviour.
+
+**Evidence.** `src/atlas/unwrap.test.ts`, `docs/PIPELINE.md` §S4.

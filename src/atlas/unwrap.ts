@@ -2,6 +2,7 @@ import { clamp, distanceToSegment } from '../core/geometry.js';
 import { pixelIndex } from '../core/raster.js';
 import type { Point2D, RasterImage } from '../core/types.js';
 import { classifyPixel, type RegionId, type Rgb } from '../profile/master-profile.js';
+import { interiorMask, type Palette } from '../profile/palette.js';
 import { isChromaPixel } from '../analysis/chroma.js';
 import type { Bone, BoneId } from '../rig/bones.js';
 
@@ -17,6 +18,14 @@ export interface AtlasTile {
   readonly data: Uint8ClampedArray;
   /** 1 where the tile holds an observed sample, 0 where it is synthetic fill. */
   readonly observed: Uint8Array;
+  /**
+   * Per-column extent of the filled rows (see `rowExtent`). The tile is a
+   * cylindrical surface, so `v` beyond the last observation is not missing —
+   * it is the limb's edge repeated. Without this the sampler read transparent
+   * cells, and the renderer painted them black: that is what put black sleeves
+   * on both forearms of the second persona.
+   */
+  readonly extent: RowExtent;
 }
 
 export interface Atlas {
@@ -28,15 +37,30 @@ export interface AtlasReport {
   /** Subject (non-backdrop) pixels found on the plate. */
   readonly subjectPixels: number;
   readonly observedPixels: number;
-  readonly syntheticPixels: number;
+  /** Cells filled by interpolation between two observations. */
+  readonly interpolatedPixels: number;
+  /** Cells filled by mirroring an observed half across the bone axis. */
+  readonly mirroredPixels: number;
+  /** Share of cells that are not photographed at all. */
   readonly syntheticFraction: number;
+  readonly interpolatedFraction: number;
+  readonly mirroredFraction: number;
+  /**
+   * Longest run of consecutive interpolated rows in any column, in tile rows.
+   *
+   * The share of interpolated cells is a weak signal: a two-row gap between two
+   * good observations is invisible, and a thirty-row gap is a guess no matter
+   * how small its share. Run length measures the thing that matters.
+   */
+  readonly longestInterpolatedRun: number;
   readonly perBone: Readonly<Record<BoneId, BoneCoverage>>;
   readonly unassignedSubjectPixels: number;
 }
 
 export interface BoneCoverage {
   readonly observed: number;
-  readonly synthetic: number;
+  readonly interpolated: number;
+  readonly mirrored: number;
   /** Median distance of observed pixels from the bone axis, in master px. */
   readonly halfWidthPx: number;
 }
@@ -157,21 +181,27 @@ function tileCoords(t: number, offset: number): { tx: number; ty: number } {
  * a weighted mean rather than a last-writer-wins copy — which is what keeps
  * lighting continuous across the surface.
  */
-export function buildAtlas(master: RasterImage, key: Rgb, bones: readonly Bone[]): Atlas {
+export function buildAtlas(master: RasterImage, key: Rgb, bones: readonly Bone[], palette: Palette): Atlas {
   const accumulators = new Map<BoneId, Accumulator>();
   const observed = new Map<BoneId, Uint8Array>();
   for (const bone of bones) {
     accumulators.set(bone.id, emptyAccumulator());
     observed.set(bone.id, new Uint8Array(ATLAS_TILE_WIDTH * ATLAS_TILE_HEIGHT));
   }
-  const subject = collectSubject(master, key);
+  const subject = collectSubject(master, key, palette);
+  // Only the interior of the photographed silhouette may contribute colour. The
+  // outermost two pixels are a physical blend of subject and magenta backdrop;
+  // they clear the chromatic test, so they used to enter the atlas, and every
+  // place the sampler mirrored or clamped onto them painted violet fringe onto a
+  // limb (109 spill pixels on persona 01). They are claimed, never sampled.
+  const core = interiorMask(master, key, 3);
   const claimed = new Uint8Array(subject.length);
   let assigned = 0;
   const claim = (index: number, address: BoneAddress): void => {
     const pixel = subject[index];
     if (!pixel) return;
     const weight = clamp(1.45 - address.normalizedDistance, 0.05, 1);
-    accumulate(accumulators.get(address.bone.id) as Accumulator, address, pixel.r, pixel.g, pixel.b, weight);
+    if (core[index]) accumulate(accumulators.get(address.bone.id) as Accumulator, address, pixel.r, pixel.g, pixel.b, weight);
     const { tx, ty } = tileCoords(address.t, address.offset);
     (observed.get(address.bone.id) as Uint8Array)[ty * ATLAS_TILE_WIDTH + tx] = 1;
     claimed[index] = 1;
@@ -180,16 +210,22 @@ export function buildAtlas(master: RasterImage, key: Rgb, bones: readonly Bone[]
   assignOcclusionAware(subject, bones, claim);
   assignStarved(subject, bones, observed, claimed, claim);
   assignFringe(subject, bones, claimed, claim);
-  const { tiles, perBone, totalObserved, totalSynthetic } = resolveAllBones(bones, accumulators, observed);
-  synthesiseFarSide(tiles, perBone);
+  const totals = resolveAllBones(bones, accumulators, observed);
+  synthesiseFarSide(totals.tiles, totals.perBone);
+  const cells = totals.totalObserved + totals.totalInterpolated + totals.totalMirrored;
+  const share = (part: number): number => Number((part / Math.max(1, cells)).toFixed(4));
   return {
-    tiles,
+    tiles: totals.tiles,
     report: {
       subjectPixels: subject.filter(Boolean).length,
-      observedPixels: totalObserved,
-      syntheticPixels: totalSynthetic,
-      syntheticFraction: Number((totalSynthetic / Math.max(1, totalObserved + totalSynthetic)).toFixed(4)),
-      perBone,
+      observedPixels: totals.totalObserved,
+      interpolatedPixels: totals.totalInterpolated,
+      mirroredPixels: totals.totalMirrored,
+      syntheticFraction: share(totals.totalInterpolated + totals.totalMirrored),
+      interpolatedFraction: share(totals.totalInterpolated),
+      mirroredFraction: share(totals.totalMirrored),
+      longestInterpolatedRun: totals.longestInterpolatedRun,
+      perBone: totals.perBone,
       unassignedSubjectPixels: subject.filter(Boolean).length - assigned,
     },
   };
@@ -208,7 +244,7 @@ interface SubjectPixel {
 }
 
 /** Every non-background pixel of the plate, with its material class. */
-function collectSubject(master: RasterImage, key: Rgb): readonly (SubjectPixel | null)[] {
+function collectSubject(master: RasterImage, key: Rgb, palette: Palette): readonly (SubjectPixel | null)[] {
   const pixels: (SubjectPixel | null)[] = new Array<SubjectPixel | null>(master.width * master.height).fill(null);
   for (let y = 0; y < master.height; y++) {
     for (let x = 0; x < master.width; x++) {
@@ -217,7 +253,14 @@ function collectSubject(master: RasterImage, key: Rgb): readonly (SubjectPixel |
       const g = master.data[i + 1] ?? 0;
       const b = master.data[i + 2] ?? 0;
       if (isChromaPixel(r, g, b, key)) continue;
-      pixels[y * master.width + x] = { x: x + 0.5, y: y + 0.5, r, g, b, region: classifyPixel(r, g, b, key) };
+      pixels[y * master.width + x] = {
+        x: x + 0.5,
+        y: y + 0.5,
+        r,
+        g,
+        b,
+        region: classifyPixel(r, g, b, key, palette, y),
+      };
     }
   }
   return pixels;
@@ -270,11 +313,18 @@ function assignStarved(
       if (claimed[index]) continue;
       const pixel = subject[index];
       if (!pixel) continue;
+      if (!allowsMaterial(bone, pixel.region)) continue;
       const address = addressPoint({ x: pixel.x, y: pixel.y }, bone);
       if (address.normalizedDistance > 1) continue;
       claim(index, address);
     }
   }
+}
+
+function allowsMaterial(bone: Bone, region: RegionId): boolean {
+  const allowed = MATERIAL_GROUPS[region];
+  if (!allowed) return true;
+  return allowed.some((suffix) => bone.id === suffix || bone.id.endsWith(suffix));
 }
 
 /**
@@ -309,25 +359,32 @@ function resolveAllBones(
   tiles: Record<BoneId, AtlasTile>;
   perBone: Record<BoneId, BoneCoverage>;
   totalObserved: number;
-  totalSynthetic: number;
+  totalInterpolated: number;
+  totalMirrored: number;
+  longestInterpolatedRun: number;
 } {
   const tiles = {} as Record<BoneId, AtlasTile>;
   const perBone = {} as Record<BoneId, BoneCoverage>;
   let totalObserved = 0;
-  let totalSynthetic = 0;
+  let totalInterpolated = 0;
+  let totalMirrored = 0;
+  let longestInterpolatedRun = 0;
   for (const bone of bones) {
     const accumulator = accumulators.get(bone.id) as Accumulator;
     const resolved = resolveTile(bone, accumulator, observed.get(bone.id) as Uint8Array);
     tiles[bone.id] = resolved.tile;
     perBone[bone.id] = {
       observed: resolved.observed,
-      synthetic: resolved.synthetic,
+      interpolated: resolved.interpolated,
+      mirrored: resolved.mirrored,
       halfWidthPx: percentile(accumulator.magnitudes, 0.5),
     };
     totalObserved += resolved.observed;
-    totalSynthetic += resolved.synthetic;
+    totalInterpolated += resolved.interpolated;
+    totalMirrored += resolved.mirrored;
+    longestInterpolatedRun = Math.max(longestInterpolatedRun, resolved.longestInterpolatedRun);
   }
-  return { tiles, perBone, totalObserved, totalSynthetic };
+  return { tiles, perBone, totalObserved, totalInterpolated, totalMirrored, longestInterpolatedRun };
 }
 
 function accumulate(
@@ -351,7 +408,9 @@ function accumulate(
 interface ResolvedTile {
   readonly tile: AtlasTile;
   readonly observed: number;
-  readonly synthetic: number;
+  readonly interpolated: number;
+  readonly mirrored: number;
+  readonly longestInterpolatedRun: number;
 }
 
 /**
@@ -361,42 +420,94 @@ interface ResolvedTile {
  */
 function resolveTile(bone: Bone, accumulator: Accumulator, observedMask: Uint8Array): ResolvedTile {
   const data = new Uint8ClampedArray(ATLAS_TILE_WIDTH * ATLAS_TILE_HEIGHT * 4);
+  const observed = writeObservedCells(data, accumulator);
+  const filled = fillUnobservedCells(data, observed);
+  return {
+    tile: {
+      boneId: bone.id,
+      width: ATLAS_TILE_WIDTH,
+      height: ATLAS_TILE_HEIGHT,
+      data,
+      observed: observedMask,
+      extent: rowExtent(data),
+    },
+    observed: countSet(observed),
+    interpolated: filled.interpolated,
+    mirrored: filled.mirrored,
+    longestInterpolatedRun: filled.longestRun,
+  };
+}
+
+/** Copies the weighted mean of every observed cell into the tile; returns its mask. */
+function writeObservedCells(data: Uint8ClampedArray, accumulator: Accumulator): Uint8Array {
   const observed = new Uint8Array(ATLAS_TILE_WIDTH * ATLAS_TILE_HEIGHT);
   for (let tx = 0; tx < ATLAS_TILE_WIDTH; tx++) {
     for (let index = 0; index < ATLAS_TILE_HEIGHT; index++) {
       const cell = index * ATLAS_TILE_WIDTH + tx;
       const weight = accumulator.weights[cell] ?? 0;
+      if (weight <= 0) continue;
       const out = cell * 4;
-      if (weight > 0) {
-        data[out] = (accumulator.sums[out] ?? 0) / weight;
-        data[out + 1] = (accumulator.sums[out + 1] ?? 0) / weight;
-        data[out + 2] = (accumulator.sums[out + 2] ?? 0) / weight;
-        data[out + 3] = 255;
-        observed[cell] = 1;
-      }
+      data[out] = (accumulator.sums[out] ?? 0) / weight;
+      data[out + 1] = (accumulator.sums[out + 1] ?? 0) / weight;
+      data[out + 2] = (accumulator.sums[out + 2] ?? 0) / weight;
+      data[out + 3] = 255;
+      observed[cell] = 1;
     }
   }
-  let observedCells = 0;
-  let syntheticCells = 0;
+  return observed;
+}
+
+interface FillCounts {
+  readonly interpolated: number;
+  readonly mirrored: number;
+  readonly longestRun: number;
+}
+
+/**
+ * Completes the cells no photograph reached: first by interpolation between two
+ * observations, then by mirroring the observed half across the bone axis. The
+ * two paths are counted apart because they carry different risk — see
+ * `MAX_INTERPOLATION_SPAN` and `mirrorAcrossAxis`.
+ */
+function fillUnobservedCells(data: Uint8ClampedArray, observed: Uint8Array): FillCounts {
+  let interpolated = 0;
+  let mirrored = 0;
+  const invented = new Uint8Array(ATLAS_TILE_WIDTH * ATLAS_TILE_HEIGHT);
   for (let tx = 0; tx < ATLAS_TILE_WIDTH; tx++) {
     for (let index = 0; index < ATLAS_TILE_HEIGHT; index++) {
       const cell = index * ATLAS_TILE_WIDTH + tx;
-      if (observed[cell]) {
-        observedCells++;
-        continue;
-      }
-      const filled = interpolateGap(data, observed, index, tx);
-      if (filled) {
-        data[cell * 4 + 3] = 255;
-        syntheticCells++;
+      if (observed[cell]) continue;
+      const gap = interpolateGap(data, observed, index, tx);
+      const mirror = gap ? false : mirrorAcrossAxis(data, observed, index, tx);
+      if (!gap && !mirror) continue;
+      data[cell * 4 + 3] = 255;
+      if (gap) {
+        interpolated++;
+        invented[cell] = 1;
+      } else {
+        mirrored++;
       }
     }
   }
-  return {
-    tile: { boneId: bone.id, width: ATLAS_TILE_WIDTH, height: ATLAS_TILE_HEIGHT, data, observed: observedMask },
-    observed: observedCells,
-    synthetic: syntheticCells,
-  };
+  return { interpolated, mirrored, longestRun: longestRun(invented) };
+}
+
+function longestRun(mask: Uint8Array): number {
+  let longest = 0;
+  for (let tx = 0; tx < ATLAS_TILE_WIDTH; tx++) {
+    let run = 0;
+    for (let index = 0; index < ATLAS_TILE_HEIGHT; index++) {
+      run = mask[index * ATLAS_TILE_WIDTH + tx] ? run + 1 : 0;
+      if (run > longest) longest = run;
+    }
+  }
+  return longest;
+}
+
+function countSet(mask: Uint8Array): number {
+  let count = 0;
+  for (const cell of mask) if (cell) count++;
+  return count;
 }
 
 /**
@@ -405,6 +516,9 @@ function resolveTile(bone: Bone, accumulator: Accumulator, observedMask: Uint8Ar
  * was never photographed, and inventing it would inflate the texture without
  * evidence. The count of what was invented is what `syntheticFraction` reports.
  */
+/** Widest gap, in tile rows, that interpolation is allowed to bridge. */
+const MAX_INTERPOLATION_SPAN = 8;
+
 function interpolateGap(data: Uint8ClampedArray, observed: Uint8Array, row: number, tx: number): boolean {
   let above = -1;
   let below = -1;
@@ -424,6 +538,11 @@ function interpolateGap(data: Uint8ClampedArray, observed: Uint8Array, row: numb
   const a = above;
   const b = below;
   const span = b - a;
+  // A long span is not interpolation, it is a guess dressed as one: the ramp is
+  // anchored to two rows that may be thirty rows apart, so it invents a whole
+  // surface with no evidence in between. Past the bound the column is left for
+  // the mirror pass, whose result is at least measured on one side.
+  if (span > MAX_INTERPOLATION_SPAN) return false;
   const ratio = span === 0 ? 0 : (row - a) / span;
   const cell = row * ATLAS_TILE_WIDTH + tx;
   const cellA = a * ATLAS_TILE_WIDTH + tx;
@@ -432,6 +551,33 @@ function interpolateGap(data: Uint8ClampedArray, observed: Uint8Array, row: numb
     const va = data[cellA * 4 + channel] ?? 0;
     const vb = data[cellB * 4 + channel] ?? 0;
     data[cell * 4 + channel] = va + (vb - va) * ratio;
+  }
+  return true;
+}
+
+/**
+ * Completes a column that saw only one side of the surface.
+ *
+ * A single lateral view photographs the near half of every limb; the far half
+ * is never observed. `interpolateGap` cannot help there, because it needs an
+ * observation on *both* sides. Stretching the last observed row instead — what
+ * clamp-to-edge sampling does — turns a rounded limb into a flat plank with one
+ * hard edge, which is exactly how the first frames looked.
+ *
+ * A limb is approximately a cylinder, so the unseen half is the seen half
+ * mirrored across the bone axis, darkened to read as turned away from the light.
+ * Every mirrored cell is counted synthetic, never observed.
+ */
+function mirrorAcrossAxis(data: Uint8ClampedArray, observed: Uint8Array, row: number, tx: number): boolean {
+  const axis = (ATLAS_TILE_HEIGHT - 1) / 2;
+  const source = Math.round(2 * axis - row);
+  if (source < 0 || source >= ATLAS_TILE_HEIGHT) return false;
+  const from = source * ATLAS_TILE_WIDTH + tx;
+  if (!observed[from]) return false;
+  const to = row * ATLAS_TILE_WIDTH + tx;
+  const shade = 0.82 - 0.18 * Math.abs((row - axis) / axis);
+  for (let channel = 0; channel < 3; channel++) {
+    data[to * 4 + channel] = (data[from * 4 + channel] ?? 0) * shade;
   }
   return true;
 }
@@ -477,8 +623,20 @@ function synthesiseFarSide(
         mirrored++;
       }
     }
-    tiles[farId] = { boneId: farId, width: ATLAS_TILE_WIDTH, height: ATLAS_TILE_HEIGHT, data, observed: far.observed };
-    perBone[farId] = { observed: coverage.observed, synthetic: coverage.synthetic + mirrored, halfWidthPx: perBone[nearId].halfWidthPx };
+    tiles[farId] = {
+      boneId: farId,
+      width: ATLAS_TILE_WIDTH,
+      height: ATLAS_TILE_HEIGHT,
+      data,
+      observed: far.observed,
+      extent: rowExtent(data),
+    };
+    perBone[farId] = {
+      observed: coverage.observed,
+      interpolated: coverage.interpolated,
+      mirrored: mirrored,
+      halfWidthPx: perBone[nearId].halfWidthPx,
+    };
   }
 }
 
@@ -494,21 +652,80 @@ function percentile(values: readonly number[], fraction: number): number {
   return Number((sorted[index] ?? 0).toFixed(2));
 }
 
-export function sampleAtlas(tile: AtlasTile, t: number, offset: number): { r: number; g: number; b: number } {
+export interface RowExtent {
+  /** First filled row per column; `ATLAS_TILE_HEIGHT` when the column is empty. */
+  readonly minRow: Uint8Array;
+  /** Last filled row per column; meaningless when the column is empty. */
+  readonly maxRow: Uint8Array;
+  /** Nearest filled column for every column; 255 when the tile is entirely empty. */
+  readonly nearestColumn: Uint8Array;
+}
+
+function rowExtent(data: Uint8ClampedArray): RowExtent {
+  const minRow = new Uint8Array(ATLAS_TILE_WIDTH).fill(ATLAS_TILE_HEIGHT);
+  const maxRow = new Uint8Array(ATLAS_TILE_WIDTH).fill(0);
+  for (let tx = 0; tx < ATLAS_TILE_WIDTH; tx++) {
+    for (let row = 0; row < ATLAS_TILE_HEIGHT; row++) {
+      if ((data[(row * ATLAS_TILE_WIDTH + tx) * 4 + 3] ?? 0) === 0) continue;
+      if (row < (minRow[tx] ?? 0)) minRow[tx] = row;
+      if (row > (maxRow[tx] ?? 0)) maxRow[tx] = row;
+    }
+  }
+  const filled: number[] = [];
+  for (let tx = 0; tx < ATLAS_TILE_WIDTH; tx++) if ((minRow[tx] ?? ATLAS_TILE_HEIGHT) < ATLAS_TILE_HEIGHT) filled.push(tx);
+  const nearestColumn = new Uint8Array(ATLAS_TILE_WIDTH).fill(255);
+  if (filled.length > 0) {
+    for (let tx = 0; tx < ATLAS_TILE_WIDTH; tx++) {
+      let best = filled[0] as number;
+      for (const candidate of filled) if (Math.abs(candidate - tx) < Math.abs(best - tx)) best = candidate;
+      nearestColumn[tx] = best;
+    }
+  }
+  return { minRow, maxRow, nearestColumn };
+}
+
+/**
+ * Bilinear sample with clamp-to-edge addressing in `v`.
+ *
+ * The requested `v` is clamped, per column, into the range that column actually
+ * holds. This is not extrapolation of colour (which `interpolateGap` refuses):
+ * it repeats the limb's outermost photographed pixel across the remaining
+ * thickness, which is what a cylinder looks like at its silhouette.
+ *
+ * Returns `a = 0` only when the whole tile column is empty, so the renderer can
+ * skip rather than paint black.
+ */
+export function sampleAtlas(
+  tile: AtlasTile,
+  t: number,
+  offset: number,
+): { r: number; g: number; b: number; a: number } {
   const fx = clamp(t, 0, 1) * (ATLAS_TILE_WIDTH - 1);
   const fy = clamp((offset + 1) / 2, 0, 1) * (ATLAS_TILE_HEIGHT - 1);
-  const x0 = Math.floor(fx);
-  const y0 = Math.floor(fy);
-  const x1 = Math.min(ATLAS_TILE_WIDTH - 1, x0 + 1);
-  const y1 = Math.min(ATLAS_TILE_HEIGHT - 1, y0 + 1);
-  const ax = fx - x0;
-  const ay = fy - y0;
+  const column = (x: number): number => {
+    const nearest = tile.extent.nearestColumn[x] ?? 255;
+    return nearest === 255 ? -1 : nearest;
+  };
+  const x0 = column(Math.floor(fx));
+  if (x0 < 0) return { r: 0, g: 0, b: 0, a: 0 };
+  const x1 = column(Math.min(ATLAS_TILE_WIDTH - 1, Math.floor(fx) + 1));
+  const ax = x1 === x0 ? 0 : fx - Math.floor(fx);
+  const y0 = clamp(fy, tile.extent.minRow[x0] ?? 0, tile.extent.maxRow[x0] ?? 0);
+  const y1 = clamp(fy, tile.extent.minRow[x1] ?? 0, tile.extent.maxRow[x1] ?? 0);
+  const rowA = Math.floor(y0);
+  const rowB = Math.min(ATLAS_TILE_HEIGHT - 1, Math.floor(y0) + 1);
+  const rowC = Math.floor(y1);
+  const rowD = Math.min(ATLAS_TILE_HEIGHT - 1, Math.floor(y1) + 1);
+  const ay0 = y0 - rowA;
+  const ay1 = y1 - rowC;
   const sample = (x: number, y: number, channel: number): number =>
     tile.data[(y * ATLAS_TILE_WIDTH + x) * 4 + channel] ?? 0;
+  const columnValue = (x: number, top: number, bottom: number, topWeight: number, channel: number): number =>
+    sample(x, top, channel) * (1 - topWeight) + sample(x, bottom, channel) * topWeight;
   const bilinear = (channel: number): number => {
-    const top = sample(x0, y0, channel) * (1 - ax) + sample(x1, y0, channel) * ax;
-    const bottom = sample(x0, y1, channel) * (1 - ax) + sample(x1, y1, channel) * ax;
-    return top * (1 - ay) + bottom * ay;
+    const left = columnValue(x0, rowA, rowB, ay0, channel);
+    const right = columnValue(x1, rowC, rowD, ay1, channel);
+    return left * (1 - ax) + right * ax;
   };
-  return { r: bilinear(0), g: bilinear(1), b: bilinear(2) };
+  return { r: bilinear(0), g: bilinear(1), b: bilinear(2), a: 1 };
 }

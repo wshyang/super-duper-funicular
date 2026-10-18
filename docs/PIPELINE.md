@@ -215,15 +215,30 @@ The atlas is the only place where photograph pixels are interpreted.
    own texture instead of a copy of the jaw); then a low-weight *fringe* pass
    claims the remaining subject pixels within 2.5 capsule radii (the shoe sole,
    the fingertips, the outside of a bent knee).
-4. **Synthesis, counted.** Only then is anything invented: holes *between* two
-   observations along `v` are interpolated, and the far limbs — which the lateral
-   plate does not show at all — are mirrored from the near side and darkened.
-   Every synthesised cell is tagged and counted.
-5. **Evidence.** `atlas-report.json` records per-bone coverage, the synthetic
-   fraction, and the subject pixels that no capsule reached.
+4. **Synthesis, counted, and split by risk.** Only then is anything invented,
+   and the two kinds are counted apart because they are not equally safe:
+   - *interpolation* fills a hole **between** two observations along `v`, and is
+     refused when the gap exceeds 8 rows — a 38-row ramp anchored on two distant
+     rows is a guess wearing interpolation's clothes;
+   - *mirroring* fills the unseen half of a one-sided column by reflecting the
+     observed half across the bone axis. A lateral plate photographs the near
+     half of every limb and nothing else, so this is the honest completion: a
+     limb is approximately a cylinder, and the result is measured on one side
+     rather than extrapolated from an edge.
+
+   Far limbs — absent from the plate entirely — are mirrored from the near side
+   and darkened in the same way. Every invented cell is tagged.
+5. **Never texture from the keying boundary.** Only pixels inside an eroded
+   subject mask contribute colour. The outer few pixels of a soft-lit plate are
+   a physical blend of subject and backdrop; they pass the chromatic key test and
+   used to paint violet fringe wherever the sampler reached an edge.
+6. **Evidence.** `atlas-report.json` records per-bone coverage, the observed /
+   interpolated / mirrored cell counts separately, the longest interpolated run,
+   and the subject pixels that no capsule reached.
 
 The invariant that matters: **a tile contains only pixels of the thing it
-textures, and every pixel in it is either photographed or counted as invented.**
+textures, and every cell in it is either photographed or counted as invented,
+with the kind of invention recorded.**
 
 ### S2 — Rig solve: geometry first, always
 
@@ -262,9 +277,19 @@ Why this is better than the mesh for this problem:
 - **A joint is an interior point of both bones.** The knee is `u ≈ 1` of the
   thigh and `u ≈ 0` of the shin, sampling the same rows of the same photograph.
   A seam would require the two ends of a bone to disagree with themselves.
-- **Stretch is bounded by construction.** `v` beyond the tile edge is never
-  sampled (`|v| ≤ 1`), so a bone cannot smear its texture across a gap; the worst
-  case is a flat cap hidden inside the joint.
+- **Sampling has no undefined answers.** A sample is a triple and an alpha. In
+  range, in range after per-column clamping, borrowed from the nearest filled
+  column, or "nothing here" — never a black cell. Every one of those branches
+  exists because an undefined answer shipped as visible damage (A15).
+- **Painting composites.** A bone's feathered edge is drawn *over* what is
+  already there. Replacing a pixel instead lets a later bone's edge erase a
+  neighbour's alpha, and a one-pixel translucent seam at a joint reads as a
+  detached limb once thresholded (A18).
+- **Joints are filled, not just overlapped.** Capsules that share an endpoint
+  overlap by construction — except the foot, whose capsule runs along the sole
+  while the shin ends at the ankle, `ankleHeight` above it. The foot therefore
+  carries an explicit `jointFill` point it must physically reach, textured from
+  its own heel. This is a geometry repair, stated as such, not a texture trick.
 
 The cost is that overlapping bones are resolved by paint order rather than by
 depth buffering. Two layers plus an anatomical order inside each layer is enough
@@ -288,8 +313,10 @@ both machine-readable, both implemented:
 
 | Check | Measures | Budget |
 |---|---|---|
-| `atlas.syntheticFraction` | share of atlas cells invented | ≤ 0.35 |
-| `atlas.bonesWithoutEvidence` | bones with no photographed pixels | 0 |
+| `atlas.interpolatedFraction` | share of cells filled by interpolating between two observations | ≤ 0.25 |
+| `atlas.longestInterpolatedRun` | longest unbroken invented span, in tile rows | ≤ 10 |
+| `atlas.mirroredFraction` | share of cells invented by mirroring the near half | ≤ 0.55 |
+| `atlas.emptyTiles` | bones with no cells to paint | 0 |
 | `atlas.unassignedFraction` | photographed surface no capsule reached | ≤ 0.12 |
 | `correspondence.silhouetteIou` | rig vs. plate after measured placement | ≥ 0.35 |
 | `keying.holesInsideSubject` | subject pixels 4-surrounded by backdrop | ≤ 0.002 |
@@ -416,9 +443,10 @@ re-run; a pixel failure costs a generation budget.
 The atlas has no texture for regions the photograph never showed. This is real
 and it is bounded:
 
-- the fill is deterministic and its extent is measured (`syntheticFraction`,
-  currently **0.217**: the far arm, far leg and far shoe are mirrored from the
-  near side and darkened, and nothing else is invented);
+- the fill is deterministic and its extent is measured, *and split by kind*
+  (`ADDENDA` A20): on the reference persona 6.5 % of cells are interpolated
+  between two observations, 33.7 % are mirrored from the observed half, and the
+  longest unbroken interpolated run is 7 rows of 44;
 - the fill is confined almost entirely to the *back* layer, which is drawn first
   and is partly occluded in most frames; the only front-layer synthesis is the
   interpolation of small holes *between* two observations;
@@ -461,7 +489,7 @@ geometry.
 | Stage | Deliverable | Status here |
 |---|---|---|
 | **1** | Profiler (`S0`), rig (`S2`), control plate, gates (`S4`) | implemented, tested, runnable |
-| **2** | Atlas unwrap (`S1`) + skinned sampler (`S3`) | implemented; two layers, three-stage assignment, all gates green — see `docs/VALIDATION.md` for what was and was not verified visually |
+| **2** | Atlas unwrap (`S1`) + skinned sampler (`S3`) | implemented; two layers, three-stage assignment, all gates green on **two** personas; `docs/REVIEW.md` §S1 lists the five defects the second persona found and `docs/VALIDATION.md` §6 records what is still visibly wrong |
 | **3** | Atlas gap completion (`S6`) with prompt log | specified, not invoked (no generation budget spent in this change) |
 | **4** | Delivery manifest + SVG, all-or-nothing bank | manifest implemented |
 | **5** | Second and third persona, to prove "one photograph per persona" | requires one master plate each |
@@ -477,7 +505,8 @@ appearance.
 | Risk | Retire by |
 |---|---|
 | Texture stretches visibly at extreme knee flexion | `|v| ≤ 1` clamp plus a viewed joint crop at φ = 0.375 and 0.75 before any persona is added |
-| Atlas fill looks smeared on the far arm | `syntheticFraction` + a viewed contact sheet per persona |
+| Atlas fill looks smeared on the far arm | `interpolatedFraction` + `longestInterpolatedRun` + a viewed contact sheet per persona |
+| A defect that only one persona shows | run the second persona before believing any green audit: four of the five renderer defects found in this build were invisible on persona 01 |
 | Measured landmarks are wrong on an unusual build | profiler emits an overlay PNG; landmark rows are drawn on the plate and must be viewed before the persona is accepted |
 | Rig produces an unattractive run | isolate geometry from appearance: judge the control plate alone, at 16 phases |
 | New architecture becomes a rewrite that never lands | Stage 1 is independently useful (control plates + gates ship today) |
