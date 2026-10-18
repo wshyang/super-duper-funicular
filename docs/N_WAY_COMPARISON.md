@@ -18,11 +18,11 @@
 ### 1.1 Automated Live Remote Branch Tips (`npm run branches:compare`)
 
 <!-- branch-tips:start -->
-Observed (UTC): `2026-10-18T04:40:39.718Z` · Active Session Branch: `arena/917ef347-super-duper-funicular`
+Observed (UTC): `2026-10-18T04:41:19.634Z` · Active Session Branch: `arena/917ef347-super-duper-funicular`
 
 | Branch Role & Codename | Branch (`refs/heads/*`) | PR / Lifecycle Status | Full Observed SHA | Commit Timestamp (ISO) | Commits Ahead of `main` | Latest Commit Subject |
 |---|---|---|---|---|---|---|
-| **Branch 1 (Ours — Sprite Motion Lab)** | `arena/917ef347-super-duper-funicular` | PR #1 Open (Active Session Branch) | `fa3c988293809caed0b6ecd7985ba5dd9e8ae9b4` | `2026-10-18T04:31:12+00:00` | `+10` | docs(comparison): refresh live watched branch tips after ADD-039 |
+| **Branch 1 (Ours — Sprite Motion Lab)** | `arena/917ef347-super-duper-funicular` | PR #1 Open (Active Session Branch) | `45b7241a9ee73163208ccbf7003c95fe7a57f9c7` | `2026-10-18T04:41:16+00:00` | `+11` | feat(athletic): sync PR #8 (34d4844) sealAthleticTorsoShoulderBulge with right-profile torso & refresh branch tips |
 | **Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)** | `arena/e1300d3c-super-duper-funicular` | PR #8 Open (Closely Watched) | `34d48443f43c0c3584b3d440a19a5c46882e13f1` | `2026-10-18T03:58:15+00:00` | `+13` | Remove athletic collarbone shoulder bulge |
 | **Branch 2 (Stride Lab Workbench)** | `arena/263385da-super-duper-funicular` | PR #2 Open | `b227e2fe562be341f15f58955f539d325170729e` | `2026-10-17T21:55:19+00:00` | `+1` | Build Stride Lab motion workbench with photographic rig and cycle audits |
 | **Branch 3 (Funicular / Photo-Rig & Matte Lab)** | `arena/77ffb088-super-duper-funicular` | PR #3 Open | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | `2026-10-17T23:05:53+00:00` | `+13` | Track live three-way feature parity and adopt multi-background photo audits |

@@ -1,16 +1,16 @@
 {
-  "observedAt": "2026-10-18T04:40:39.718Z",
+  "observedAt": "2026-10-18T04:41:19.634Z",
   "activeSessionBranch": "arena/917ef347-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 1 (Ours — Sprite Motion Lab)",
       "branch": "arena/917ef347-super-duper-funicular",
       "prStatus": "PR #1 Open (Active Session Branch)",
-      "hash": "fa3c988293809caed0b6ecd7985ba5dd9e8ae9b4",
-      "shortHash": "fa3c988",
-      "committedAt": "2026-10-18T04:31:12+00:00",
-      "subject": "docs(comparison): refresh live watched branch tips after ADD-039",
-      "commitCountFromMain": 10
+      "hash": "45b7241a9ee73163208ccbf7003c95fe7a57f9c7",
+      "shortHash": "45b7241",
+      "committedAt": "2026-10-18T04:41:16+00:00",
+      "subject": "feat(athletic): sync PR #8 (34d4844) sealAthleticTorsoShoulderBulge with right-profile torso & refresh branch tips",
+      "commitCountFromMain": 11
     },
     {
       "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
