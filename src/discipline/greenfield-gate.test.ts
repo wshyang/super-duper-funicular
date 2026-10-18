@@ -122,6 +122,10 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('PIPE-ERR-08');
     expect(fdsMd).toContain('PIPE-ERR-09');
     expect(fdsMd).toContain('PIPE-ERR-10');
+    expect(fdsMd).toContain('PIPE-ERR-11');
+    expect(fdsMd).toContain('PIPE-ERR-12');
+    expect(fdsMd).toContain('PIPE-ERR-13');
+    expect(fdsMd).toContain('PIPE-ERR-14');
     expect(fdsMd).toContain('#multi-frame-phase-harvesting-strategy');
     expect(fdsMd).toContain('#pass-9-athletic-rebuild-audit');
     expect(fdsMd).toContain('#pass-10-multi-frame-phase-keyframes');
@@ -147,11 +151,13 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('TURN-L25');
     expect(fdsMd).toContain('TURN-L26');
     expect(fdsMd).toContain('TURN-L27');
+    expect(fdsMd).toContain('TURN-L28');
     expect(fdsMd).toContain('ADD-037');
     expect(fdsMd).toContain('ADD-038');
     expect(fdsMd).toContain('ADD-039');
     expect(fdsMd).toContain('ADD-040');
     expect(fdsMd).toContain('ADD-041');
+    expect(fdsMd).toContain('ADD-045');
     expect(fdsMd).toContain('ADD-042');
     expect(fdsMd).toContain('ADD-043');
     expect(fdsMd).toContain('ADD-044');

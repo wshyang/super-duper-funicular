@@ -261,8 +261,15 @@ function samplePhaseSegmentToCanonical(
       const u = spec.srcStart.x + sux * along - suy * across;
       const v = spec.srcStart.y + suy * along + sux * across;
       if (u < minX || u > maxX || v < minY || v > maxY) continue;
+      if (spec.partId === 'head' && u < 683 && v > 66 && v < 130) continue;
       const p = sampleBilinearRgba(src, u, v);
-      if (p.a > 16) writePixel(out, { x, y }, shadeRgba(p, spec.shadeScale));
+      if (p.a <= 16) continue;
+      if (spec.partId === 'head' && p.r - p.g > 52 && p.g < 88 && v > 125) continue;
+      const despilled =
+        spec.partId === 'head' && p.r > 155 && p.b > 135 && p.r - p.g > 35 && p.b - p.g > 22
+          ? { r: p.r, g: Math.min(255, p.g + 16), b: Math.max(0, p.g - 12), a: p.a }
+          : p;
+      writePixel(out, { x, y }, shadeRgba(despilled, spec.shadeScale));
     }
   }
   return out;
@@ -282,29 +289,54 @@ function sampleCrossSectionNormalizedLimb(
   const dstBotY = spec.dstEnd.y;
   const dstLen = Math.max(1, dstBotY - dstTopY);
   const rDst = spec.dstRadiusPx;
+  const isTorso = spec.partId === 'torso';
+  const yStart = isTorso ? dstTopY - 2 : Math.max(4, dstTopY - rDst);
+  const yEnd = isTorso ? dstBotY + 14 : Math.min(155, dstBotY + rDst);
 
-  for (let y = Math.max(4, dstTopY - rDst); y <= Math.min(155, dstBotY + rDst); y++) {
+  for (let y = yStart; y <= yEnd; y++) {
     const tClamped = Math.max(0, Math.min(1, (y - dstTopY) / dstLen));
     const along = tClamped * srcLen;
     const span = measureCrossSectionSpan(src, spec, sux, suy, along);
-    for (let x = 80 - rDst; x <= 80 + rDst; x++) {
-      const nx = (x - 80) / Math.max(1, rDst);
-      const across = span.mid + nx * span.halfW;
-      const u = spec.srcStart.x + sux * along + suy * across;
-      const v = spec.srcStart.y + suy * along - sux * across;
-      const p = sampleBilinearRgba(src, u, v);
+    const centerX = spec.dstStart.x + (spec.dstEnd.x - spec.dstStart.x) * tClamped;
+    const rowRadius = isTorso
+      ? Math.round(11 + (rDst - 11) * Math.pow(Math.min(1, Math.max(0, (y - dstTopY) / 30)), 0.75))
+      : rDst;
+    for (let x = Math.round(centerX - rowRadius); x <= Math.round(centerX + rowRadius); x++) {
+      const feather = computeCapsuleRadialFeather(x, y, centerX, dstTopY, dstBotY, rowRadius, rDst, isTorso);
+      if (feather <= 0) continue;
+      const across = span.mid + ((x - centerX) / Math.max(1, rowRadius)) * span.halfW;
+      const p = sampleBilinearRgba(src, spec.srcStart.x + sux * along + suy * across, spec.srcStart.y + suy * along - sux * across);
       if (p.a > 16) {
-        const cleaned =
-          spec.partId === 'neck'
-            ? healNeckSingletPixel(p)
-            : spec.partId === 'torso'
-              ? healTorsoShoulderSkinPixel(p, x, y)
-              : healArmSkinContaminants(spec.partId, p);
-        writePixel(out, { x, y }, shadeRgba(cleaned, spec.shadeScale));
+        const cleaned = spec.partId === 'neck' ? healNeckSingletPixel(p) : isTorso ? healTorsoShoulderSkinPixel(p, x, y) : healArmSkinContaminants(spec.partId, p);
+        const shaded = shadeRgba(cleaned, spec.shadeScale);
+        writePixel(out, { x, y }, { ...shaded, a: Math.round(shaded.a * feather) });
       }
     }
   }
   return out;
+}
+
+function computeCapsuleRadialFeather(
+  x: number,
+  y: number,
+  centerX: number,
+  dstTopY: number,
+  dstBotY: number,
+  rowRadius: number,
+  rDst: number,
+  isTorso: boolean,
+): number {
+  let capDist = Math.abs(x - centerX);
+  let capMaxR = rowRadius;
+  if (!isTorso && y < dstTopY) {
+    capDist = Math.hypot(x - centerX, y - dstTopY);
+    capMaxR = rDst;
+  } else if (!isTorso && y > dstBotY) {
+    capDist = Math.hypot(x - centerX, y - dstBotY);
+    capMaxR = rDst;
+  }
+  if (capDist > capMaxR) return 0;
+  return capDist > capMaxR - 2.5 ? Math.max(0, (capMaxR - capDist) / 2.5) : 1.0;
 }
 
 function measureCrossSectionSpan(
@@ -335,16 +367,16 @@ function measureCrossSectionSpan(
 }
 
 function healNeckSingletPixel(p: RgbaColor): RgbaColor {
-  if (p.r - p.g >= 52 && p.r > 110) {
+  if ((p.r - p.g >= 36 && p.g < 118) || p.r < 142 || p.g < 95) {
     return { r: 212, g: 162, b: 132, a: p.a };
   }
   return p;
 }
 
-function healTorsoShoulderSkinPixel(p: RgbaColor, x: number, y: number): RgbaColor {
+function healTorsoShoulderSkinPixel(p: RgbaColor, _x: number, y: number): RgbaColor {
   const isWhiteStripe = p.r > 180 && p.g > 170 && p.b > 170;
-  const isSinglet = p.r > p.g * 1.45 && p.g < 95 && p.b < 110;
-  if (!isWhiteStripe && !isSinglet && y < 96 && x < 104) {
+  const isSinglet = p.r > p.g * 1.85 && p.g < 65 && p.r - p.g > 65;
+  if (!isWhiteStripe && !isSinglet && y < 104) {
     return { r: 154, g: 26, b: 42, a: p.a };
   }
   return p;
@@ -370,7 +402,7 @@ function healArmSkinContaminants(partId: BodyPartId, p: RgbaColor): RgbaColor {
 function applyPhasePartRounding(raw: RasterImage, spec: PhaseJigSegmentSpec): RasterImage {
   if (spec.partId === 'head') {
     return applyPivotArcRoundedCut(raw, {
-      pivot: { x: 73, y: 122 }, radiusX: 42, radiusY: 11, cutSide: 'below', featherPx: 2.5,
+      pivot: { x: 73, y: 120 }, radiusX: 44, radiusY: 8, cutSide: 'below', featherPx: 3.5,
     });
   }
   if (spec.partId === 'hairAccessory') return raw;
@@ -381,10 +413,10 @@ function applyPhasePartRounding(raw: RasterImage, spec: PhaseJigSegmentSpec): Ra
   }
   if (spec.partId === 'torso') {
     const topRounded = applyPivotArcRoundedCut(raw, {
-      pivot: { x: 78, y: 38 }, radiusX: 36, radiusY: 18, cutSide: 'above', featherPx: 3.0,
+      pivot: { x: 74, y: 30 }, radiusX: 14, radiusY: 6, cutSide: 'above', featherPx: 2.5,
     });
     return applyPivotArcRoundedCut(topRounded, {
-      pivot: { x: 78, y: 108 }, radiusX: 36, radiusY: 20, cutSide: 'below', featherPx: 3.5,
+      pivot: { x: 78, y: 108 }, radiusX: 30, radiusY: 18, cutSide: 'below', featherPx: 3.5,
     });
   }
   if (spec.partId === 'pelvis') {

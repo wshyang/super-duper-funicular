@@ -175,7 +175,7 @@ function buildRigPlacements(
     { partId: 'farHand', start: pose.farArm.endEffector, end: computeHandTip(pose.farArm, tuning.handLengthPx), srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(tuning.handWidthPx * 0.92) },
     { partId: 'farShin', start: pose.farLeg.midJoint, end: pose.farLeg.endEffector, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(tuning.shinWidthPx * 0.95) },
     { partId: 'farThigh', start: pose.farLeg.hipOrShoulder, end: pose.farLeg.midJoint, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(tuning.thighWidthPx * 0.95) },
-    { partId: 'neck', start: { x: pose.neck.x + 2.2, y: pose.neck.y - 1.5 }, end: { x: pose.collar.x + 1.0, y: pose.collar.y + 3.5 }, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(tuning.torsoWidthPx * 0.48) },
+    { partId: 'neck', start: { x: pose.neck.x + 1.15, y: pose.neck.y - 2.0 }, end: { x: pose.collar.x + 0.5, y: pose.collar.y + 3.5 }, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(19 * tuning.headScale) },
     { partId: 'torso', start: { x: pose.collar.x - 0.5, y: pose.collar.y - 2.0 }, end: { x: pose.pelvis.x - 1.0, y: pose.pelvis.y + 1.0 }, srcStart: { x: 74, y: 26 }, srcEnd: { x: 80, y: 120 }, dstHalfWidthPx: tuning.torsoWidthPx },
     { partId: 'pelvis', start: pelvisTop, end: pelvisBot, srcStart: { x: 82, y: 32 }, srcEnd: { x: 78, y: 120 }, dstHalfWidthPx: tuning.pelvisWidthPx },
     { partId: 'nearShin', start: pose.nearLeg.midJoint, end: pose.nearLeg.endEffector, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: tuning.shinWidthPx },

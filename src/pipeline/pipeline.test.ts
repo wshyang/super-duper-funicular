@@ -491,6 +491,32 @@ describe('Real reference sprite sheet grid detection and extraction verification
     expect(fs.existsSync(path.join(tmpHarvestDir, 'phase-harvest-report.json'))).toBe(true);
     fs.rmSync(tmpHarvestDir, { recursive: true, force: true });
   });
+
+  it('prevents torso-neck-head attachment regressions (no flat head-neck guillotine cut, no anterior turtleneck shelf, and harmonized neck-to-head skin tone)', () => {
+    for (const slug of ['sg-chinese-female-petite', 'sg-chinese-female', 'sg-chinese-female-average'] as const) {
+      const dir = path.join(process.cwd(), 'public/sprites/photoreal', slug, 'parts');
+      const head = readImageFile(path.join(dir, 'head.png'));
+      const neck = readImageFile(path.join(dir, 'neck.png'));
+      const torso = readImageFile(path.join(dir, 'torso.png'));
+      expect(readPixel(head, 73, 126).a, `${slug} head lower-neck guillotine cut at y=126`).toBe(0);
+      expect(readPixel(head, 108, 118).a, `${slug} head chin preserved`).toBe(255);
+      expect(readPixel(torso, 84, 24).a, `${slug} torso no anterior turtleneck shelf at (84,24)`).toBe(0);
+      const headNeckP = readPixel(head, 73, 110);
+      const neckTopP = readPixel(neck, 80, 48);
+      const headLum = (headNeckP.r + headNeckP.g + headNeckP.b) / 3;
+      const neckLum = (neckTopP.r + neckTopP.g + neckTopP.b) / 3;
+      expect(Math.abs(headLum - neckLum), `${slug} neck-to-head luminance delta`).toBeLessThan(18);
+    }
+    const athNeck = readImageFile(
+      path.join(process.cwd(), 'public/sprites/photoreal/sg-chinese-female/parts/neck.png'),
+    );
+    const athTorso = readImageFile(
+      path.join(process.cwd(), 'public/sprites/photoreal/sg-chinese-female/parts/torso.png'),
+    );
+    expect(readPixel(athNeck, 54, 24).a, 'athletic neck no top-left rectangular corner').toBe(0);
+    expect(readPixel(athNeck, 106, 24).a, 'athletic neck no top-right rectangular corner').toBe(0);
+    expect(readPixel(athTorso, 65, 36).a, 'athletic torso posterior trapezius preserved').toBe(255);
+  });
 });
 
 function countOpaquePixels(img: { width: number; height: number; data: Uint8ClampedArray }): number {

@@ -8,6 +8,7 @@ import { fillHollowJointBallByJacobiRelaxation, purgeSkinPartFabricSpill } from 
 import { createRaster, readPixel, writePixel } from './raster.js';
 import {
   extractAthleticFarArmParts, extractAthleticNeck, extractAthleticTorso,
+  featherHeadNeckBase, harmonizeNeckToHeadSkin,
 } from './athletic-reference-extractor.js';
 import { applyPivotArcRoundedCut, cutArticulatedLimbWithRoundedEnds, cutHorizontalLimbWithRoundedEnds } from './rounded-joint-cutter.js';
 import {
@@ -190,10 +191,12 @@ export function extractPhotorealSpriteParts(
   const nearLeg = softenInteriorShadowGrooves(sources.nearLegLateral);
   const farLeg = softenInteriorShadowGrooves(sources.farLegMedial);
   const cleanShorts = stripPelvisShortsSkinFringe(sources.pelvisShorts, tier === 'average');
+  const head = extractHeadCutout(sources.headProfile);
+  const neck = harmonizeNeckToHeadSkin(extractNeckCutout(sources.neckCylinder, tier), head);
   return {
-    head: extractHeadCutout(sources.headProfile),
+    head,
     hairAccessory: extractPonytailCutout(sources.ponytail),
-    neck: extractNeckCutout(sources.neckCylinder, tier),
+    neck,
     torso: extractTorsoCutout(sources.torsoSinglet, tier),
     pelvis: extractPelvisCutout(cleanShorts, tier),
     ...extractArmCutouts(nearArm, farArm, tier),
@@ -271,13 +274,7 @@ function extractHeadCutout(src: RasterImage): RasterImage {
     cropBox: { minX: 425, minY: 55, maxX: 912, maxY: 605 },
     shadeScale: 1.0,
   });
-  return applyPivotArcRoundedCut(raw, {
-    pivot: { x: 73, y: 122 },
-    radiusX: 42,
-    radiusY: 11,
-    cutSide: 'below',
-    featherPx: 2.5,
-  });
+  return featherHeadNeckBase(raw);
 }
 
 function extractPonytailCutout(src: RasterImage): RasterImage {
@@ -296,28 +293,29 @@ function extractNeckCutout(
   tier: PersonaBuildTier = 'athletic',
 ): RasterImage {
   if (tier === 'athletic' && src.width >= 1300 && src.height >= 700) {
-    const topFilled = fillHollowJointBallByJacobiRelaxation(extractAthleticNeck(src), {
-      pivot: { x: 80, y: 36 }, radiusPx: 25,
-    });
-    return fillHollowJointBallByJacobiRelaxation(topFilled, {
-      pivot: { x: 80, y: 124 }, radiusPx: 26,
-    });
+    return extractAthleticNeck(src);
   }
   const purged = purgeSkinPartFabricSpill(src).cleaned;
   const isAvg = tier === 'average';
   const isPetite = tier === 'petite';
+  const rTop = isAvg ? 27 : isPetite ? 22 : 25;
+  const rBot = isAvg ? 29 : isPetite ? 24 : 26.5;
   const raw = cutArticulatedLimbWithRoundedEnds(purged, {
     srcTopY: isAvg ? 290 : isPetite ? 310 : 340,
     srcBotY: isAvg ? 585 : isPetite ? 545 : 540,
-    dstRadiusTopPx: isAvg ? 35 : isPetite ? 24 : 28,
-    dstRadiusBotPx: isAvg ? 39 : isPetite ? 26 : 31,
+    dstRadiusTopPx: rTop,
+    dstRadiusBotPx: rBot,
     roundTopEnd: true,
     roundBotEnd: true,
     shadeScale: 0.98,
   });
-  return fillHollowJointBallByJacobiRelaxation(raw, {
+  const topFilled = fillHollowJointBallByJacobiRelaxation(raw, {
     pivot: { x: 80, y: 36 },
-    radiusPx: isAvg ? 33 : isPetite ? 22 : 26,
+    radiusPx: rTop - 1,
+  });
+  return fillHollowJointBallByJacobiRelaxation(topFilled, {
+    pivot: { x: 80, y: 124 },
+    radiusPx: rBot - 1,
   });
 }
 
@@ -330,16 +328,18 @@ function extractTorsoCutout(
   const raw =
     tier === 'athletic'
       ? extractAthleticTorso(src)
-      : extractSimilarityAlignedPart(cleanAverageTorsoNeckStub(src), {
-          srcStart: isAvg ? { x: 682, y: 182 } : { x: 668, y: 145 },
-          srcEnd: isAvg ? { x: 712, y: 585 } : { x: 704, y: 615 },
-          dstStart: { x: 74, y: isAvg ? 22 : 24 },
-          dstEnd: { x: 80, y: isAvg ? 124 : 118 },
-          cropBox: isAvg
-            ? { minX: 525, minY: 138, maxX: 880, maxY: 665 }
-            : { minX: 550, minY: 128, maxX: 855, maxY: 622 },
-          shadeScale: 1.0,
-        });
+      : trimTorsoCollarNeckStub(
+          extractSimilarityAlignedPart(cleanAverageTorsoNeckStub(src), {
+            srcStart: isAvg ? { x: 682, y: 182 } : { x: 668, y: 145 },
+            srcEnd: isAvg ? { x: 712, y: 585 } : { x: 704, y: 615 },
+            dstStart: { x: 74, y: isAvg ? 25 : 24 },
+            dstEnd: { x: 80, y: isAvg ? 124 : 118 },
+            cropBox: isAvg
+              ? { minX: 525, minY: 168, maxX: 880, maxY: 665 }
+              : { minX: 550, minY: 128, maxX: 855, maxY: 622 },
+            shadeScale: 1.0,
+          }),
+        );
   return applyPivotArcRoundedCut(raw, {
     pivot: { x: 78, y: isAvg ? 112 : isPetite ? 105 : 108 },
     radiusX: isAvg ? 44 : isPetite ? 26 : 31,
@@ -347,6 +347,26 @@ function extractTorsoCutout(
     cutSide: 'below',
     featherPx: 3.5,
   });
+}
+
+function trimTorsoCollarNeckStub(src: RasterImage): RasterImage {
+  const out = createRaster(src.width, src.height);
+  for (let y = 25; y < src.height; y++) {
+    for (let x = 0; x < src.width; x++) {
+      const p = readPixel(src, x, y);
+      if (p.a === 0) continue;
+      let alpha = p.a;
+      if (y < 32) {
+        const collarArcY = 26.5 + 3.5 * Math.pow((x - 73.5) / 10.5, 2);
+        if (y < collarArcY) {
+          const excess = collarArcY - y;
+          alpha = excess >= 2.2 ? 0 : Math.round(p.a * (1 - excess / 2.2));
+        }
+      }
+      if (alpha > 0) writePixel(out, { x, y }, { ...p, a: alpha });
+    }
+  }
+  return out;
 }
 
 function extractPelvisCutout(src: RasterImage, tier: PersonaBuildTier = 'athletic'): RasterImage {

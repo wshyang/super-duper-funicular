@@ -124,26 +124,32 @@ export function normalizeFingertipMagentaShadow(src: RasterImage): RasterImage {
 export function cleanAverageTorsoNeckStub(src: RasterImage): RasterImage {
   const out = createRaster(src.width, src.height);
   out.data.set(src.data);
-  for (let y = 0; y < 156; y++) {
+  for (let y = 0; y < 168; y++) {
     for (let x = 560; x < 790; x++) {
       const p = readPixel(out, x, y);
       if (p.a === 0) continue;
       const isCrimsonStrap = p.r - p.g > 48 && p.r > 110;
-      if (!isCrimsonStrap && y < 150) {
+      if (!isCrimsonStrap && y < 164) {
         writePixel(out, { x, y }, { r: 0, g: 0, b: 0, a: 0 });
       }
     }
   }
-  const refSkin = readPixel(out, 670, 265);
-  for (let y = 154; y <= 326; y++) {
+  const rawRef = readPixel(out, 670, 265);
+  const refSkin = {
+    r: Math.min(214, rawRef.r),
+    g: Math.min(156, rawRef.g),
+    b: Math.min(114, rawRef.b),
+    a: 255,
+  };
+  for (let y = 172; y <= 326; y++) {
     for (let x = 576; x <= 762; x++) {
-      const normDist = Math.hypot((x - 670) / 90, (y - 252) / 88);
-      if (normDist > 1.05) continue;
+      const normDist = Math.hypot((x - 670) / 86, (y - 256) / 80);
+      if (normDist > 1.0) continue;
       const cur = readPixel(out, x, y);
-      const isSinglet = cur.r - cur.g > 82 && cur.g < 75;
+      const isSinglet = cur.r - cur.g > 48 && cur.r > 110 && cur.g < 95;
       const isWhiteStripe = cur.r > 180 && cur.g > 175 && cur.b > 175;
       if (cur.a < 128 || isSinglet || isWhiteStripe) continue;
-      const blend = 0.96;
+      const blend = 0.78 * (1 - normDist * normDist);
       writePixel(
         out,
         { x, y },

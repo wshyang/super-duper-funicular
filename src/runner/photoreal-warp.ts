@@ -230,6 +230,9 @@ function applyGarmentTint(
   mode: 'crimson-singlet' | 'accent-trim' | 'none',
 ): RgbaColor {
   if (!target || mode === 'none') return pixel;
+  if (mode === 'crimson-singlet' && (pixel.g > 105 || pixel.r - pixel.g < 72)) {
+    return pixel;
+  }
   const maxC = Math.max(pixel.r, pixel.g, pixel.b);
   const minC = Math.min(pixel.r, pixel.g, pixel.b);
   const sat = maxC > 0 ? (maxC - minC) / maxC : 0;
