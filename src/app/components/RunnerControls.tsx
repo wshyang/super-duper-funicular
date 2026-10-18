@@ -220,7 +220,7 @@ function ArmSwingControlsSection({
         onChange={(v) => onUpdateGait('armCarryFlexDeg', v)}
       />
       <SliderControl
-        label="Chest Carry Height Bias"
+        label="Arm Carry Bias (Forward / Chestward)"
         displayValue={sliderLabels.armChestBiasLabel}
         min={-10}
         max={28}
@@ -228,6 +228,11 @@ function ArmSwingControlsSection({
         value={gaitConfig.armChestBiasDeg ?? 4}
         onChange={(v) => onUpdateGait('armChestBiasDeg', v)}
       />
+      <p className="control-help" data-testid="arm-carry-bias-help">
+        Angular shoulder bias within the arm-swing cycle: positive values carry the arms farther
+        forward and often raise the hands. It is not a fixed vertical-height offset; elbow flexion
+        controls how tightly the hands tuck.
+      </p>
     </div>
   );
 }
@@ -242,13 +247,18 @@ function AssetTuningControlsSection({
     return <div data-testid="asset-tuning-empty" />;
   }
   return (
-    <div className="control-card" data-testid="asset-tuning-section">
-      <h3 className="control-card-title">Per-Asset-Set Body Proportion Tuning</h3>
-      <p className="persona-description">{activeAssetTuning.buildLabel}</p>
-      <p className="persona-description">
-        Profile estimate: about {activeAssetTuning.estimatedHeightCm} cm. Length defaults are
-        normalized from the source side profile; tweak them while viewing the standing calibration.
-      </p>
+    <details className="control-card asset-tuning-card" data-testid="asset-tuning-section">
+      <summary className="asset-tuning-card__summary" data-testid="runner-controls__asset-tuning-toggle">
+        <span className="control-card-title">Per-Asset-Set Body Proportion Tuning</span>
+        <span className="asset-tuning-card__subtitle">
+          {activeAssetTuning.buildLabel} · ≈ {activeAssetTuning.estimatedHeightCm} cm
+        </span>
+      </summary>
+      <div className="asset-tuning-card__body">
+        <p className="persona-description">
+          Optional advanced controls. Lengths are normalized from the source profile; tune while
+          comparing the neutral standing calibration.
+        </p>
       <SliderControl
         label="Head Scale"
         displayValue={formatScale(activeAssetTuning.headScale)}
@@ -345,7 +355,8 @@ function AssetTuningControlsSection({
           ↺ Reset Asset-Set Proportions
         </button>
       )}
-    </div>
+      </div>
+    </details>
   );
 }
 

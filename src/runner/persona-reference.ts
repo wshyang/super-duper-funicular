@@ -53,25 +53,25 @@ export const PERSONA_REFERENCE_DIMENSIONS: Readonly<
   },
   'photo-sg-chinese-female': {
     estimatedHeightCm: 166,
-    masterStandingHeightPx: 707,
-    headLengthPx: 94,
+    masterStandingHeightPx: 712,
+    headLengthPx: 95,
     neckLengthPx: 50,
-    torsoLengthPx: 198,
-    pelvisLengthPx: 90,
-    upperArmLengthPx: 112,
-    forearmLengthPx: 94,
+    torsoLengthPx: 199,
+    pelvisLengthPx: 91,
+    upperArmLengthPx: 113,
+    forearmLengthPx: 95,
     handLengthPx: 48,
-    thighLengthPx: 158,
-    shinLengthPx: 150,
-    shoeLengthPx: 102,
-    headDepthPx: 85,
+    thighLengthPx: 159,
+    shinLengthPx: 151,
+    shoeLengthPx: 103,
+    headDepthPx: 86,
     neckWidthPx: 38,
-    torsoWidthPx: 86,
-    pelvisWidthPx: 98,
+    torsoWidthPx: 87,
+    pelvisWidthPx: 99,
     upperArmWidthPx: 41,
     forearmWidthPx: 34,
     handWidthPx: 28,
-    thighWidthPx: 68,
+    thighWidthPx: 69,
     shinWidthPx: 50,
   },
   'photo-sg-chinese-female-average': {
@@ -104,4 +104,17 @@ export function referencePercent(
   measurements: PersonaReferenceDimensions,
 ): number {
   return (dimensionPx / measurements.masterStandingHeightPx) * 100;
+}
+
+/**
+ * Relative display scale for a future multi-persona stage. Standalone profile
+ * calibration remains normalized; side-by-side personas use estimated heights.
+ */
+export function personaHeightScaleForComparison(
+  personaId: PhotorealPersonaId,
+  referencePersonaId: PhotorealPersonaId = 'photo-sg-chinese-female',
+): number {
+  const personaHeight = PERSONA_REFERENCE_DIMENSIONS[personaId].estimatedHeightCm;
+  const referenceHeight = PERSONA_REFERENCE_DIMENSIONS[referencePersonaId].estimatedHeightCm;
+  return personaHeight / referenceHeight;
 }

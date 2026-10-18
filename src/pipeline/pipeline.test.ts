@@ -63,6 +63,38 @@ describe('Real reference sprite sheet grid detection and extraction verification
     'src/images/spritesheets/runner-8frame-6color-flawed-sheet.jpeg',
   );
 
+  it('keeps the athletic neck isolated, the armhole filled, and the left-thumb/fingers intact', () => {
+    const partsDir = path.join(repoRoot, 'public/sprites/photoreal/sg-chinese-female/parts');
+    const neck = readImageFile(path.join(partsDir, 'neck.png'));
+    const torso = readImageFile(path.join(partsDir, 'torso.png'));
+    const farHand = readImageFile(path.join(partsDir, 'farHand.png'));
+
+    // The revised neck crop is skin-only: a red/white singlet fragment or
+    // dark ponytail pixels here would signal a crop spill from the full portrait.
+    let clothingOrHairPixels = 0;
+    for (let y = 0; y < neck.height; y++) {
+      for (let x = 0; x < neck.width; x++) {
+        const p = readPixel(neck, x, y);
+        if (p.a < 128) continue;
+        if ((p.r > 135 && p.g < 52 && p.b < 65) || (p.r < 45 && p.g < 45 && p.b < 45)) {
+          clothingOrHairPixels++;
+        }
+      }
+    }
+    expect(clothingOrHairPixels).toBe(0);
+
+    // This opaque skin pixel is inside the shoulder stump, not its silhouette;
+    // it guards against restoring the see-through armhole/lining artifact.
+    expect(readPixel(torso, 100, 60).a).toBeGreaterThan(128);
+
+    // In the left-palm plate the thumb is the lateral projection, while the
+    // four fingers continue down the hand. Both must survive extraction.
+    const thumbSidePixels = Array.from({ length: 73 }, (_, i) => i + 55)
+      .filter((x) => readPixel(farHand, x, 75).a > 128);
+    expect(Math.max(...thumbSidePixels)).toBeGreaterThanOrEqual(120);
+    expect(readPixel(farHand, 82, 122).a).toBeGreaterThan(128);
+  });
+
   it('generates cropped alpha-keyed standing reference profiles for all three photoreal personas', () => {
     const folders = ['sg-chinese-female-petite', 'sg-chinese-female', 'sg-chinese-female-average'];
     for (const folder of folders) {

@@ -19,6 +19,7 @@ import {
   purgeSkinPartFabricSpill,
 } from './photoreal-matte-and-qc.js';
 import { createRaster, readPixel, writePixel } from './raster.js';
+import { extractAthleticFarArmParts, extractAthleticNeck } from './athletic-reference-extractor.js';
 import {
   applyPivotArcRoundedCut,
   cutArticulatedLimbWithRoundedEnds,
@@ -26,7 +27,6 @@ import {
 } from './rounded-joint-cutter.js';
 import {
   cleanAverageTorsoNeckStub,
-  cleanTorsoNeckStubAndSocket,
   extractArmSegmentsFromMasterSideProfile,
   fillInteriorHandPinholes,
   normalizeFingertipMagentaShadow,
@@ -312,6 +312,11 @@ function extractNeckCutout(
   src: RasterImage,
   tier: PersonaBuildTier = 'athletic',
 ): RasterImage {
+  if (tier === 'athletic' && src.width >= 1300 && src.height >= 700) {
+    return fillHollowJointBallByJacobiRelaxation(extractAthleticNeck(src), {
+      pivot: { x: 80, y: 36 }, radiusPx: 26,
+    });
+  }
   const purged = purgeSkinPartFabricSpill(src).cleaned;
   const isAvg = tier === 'average';
   const isPetite = tier === 'petite';
@@ -336,9 +341,10 @@ function extractTorsoCutout(
 ): RasterImage {
   const isAvg = tier === 'average';
   const isPetite = tier === 'petite';
+  // The athletic close torso plate already has a closed skin-covered shoulder stump.
   const cleaned =
     tier === 'athletic'
-      ? cleanTorsoNeckStubAndSocket(src)
+      ? src
       : cleanAverageTorsoNeckStub(src);
   const raw = extractSimilarityAlignedPart(cleaned, {
     srcStart: isAvg ? { x: 682, y: 182 } : isPetite ? { x: 668, y: 145 } : { x: 663, y: 165 },
@@ -489,6 +495,9 @@ function extractFarArmParts(
   const rUpBot = isAvg ? 19 : isPetite ? 13 : 15;
   const rForeTop = isAvg ? 19 : isPetite ? 13 : 16;
   const rForeBot = isAvg ? 15 : isPetite ? 11 : 14;
+  if (tier === 'athletic' && cleanFar.width >= 1300 && cleanFar.height >= 700) {
+    return extractAthleticFarArmParts(cleanFar);
+  }
   return {
     farUpperArm: purgeSkinPartFabricSpill(
       cutArticulatedLimbWithRoundedEnds(cleanFar, {

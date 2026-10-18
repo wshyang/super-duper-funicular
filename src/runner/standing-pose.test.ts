@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { applyAssetTuningToRigSpec, DEFAULT_RIG_SPEC, PHOTOREAL_ASSET_TUNING_DEFAULTS } from './body-proportions.js';
-import { PERSONA_REFERENCE_DIMENSIONS, referencePercent } from './persona-reference.js';
+import { PERSONA_REFERENCE_DIMENSIONS, personaHeightScaleForComparison, referencePercent } from './persona-reference.js';
 import { solveStandingUprightPose } from './standing-pose.js';
 
 describe('Neutral standing profile calibration', () => {
@@ -33,6 +33,21 @@ describe('Neutral standing profile calibration', () => {
       expect(referencePercent(source.upperArmLengthPx, source)).toBeGreaterThan(14);
       expect(referencePercent(source.upperArmLengthPx, source)).toBeLessThan(18);
     }
+  });
+
+  it('reserves estimated-height ratios for future multi-persona side-by-side rendering', () => {
+    expect(personaHeightScaleForComparison('photo-sg-chinese-female-petite')).toBeCloseTo(152 / 166, 6);
+    expect(personaHeightScaleForComparison('photo-sg-chinese-female-average')).toBeCloseTo(161 / 166, 6);
+    expect(personaHeightScaleForComparison('photo-sg-chinese-female')).toBe(1);
+  });
+
+  it('keeps petite tuned narrower than athletic while bringing it closer to its source-profile width ratios', () => {
+    const petite = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-petite'];
+    const athletic = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female'];
+    expect(petite.torsoWidthPx).toBeLessThan(athletic.torsoWidthPx);
+    expect(petite.torsoWidthPx).toBeGreaterThan(34);
+    expect(petite.pelvisWidthPx).toBeLessThan(athletic.pelvisWidthPx);
+    expect(petite.thighWidthPx).toBeLessThan(athletic.thighWidthPx);
   });
 
   it('creates taller torso proportions for fuller profiles while keeping editable, resettable values', () => {

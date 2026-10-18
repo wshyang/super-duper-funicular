@@ -17,11 +17,11 @@
 ### 1.1 Automated Live Remote Branch Tips (`npm run branches:compare`)
 
 <!-- branch-tips:start -->
-Observed (UTC): `2026-10-18T02:43:00.299Z` · Active Session Branch: `arena/e1300d3c-super-duper-funicular`
+Observed (UTC): `2026-10-18T03:02:33.746Z` · Active Session Branch: `arena/e1300d3c-super-duper-funicular`
 
 | Branch Role & Codename | Branch (`refs/heads/*`) | PR / Lifecycle Status | Full Observed SHA | Commit Timestamp (ISO) | Commits Ahead of `main` | Latest Commit Subject |
 |---|---|---|---|---|---|---|
-| **Branch 0 (Ours — Harmonised N-Way Studio)** | `arena/e1300d3c-super-duper-funicular` | Active Session Branch | `bbb22cbbe3153bca391604ae5107938ec31ac1cf` | `2026-10-18T02:42:28+00:00` | `+8` | docs(branches): refresh live five-way tips after proportion calibration |
+| **Branch 0 (Ours — Harmonised N-Way Studio)** | `arena/e1300d3c-super-duper-funicular` | Active Session Branch | `8a7fd6faba3b1e3b5901474103261685087c7f1b` | `2026-10-18T02:43:05+00:00` | `+9` | docs(fds): record calibration evidence and refresh live branch ledger |
 | **Branch 1 (Sprite Motion Lab)** | `arena/917ef347-super-duper-funicular` | PR #1 Open | `e172b0f1f8d9b640b65a4ba420f71965693adb23` | `2026-10-17T23:09:40+00:00` | `+6` | docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023) |
 | **Branch 2 (Stride Lab Workbench)** | `arena/263385da-super-duper-funicular` | PR #2 Open | `b227e2fe562be341f15f58955f539d325170729e` | `2026-10-17T21:55:19+00:00` | `+1` | Build Stride Lab motion workbench with photographic rig and cycle audits |
 | **Branch 3 (Funicular / Photo-Rig & Matte Lab)** | `arena/77ffb088-super-duper-funicular` | PR #3 Open | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | `2026-10-17T23:05:53+00:00` | `+13` | Track live three-way feature parity and adopt multi-background photo audits |

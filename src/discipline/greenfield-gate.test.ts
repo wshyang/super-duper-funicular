@@ -117,8 +117,8 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('TURN-L14');
     expect(fdsMd).toContain('TURN-L15');
     expect(fdsMd).toContain('TURN-L16');
-    expect(fdsMd).toContain('TURN-L17');
-    expect(fdsMd).toContain('ADD-034');
+    expect(fdsMd).toContain('TURN-L18');
+    expect(fdsMd).toContain('ADD-035');
     expect(fdsMd).toContain('Standing Profile Calibration');
     expect(nWayMd).toContain('e172b0f1f8d9b640b65a4ba420f71965693adb23');
     expect(nWayMd).toContain('b227e2fe562be341f15f58955f539d325170729e');
