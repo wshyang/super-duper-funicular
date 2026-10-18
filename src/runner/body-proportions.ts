@@ -189,6 +189,26 @@ export const PHOTOREAL_ASSET_TUNING_DEFAULTS: Readonly<
     defaultArmChestBiasDeg: 8,
     defaultHairStyleMode: 'long-flowing',
   },
+  'photo-sg-chinese-female-petite': {
+    personaId: 'photo-sg-chinese-female-petite',
+    buildLabel: 'Slim Petite Proportions (Xiao Wen)',
+    upperArmLengthScale: 0.94,
+    forearmLengthScale: 0.94,
+    upperArmWidthPx: 18.5,
+    forearmWidthPx: 16.5,
+    handWidthPx: 15.0,
+    handLengthPx: 7.5,
+    torsoWidthPx: 34.0,
+    pelvisWidthPx: 25.0,
+    thighWidthPx: 25.0,
+    shinWidthPx: 24.5,
+    shoulderOffsetX: 0.0,
+    shoulderOffsetY: -1.5,
+    hipOffsetY: 1.5,
+    defaultArmCarryFlexDeg: 98,
+    defaultArmChestBiasDeg: 10,
+    defaultHairStyleMode: 'ponytail',
+  },
 };
 
 export type PhotorealAssetTuningMap = Readonly<
@@ -202,6 +222,9 @@ export function createInitialAssetTuningMap(): PhotorealAssetTuningMap {
     },
     'photo-sg-chinese-female-average': {
       ...PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-average'],
+    },
+    'photo-sg-chinese-female-petite': {
+      ...PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-petite'],
     },
   };
 }

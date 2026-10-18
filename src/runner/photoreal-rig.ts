@@ -24,6 +24,7 @@ export type PhotorealPartBank = Partial<Record<BodyPartId, RasterImage>>;
 const partBanksByPersona: Record<PhotorealPersonaId, PhotorealPartBank> = {
   'photo-sg-chinese-female': {},
   'photo-sg-chinese-female-average': {},
+  'photo-sg-chinese-female-petite': {},
 };
 
 export function setPhotorealPartBankForPersona(

@@ -181,6 +181,73 @@ const KNOWN_FILE_MAPPINGS: readonly CandidateMapping[] = [
     description: 'Photorealistic cutout source (Average Build): Left (Far) fuller leg & cushioned everyday running shoe viewed from INSIDE.',
   },
   {
+    sourceRelPath: 'src/images/spritesheets/runner-8frame-6color-photoreal-female-petite-sheet.png',
+    targetRelPath: 'src/images/spritesheets/runner-8frame-6color-photoreal-female-petite-sheet.png',
+    category: 'spritesheet-algorithmic',
+    description:
+      'Photorealistic 6-color × 8-frame Singaporean Chinese Female (Slim Petite UK 4-6 Build) runner sprite sheet composed from 10 studio photographic cutouts.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/01-master-lateral-profile-reference.png',
+    targetRelPath: 'src/images/photoreal-female-petite/01-master-lateral-profile-reference.png',
+    category: 'spritesheet-reference',
+    description: 'Master right-facing sagittal studio photograph of slim petite Singaporean Chinese female runner on #FF00FF magenta.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/02-head-profile-right.png',
+    targetRelPath: 'src/images/photoreal-female-petite/02-head-profile-right.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Delicate oval right-facing head & facial profile.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/03-ponytail-hair-accessory.png',
+    targetRelPath: 'src/images/photoreal-female-petite/03-ponytail-hair-accessory.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Compact sleek dark-brown ponytail & crimson tie.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/04-cervical-neck-cylinder.png',
+    targetRelPath: 'src/images/photoreal-female-petite/04-cervical-neck-cylinder.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Slender swan-like cervical neck cylinder.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/05-torso-racerback-singlet.png',
+    targetRelPath: 'src/images/photoreal-female-petite/05-torso-racerback-singlet.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Narrow petite female torso in crimson running singlet with white stripe.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/06-pelvis-sprinter-shorts.png',
+    targetRelPath: 'src/images/photoreal-female-petite/06-pelvis-sprinter-shorts.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Slim narrow hip and pelvis contour in black running shorts.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/07-near-right-arm-lateral-outside.png',
+    targetRelPath: 'src/images/photoreal-female-petite/07-near-right-arm-lateral-outside.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Right (Near) slender delicate female arm viewed from OUTSIDE.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/08-far-left-arm-medial-inside-palm.png',
+    targetRelPath: 'src/images/photoreal-female-petite/08-far-left-arm-medial-inside-palm.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Left (Far) slender delicate female arm in 90-degree L-bend viewed from INSIDE.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/09-near-right-leg-lateral-outside-shoe.png',
+    targetRelPath: 'src/images/photoreal-female-petite/09-near-right-leg-lateral-outside-shoe.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Right (Near) slim slender female leg & running shoe viewed from OUTSIDE.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/10-far-left-leg-medial-inside-shoe.png',
+    targetRelPath: 'src/images/photoreal-female-petite/10-far-left-leg-medial-inside-shoe.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Left (Far) slim slender female leg & running shoe viewed from INSIDE.',
+  },
+  {
     sourceRelPath: 'src/images/backdrops/stadium-track-day.png',
     targetRelPath: 'src/images/backdrops/stadium-track-day.png',
     category: 'backdrop',

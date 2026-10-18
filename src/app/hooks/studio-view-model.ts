@@ -176,15 +176,17 @@ function formatSinglePartReadout(
     (part.partId === 'nearFoot' && pose.nearLeg.isGrounded) ||
     (part.partId === 'farFoot' && pose.farLeg.isGrounded);
   const cutoutUrl =
-    personaId === 'photo-sg-chinese-female-average'
-      ? (part.photoFemaleAveragePublicUrl ??
-          part.photoFemalePublicUrl ??
-          part.femalePublicUrl)
-      : personaId === 'photo-sg-chinese-female'
-        ? (part.photoFemalePublicUrl ?? part.femalePublicUrl)
-        : personaId === 'sg-chinese-female'
-          ? part.femalePublicUrl
-          : part.publicUrl;
+    personaId === 'photo-sg-chinese-female-petite'
+      ? `/sprites/algorithmic/parts/photo-sg-chinese-female-petite/${part.partId}.png`
+      : personaId === 'photo-sg-chinese-female-average'
+        ? (part.photoFemaleAveragePublicUrl ??
+            part.photoFemalePublicUrl ??
+            part.femalePublicUrl)
+        : personaId === 'photo-sg-chinese-female'
+          ? (part.photoFemalePublicUrl ?? part.femalePublicUrl)
+          : personaId === 'sg-chinese-female'
+            ? part.femalePublicUrl
+            : part.publicUrl;
   return {
     part,
     cutoutUrl,

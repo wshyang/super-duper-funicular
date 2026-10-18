@@ -158,3 +158,48 @@ export function cleanAverageTorsoNeckStub(src: RasterImage): RasterImage {
   }
   return out;
 }
+
+export function cleanTorsoNeckStubAndSocket(src: RasterImage): RasterImage {
+  const out = createRaster(src.width, src.height);
+  out.data.set(src.data);
+  for (let y = 0; y < 225; y++) {
+    for (let x = 560; x < 790; x++) {
+      const p = readPixel(out, x, y);
+      if (p.a === 0) continue;
+      const isCrimsonStrap = p.r - p.g > 68 && p.r > 135;
+      if (!isCrimsonStrap && y < 192) {
+        writePixel(out, { x, y }, { r: 0, g: 0, b: 0, a: 0 });
+      }
+    }
+  }
+  const cx = 674;
+  const cy = 295;
+  const rOuter = 94;
+  const baseSkin = { r: 218, g: 162, b: 118, a: 255 };
+  for (let y = cy - rOuter; y <= cy + rOuter; y++) {
+    const rowSkin = readPixel(out, 602, Math.max(260, Math.min(360, y)));
+    const isRowSkin =
+      rowSkin.a > 200 && rowSkin.r - rowSkin.g < 70 && rowSkin.g > 125;
+    const refSkin = isRowSkin ? rowSkin : baseSkin;
+    for (let x = cx - rOuter; x <= cx + rOuter; x++) {
+      const dist = Math.hypot(x - cx, y - cy);
+      if (dist > rOuter) continue;
+      const cur = readPixel(out, x, y);
+      const isSingletFabric = dist >= 72 && cur.r - cur.g > 72 && cur.g < 95;
+      if (cur.a < 128 || isSingletFabric) continue;
+      const blend =
+        dist < 72 ? 0.96 : Math.max(0, Math.min(1, (rOuter - dist) / 22)) * 0.95;
+      writePixel(
+        out,
+        { x, y },
+        {
+          r: Math.round(cur.r * (1 - blend) + refSkin.r * blend),
+          g: Math.round(cur.g * (1 - blend) + refSkin.g * blend),
+          b: Math.round(cur.b * (1 - blend) + refSkin.b * blend),
+          a: cur.a,
+        },
+      );
+    }
+  }
+  return out;
+}

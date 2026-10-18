@@ -204,11 +204,47 @@ export const PHOTO_SG_CHINESE_FEMALE_AVERAGE_SKIN: RunnerSkinDefinition = {
   },
 };
 
+export const PHOTO_SG_CHINESE_FEMALE_PETITE_SKIN: RunnerSkinDefinition = {
+  id: 'photo-sg-chinese-female-petite',
+  title: 'Photorealistic SG Chinese Female (Slim Petite)',
+  subtitle:
+    'Xiao Wen (Slim Petite UK 4-6 Build) — 10-Asset Studio Cutouts with Slender Petite Proportions, Delicate Limbs & High Ponytail',
+  badgeLabel: 'PHOTOREAL FEMALE (SLIM PETITE)',
+  complexionNear: '#F5C7A1',
+  complexionFar: '#CFA07A',
+  hairColor: '#181210',
+  hairHighlight: '#362721',
+  hairTieAccent: '#E11D48',
+  wristbandColor: '#38BDF8',
+  hairStyle: 'female-ponytail',
+  topCut: 'athletic-singlet',
+  shortsCut: 'sculpted-sprinter-shorts',
+  anthropometrics: {
+    torsoLength: 42,
+    neckLength: 13,
+    headRadius: 13.4,
+    shoulderRadius: 11.2,
+    waistRadius: 8.6,
+    pelvisRadius: 10.2,
+    thighRadius: 8.4,
+    kneeRadius: 5.6,
+    shinRadius: 5.4,
+    ankleRadius: 3.8,
+    upperArmRadius: 4.4,
+    elbowRadius: 3.6,
+    forearmRadius: 3.4,
+    wristRadius: 2.9,
+    neckRadius: 3.9,
+    defaultForwardLeanDeg: 20,
+  },
+};
+
 const SKIN_REGISTRY = new Map<string, RunnerSkinDefinition>([
   [SG_CHINESE_MALE_SKIN.id, SG_CHINESE_MALE_SKIN],
   [SG_CHINESE_FEMALE_SKIN.id, SG_CHINESE_FEMALE_SKIN],
   [PHOTO_SG_CHINESE_FEMALE_SKIN.id, PHOTO_SG_CHINESE_FEMALE_SKIN],
   [PHOTO_SG_CHINESE_FEMALE_AVERAGE_SKIN.id, PHOTO_SG_CHINESE_FEMALE_AVERAGE_SKIN],
+  [PHOTO_SG_CHINESE_FEMALE_PETITE_SKIN.id, PHOTO_SG_CHINESE_FEMALE_PETITE_SKIN],
 ]);
 
 export const PERSONA_SKINS: readonly RunnerSkinDefinition[] = [
@@ -216,6 +252,7 @@ export const PERSONA_SKINS: readonly RunnerSkinDefinition[] = [
   SG_CHINESE_FEMALE_SKIN,
   PHOTO_SG_CHINESE_FEMALE_SKIN,
   PHOTO_SG_CHINESE_FEMALE_AVERAGE_SKIN,
+  PHOTO_SG_CHINESE_FEMALE_PETITE_SKIN,
 ];
 
 export function isPhotorealPersona(
@@ -223,7 +260,8 @@ export function isPhotorealPersona(
 ): personaId is PhotorealPersonaId {
   return (
     personaId === 'photo-sg-chinese-female' ||
-    personaId === 'photo-sg-chinese-female-average'
+    personaId === 'photo-sg-chinese-female-average' ||
+    personaId === 'photo-sg-chinese-female-petite'
   );
 }
 

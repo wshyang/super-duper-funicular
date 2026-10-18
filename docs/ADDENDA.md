@@ -249,6 +249,16 @@ Every architectural, algorithmic, or tooling decision not fixed by a single lite
 - **Related Spec Section:** `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-validation.md`, `CLAUDE-checklist.md`, `docs/FDS.md#continuous-learning-log` (`TURN-L14`)
 - **Practical Impact:** Updated `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-validation.md`, `CLAUDE-checklist.md`, and `src/discipline/greenfield-gate.test.ts`.
 
+## `ADD-032` — Slim Petite Singaporean Chinese Female Photorealistic Persona (`photo-sg-chinese-female-petite`) & 3-Tier Body-Positive Spectrum
+- **What was decided:**
+  1. Add `'photo-sg-chinese-female-petite'` to `RunnerPersonaId` (`src/shared/types.ts`), `PersonaBuildTier = 'petite' | 'athletic' | 'average'` (`src/pipeline/photoreal-extractor.ts`), and `PHOTOREAL_ASSET_TUNING_DEFAULTS` (`src/runner/body-proportions.ts`), establishing a complete 3-tier female body-positivity spectrum (`petite < athletic < average`).
+  2. Generate and visually inspect 10 dedicated studio photographic source plates (`src/images/photoreal-female-petite/01..10.png`, `Calls #42`..`#51`) for a delicate `152 cm` (`UK 4–6`) ectomorphic Singaporean Chinese female runner (`torsoWidthPx: 34.0`, `pelvisWidthPx: 25.0`, `upperArmWidthPx: 18.5`, `forearmWidthPx: 16.5`, `thighWidthPx: 25.0`, `shinWidthPx: 24.5`, `upperArmLengthScale: 0.94, forearmLengthScale: 0.94`).
+  3. Extract 17 `160 × 160` RGBA cutouts (`public/sprites/photoreal/sg-chinese-female-petite/parts/*.png`), generate 48-frame sheets (`src/images/spritesheets/runner-8frame-6color-photoreal-female-petite-sheet.png` and `public/sprites/algorithmic/photo-sg-chinese-female-petite/`), and replace hardcoded 2-way persona ternaries in `src/runner/rasterizer.ts` and `src/pipeline/cycle-frame-dumper.ts` with direct `PhotorealPersonaId` routing.
+- **Why:** Expands body-positive representation to include slim, petite, ectomorphic female runners alongside athletic and fuller everyday builds, with tuneable per-asset-set parameters.
+- **Related Spec Section:** `docs/FDS.md#image-prompt-log` (`Calls #42`..`#51`), `docs/FDS.md#continuous-learning-log` (`TURN-L15`)
+- **Practical Impact:** Added `src/images/photoreal-female-petite/01..10.png`, `public/sprites/photoreal/sg-chinese-female-petite/parts/*.png`, `src/images/spritesheets/runner-8frame-6color-photoreal-female-petite-sheet.png`, and updated `src/shared/types.ts`, `src/runner/body-proportions.ts`, `src/runner/skin-registry.ts`, `src/runner/photoreal-rig.ts`, `src/runner/rasterizer.ts`, `src/pipeline/photoreal-extractor.ts`, `src/pipeline/side-profile-arm-extractor.ts`, `src/pipeline/algorithmic-sheet-builder.ts`, `src/pipeline/cycle-frame-dumper.ts`, `src/pipeline/dedupe-catalog.ts`, `src/app/hooks/usePhotorealRigAssets.ts`, and `src/app/hooks/studio-view-model.ts`.
+
+
 
 
 

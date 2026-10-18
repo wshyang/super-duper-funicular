@@ -36,7 +36,8 @@ export function isPhotorealExportBlocked(
 function hasAllPhotorealBanks(): boolean {
   return (
     hasPhotorealPartBankForPersona('photo-sg-chinese-female') &&
-    hasPhotorealPartBankForPersona('photo-sg-chinese-female-average')
+    hasPhotorealPartBankForPersona('photo-sg-chinese-female-average') &&
+    hasPhotorealPartBankForPersona('photo-sg-chinese-female-petite')
   );
 }
 
@@ -55,8 +56,9 @@ export function usePhotorealRigAssetsWithRetry(): PhotorealAssetsState {
     Promise.all([
       loadPersonaPartsInBrowser('photo-sg-chinese-female'),
       loadPersonaPartsInBrowser('photo-sg-chinese-female-average'),
+      loadPersonaPartsInBrowser('photo-sg-chinese-female-petite'),
     ])
-      .then(([athleticBank, averageBank]) => {
+      .then(([athleticBank, averageBank, petiteBank]) => {
         if (cancelled) return;
         if (isCompletePhotorealBank(athleticBank)) {
           setPhotorealPartBankForPersona('photo-sg-chinese-female', athleticBank);
@@ -64,6 +66,12 @@ export function usePhotorealRigAssetsWithRetry(): PhotorealAssetsState {
             setPhotorealPartBankForPersona(
               'photo-sg-chinese-female-average',
               averageBank,
+            );
+          }
+          if (isCompletePhotorealBank(petiteBank)) {
+            setPhotorealPartBankForPersona(
+              'photo-sg-chinese-female-petite',
+              petiteBank,
             );
           }
           setStatus('loaded');
@@ -91,9 +99,11 @@ async function loadPersonaPartsInBrowser(
   personaId: PhotorealPersonaId,
 ): Promise<PhotorealPartBank> {
   const folder =
-    personaId === 'photo-sg-chinese-female-average'
-      ? 'sg-chinese-female-average'
-      : 'sg-chinese-female';
+    personaId === 'photo-sg-chinese-female-petite'
+      ? 'sg-chinese-female-petite'
+      : personaId === 'photo-sg-chinese-female-average'
+        ? 'sg-chinese-female-average'
+        : 'sg-chinese-female';
   const entries = await Promise.all(
     ARTICULATED_BODY_PARTS.map(async (part) => {
       const url = `/sprites/photoreal/${folder}/parts/${part.partId}.png`;

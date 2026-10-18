@@ -325,15 +325,23 @@ describe('Real reference sprite sheet grid detection and extraction verification
     expect(readPixel(extracted.nearUpperArm, 80, 80).a).toBeGreaterThan(200);
     expect(readPixel(extracted.nearForearm, 80, 80).a).toBeGreaterThan(200);
 
+    const petDir = path.join(
+      process.cwd(),
+      'public/sprites/photoreal/sg-chinese-female-petite/parts',
+    );
     const athDir = path.join(process.cwd(), 'public/sprites/photoreal/sg-chinese-female/parts');
     const avgDir = path.join(
       process.cwd(),
       'public/sprites/photoreal/sg-chinese-female-average/parts',
     );
     for (const partId of ['neck', 'torso', 'pelvis', 'nearUpperArm', 'nearThigh'] as const) {
+      const petImg = readImageFile(path.join(petDir, `${partId}.png`));
       const athImg = readImageFile(path.join(athDir, `${partId}.png`));
       const avgImg = readImageFile(path.join(avgDir, `${partId}.png`));
-      expect(countOpaquePixels(avgImg), `${partId} fuller area`).toBeGreaterThan(
+      expect(countOpaquePixels(petImg), `${partId} petite < athletic`).toBeLessThan(
+        countOpaquePixels(athImg),
+      );
+      expect(countOpaquePixels(avgImg), `${partId} average > athletic`).toBeGreaterThan(
         countOpaquePixels(athImg),
       );
     }

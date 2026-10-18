@@ -245,8 +245,12 @@ describe('Skinnable Sprite Hooks & Dual Singapore Chinese Male/Female Personas',
     expect(noHairPose.hairStyleMode).toBe('none');
     expect(flowingPose.hairTip.y).toBeGreaterThan(flowingPose.hairAnchor.y + 8);
 
+    const petiteTuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-petite'];
     const avgTuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-average'];
     const athleticTuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female'];
+    expect(petiteTuning.torsoWidthPx).toBeLessThan(athleticTuning.torsoWidthPx);
+    expect(petiteTuning.pelvisWidthPx).toBeLessThan(athleticTuning.pelvisWidthPx);
+    expect(petiteTuning.thighWidthPx).toBeLessThan(athleticTuning.thighWidthPx);
     expect(avgTuning.torsoWidthPx).toBeGreaterThan(athleticTuning.torsoWidthPx);
     expect(avgTuning.pelvisWidthPx).toBeGreaterThan(athleticTuning.pelvisWidthPx);
     expect(avgTuning.thighWidthPx).toBeGreaterThan(athleticTuning.thighWidthPx);

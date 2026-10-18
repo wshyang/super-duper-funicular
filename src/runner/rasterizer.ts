@@ -48,10 +48,7 @@ export function renderRunnerPoseToRaster(options: RenderPoseOptions): RasterImag
   if (
     isPhotorealPersona(personaId) &&
     renderPhotorealFemalePoseOntoCanvas(canvas, pose, options.palette, {
-      personaId:
-        personaId === 'photo-sg-chinese-female-average'
-          ? 'photo-sg-chinese-female-average'
-          : 'photo-sg-chinese-female',
+      personaId,
       tuning: options.assetTuning,
     })
   ) {
@@ -395,12 +392,8 @@ export function renderIsolatedBodyPartToRaster(
   personaId: RunnerPersonaId = 'sg-chinese-male',
 ): RasterImage {
   if (isPhotorealPersona(personaId)) {
-    const photoId =
-      personaId === 'photo-sg-chinese-female-average'
-        ? 'photo-sg-chinese-female-average'
-        : 'photo-sg-chinese-female';
     const bankPart =
-      getPhotorealPartBankForPersona(photoId)[partId] ??
+      getPhotorealPartBankForPersona(personaId)[partId] ??
       getPhotorealPartBankForPersona('photo-sg-chinese-female')[partId];
     if (bankPart) {
       return bankPart;

@@ -63,7 +63,7 @@ describe('Studio View-Model Builders', () => {
     );
   });
 
-  it('samples a closed 32-point ball-of-foot orbit trail and exposes all 4 personas including body-positive average build', () => {
+  it('samples a closed 32-point ball-of-foot orbit trail and exposes all 5 personas across the body-positivity spectrum', () => {
     const orbit = sampleFootOrbitTrail(DEFAULT_GAIT_CONFIG);
     expect(orbit).toHaveLength(32);
     expect(VARIANT_OPTIONS).toHaveLength(6);
@@ -73,6 +73,7 @@ describe('Studio View-Model Builders', () => {
       'sg-chinese-female',
       'photo-sg-chinese-female',
       'photo-sg-chinese-female-average',
+      'photo-sg-chinese-female-petite',
     ]);
     const photoReadouts = buildArticulatedPartReadouts(
       solveArticulatedPose(0.25, DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC),
@@ -80,6 +81,13 @@ describe('Studio View-Model Builders', () => {
     );
     expect(photoReadouts[0]?.cutoutUrl).toBe(
       '/sprites/algorithmic/parts/photo-sg-chinese-female/farUpperArm.png',
+    );
+    const petiteReadouts = buildArticulatedPartReadouts(
+      solveArticulatedPose(0.25, DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC),
+      'photo-sg-chinese-female-petite',
+    );
+    expect(petiteReadouts[0]?.cutoutUrl).toBe(
+      '/sprites/algorithmic/parts/photo-sg-chinese-female-petite/farUpperArm.png',
     );
     const avgReadouts = buildArticulatedPartReadouts(
       solveArticulatedPose(0.25, DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC),

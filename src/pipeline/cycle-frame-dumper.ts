@@ -63,12 +63,9 @@ export interface CycleAuditReport {
 }
 
 function resolveDumpPersonaSettings(personaId: RunnerPersonaId) {
-  const tuning =
-    personaId === 'photo-sg-chinese-female-average'
-      ? PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-average']
-      : personaId === 'photo-sg-chinese-female'
-        ? PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female']
-        : undefined;
+  const tuning = isPhotorealPersona(personaId)
+    ? PHOTOREAL_ASSET_TUNING_DEFAULTS[personaId]
+    : undefined;
   const gaitCfg = tuning
     ? {
         ...DEFAULT_GAIT_CONFIG,

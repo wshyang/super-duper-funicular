@@ -4,11 +4,13 @@ export type RunnerPersonaId =
   | 'sg-chinese-male'
   | 'sg-chinese-female'
   | 'photo-sg-chinese-female'
-  | 'photo-sg-chinese-female-average';
+  | 'photo-sg-chinese-female-average'
+  | 'photo-sg-chinese-female-petite';
 
 export type PhotorealPersonaId =
   | 'photo-sg-chinese-female'
-  | 'photo-sg-chinese-female-average';
+  | 'photo-sg-chinese-female-average'
+  | 'photo-sg-chinese-female-petite';
 
 export type HairStyleMode = 'ponytail' | 'long-flowing' | 'none';
 

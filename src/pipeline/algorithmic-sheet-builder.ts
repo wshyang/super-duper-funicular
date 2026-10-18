@@ -45,10 +45,12 @@ export function generateAlgorithmicSpritesAndSheet(
   const femaleResult = renderPersonaSheetAndFrames('sg-chinese-female', paths);
   renderPersonaSheetAndFrames('photo-sg-chinese-female', paths);
   renderPersonaSheetAndFrames('photo-sg-chinese-female-average', paths);
+  renderPersonaSheetAndFrames('photo-sg-chinese-female-petite', paths);
   renderAllBodyPartCutouts(paths.publicAlgorithmicDir, 'sg-chinese-male');
   renderAllBodyPartCutouts(paths.publicAlgorithmicDir, 'sg-chinese-female');
   renderAllBodyPartCutouts(paths.publicAlgorithmicDir, 'photo-sg-chinese-female');
   renderAllBodyPartCutouts(paths.publicAlgorithmicDir, 'photo-sg-chinese-female-average');
+  renderAllBodyPartCutouts(paths.publicAlgorithmicDir, 'photo-sg-chinese-female-petite');
   const manifest = buildAlgorithmicManifest(paths, maleResult, femaleResult);
   const manifestPath = path.join(paths.publicAlgorithmicDir, 'manifest.json');
   fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
@@ -71,13 +73,15 @@ function renderPersonaSheetAndFrames(
   fillRaster(sheet, { r: 255, g: 0, b: 255, a: 255 });
   const urlsByVariant = renderAllVariantFrames(sheet, personaId, paths);
   const sheetFileName =
-    personaId === 'photo-sg-chinese-female-average'
-      ? 'runner-8frame-6color-photoreal-female-average-sheet.png'
-      : personaId === 'photo-sg-chinese-female'
-        ? 'runner-8frame-6color-photoreal-female-sheet.png'
-        : personaId === 'sg-chinese-female'
-          ? 'runner-8frame-6color-female-algorithmic-sheet.png'
-          : 'runner-8frame-6color-algorithmic-sheet.png';
+    personaId === 'photo-sg-chinese-female-petite'
+      ? 'runner-8frame-6color-photoreal-female-petite-sheet.png'
+      : personaId === 'photo-sg-chinese-female-average'
+        ? 'runner-8frame-6color-photoreal-female-average-sheet.png'
+        : personaId === 'photo-sg-chinese-female'
+          ? 'runner-8frame-6color-photoreal-female-sheet.png'
+          : personaId === 'sg-chinese-female'
+            ? 'runner-8frame-6color-female-algorithmic-sheet.png'
+            : 'runner-8frame-6color-algorithmic-sheet.png';
   const srcSheetPath = path.join(paths.srcImagesDir, 'spritesheets', sheetFileName);
   const pubSheetPath = path.join(paths.publicAlgorithmicDir, sheetFileName);
   writePngFile(srcSheetPath, sheet);
@@ -125,11 +129,13 @@ function renderSingleVariantRow(sheet: RasterImage, job: VariantRowJob): string[
   const palette = RUNNER_PALETTES[job.variant];
   const urls: string[] = [];
   const tuning =
-    job.personaId === 'photo-sg-chinese-female-average'
-      ? PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-average']
-      : job.personaId === 'photo-sg-chinese-female'
-        ? PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female']
-        : undefined;
+    job.personaId === 'photo-sg-chinese-female-petite'
+      ? PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-petite']
+      : job.personaId === 'photo-sg-chinese-female-average'
+        ? PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-average']
+        : job.personaId === 'photo-sg-chinese-female'
+          ? PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female']
+          : undefined;
   const gaitCfg = tuning
     ? {
         ...DEFAULT_GAIT_CONFIG,

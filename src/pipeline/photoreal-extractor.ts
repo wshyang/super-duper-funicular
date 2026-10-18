@@ -26,6 +26,7 @@ import {
 } from './rounded-joint-cutter.js';
 import {
   cleanAverageTorsoNeckStub,
+  cleanTorsoNeckStubAndSocket,
   extractArmSegmentsFromMasterSideProfile,
   normalizeFingertipMagentaShadow,
 } from './side-profile-arm-extractor.js';
@@ -58,6 +59,14 @@ const STUDIO_FILES: Readonly<Record<keyof PhotorealSourceSet, string>> = {
   farLegMedial: '10-far-left-leg-medial-inside-shoe.png',
 };
 
+type PersonaBuildTier = 'petite' | 'athletic' | 'average';
+
+function resolveBuildTier(personaId: PhotorealPersonaId): PersonaBuildTier {
+  if (personaId === 'photo-sg-chinese-female-petite') return 'petite';
+  if (personaId === 'photo-sg-chinese-female-average') return 'average';
+  return 'athletic';
+}
+
 export function extractAndLoadPhotorealFemaleParts(
   repoRoot: string,
 ): PhotorealPartBank {
@@ -65,36 +74,49 @@ export function extractAndLoadPhotorealFemaleParts(
     repoRoot,
     'photo-sg-chinese-female',
   );
-  const avgSourceDir = path.join(repoRoot, 'src/images/photoreal-female-average');
-  if (fs.existsSync(avgSourceDir)) {
-    extractAndLoadPhotorealPartsForPersona(
-      repoRoot,
-      'photo-sg-chinese-female-average',
-    );
+  for (const extraId of [
+    'photo-sg-chinese-female-average',
+    'photo-sg-chinese-female-petite',
+  ] as const) {
+    const dir = resolveStudioSourceDir(repoRoot, extraId);
+    if (fs.existsSync(dir)) {
+      extractAndLoadPhotorealPartsForPersona(repoRoot, extraId);
+    }
   }
   return athleticBank;
+}
+
+function resolveStudioSourceDir(repoRoot: string, personaId: PhotorealPersonaId): string {
+  if (personaId === 'photo-sg-chinese-female-average') {
+    return path.join(repoRoot, 'src/images/photoreal-female-average');
+  }
+  if (personaId === 'photo-sg-chinese-female-petite') {
+    return path.join(repoRoot, 'src/images/photoreal-female-petite');
+  }
+  return path.join(repoRoot, 'src/images/photoreal-female');
+}
+
+function resolvePartsOutputDir(repoRoot: string, personaId: PhotorealPersonaId): string {
+  if (personaId === 'photo-sg-chinese-female-average') {
+    return path.join(repoRoot, 'public/sprites/photoreal/sg-chinese-female-average/parts');
+  }
+  if (personaId === 'photo-sg-chinese-female-petite') {
+    return path.join(repoRoot, 'public/sprites/photoreal/sg-chinese-female-petite/parts');
+  }
+  return path.join(repoRoot, 'public/sprites/photoreal/sg-chinese-female/parts');
 }
 
 export function extractAndLoadPhotorealPartsForPersona(
   repoRoot: string,
   personaId: PhotorealPersonaId,
 ): PhotorealPartBank {
-  const isAvg = personaId === 'photo-sg-chinese-female-average';
-  const sourceDir = path.join(
-    repoRoot,
-    isAvg ? 'src/images/photoreal-female-average' : 'src/images/photoreal-female',
-  );
-  const outDir = path.join(
-    repoRoot,
-    isAvg
-      ? 'public/sprites/photoreal/sg-chinese-female-average/parts'
-      : 'public/sprites/photoreal/sg-chinese-female/parts',
-  );
+  const sourceDir = resolveStudioSourceDir(repoRoot, personaId);
+  const outDir = resolvePartsOutputDir(repoRoot, personaId);
   const sources = loadAndKeyPhotorealSources(sourceDir);
   const bank = extractPhotorealSpriteParts(sources, personaId);
   writePhotorealPartCutouts(bank, outDir);
   setPhotorealPartBankForPersona(personaId, bank);
-  if (!isAvg) {
+  if (personaId === 'photo-sg-chinese-female') {
     setPhotorealFemalePartBank(bank);
   }
   return bank;
@@ -178,20 +200,20 @@ export function extractPhotorealSpriteParts(
   sources: PhotorealSourceSet,
   personaId: PhotorealPersonaId = 'photo-sg-chinese-female',
 ): Readonly<Record<BodyPartId, RasterImage>> {
-  const isAvg = personaId === 'photo-sg-chinese-female-average';
+  const tier = resolveBuildTier(personaId);
   const nearArm = softenInteriorShadowGrooves(sources.nearArmLateral);
   const farArm = sources.farArmMedial;
   const nearLeg = softenInteriorShadowGrooves(sources.nearLegLateral);
   const farLeg = softenInteriorShadowGrooves(sources.farLegMedial);
-  const cleanShorts = stripPelvisShortsSkinFringe(sources.pelvisShorts, isAvg);
+  const cleanShorts = stripPelvisShortsSkinFringe(sources.pelvisShorts, tier === 'average');
   return {
     head: extractHeadCutout(sources.headProfile),
     hairAccessory: extractPonytailCutout(sources.ponytail),
-    neck: extractNeckCutout(sources.neckCylinder, isAvg),
-    torso: extractTorsoCutout(sources.torsoSinglet, isAvg),
-    pelvis: extractPelvisCutout(cleanShorts, isAvg),
-    ...extractArmCutouts(nearArm, farArm, isAvg),
-    ...extractLegCutouts(nearLeg, farLeg, cleanShorts, isAvg),
+    neck: extractNeckCutout(sources.neckCylinder, tier),
+    torso: extractTorsoCutout(sources.torsoSinglet, tier),
+    pelvis: extractPelvisCutout(cleanShorts, tier),
+    ...extractArmCutouts(nearArm, farArm, tier),
+    ...extractLegCutouts(nearLeg, farLeg, cleanShorts, tier),
   };
 }
 
@@ -285,125 +307,101 @@ function extractPonytailCutout(src: RasterImage): RasterImage {
   });
 }
 
-function extractNeckCutout(src: RasterImage, isAvg = false): RasterImage {
+function extractNeckCutout(
+  src: RasterImage,
+  tier: PersonaBuildTier = 'athletic',
+): RasterImage {
   const purged = purgeSkinPartFabricSpill(src).cleaned;
+  const isAvg = tier === 'average';
+  const isPetite = tier === 'petite';
   const raw = cutArticulatedLimbWithRoundedEnds(purged, {
-    srcTopY: isAvg ? 235 : 340,
-    srcBotY: isAvg ? 585 : 540,
-    dstRadiusTopPx: isAvg ? 35 : 28,
-    dstRadiusBotPx: isAvg ? 39 : 31,
+    srcTopY: isAvg ? 235 : isPetite ? 270 : 340,
+    srcBotY: isAvg ? 585 : isPetite ? 535 : 540,
+    dstRadiusTopPx: isAvg ? 35 : isPetite ? 23 : 28,
+    dstRadiusBotPx: isAvg ? 39 : isPetite ? 25 : 31,
     roundTopEnd: true,
     roundBotEnd: true,
     shadeScale: 0.98,
   });
   return fillHollowJointBallByJacobiRelaxation(raw, {
     pivot: { x: 80, y: 36 },
-    radiusPx: isAvg ? 33 : 26,
+    radiusPx: isAvg ? 33 : isPetite ? 21 : 26,
   });
 }
 
-function extractTorsoCutout(src: RasterImage, isAvg = false): RasterImage {
-  const cleaned = isAvg
-    ? cleanAverageTorsoNeckStub(src)
-    : cleanTorsoNeckStubAndSocket(src);
+function extractTorsoCutout(
+  src: RasterImage,
+  tier: PersonaBuildTier = 'athletic',
+): RasterImage {
+  const isAvg = tier === 'average';
+  const isPetite = tier === 'petite';
+  const cleaned =
+    tier === 'athletic'
+      ? cleanTorsoNeckStubAndSocket(src)
+      : cleanAverageTorsoNeckStub(src);
   const raw = extractSimilarityAlignedPart(cleaned, {
-    srcStart: isAvg ? { x: 682, y: 182 } : { x: 663, y: 165 },
-    srcEnd: isAvg ? { x: 712, y: 585 } : { x: 706, y: 605 },
+    srcStart: isAvg ? { x: 682, y: 182 } : isPetite ? { x: 668, y: 145 } : { x: 663, y: 165 },
+    srcEnd: isAvg ? { x: 712, y: 585 } : isPetite ? { x: 704, y: 615 } : { x: 706, y: 605 },
     dstStart: isAvg ? { x: 74, y: 22 } : { x: 74, y: 24 },
-    dstEnd: isAvg ? { x: 80, y: 124 } : { x: 80, y: 122 },
+    dstEnd: isAvg ? { x: 80, y: 124 } : isPetite ? { x: 80, y: 118 } : { x: 80, y: 122 },
     cropBox: isAvg
       ? { minX: 525, minY: 138, maxX: 880, maxY: 665 }
-      : { minX: 534, minY: 142, maxX: 874, maxY: 612 },
+      : isPetite
+        ? { minX: 550, minY: 128, maxX: 855, maxY: 622 }
+        : { minX: 534, minY: 142, maxX: 874, maxY: 612 },
     shadeScale: 1.0,
   });
   return applyPivotArcRoundedCut(raw, {
-    pivot: { x: 80, y: isAvg ? 114 : 108 },
-    radiusX: isAvg ? 46 : 31,
-    radiusY: 20,
+    pivot: { x: 80, y: isAvg ? 114 : isPetite ? 105 : 108 },
+    radiusX: isAvg ? 46 : isPetite ? 26 : 31,
+    radiusY: isPetite ? 18 : 20,
     cutSide: 'below',
     featherPx: 3.5,
   });
 }
 
-function cleanTorsoNeckStubAndSocket(src: RasterImage): RasterImage {
-  const out = createRaster(src.width, src.height);
-  out.data.set(src.data);
-  for (let y = 0; y < 225; y++) {
-    for (let x = 560; x < 790; x++) {
-      const p = readPixel(out, x, y);
-      if (p.a === 0) continue;
-      const isCrimsonStrap = p.r - p.g > 68 && p.r > 135;
-      if (!isCrimsonStrap && y < 192) {
-        writePixel(out, { x, y }, { r: 0, g: 0, b: 0, a: 0 });
-      }
-    }
-  }
-  const cx = 674;
-  const cy = 295;
-  const rOuter = 94;
-  const baseSkin = { r: 218, g: 162, b: 118, a: 255 };
-  for (let y = cy - rOuter; y <= cy + rOuter; y++) {
-    const rowSkin = readPixel(out, 602, Math.max(260, Math.min(360, y)));
-    const isRowSkin =
-      rowSkin.a > 200 && rowSkin.r - rowSkin.g < 70 && rowSkin.g > 125;
-    const refSkin = isRowSkin ? rowSkin : baseSkin;
-    for (let x = cx - rOuter; x <= cx + rOuter; x++) {
-      const dist = Math.hypot(x - cx, y - cy);
-      if (dist > rOuter) continue;
-      const cur = readPixel(out, x, y);
-      const isSingletFabric = dist >= 72 && cur.r - cur.g > 72 && cur.g < 95;
-      if (cur.a < 128 || isSingletFabric) continue;
-      const blend =
-        dist < 72 ? 0.96 : Math.max(0, Math.min(1, (rOuter - dist) / 22)) * 0.95;
-      writePixel(
-        out,
-        { x, y },
-        {
-          r: Math.round(cur.r * (1 - blend) + refSkin.r * blend),
-          g: Math.round(cur.g * (1 - blend) + refSkin.g * blend),
-          b: Math.round(cur.b * (1 - blend) + refSkin.b * blend),
-          a: cur.a,
-        },
-      );
-    }
-  }
-  return out;
-}
-
-function extractPelvisCutout(src: RasterImage, isAvg = false): RasterImage {
+function extractPelvisCutout(
+  src: RasterImage,
+  tier: PersonaBuildTier = 'athletic',
+): RasterImage {
+  const isAvg = tier === 'average';
+  const isPetite = tier === 'petite';
   const raw = extractSimilarityAlignedPart(src, {
-    srcStart: isAvg ? { x: 708, y: 100 } : { x: 718, y: 95 },
-    srcEnd: isAvg ? { x: 704, y: 575 } : { x: 702, y: 695 },
-    dstStart: { x: 82, y: 28 },
-    dstEnd: { x: 78, y: 126 },
+    srcStart: isAvg ? { x: 708, y: 100 } : isPetite ? { x: 690, y: 110 } : { x: 718, y: 95 },
+    srcEnd: isAvg ? { x: 704, y: 575 } : isPetite ? { x: 690, y: 495 } : { x: 702, y: 695 },
+    dstStart: { x: 82, y: isPetite ? 34 : 28 },
+    dstEnd: { x: 78, y: isPetite ? 110 : 126 },
     cropBox: isAvg
       ? { minX: 465, minY: 85, maxX: 935, maxY: 590 }
-      : { minX: 435, minY: 40, maxX: 918, maxY: 732 },
+      : isPetite
+        ? { minX: 525, minY: 120, maxX: 855, maxY: 425 }
+        : { minX: 435, minY: 40, maxX: 918, maxY: 732 },
     shadeScale: 1.0,
   });
-  if (!isAvg) {
+  if (tier !== 'average') {
     for (let y = 20; y < raw.height; y++) {
-      const refFabric = readPixel(raw, 60, y);
+      const refFabric = readPixel(raw, 56, y);
       if (refFabric.a < 128) continue;
-      for (let x = 66; x <= 96; x++) {
+      for (let x = 62; x <= 102; x++) {
         const p = readPixel(raw, x, y);
-        if (p.a > 32 && p.r > 70 && p.g > 70 && p.b > 70) {
+        if (p.a > 32 && p.r > 65 && p.g > 65 && p.b > 65) {
           writePixel(raw, { x, y }, { ...refFabric, a: p.a });
         }
       }
     }
   }
+  const rx = isAvg ? 45 : isPetite ? 26 : 36;
   const topRounded = applyPivotArcRoundedCut(raw, {
     pivot: { x: 80, y: 40 },
-    radiusX: isAvg ? 45 : 36,
+    radiusX: rx,
     radiusY: 16,
     cutSide: 'above',
     featherPx: 3.0,
   });
   return applyPivotArcRoundedCut(topRounded, {
-    pivot: { x: 76, y: 108 },
-    radiusX: isAvg ? 45 : 36,
-    radiusY: 22,
+    pivot: { x: 76, y: isPetite ? 102 : 108 },
+    radiusX: rx,
+    radiusY: isPetite ? 16 : 22,
     cutSide: 'below',
     featherPx: 3.5,
   });
@@ -431,7 +429,7 @@ function cutLimbBothEnds(
 function extractArmCutouts(
   nearArm: RasterImage,
   farArm: RasterImage,
-  isAvg = false,
+  tier: PersonaBuildTier = 'athletic',
 ): Pick<
   Record<BodyPartId, RasterImage>,
   | 'nearUpperArm'
@@ -446,45 +444,56 @@ function extractArmCutouts(
   );
   const cleanFar = purgeSkinPartFabricSpill(farArm).cleaned;
   return {
-    ...extractNearArmParts(cleanNear, isAvg),
-    ...extractFarArmParts(cleanFar, isAvg),
+    ...extractNearArmParts(cleanNear, tier),
+    ...extractFarArmParts(cleanFar, tier),
   };
 }
 
 function extractNearArmParts(
   cleanNear: RasterImage,
-  isAvg: boolean,
+  tier: PersonaBuildTier,
 ): Pick<Record<BodyPartId, RasterImage>, 'nearUpperArm' | 'nearForearm' | 'nearHand'> {
-  const rUpTop = isAvg ? 26 : 21;
-  const rUpBot = isAvg ? 19 : 15;
-  const rForeTop = isAvg ? 19 : 15;
-  const rForeBot = isAvg ? 15 : 13;
-  const rawUpper = cutLimbBothEnds(cleanNear, 120, 355, rUpTop, rUpBot, 1.0);
+  const isAvg = tier === 'average';
+  const isPetite = tier === 'petite';
+  const rUpTop = isAvg ? 26 : isPetite ? 17 : 21;
+  const rUpBot = isAvg ? 19 : isPetite ? 13 : 15;
+  const rForeTop = isAvg ? 19 : isPetite ? 13 : 15;
+  const rForeBot = isAvg ? 15 : isPetite ? 11 : 13;
+  const rawUpper = cutLimbBothEnds(
+    cleanNear,
+    isPetite ? 105 : 120,
+    isPetite ? 335 : 355,
+    rUpTop,
+    rUpBot,
+    1.0,
+  );
   return {
     nearUpperArm: purgeSkinPartFabricSpill(softenProximalShoulderCap(rawUpper)).cleaned,
     nearForearm: purgeSkinPartFabricSpill(
-      cutLimbBothEnds(cleanNear, 365, 602, rForeTop, rForeBot, 1.0),
+      cutLimbBothEnds(cleanNear, isPetite ? 345 : 365, isPetite ? 572 : 602, rForeTop, rForeBot, 1.0),
     ).cleaned,
     nearHand: purgeSkinPartFabricSpill(
-      cutLimbBothEnds(cleanNear, 595, 708, 15, 19, 1.0),
+      cutLimbBothEnds(cleanNear, isPetite ? 565 : 595, isPetite ? 718 : 708, isPetite ? 13 : 15, isPetite ? 16 : 19, 1.0),
     ).cleaned,
   };
 }
 
 function extractFarArmParts(
   cleanFar: RasterImage,
-  isAvg: boolean,
+  tier: PersonaBuildTier,
 ): Pick<Record<BodyPartId, RasterImage>, 'farUpperArm' | 'farForearm' | 'farHand'> {
-  const rUpTop = isAvg ? 26 : 21;
-  const rUpBot = isAvg ? 19 : 15;
-  const rForeTop = isAvg ? 19 : 16;
-  const rForeBot = isAvg ? 15 : 14;
+  const isAvg = tier === 'average';
+  const isPetite = tier === 'petite';
+  const rUpTop = isAvg ? 26 : isPetite ? 17 : 21;
+  const rUpBot = isAvg ? 19 : isPetite ? 13 : 15;
+  const rForeTop = isAvg ? 19 : isPetite ? 13 : 16;
+  const rForeBot = isAvg ? 15 : isPetite ? 11 : 14;
   return {
     farUpperArm: purgeSkinPartFabricSpill(
       cutArticulatedLimbWithRoundedEnds(cleanFar, {
-        srcTopY: 130,
+        srcTopY: isPetite ? 120 : 130,
         srcBotY: 485,
-        srcMaxX: isAvg ? 580 : 510,
+        srcMaxX: isAvg ? 580 : isPetite ? 500 : 510,
         dstRadiusTopPx: rUpTop,
         dstRadiusBotPx: rUpBot,
         roundTopEnd: true,
@@ -494,8 +503,8 @@ function extractFarArmParts(
     ).cleaned,
     farForearm: purgeSkinPartFabricSpill(
       cutHorizontalLimbWithRoundedEnds(cleanFar, {
-        srcLeftX: isAvg ? 565 : 550,
-        srcRightX: isAvg ? 1020 : 910,
+        srcLeftX: isAvg ? 565 : isPetite ? 515 : 550,
+        srcRightX: isAvg ? 1020 : isPetite ? 852 : 910,
         srcMinY: 485,
         dstRadiusTopPx: rForeTop,
         dstRadiusBotPx: rForeBot,
@@ -504,11 +513,11 @@ function extractFarArmParts(
     ).cleaned,
     farHand: purgeSkinPartFabricSpill(
       cutHorizontalLimbWithRoundedEnds(cleanFar, {
-        srcLeftX: isAvg ? 1010 : 895,
-        srcRightX: isAvg ? 1245 : 1135,
+        srcLeftX: isAvg ? 1010 : isPetite ? 842 : 895,
+        srcRightX: isAvg ? 1245 : isPetite ? 1092 : 1135,
         srcMinY: 455,
-        dstRadiusTopPx: 15,
-        dstRadiusBotPx: 19,
+        dstRadiusTopPx: isPetite ? 13 : 15,
+        dstRadiusBotPx: isPetite ? 16 : 19,
         shadeScale: 1.05,
       }),
     ).cleaned,
@@ -577,34 +586,46 @@ function extractLegCutouts(
   nearLeg: RasterImage,
   farLeg: RasterImage,
   pelvisShorts: RasterImage,
-  isAvg = false,
+  tier: PersonaBuildTier = 'athletic',
 ): Pick<
   Record<BodyPartId, RasterImage>,
   'nearThigh' | 'nearShin' | 'nearFoot' | 'farThigh' | 'farShin' | 'farFoot'
 > {
+  const isAvg = tier === 'average';
+  const isPetite = tier === 'petite';
   const [rThighTop, rThighBot, rShinTop, rShinBot] = isAvg
     ? [29, 23, 22, 15]
-    : [25, 20, 20, 14];
-  const [cuffTopY, cuffBotY] = isAvg ? [250, 450] : [460, 690];
+    : isPetite
+      ? [22, 18, 18, 13]
+      : [25, 20, 20, 14];
+  const [cuffTopY, cuffBotY] = isAvg ? [250, 450] : isPetite ? [190, 385] : [460, 690];
   return {
     nearThigh: cutThighWithShortsCuff(nearLeg, pelvisShorts, {
-      srcTopY: 175, srcBotY: 380, rTop: rThighTop, rBot: rThighBot,
+      srcTopY: isPetite ? 155 : 175, srcBotY: isPetite ? 365 : 380,
+      rTop: rThighTop, rBot: rThighBot,
       cuffTopY, cuffBotY, sideStripeMode: 'with-stripe', shadeScale: 1.0,
     }),
-    nearShin: cutLimbBothEnds(nearLeg, 390, 642, rShinTop, rShinBot, 1.0),
+    nearShin: cutLimbBothEnds(nearLeg, isPetite ? 375 : 390, isPetite ? 615 : 642, rShinTop, rShinBot, 1.0),
     nearFoot: extractFootWithRoundedAnkleCut(nearLeg, {
-      srcStart: { x: 632, y: 702 }, srcEnd: { x: 822, y: 716 },
-      cropBox: { minX: 615, minY: 625, maxX: 830, maxY: 734 },
+      srcStart: isPetite ? { x: 642, y: 682 } : { x: 632, y: 702 },
+      srcEnd: isPetite ? { x: 842, y: 694 } : { x: 822, y: 716 },
+      cropBox: isPetite
+        ? { minX: 620, minY: 595, maxX: 858, maxY: 708 }
+        : { minX: 615, minY: 625, maxX: 830, maxY: 734 },
       anklePivot: { x: 62, y: 82 }, shadeScale: 1.0,
     }),
     farThigh: cutThighWithShortsCuff(farLeg, pelvisShorts, {
-      srcTopY: 115, srcBotY: 375, rTop: rThighTop - 1, rBot: rThighBot,
+      srcTopY: 115, srcBotY: isPetite ? 365 : 375,
+      rTop: rThighTop - 1, rBot: rThighBot,
       cuffTopY, cuffBotY, sideStripeMode: 'solid-fabric', shadeScale: 0.88,
     }),
-    farShin: cutLimbBothEnds(farLeg, 385, 622, rShinTop, rShinBot, 0.88),
+    farShin: cutLimbBothEnds(farLeg, isPetite ? 375 : 385, isPetite ? 620 : 622, rShinTop, rShinBot, 0.88),
     farFoot: extractFootWithRoundedAnkleCut(farLeg, {
-      srcStart: { x: 632, y: 690 }, srcEnd: { x: 846, y: 706 },
-      cropBox: { minX: 626, minY: 595, maxX: 856, maxY: 718 },
+      srcStart: isPetite ? { x: 632, y: 710 } : { x: 632, y: 690 },
+      srcEnd: isPetite ? { x: 848, y: 724 } : { x: 846, y: 706 },
+      cropBox: isPetite
+        ? { minX: 612, minY: 615, maxX: 865, maxY: 736 }
+        : { minX: 626, minY: 595, maxX: 856, maxY: 718 },
       anklePivot: { x: 60, y: 80 }, shadeScale: 0.88,
     }),
   };
