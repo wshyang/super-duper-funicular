@@ -1,26 +1,26 @@
 {
-  "observedAt": "2026-10-18T04:41:19.634Z",
+  "observedAt": "2026-10-18T06:46:12.040Z",
   "activeSessionBranch": "arena/917ef347-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 1 (Ours — Sprite Motion Lab)",
       "branch": "arena/917ef347-super-duper-funicular",
       "prStatus": "PR #1 Open (Active Session Branch)",
-      "hash": "45b7241a9ee73163208ccbf7003c95fe7a57f9c7",
-      "shortHash": "45b7241",
-      "committedAt": "2026-10-18T04:41:16+00:00",
-      "subject": "feat(athletic): sync PR #8 (34d4844) sealAthleticTorsoShoulderBulge with right-profile torso & refresh branch tips",
-      "commitCountFromMain": 11
+      "hash": "425c4191b1f5aea8c5b8bcd478a52b9b808a640d",
+      "shortHash": "425c419",
+      "committedAt": "2026-10-18T04:41:19+00:00",
+      "subject": "docs(comparison): refresh watched branch tips after syncing PR #8 34d4844",
+      "commitCountFromMain": 12
     },
     {
       "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
       "branch": "arena/e1300d3c-super-duper-funicular",
       "prStatus": "PR #8 Open (Closely Watched)",
-      "hash": "34d48443f43c0c3584b3d440a19a5c46882e13f1",
-      "shortHash": "34d4844",
-      "committedAt": "2026-10-18T03:58:15+00:00",
-      "subject": "Remove athletic collarbone shoulder bulge",
-      "commitCountFromMain": 13
+      "hash": "04d5caf432ff81be0307a3ec79e894da1b60045c",
+      "shortHash": "04d5caf",
+      "committedAt": "2026-10-18T06:20:52+00:00",
+      "subject": "Add five-persona gait audit workflow and results",
+      "commitCountFromMain": 15
     },
     {
       "role": "Branch 2 (Stride Lab Workbench)",

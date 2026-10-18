@@ -11,9 +11,12 @@ Use this skill whenever modifying articulated cutouts (`src/pipeline/photoreal-e
 
 ## Step 1 — Dump Full Cycle Screenshots & Telemetry to a Temporary Directory
 
-Execute the CLI dumper for a single persona or across **all 3 photographic personas (`all-photoreal`)** (`photo-sg-chinese-female-petite`, `photo-sg-chinese-female`, `photo-sg-chinese-female-average`), optionally passing `PhotorealAssetTuningSpec` sizing/scaling overrides:
+Execute the CLI dumper for a single persona, across **all 3 photographic personas (`all-photoreal`)**, or across **all 5 personas (`all-personas`)** (`sg-chinese-male`, `sg-chinese-female`, `photo-sg-chinese-female-petite`, `photo-sg-chinese-female`, `photo-sg-chinese-female-average`), optionally passing `PhotorealAssetTuningSpec` sizing/scaling overrides:
 
 ```bash
+# Multi-persona batch dump across all 5 procedural + photographic personas:
+npm run dump-cycle -- /tmp/audit-all-personas 16 all-personas red
+
 # Multi-persona batch dump across all 3 photographic builds:
 npm run dump-cycle -- /tmp/audit-rectified 16 all-photoreal red
 

@@ -18,6 +18,12 @@ const ALL_PHOTOREAL_PERSONAS: readonly PhotorealPersonaId[] = [
   'photo-sg-chinese-female-average',
 ];
 
+const ALL_RUNNER_PERSONAS: readonly RunnerPersonaId[] = [
+  'sg-chinese-male',
+  'sg-chinese-female',
+  ...ALL_PHOTOREAL_PERSONAS,
+];
+
 function parseTuningOverrides(argv: readonly string[]): Partial<PhotorealAssetTuningSpec> | undefined {
   const overrides: Record<string, unknown> = {};
   const numericFlags: Readonly<Record<string, keyof PhotorealAssetTuningSpec>> = {
@@ -79,10 +85,12 @@ export function runDumpCycleCli(argv: readonly string[]): void {
   const variant = (positional[3] as RunnerVariantId | undefined) ?? 'red';
   const assetTuning = parseTuningOverrides(argv.slice(2));
 
-  if (personaArg === 'all' || personaArg === 'all-photoreal') {
+  if (personaArg === 'all' || personaArg === 'all-photoreal' || personaArg === 'all-personas') {
     fs.mkdirSync(outDir, { recursive: true });
+    const personasToDump: readonly RunnerPersonaId[] =
+      personaArg === 'all-personas' ? ALL_RUNNER_PERSONAS : ALL_PHOTOREAL_PERSONAS;
     const reports: CycleAuditReport[] = [];
-    for (const personaId of ALL_PHOTOREAL_PERSONAS) {
+    for (const personaId of personasToDump) {
       const subDir = path.join(outDir, personaId);
       const report = dumpFullGaitCycleToTempDir({
         outDir: subDir,
