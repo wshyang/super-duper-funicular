@@ -62,6 +62,7 @@ export function hasPhotorealFemalePartBank(): boolean {
 export interface PhotorealRenderContext {
   readonly personaId?: PhotorealPersonaId;
   readonly tuning?: PhotorealAssetTuningSpec;
+  readonly bankOverride?: PhotorealPartBank;
 }
 
 export function renderPhotorealFemalePoseOntoCanvas(
@@ -72,16 +73,24 @@ export function renderPhotorealFemalePoseOntoCanvas(
 ): boolean {
   const personaId: PhotorealPersonaId =
     context.personaId ?? 'photo-sg-chinese-female';
-  const effectivePersonaId: PhotorealPersonaId = hasPhotorealPartBankForPersona(
-    personaId,
-  )
-    ? personaId
-    : 'photo-sg-chinese-female';
-  if (!hasPhotorealPartBankForPersona(effectivePersonaId)) return false;
-  const bank = partBanksByPersona[effectivePersonaId] as Record<
-    BodyPartId,
-    RasterImage
-  >;
+  let bank: Record<BodyPartId, RasterImage>;
+  if (
+    context.bankOverride &&
+    ARTICULATED_BODY_PARTS.every((part) => Boolean(context.bankOverride?.[part.partId]))
+  ) {
+    bank = context.bankOverride as Record<BodyPartId, RasterImage>;
+  } else {
+    const effectivePersonaId: PhotorealPersonaId = hasPhotorealPartBankForPersona(
+      personaId,
+    )
+      ? personaId
+      : 'photo-sg-chinese-female';
+    if (!hasPhotorealPartBankForPersona(effectivePersonaId)) return false;
+    bank = partBanksByPersona[effectivePersonaId] as Record<
+      BodyPartId,
+      RasterImage
+    >;
+  }
   const tuning =
     context.tuning ?? PHOTOREAL_ASSET_TUNING_DEFAULTS[personaId];
   renderFarSideLimbs(canvas, pose, { palette, bank, tuning });
@@ -132,13 +141,15 @@ function renderFarSideLimbs(
     dstEnd: pose.farLeg.midJoint,
     dstHalfWidthPx: tuning.thighWidthPx * 0.96,
   });
-  warpPhotorealRollingShoe(
-    canvas,
-    bank.farFoot,
-    pose.farLeg,
-    parseHexColor(palette.jerseyMain),
-    13.5,
-  );
+  if (!pose.neutralStanding) {
+    warpPhotorealRollingShoe(
+      canvas,
+      bank.farFoot,
+      pose.farLeg,
+      parseHexColor(palette.jerseyMain),
+      13.5,
+    );
+  }
 }
 
 function renderTorsoAndNeck(

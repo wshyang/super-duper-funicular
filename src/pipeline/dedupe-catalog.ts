@@ -248,6 +248,30 @@ const KNOWN_FILE_MAPPINGS: readonly CandidateMapping[] = [
     description: 'Photorealistic cutout source (Slim Petite Build): Left (Far) slim slender female leg & running shoe viewed from INSIDE.',
   },
   {
+    sourceRelPath: 'src/images/photoreal-female-phases/phase-01-right-strike-left-arm-forward.png',
+    targetRelPath: 'src/images/photoreal-female-phases/phase-01-right-strike-left-arm-forward.png',
+    category: 'spritesheet-reference',
+    description: 'Full-body running phase keyframe (Phase 1 — Right-Leg Forward Strike, Left Far Arm Forward, Right Near Arm Back, Unobstructed Torso & Shorts) on #FF00FF magenta.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-phases/phase-02-left-strike-right-arm-forward.png',
+    targetRelPath: 'src/images/photoreal-female-phases/phase-02-left-strike-right-arm-forward.png',
+    category: 'spritesheet-reference',
+    description: 'Full-body running phase keyframe (Phase 2 — Compact Arm Carry & Extended Stride Separation) on #FF00FF magenta.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-phases/phase-03-midstance-high-knee-pass.png',
+    targetRelPath: 'src/images/photoreal-female-phases/phase-03-midstance-high-knee-pass.png',
+    category: 'spritesheet-reference',
+    description: 'Full-body running phase keyframe (Phase 3 — Mid-Stance Vertical Support & High-Knee Swing Recovery with Floating Ponytail) on #FF00FF magenta.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-phases/phase-04-flight-max-split-stride.png',
+    targetRelPath: 'src/images/photoreal-female-phases/phase-04-flight-max-split-stride.png',
+    category: 'spritesheet-reference',
+    description: 'Full-body running phase keyframe (Phase 4 — Airborne Maximum Split Stride with Extended Rear Near Arm & High Medial Far Arm) on #FF00FF magenta.',
+  },
+  {
     sourceRelPath: 'src/images/backdrops/stadium-track-day.png',
     targetRelPath: 'src/images/backdrops/stadium-track-day.png',
     category: 'backdrop',

@@ -1,26 +1,26 @@
 {
-  "observedAt": "2026-10-18T06:47:04.020Z",
+  "observedAt": "2026-10-18T09:33:32.158Z",
   "activeSessionBranch": "arena/917ef347-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 1 (Ours — Sprite Motion Lab)",
       "branch": "arena/917ef347-super-duper-funicular",
       "prStatus": "PR #1 Open (Active Session Branch)",
-      "hash": "425c4191b1f5aea8c5b8bcd478a52b9b808a640d",
-      "shortHash": "425c419",
-      "committedAt": "2026-10-18T04:41:19+00:00",
-      "subject": "docs(comparison): refresh watched branch tips after syncing PR #8 34d4844",
-      "commitCountFromMain": 12
+      "hash": "936f37ce07f18e38fc4f5b3880c80029ec9f55cf",
+      "shortHash": "936f37c",
+      "committedAt": "2026-10-18T06:47:04+00:00",
+      "subject": "docs(compare): refresh 5-way branch tips ledger (PR #8 @ 04d5caf)",
+      "commitCountFromMain": 14
     },
     {
       "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
       "branch": "arena/e1300d3c-super-duper-funicular",
       "prStatus": "PR #8 Open (Closely Watched)",
-      "hash": "04d5caf432ff81be0307a3ec79e894da1b60045c",
-      "shortHash": "04d5caf",
-      "committedAt": "2026-10-18T06:20:52+00:00",
-      "subject": "Add five-persona gait audit workflow and results",
-      "commitCountFromMain": 15
+      "hash": "195fd47231fc94edc23f54ffb7f20bd7fbfc3803",
+      "shortHash": "195fd47",
+      "committedAt": "2026-10-18T07:11:20+00:00",
+      "subject": "fix: refine athletic upright rig assembly",
+      "commitCountFromMain": 16
     },
     {
       "role": "Branch 2 (Stride Lab Workbench)",
