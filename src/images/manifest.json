@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "totalFilesScanned": 47,
-  "uniqueFilesFiled": 47,
+  "totalFilesScanned": 50,
+  "uniqueFilesFiled": 50,
   "duplicateFilesRemoved": 0,
   "intraSheetTotalCells": 48,
   "intraSheetUniqueCells": 24,
@@ -622,6 +622,48 @@
       "status": "active",
       "supersededBy": null,
       "description": "Full-body running phase keyframe (Phase 8 / X05-Refined — Accepted for Ground-Loaded Forefoot Metatarsal Toe-Off Roll Shoe & +25-Degree Dorsiflexed Heel-Strike Front Shoe) on #FF00FF magenta."
+    },
+    {
+      "originalPath": "src/images/photoreal-female-phases/phase-09-bare-limb-orthogonal-angles-a.png",
+      "filedPath": "src/images/photoreal-female-phases/phase-09-bare-limb-orthogonal-angles-a.png",
+      "assetCategory": "spritesheet-reference",
+      "width": 1408,
+      "height": 768,
+      "byteSize": 1035664,
+      "byteSha256": "94be01dce6b2ebccf8754ad286e1e2f690a2bcd627a724e1acd40b3675c642cf",
+      "pixelSha256": "03aabe7fdf777f6f7c6f4fc0fd0ccd2c7ed989e895841dd7d4c83c3df21a6a46",
+      "dHash64": "754c91306c95b62b",
+      "status": "active",
+      "supersededBy": null,
+      "description": "Full-body bare-limb anatomical reference (Phase 9 / Orthogonal Angle Matrix A — 0-Degree Horizontal Forward Near Arm, 90-Degree Vertical Stance Bare Thigh, 180-Degree Horizontal Rear Hamstring-Curl Bare Calf & Flat Bare Foot) on #FF00FF magenta."
+    },
+    {
+      "originalPath": "src/images/photoreal-female-phases/phase-10-unclothed-opposite-angles-b.png",
+      "filedPath": "src/images/photoreal-female-phases/phase-10-unclothed-opposite-angles-b.png",
+      "assetCategory": "spritesheet-reference",
+      "width": 1408,
+      "height": 768,
+      "byteSize": 1129255,
+      "byteSha256": "e76fb04823738d322aa6ae4d5acce35e5cff20ab4a532d87a08046cf9685e75f",
+      "pixelSha256": "b361ac15c0b89e42c94100b310271ea905185562c337e083e9c616999646fe65",
+      "dHash64": "31c6d01270592d23",
+      "status": "active",
+      "supersededBy": null,
+      "description": "Full-body bare-limb anatomical reference (Phase 10 / Opposite Angle Matrix B — Unclothed Prompt Safety-Rewritten to Black Sports Bra/Bike Shorts with Bare Wrists, -90-Degree Vertical Upward Far Medial Forearm & 45-Degree Tiptoe Bare Foot) on #FF00FF magenta."
+    },
+    {
+      "originalPath": "src/images/photoreal-female-phases/phase-11-bare-limb-opposite-angles-c.png",
+      "filedPath": "src/images/photoreal-female-phases/phase-11-bare-limb-opposite-angles-c.png",
+      "assetCategory": "spritesheet-reference",
+      "width": 1408,
+      "height": 768,
+      "byteSize": 1162066,
+      "byteSha256": "db5792e41f8595e1d224d5687cae302c7b4802e68ea04f818c63750133df3881",
+      "pixelSha256": "39e5916190137986f381583067cf1164b1c39562ec241800bbef21a2ac7802b3",
+      "dHash64": "714cb17055559fad",
+      "status": "active",
+      "supersededBy": null,
+      "description": "Full-body bare-limb anatomical reference (Phase 11 / Opposite Angle Matrix C — High Straight-Knee Front-Kick Bare Thigh/Shin & Divergent Low-Forward Medial Forearm) on #FF00FF magenta."
     },
     {
       "originalPath": "src/images/backdrops/stadium-track-day.png",

@@ -12,14 +12,19 @@ export type PhaseJigVariantId =
   | 'split-extension'
   | 'dorsiflexed-strike'
   | 'plantar-toe-off'
-  | 'horizontal-whip';
+  | 'horizontal-whip'
+  | 'bare-horizontal-reach'
+  | 'bare-vertical-stance'
+  | 'bare-hamstring-curl'
+  | 'bare-vertical-up'
+  | 'bare-front-kick';
 
 export interface PhaseFrameComplianceEntry {
   readonly frameId: PhaseFrameId;
   readonly callId: string;
   readonly poseCode: string;
   readonly complianceStatus: 'accepted' | 'rejected-for-primary-target-retained-for-secondary';
-  readonly rejectionDefectCode?: 'IMG-ERR-17' | 'IMG-ERR-18' | 'IMG-ERR-19';
+  readonly rejectionDefectCode?: 'IMG-ERR-17' | 'IMG-ERR-18' | 'IMG-ERR-19' | 'IMG-ERR-20';
   readonly promptRefinementSummary: string;
   readonly partVisibilityScores: Readonly<Record<BodyPartId, VisibilityScore>>;
 }
@@ -153,6 +158,43 @@ export const PHASE_FRAME_COMPLIANCE_LEDGER: readonly PhaseFrameComplianceEntry[]
     partVisibilityScores: {
       head: 3, hairAccessory: 3, neck: 3, torso: 1, pelvis: 3,
       nearUpperArm: 3, nearForearm: 3, nearHand: 3, farUpperArm: 2, farForearm: 2, farHand: 1,
+      nearThigh: 3, nearShin: 3, nearFoot: 3, farThigh: 3, farShin: 3, farFoot: 3,
+    },
+  },
+  {
+    frameId: 'phase-09-bare-limb-orthogonal-angles-a',
+    callId: 'Call #84 (Refinement of Safety-Dropped Call #82)',
+    poseCode: 'ORTHO-A-bare',
+    complianceStatus: 'accepted',
+    promptRefinementSummary: 'Replaced literal "unclothed" overhead prompt (dropped by safety filter in Call #82, IMG-ERR-20) with minimalist matte-black sports bra + high-cut bikini brief + barefoot/bare-wristed orthogonal angles: 0-deg horizontal near arm, 90-deg vertical bare thigh, 180-deg horizontal rear hamstring-curl calf.',
+    partVisibilityScores: {
+      head: 3, hairAccessory: 2, neck: 3, torso: 3, pelvis: 3,
+      nearUpperArm: 3, nearForearm: 3, nearHand: 3, farUpperArm: 3, farForearm: 3, farHand: 3,
+      nearThigh: 3, nearShin: 3, nearFoot: 3, farThigh: 2, farShin: 3, farFoot: 3,
+    },
+  },
+  {
+    frameId: 'phase-10-unclothed-opposite-angles-b',
+    callId: 'Call #83',
+    poseCode: 'ORTHO-B-unclothed-test',
+    complianceStatus: 'rejected-for-primary-target-retained-for-secondary',
+    rejectionDefectCode: 'IMG-ERR-20',
+    promptRefinementSummary: 'Direct test of literal "unclothed" prompt: safety filter rewrote attire to black sports bra + mid-thigh bike shorts (IMG-ERR-20, Refined in Call #84 with high-cut bikini brief). ACCEPTED for bare-wrist -90-deg vertical upward far medial forearm, 175-deg straight rear near arm, and 45-deg tiptoe bare foot.',
+    partVisibilityScores: {
+      head: 3, hairAccessory: 2, neck: 3, torso: 3, pelvis: 3,
+      nearUpperArm: 3, nearForearm: 3, nearHand: 3, farUpperArm: 2, farForearm: 3, farHand: 3,
+      nearThigh: 2, nearShin: 3, nearFoot: 3, farThigh: 2, farShin: 3, farFoot: 3,
+    },
+  },
+  {
+    frameId: 'phase-11-bare-limb-opposite-angles-c',
+    callId: 'Call #85',
+    poseCode: 'ORTHO-C-bare',
+    complianceStatus: 'accepted',
+    promptRefinementSummary: 'Opposite Angle Matrix C in high-cut bikini brief + barefoot/bare-wristed: +60-deg straight-knee front-kick bare thigh/shin (spanW=572 px), -40-deg rear bare medial thigh, 90-deg rear near arm, and +20-deg low-forward far medial forearm.',
+    partVisibilityScores: {
+      head: 3, hairAccessory: 3, neck: 3, torso: 3, pelvis: 3,
+      nearUpperArm: 3, nearForearm: 3, nearHand: 3, farUpperArm: 3, farForearm: 3, farHand: 3,
       nearThigh: 3, nearShin: 3, nearFoot: 3, farThigh: 3, farShin: 3, farFoot: 3,
     },
   },
@@ -597,7 +639,7 @@ export const PHASE_VARIANT_JIG_SPECS: readonly PhaseVariantJigSpec[] = [
     variantKey: 'hairAccessory--horizontal-whip',
     selectedFrameId: 'phase-06-high-knee-ponytail-insert',
     fallbackFrameId: 'phase-03-midstance-knee',
-    phaseTriggerDescription: 'Active during airborne flight and peak upward whip phases (Math.abs(ponytailBobDeg) > 6).',
+    phaseTriggerDescription: 'Active during airborne flight and peak upward whip phases (pose.isFlightPhase).',
     anatomicalRationale: 'High horizontal airborne ponytail whip streaming at 10 o-clock with wide #FF00FF clearance above neck/shoulder (X06 insert).',
     srcStart: { x: 668, y: 82 },
     srcEnd: { x: 542, y: 126 },
@@ -607,6 +649,110 @@ export const PHASE_VARIANT_JIG_SPECS: readonly PhaseVariantJigSpec[] = [
     dstRadiusPx: 28,
     cropBox: { minX: 528, maxX: 676, minY: 52, maxY: 156 },
     shadeScale: 1.0,
+  },
+  {
+    partId: 'nearUpperArm',
+    variantId: 'bare-horizontal-reach',
+    variantKey: 'nearUpperArm--bare-horizontal-reach',
+    selectedFrameId: 'phase-09-bare-limb-orthogonal-angles-a',
+    fallbackFrameId: 'phase-01-right-strike',
+    phaseTriggerDescription: 'Bare-skin 0-degree horizontal forward reach upper arm (Orthogonal Matrix A).',
+    anatomicalRationale: '100% bare deltoid and biceps extended at 0 degrees horizontally forward (3 o-clock) with zero singlet strap occlusion.',
+    srcStart: { x: 750, y: 188 },
+    srcEnd: { x: 846, y: 188 },
+    dstStart: { x: 80, y: 36 },
+    dstEnd: { x: 80, y: 124 },
+    srcHalfWidthPx: 25,
+    dstRadiusPx: 25,
+    cropBox: { minX: 735, maxX: 856, minY: 162, maxY: 214 },
+    shadeScale: 1.0,
+  },
+  {
+    partId: 'nearForearm',
+    variantId: 'bare-horizontal-reach',
+    variantKey: 'nearForearm--bare-horizontal-reach',
+    selectedFrameId: 'phase-09-bare-limb-orthogonal-angles-a',
+    fallbackFrameId: 'phase-01-right-strike',
+    phaseTriggerDescription: 'Bare-wrist 0-degree horizontal forward reach forearm with zero wristband (Orthogonal Matrix A).',
+    anatomicalRationale: '100% bare lateral forearm and wrist extended at 0 degrees horizontally forward without cyan sweatband occlusion.',
+    srcStart: { x: 846, y: 188 },
+    srcEnd: { x: 946, y: 186 },
+    dstStart: { x: 80, y: 36 },
+    dstEnd: { x: 80, y: 124 },
+    srcHalfWidthPx: 22,
+    dstRadiusPx: 23,
+    cropBox: { minX: 836, maxX: 958, minY: 168, maxY: 210 },
+    shadeScale: 1.0,
+  },
+  {
+    partId: 'nearThigh',
+    variantId: 'bare-vertical-stance',
+    variantKey: 'nearThigh--bare-vertical-stance',
+    selectedFrameId: 'phase-09-bare-limb-orthogonal-angles-a',
+    fallbackFrameId: 'phase-01-right-strike',
+    phaseTriggerDescription: 'Full-length 90-degree vertical stance bare thigh exposed up to high-cut hip brief (Orthogonal Matrix A).',
+    anatomicalRationale: 'High-cut bikini brief exposes 100% of the proximal-to-distal bare lateral thigh and greater trochanter hip contour.',
+    srcStart: { x: 698, y: 370 },
+    srcEnd: { x: 692, y: 515 },
+    dstStart: { x: 80, y: 36 },
+    dstEnd: { x: 80, y: 124 },
+    srcHalfWidthPx: 44,
+    dstRadiusPx: 33,
+    cropBox: { minX: 646, maxX: 748, minY: 350, maxY: 530 },
+    shadeScale: 1.0,
+    attachShortsCuff: 'with-stripe',
+  },
+  {
+    partId: 'farShin',
+    variantId: 'bare-hamstring-curl',
+    variantKey: 'farShin--bare-hamstring-curl',
+    selectedFrameId: 'phase-09-bare-limb-orthogonal-angles-a',
+    fallbackFrameId: 'phase-01-right-strike',
+    phaseTriggerDescription: '180-degree horizontal rear hamstring-curl bare calf and ankle without sock cuff (Orthogonal Matrix A).',
+    anatomicalRationale: '90-degree flexed rear knee places the bare medial calf and ankle horizontally at 9 o-clock in pure #FF00FF space.',
+    srcStart: { x: 626, y: 544 },
+    srcEnd: { x: 512, y: 552 },
+    dstStart: { x: 80, y: 36 },
+    dstEnd: { x: 80, y: 124 },
+    srcHalfWidthPx: 26,
+    dstRadiusPx: 25,
+    cropBox: { minX: 498, maxX: 638, minY: 518, maxY: 576 },
+    shadeScale: 0.92,
+  },
+  {
+    partId: 'farForearm',
+    variantId: 'bare-vertical-up',
+    variantKey: 'farForearm--bare-vertical-up',
+    selectedFrameId: 'phase-10-unclothed-opposite-angles-b',
+    fallbackFrameId: 'phase-01-right-strike',
+    phaseTriggerDescription: 'Bare-wrist -90-degree vertical upward medial forearm (Opposite Matrix B).',
+    anatomicalRationale: 'Unclothed/bare-wrist prompt exposes 100% continuous medial forearm and wrist skin pointing vertically at 12 o-clock with zero sweatband.',
+    srcStart: { x: 824, y: 224 },
+    srcEnd: { x: 850, y: 128 },
+    dstStart: { x: 80, y: 36 },
+    dstEnd: { x: 80, y: 124 },
+    srcHalfWidthPx: 22,
+    dstRadiusPx: 23,
+    cropBox: { minX: 804, maxX: 874, minY: 116, maxY: 238 },
+    shadeScale: 0.96,
+  },
+  {
+    partId: 'nearThigh',
+    variantId: 'bare-front-kick',
+    variantKey: 'nearThigh--bare-front-kick',
+    selectedFrameId: 'phase-11-bare-limb-opposite-angles-c',
+    fallbackFrameId: 'phase-06-high-knee-ponytail-insert',
+    phaseTriggerDescription: 'Straight-knee +60-degree front-kick bare thigh exposed up to high-cut hip brief (Opposite Matrix C).',
+    anatomicalRationale: 'Opposite straight-leg front kick (+60 deg hip flexion, 175 deg straight knee) exposes contracted anterior quadriceps from hip brief to kneecap.',
+    srcStart: { x: 736, y: 384 },
+    srcEnd: { x: 892, y: 444 },
+    dstStart: { x: 80, y: 36 },
+    dstEnd: { x: 80, y: 124 },
+    srcHalfWidthPx: 42,
+    dstRadiusPx: 33,
+    cropBox: { minX: 720, maxX: 906, minY: 348, maxY: 482 },
+    shadeScale: 1.0,
+    attachShortsCuff: 'with-stripe',
   },
 ];
 

@@ -47,7 +47,10 @@ export type PhaseFrameId =
   | 'phase-05-near-arm-forward-rejected'
   | 'phase-06-high-knee-ponytail-insert'
   | 'phase-07-near-shoulder-forward-refined'
-  | 'phase-08-loaded-forefoot-roll-refined';
+  | 'phase-08-loaded-forefoot-roll-refined'
+  | 'phase-09-bare-limb-orthogonal-angles-a'
+  | 'phase-10-unclothed-opposite-angles-b'
+  | 'phase-11-bare-limb-opposite-angles-c';
 
 export interface PhaseJigSegmentSpec {
   readonly partId: BodyPartId;
@@ -107,6 +110,9 @@ export const PHASE_FRAME_FILES: Readonly<Record<PhaseFrameId, string>> = {
   'phase-06-high-knee-ponytail-insert': 'src/images/photoreal-female-phases/phase-06-toe-off-plantar-roll-insert.png',
   'phase-07-near-shoulder-forward-refined': 'src/images/photoreal-female-phases/phase-07-near-shoulder-forward-refined.png',
   'phase-08-loaded-forefoot-roll-refined': 'src/images/photoreal-female-phases/phase-08-loaded-forefoot-roll-refined.png',
+  'phase-09-bare-limb-orthogonal-angles-a': 'src/images/photoreal-female-phases/phase-09-bare-limb-orthogonal-angles-a.png',
+  'phase-10-unclothed-opposite-angles-b': 'src/images/photoreal-female-phases/phase-10-unclothed-opposite-angles-b.png',
+  'phase-11-bare-limb-opposite-angles-c': 'src/images/photoreal-female-phases/phase-11-bare-limb-opposite-angles-c.png',
 };
 
 export function loadKeyedPhaseFrames(
@@ -552,20 +558,20 @@ function renderPhaseHarvestDiagnosticSheet(
   variantBank: PhotorealPhaseVariantBank,
   variantList: readonly HarvestedJigVariant[],
 ): RasterImage {
-  const sheet = createRaster(1160, 880);
+  const sheet = createRaster(1380, 880);
   fillRaster(sheet, { r: 24, g: 28, b: 38, a: 255 });
   const frameIds = Object.keys(PHASE_FRAME_FILES) as PhaseFrameId[];
   frameIds.forEach((fid, idx) => {
-    blitScaledSourceFrameWithBoxes(sheet, frames[fid], fid, idx * 126 + 12, 8);
+    blitScaledSourceFrameWithBoxes(sheet, frames[fid], fid, idx * 114 + 8, 8);
   });
   const allTiles: RasterImage[] = [
     ...PHASE_FRAME_JIG_SPECS.map((s) => bank[s.partId]!),
     ...variantList.map((v) => v.image),
   ];
   allTiles.forEach((tile, idx) => {
-    const col = idx % 10;
-    const row = Math.floor(idx / 10);
-    blitHarvestedJigTile(sheet, tile, col * 114 + 14, 232 + row * 124);
+    const col = idx % 12;
+    const row = Math.floor(idx / 12);
+    blitHarvestedJigTile(sheet, tile, col * 112 + 16, 232 + row * 124);
   });
   const tuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female'];
   const tunedRig = applyAssetTuningToRigSpec(DEFAULT_RIG_SPEC, tuning);
@@ -578,7 +584,7 @@ function renderPhaseHarvestDiagnosticSheet(
       tuning,
       bankOverride: activeBank,
     });
-    blitCompositeFrame(sheet, rendered, idx * 276 + 38, 612);
+    blitCompositeFrame(sheet, rendered, idx * 330 + 56, 612);
   });
   return sheet;
 }
@@ -590,7 +596,7 @@ function blitScaledSourceFrameWithBoxes(
   ox: number,
   oy: number,
 ): void {
-  const w = 120;
+  const w = 108;
   const h = 212;
   const entry = PHASE_FRAME_COMPLIANCE_LEDGER.find((e) => e.frameId === frameId);
   const borderColor = entry?.complianceStatus === 'accepted'
@@ -598,8 +604,8 @@ function blitScaledSourceFrameWithBoxes(
     : { r: 245, g: 170, b: 40, a: 255 };
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
-      const sx = Math.round(420 + (x / w) * 560);
-      const sy = Math.round(20 + (y / h) * 720);
+      const sx = Math.round(420 + (x / w) * 660);
+      const sy = Math.round(20 + (y / h) * 730);
       const p = readPixel(src, sx, sy);
       const bg = { r: 42, g: 47, b: 61, a: 255 };
       writePixel(dst, { x: ox + x, y: oy + y }, p.a > 64 ? p : bg);
@@ -608,10 +614,10 @@ function blitScaledSourceFrameWithBoxes(
   drawRectOutline(dst, ox, oy, ox + w - 1, oy + h - 1, borderColor);
   for (const spec of [...PHASE_FRAME_JIG_SPECS, ...PHASE_VARIANT_JIG_SPECS]) {
     if (spec.selectedFrameId !== frameId) continue;
-    const x0 = ox + Math.max(0, Math.min(w - 1, Math.round(((spec.cropBox.minX - 420) / 560) * w)));
-    const x1 = ox + Math.max(0, Math.min(w - 1, Math.round(((spec.cropBox.maxX - 420) / 560) * w)));
-    const y0 = oy + Math.max(0, Math.min(h - 1, Math.round(((spec.cropBox.minY - 20) / 720) * h)));
-    const y1 = oy + Math.max(0, Math.min(h - 1, Math.round(((spec.cropBox.maxY - 20) / 720) * h)));
+    const x0 = ox + Math.max(0, Math.min(w - 1, Math.round(((spec.cropBox.minX - 420) / 660) * w)));
+    const x1 = ox + Math.max(0, Math.min(w - 1, Math.round(((spec.cropBox.maxX - 420) / 660) * w)));
+    const y0 = oy + Math.max(0, Math.min(h - 1, Math.round(((spec.cropBox.minY - 20) / 730) * h)));
+    const y1 = oy + Math.max(0, Math.min(h - 1, Math.round(((spec.cropBox.maxY - 20) / 730) * h)));
     drawRectOutline(dst, x0, y0, x1, y1, { r: 0, g: 240, b: 180, a: 255 });
   }
 }

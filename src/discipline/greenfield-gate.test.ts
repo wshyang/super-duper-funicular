@@ -117,6 +117,7 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('IMG-ERR-17');
     expect(fdsMd).toContain('IMG-ERR-18');
     expect(fdsMd).toContain('IMG-ERR-19');
+    expect(fdsMd).toContain('IMG-ERR-20');
     expect(fdsMd).toContain('PIPE-ERR-01');
     expect(fdsMd).toContain('PIPE-ERR-08');
     expect(fdsMd).toContain('PIPE-ERR-09');
@@ -124,10 +125,13 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('#multi-frame-phase-harvesting-strategy');
     expect(fdsMd).toContain('#pass-9-athletic-rebuild-audit');
     expect(fdsMd).toContain('#pass-10-multi-frame-phase-keyframes');
+    expect(fdsMd).toContain('#pass-12-bare-limb-opposite-angles');
     expect(fdsMd).toContain('Call `#73`');
     expect(fdsMd).toContain('Call `#77`');
     expect(fdsMd).toContain('Call `#78`');
     expect(fdsMd).toContain('Call `#81`');
+    expect(fdsMd).toContain('Call `#82`');
+    expect(fdsMd).toContain('Call `#85`');
     expect(fdsMd).toContain('#five-persona-audit-results');
     expect(fdsMd).toContain('#continuous-learning-log');
     expect(fdsMd).toContain('TURN-L12');
@@ -142,6 +146,7 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('TURN-L24');
     expect(fdsMd).toContain('TURN-L25');
     expect(fdsMd).toContain('TURN-L26');
+    expect(fdsMd).toContain('TURN-L27');
     expect(fdsMd).toContain('ADD-037');
     expect(fdsMd).toContain('ADD-038');
     expect(fdsMd).toContain('ADD-039');
@@ -149,8 +154,9 @@ describe('GREENFIELD.md Coding Discipline Automated Gates', () => {
     expect(fdsMd).toContain('ADD-041');
     expect(fdsMd).toContain('ADD-042');
     expect(fdsMd).toContain('ADD-043');
+    expect(fdsMd).toContain('ADD-044');
     expect(fdsMd).toContain('Standing Profile Calibration');
-    expect(nWayMd).toContain('3e6ad932f470a8a81cc045ada3c8a82ae28d4521');
+    expect(nWayMd).toContain('60ca65353e2b5ff9481abed4540c84131cf18e38');
     expect(nWayMd).toContain('b227e2fe562be341f15f58955f539d325170729e');
     expect(nWayMd).toContain('43352cf3fe8cb6c486aa79a59954d5972a5e13ac');
     expect(nWayMd).toContain('bab689cdac3ba730138bfae09dda537978d61e09');

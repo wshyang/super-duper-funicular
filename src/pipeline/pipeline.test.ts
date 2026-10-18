@@ -454,19 +454,25 @@ describe('Real reference sprite sheet grid detection and extraction verification
     fs.rmSync(tmpAuditDir, { recursive: true, force: true });
   });
 
-  it('harvests all 17 canonical jigs plus 12 phase-variant copies across 9 compliance-audited frames and selects variants by phase', () => {
+  it('harvests all 17 canonical jigs plus 18 phase and bare-limb opposite-angle variants across 12 compliance-audited frames', () => {
     const tmpHarvestDir = fs.mkdtempSync(path.join(os.tmpdir(), 'phase-harvest-test-'));
     const { bank, variantBank, report } = harvestArticulatedJigsFromPhaseFrames(process.cwd(), tmpHarvestDir);
     expect(report.partsHarvestedCount).toBe(17);
-    expect(report.variantsHarvestedCount).toBe(12);
-    expect(report.complianceLedger).toHaveLength(9);
+    expect(report.variantsHarvestedCount).toBe(18);
+    expect(report.complianceLedger).toHaveLength(12);
     expect(report.referenceHeightPx).toBeGreaterThanOrEqual(700);
     expect(report.averageCoreCoverageRatio).toBeGreaterThanOrEqual(0.95);
-    expect(report.averageChromaSeparationRatio).toBeGreaterThanOrEqual(0.75);
+    expect(report.averageChromaSeparationRatio).toBeGreaterThanOrEqual(0.8);
     const rejectedCodes = report.complianceLedger
       .map((entry) => entry.rejectionDefectCode)
       .filter(Boolean);
-    expect(rejectedCodes).toEqual(['IMG-ERR-17', 'IMG-ERR-18', 'IMG-ERR-19']);
+    expect(rejectedCodes).toEqual(['IMG-ERR-17', 'IMG-ERR-18', 'IMG-ERR-19', 'IMG-ERR-20']);
+    expect(Boolean(variantBank.nearUpperArm?.['bare-horizontal-reach'])).toBe(true);
+    expect(Boolean(variantBank.nearForearm?.['bare-horizontal-reach'])).toBe(true);
+    expect(Boolean(variantBank.nearThigh?.['bare-vertical-stance'])).toBe(true);
+    expect(Boolean(variantBank.farShin?.['bare-hamstring-curl'])).toBe(true);
+    expect(Boolean(variantBank.farForearm?.['bare-vertical-up'])).toBe(true);
+    expect(Boolean(variantBank.nearThigh?.['bare-front-kick'])).toBe(true);
     for (const metric of report.partMetrics) {
       expect(metric.opaquePixelsCount, `${metric.partId} opaque pixels`).toBeGreaterThan(2500);
       expect(Boolean(bank[metric.partId])).toBe(true);
