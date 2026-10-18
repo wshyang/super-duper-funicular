@@ -26,10 +26,24 @@ import {
   cutArticulatedLimbWithRoundedEnds,
   cutHorizontalLimbWithRoundedEnds,
 } from './rounded-joint-cutter.js';
+import { extractArmSegmentsFromMasterSideProfile } from './side-profile-arm-extractor.js';
+import { raiseAthleticBustLandmark } from './athletic-reference-extractor.js';
 import { vectorizeRasterCutoutToSvg } from './svg-vectorizer.js';
 import type { ExtractedSheetManifest, SpriteFlawAnalysisReport } from '../shared/types.js';
 
 describe('Magenta chroma-key and raster primitives', () => {
+  it('raises the athletic torso bust landmark while preserving the waist anchor', () => {
+    const torso = createRaster(160, 160);
+    for (let x = 50; x <= 110; x++) {
+      writePixel(torso, { x, y: 67 }, { r: 220, g: 40, b: 50, a: 255 });
+      writePixel(torso, { x, y: 122 }, { r: 30, g: 40, b: 220, a: 255 });
+    }
+    const corrected = raiseAthleticBustLandmark(torso);
+    expect(readPixel(corrected, 80, 57)).toEqual({ r: 220, g: 40, b: 50, a: 255 });
+    expect(readPixel(corrected, 56, 57).a).toBeLessThan(128);
+    expect(readPixel(corrected, 57, 57).a).toBeGreaterThan(128);
+    expect(readPixel(corrected, 50, 122)).toEqual({ r: 30, g: 40, b: 220, a: 255 });
+  });
   it('identifies pure #FF00FF dividers and pink cell backdrops while preserving purple jersey pixels', () => {
     expect(isPureMagentaDivider({ r: 253, g: 0, b: 252, a: 255 })).toBe(true);
     expect(isPureMagentaDivider({ r: 253, g: 74, b: 253, a: 255 })).toBe(false);
@@ -61,6 +75,50 @@ describe('Real reference sprite sheet grid detection and extraction verification
     repoRoot,
     'src/images/spritesheets/runner-8frame-6color-flawed-sheet.jpeg',
   );
+
+  it('keeps the athletic neck isolated, the armhole filled, and the left-thumb/fingers intact', () => {
+    const partsDir = path.join(repoRoot, 'public/sprites/photoreal/sg-chinese-female/parts');
+    const neck = readImageFile(path.join(partsDir, 'neck.png'));
+    const torso = readImageFile(path.join(partsDir, 'torso.png'));
+    const farHand = readImageFile(path.join(partsDir, 'farHand.png'));
+
+    // The revised neck crop is skin-only: a red/white singlet fragment or
+    // dark ponytail pixels here would signal a crop spill from the full portrait.
+    let clothingOrHairPixels = 0;
+    for (let y = 0; y < neck.height; y++) {
+      for (let x = 0; x < neck.width; x++) {
+        const p = readPixel(neck, x, y);
+        if (p.a < 128) continue;
+        if ((p.r > 135 && p.g < 52 && p.b < 65) || (p.r < 45 && p.g < 45 && p.b < 45)) {
+          clothingOrHairPixels++;
+        }
+      }
+    }
+    expect(clothingOrHairPixels).toBe(0);
+
+    // This opaque skin pixel is inside the shoulder stump, not its silhouette;
+    // it guards against restoring the see-through armhole/lining artifact.
+    expect(readPixel(torso, 100, 60).a).toBeGreaterThan(128);
+
+    // In the left-palm plate the thumb is the lateral projection, while the
+    // four fingers continue down the hand. Both must survive extraction.
+    const thumbSidePixels = Array.from({ length: 73 }, (_, i) => i + 55)
+      .filter((x) => readPixel(farHand, x, 75).a > 128);
+    expect(Math.max(...thumbSidePixels)).toBeGreaterThanOrEqual(120);
+    expect(readPixel(farHand, 82, 122).a).toBeGreaterThan(128);
+  });
+
+  it('generates cropped alpha-keyed standing reference profiles for all three photoreal personas', () => {
+    const folders = ['sg-chinese-female-petite', 'sg-chinese-female', 'sg-chinese-female-average'];
+    for (const folder of folders) {
+      const profile = readImageFile(path.join(repoRoot, 'public/sprites/photoreal', folder, 'reference-profile.png'));
+      expect(profile.height).toBeGreaterThan(650);
+      expect(profile.width).toBeLessThan(300);
+      expect(profile.width).toBeLessThan(profile.height);
+      const corner = readPixel(profile, 0, 0);
+      expect(corner.a).toBeLessThan(32);
+    }
+  });
 
   it('detects the 132px header and 6 rows x 8 columns grid on the real reference sheet', () => {
     const sheet = readImageFile(sheetPath);
@@ -134,19 +192,29 @@ describe('Real reference sprite sheet grid detection and extraction verification
       repoRoot,
       'src/images/spritesheets/runner-8frame-6color-photoreal-female-sheet.png',
     );
+    const photorealAverageFemaleSheet = path.join(
+      repoRoot,
+      'src/images/spritesheets/runner-8frame-6color-photoreal-female-average-sheet.png',
+    );
     expect(fs.existsSync(maleSheet)).toBe(true);
     expect(fs.existsSync(femaleSheet)).toBe(true);
     expect(fs.existsSync(photorealFemaleSheet)).toBe(true);
+    expect(fs.existsSync(photorealAverageFemaleSheet)).toBe(true);
 
     const photoNearFoot = path.join(
       repoRoot,
       'public/sprites/photoreal/sg-chinese-female/parts/nearFoot.png',
+    );
+    const photoAvgHair = path.join(
+      repoRoot,
+      'public/sprites/photoreal/sg-chinese-female-average/parts/hairAccessory.png',
     );
     const photoFarFoot = path.join(
       repoRoot,
       'public/sprites/photoreal/sg-chinese-female/parts/farFoot.png',
     );
     expect(fs.existsSync(photoNearFoot)).toBe(true);
+    expect(fs.existsSync(photoAvgHair)).toBe(true);
     expect(fs.existsSync(photoFarFoot)).toBe(true);
 
     const maleNeck = path.join(
@@ -298,4 +366,49 @@ describe('Real reference sprite sheet grid detection and extraction verification
       expect(entry.relativeDeltaPct).toBeLessThan(15);
     }
   });
+
+  it('algorithmically extracts arm segments from 01-master-lateral-profile-reference.png and verifies fuller body-positive cutouts', () => {
+    const masterRaw = readImageFile(
+      path.join(
+        process.cwd(),
+        'src/images/photoreal-female-average/01-master-lateral-profile-reference.png',
+      ),
+    );
+    const keyedMaster = keyOutMagentaCell(masterRaw);
+    const extracted = extractArmSegmentsFromMasterSideProfile(keyedMaster);
+    expect(extracted.shoulderTopY).toBeLessThan(extracted.elbowY);
+    expect(extracted.elbowY).toBeLessThan(extracted.wristY);
+    expect(extracted.wristY).toBeLessThan(extracted.handBotY);
+    expect(readPixel(extracted.nearUpperArm, 80, 80).a).toBeGreaterThan(200);
+    expect(readPixel(extracted.nearForearm, 80, 80).a).toBeGreaterThan(200);
+
+    const petDir = path.join(
+      process.cwd(),
+      'public/sprites/photoreal/sg-chinese-female-petite/parts',
+    );
+    const athDir = path.join(process.cwd(), 'public/sprites/photoreal/sg-chinese-female/parts');
+    const avgDir = path.join(
+      process.cwd(),
+      'public/sprites/photoreal/sg-chinese-female-average/parts',
+    );
+    for (const partId of ['neck', 'torso', 'pelvis', 'nearUpperArm', 'nearThigh'] as const) {
+      const petImg = readImageFile(path.join(petDir, `${partId}.png`));
+      const athImg = readImageFile(path.join(athDir, `${partId}.png`));
+      const avgImg = readImageFile(path.join(avgDir, `${partId}.png`));
+      expect(countOpaquePixels(petImg), `${partId} petite < athletic`).toBeLessThan(
+        countOpaquePixels(athImg),
+      );
+      expect(countOpaquePixels(avgImg), `${partId} average > athletic`).toBeGreaterThan(
+        countOpaquePixels(athImg),
+      );
+    }
+  });
 });
+
+function countOpaquePixels(img: { width: number; height: number; data: Uint8ClampedArray }): number {
+  let count = 0;
+  for (let i = 3; i < img.data.length; i += 4) {
+    if ((img.data[i] ?? 0) >= 128) count++;
+  }
+  return count;
+}

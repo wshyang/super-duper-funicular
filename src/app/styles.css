@@ -669,6 +669,49 @@ body {
   color: var(--text-muted);
 }
 
+.asset-tuning-card {
+  padding: 12px 14px;
+}
+
+.asset-tuning-card__summary {
+  cursor: pointer;
+  list-style: disclosure-closed;
+  color: var(--text-main);
+}
+
+.asset-tuning-card__summary::-webkit-details-marker {
+  color: var(--accent-cyan);
+}
+
+.asset-tuning-card[open] .asset-tuning-card__summary {
+  margin-bottom: 12px;
+  list-style: disclosure-open;
+}
+
+.asset-tuning-card__summary .control-card-title {
+  display: inline;
+  margin: 0;
+}
+
+.asset-tuning-card__subtitle {
+  display: block;
+  margin: 5px 0 0 18px;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+.asset-tuning-card__body {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 10px;
+}
+
+.control-help {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
 .persona-card {
   border-color: rgba(6, 182, 212, 0.45);
   background: linear-gradient(180deg, rgba(17, 25, 39, 0.96), rgba(15, 23, 42, 0.92));

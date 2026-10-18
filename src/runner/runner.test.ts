@@ -1,9 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import type { Point2D } from '../shared/types.js';
 import {
+  applyAssetTuningToRigSpec,
+  ARM_SWING_PRESETS,
   ARTICULATED_BODY_PARTS,
   DEFAULT_GAIT_CONFIG,
   DEFAULT_RIG_SPEC,
+  PHOTOREAL_ASSET_TUNING_DEFAULTS,
 } from './body-proportions.js';
 import { solveArticulatedPose } from './gait.js';
 import { RUNNER_PALETTES } from './palette.js';
@@ -199,5 +202,66 @@ describe('Skinnable Sprite Hooks & Dual Singapore Chinese Male/Female Personas',
       expect(maleCutout.width).toBe(96);
       expect(femaleCutout.height).toBe(96);
     }
+  });
+
+  it('calibrates upper-limb proportions to natural female anthropometric ratios (no T-rex arms and elbow at waist above hips)', () => {
+    expect(DEFAULT_RIG_SPEC.upperArmLength).toBeGreaterThanOrEqual(23);
+    expect(DEFAULT_RIG_SPEC.upperArmLength).toBeLessThanOrEqual(26);
+    expect(DEFAULT_RIG_SPEC.forearmLength).toBeGreaterThanOrEqual(20);
+    expect(DEFAULT_RIG_SPEC.forearmLength).toBeLessThanOrEqual(23);
+    for (let i = 0; i < 8; i++) {
+      const pose = solveArticulatedPose(i / 8, DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC);
+      expect(pose.nearArm.midJoint.y).toBeLessThan(pose.pelvis.y - 10);
+    }
+  });
+
+  it('supports tuneable arm-swing carry parameters (hands close to chest vs. large power swing) and optional/flowing hair dynamics', () => {
+    expect(ARM_SWING_PRESETS).toHaveLength(4);
+    const sprintPose = solveArticulatedPose(
+      0.0,
+      { ...DEFAULT_GAIT_CONFIG, armCarryFlexDeg: 72, armChestBiasDeg: 0 },
+      DEFAULT_RIG_SPEC,
+    );
+    const chestCarryPose = solveArticulatedPose(
+      0.0,
+      { ...DEFAULT_GAIT_CONFIG, armCarryFlexDeg: 112, armChestBiasDeg: 18 },
+      DEFAULT_RIG_SPEC,
+    );
+    expect(chestCarryPose.nearArm.endEffector.y).toBeLessThan(
+      sprintPose.nearArm.endEffector.y - 4,
+    );
+
+    const flowingPose = solveArticulatedPose(
+      0.25,
+      { ...DEFAULT_GAIT_CONFIG, hairStyleMode: 'long-flowing', hairSwingScale: 1.2 },
+      DEFAULT_RIG_SPEC,
+    );
+    const noHairPose = solveArticulatedPose(
+      0.25,
+      { ...DEFAULT_GAIT_CONFIG, hairStyleMode: 'none' },
+      DEFAULT_RIG_SPEC,
+    );
+    expect(flowingPose.hairStyleMode).toBe('long-flowing');
+    expect(noHairPose.hairStyleMode).toBe('none');
+    expect(flowingPose.hairTip.y).toBeGreaterThan(flowingPose.hairAnchor.y + 8);
+
+    const petiteTuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-petite'];
+    const avgTuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-average'];
+    const athleticTuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female'];
+    expect(petiteTuning.torsoWidthPx).toBeLessThan(athleticTuning.torsoWidthPx);
+    expect(petiteTuning.pelvisWidthPx).toBeLessThan(athleticTuning.pelvisWidthPx);
+    expect(petiteTuning.thighWidthPx).toBeLessThan(athleticTuning.thighWidthPx);
+    expect(avgTuning.torsoWidthPx).toBeGreaterThan(athleticTuning.torsoWidthPx);
+    expect(avgTuning.pelvisWidthPx).toBeGreaterThan(athleticTuning.pelvisWidthPx);
+    expect(avgTuning.thighWidthPx).toBeGreaterThan(athleticTuning.thighWidthPx);
+    const armTotal = DEFAULT_RIG_SPEC.upperArmLength + DEFAULT_RIG_SPEC.forearmLength;
+    const legTotal = DEFAULT_RIG_SPEC.thighLength + DEFAULT_RIG_SPEC.shinLength;
+    expect(armTotal / legTotal).toBeGreaterThanOrEqual(0.51);
+    expect(armTotal / legTotal).toBeLessThanOrEqual(0.57);
+    const tunedRig = applyAssetTuningToRigSpec(DEFAULT_RIG_SPEC, avgTuning);
+    expect(tunedRig.upperArmLength).toBeCloseTo(
+      DEFAULT_RIG_SPEC.upperArmLength * avgTuning.upperArmLengthScale,
+      1,
+    );
   });
 });

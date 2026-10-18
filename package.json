@@ -16,7 +16,9 @@
     "analyze": "tsx scripts/analyze-sprites.ts",
     "generate-sheets": "tsx scripts/generate-algorithmic-sprites.ts",
     "dump-cycle": "tsx scripts/dump-cycle-frames.ts",
-    "pipeline": "npm run dedupe && npm run extract && npm run analyze && npm run generate-sheets"
+    "branches:compare": "tsx scripts/compare-branches.ts",
+    "pipeline": "npm run dedupe && npm run extract && npm run analyze && npm run generate-sheets",
+    "validate": "npm run branches:compare && npm run typecheck && npm test && npm run build"
   },
   "dependencies": {
     "jpeg-js": "^0.4.4",

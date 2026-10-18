@@ -1,12 +1,16 @@
 import type {
   BodyPartId,
+  PhotorealPersonaId,
   Point2D,
   RasterImage,
   RunnerPalette,
   RunnerPersonaId,
 } from '../shared/types.js';
 
-export type HairStyleKind = 'male-taper-fade' | 'female-ponytail';
+export type HairStyleKind =
+  | 'male-taper-fade'
+  | 'female-ponytail'
+  | 'female-long-flowing';
 export type TopGarmentCut = 'athletic-singlet' | 'racerback-crop';
 export type ShortsGarmentCut = 'split-track-shorts' | 'sculpted-sprinter-shorts';
 
@@ -132,10 +136,10 @@ export const SG_CHINESE_FEMALE_SKIN: RunnerSkinDefinition = {
 
 export const PHOTO_SG_CHINESE_FEMALE_SKIN: RunnerSkinDefinition = {
   id: 'photo-sg-chinese-female',
-  title: 'Photorealistic SG Chinese Female',
+  title: 'Photorealistic SG Chinese Female (Athletic)',
   subtitle:
-    'Hui Min (Photoreal Rig) — 10-Asset Studio Cutouts with Lateral (Outside) Near Limbs & Medial (Inside) Far Limbs/Palm/Shoe',
-  badgeLabel: 'PHOTOREALISTIC FEMALE (17 CUTOUTS)',
+    'Hui Min (Athletic Build) — 10-Asset Studio Cutouts with Toned Sprinter Proportions & Sporty Ponytail',
+  badgeLabel: 'PHOTOREAL FEMALE (ATHLETIC)',
   complexionNear: '#F2BF96',
   complexionFar: '#C8926B',
   hairColor: '#161110',
@@ -156,12 +160,82 @@ export const PHOTO_SG_CHINESE_FEMALE_SKIN: RunnerSkinDefinition = {
     kneeRadius: 6.4,
     shinRadius: 6.2,
     ankleRadius: 4.2,
-    upperArmRadius: 5.8,
-    elbowRadius: 4.6,
-    forearmRadius: 4.5,
-    wristRadius: 3.8,
+    upperArmRadius: 5.2,
+    elbowRadius: 4.2,
+    forearmRadius: 4.0,
+    wristRadius: 3.4,
     neckRadius: 4.5,
     defaultForwardLeanDeg: 22,
+  },
+};
+
+export const PHOTO_SG_CHINESE_FEMALE_AVERAGE_SKIN: RunnerSkinDefinition = {
+  id: 'photo-sg-chinese-female-average',
+  title: 'Photorealistic SG Chinese Female (Average Build)',
+  subtitle:
+    'Mei Ling (Everyday Body-Positive Build) — 10-Asset Studio Cutouts with Fuller Natural Proportions, Full-Waist Singlet & Swinging Long Hair',
+  badgeLabel: 'PHOTOREAL FEMALE (AVERAGE BUILD)',
+  complexionNear: '#F3C39C',
+  complexionFar: '#CC9770',
+  hairColor: '#1A1311',
+  hairHighlight: '#3B2B25',
+  hairTieAccent: '#BE123C',
+  wristbandColor: '#38BDF8',
+  hairStyle: 'female-long-flowing',
+  topCut: 'athletic-singlet',
+  shortsCut: 'split-track-shorts',
+  anthropometrics: {
+    torsoLength: 44,
+    neckLength: 12,
+    headRadius: 14.0,
+    shoulderRadius: 13.2,
+    waistRadius: 11.8,
+    pelvisRadius: 13.8,
+    thighRadius: 11.0,
+    kneeRadius: 7.2,
+    shinRadius: 7.0,
+    ankleRadius: 4.6,
+    upperArmRadius: 5.8,
+    elbowRadius: 4.6,
+    forearmRadius: 4.4,
+    wristRadius: 3.7,
+    neckRadius: 4.8,
+    defaultForwardLeanDeg: 18,
+  },
+};
+
+export const PHOTO_SG_CHINESE_FEMALE_PETITE_SKIN: RunnerSkinDefinition = {
+  id: 'photo-sg-chinese-female-petite',
+  title: 'Photorealistic SG Chinese Female (Slim Petite)',
+  subtitle:
+    'Xiao Wen (Slim Petite UK 4-6 Build) — 10-Asset Studio Cutouts with Slender Petite Proportions, Delicate Limbs & High Ponytail',
+  badgeLabel: 'PHOTOREAL FEMALE (SLIM PETITE)',
+  complexionNear: '#F5C7A1',
+  complexionFar: '#CFA07A',
+  hairColor: '#181210',
+  hairHighlight: '#362721',
+  hairTieAccent: '#E11D48',
+  wristbandColor: '#38BDF8',
+  hairStyle: 'female-ponytail',
+  topCut: 'athletic-singlet',
+  shortsCut: 'sculpted-sprinter-shorts',
+  anthropometrics: {
+    torsoLength: 42,
+    neckLength: 13,
+    headRadius: 13.4,
+    shoulderRadius: 11.2,
+    waistRadius: 8.6,
+    pelvisRadius: 10.2,
+    thighRadius: 8.4,
+    kneeRadius: 5.6,
+    shinRadius: 5.4,
+    ankleRadius: 3.8,
+    upperArmRadius: 4.4,
+    elbowRadius: 3.6,
+    forearmRadius: 3.4,
+    wristRadius: 2.9,
+    neckRadius: 3.9,
+    defaultForwardLeanDeg: 20,
   },
 };
 
@@ -169,16 +243,26 @@ const SKIN_REGISTRY = new Map<string, RunnerSkinDefinition>([
   [SG_CHINESE_MALE_SKIN.id, SG_CHINESE_MALE_SKIN],
   [SG_CHINESE_FEMALE_SKIN.id, SG_CHINESE_FEMALE_SKIN],
   [PHOTO_SG_CHINESE_FEMALE_SKIN.id, PHOTO_SG_CHINESE_FEMALE_SKIN],
+  [PHOTO_SG_CHINESE_FEMALE_AVERAGE_SKIN.id, PHOTO_SG_CHINESE_FEMALE_AVERAGE_SKIN],
+  [PHOTO_SG_CHINESE_FEMALE_PETITE_SKIN.id, PHOTO_SG_CHINESE_FEMALE_PETITE_SKIN],
 ]);
 
 export const PERSONA_SKINS: readonly RunnerSkinDefinition[] = [
   SG_CHINESE_MALE_SKIN,
   SG_CHINESE_FEMALE_SKIN,
   PHOTO_SG_CHINESE_FEMALE_SKIN,
+  PHOTO_SG_CHINESE_FEMALE_AVERAGE_SKIN,
+  PHOTO_SG_CHINESE_FEMALE_PETITE_SKIN,
 ];
 
-export function isPhotorealPersona(personaId: RunnerPersonaId): boolean {
-  return personaId === 'photo-sg-chinese-female';
+export function isPhotorealPersona(
+  personaId: RunnerPersonaId,
+): personaId is PhotorealPersonaId {
+  return (
+    personaId === 'photo-sg-chinese-female' ||
+    personaId === 'photo-sg-chinese-female-average' ||
+    personaId === 'photo-sg-chinese-female-petite'
+  );
 }
 
 export function resolveRunnerSkin(personaId: RunnerPersonaId): RunnerSkinDefinition {

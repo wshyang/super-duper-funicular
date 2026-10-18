@@ -3,7 +3,22 @@ export type RunnerVariantId = 'red' | 'blue' | 'green' | 'yellow' | 'purple' | '
 export type RunnerPersonaId =
   | 'sg-chinese-male'
   | 'sg-chinese-female'
-  | 'photo-sg-chinese-female';
+  | 'photo-sg-chinese-female'
+  | 'photo-sg-chinese-female-average'
+  | 'photo-sg-chinese-female-petite';
+
+export type PhotorealPersonaId =
+  | 'photo-sg-chinese-female'
+  | 'photo-sg-chinese-female-average'
+  | 'photo-sg-chinese-female-petite';
+
+export type HairStyleMode = 'ponytail' | 'long-flowing' | 'none';
+
+export type ArmSwingStyleId =
+  | 'athletic-sprint'
+  | 'compact-chest-carry'
+  | 'relaxed-jog'
+  | 'power-drive';
 
 export type BackdropVariantId =
   | 'stadium-day'
@@ -212,6 +227,37 @@ export interface AlgorithmicBodyPartEntry {
   readonly publicUrl: string;
   readonly femalePublicUrl: string;
   readonly photoFemalePublicUrl?: string;
+  readonly photoFemaleAveragePublicUrl?: string;
+}
+
+export interface PhotorealAssetTuningSpec {
+  readonly personaId: PhotorealPersonaId;
+  readonly buildLabel: string;
+  /** Approximate fictional persona height inferred from the source-image prompt; not measured subject data. */
+  readonly estimatedHeightCm: number;
+  readonly neckLengthScale: number;
+  readonly torsoLengthScale: number;
+  readonly headScale: number;
+  readonly upperArmLengthScale: number;
+  readonly forearmLengthScale: number;
+  readonly thighLengthScale: number;
+  readonly shinLengthScale: number;
+  readonly footLengthScale: number;
+  readonly pelvisLengthScale: number;
+  readonly upperArmWidthPx: number;
+  readonly forearmWidthPx: number;
+  readonly handWidthPx: number;
+  readonly handLengthPx: number;
+  readonly torsoWidthPx: number;
+  readonly pelvisWidthPx: number;
+  readonly thighWidthPx: number;
+  readonly shinWidthPx: number;
+  readonly shoulderOffsetX: number;
+  readonly shoulderOffsetY: number;
+  readonly hipOffsetY: number;
+  readonly defaultArmCarryFlexDeg: number;
+  readonly defaultArmChestBiasDeg: number;
+  readonly defaultHairStyleMode: HairStyleMode;
 }
 
 export interface AlgorithmicManifest {
@@ -238,6 +284,10 @@ export interface GaitConfig {
   readonly strideLengthScale: number;
   readonly kneeDriveScale: number;
   readonly armSwingScale: number;
+  readonly armCarryFlexDeg?: number;
+  readonly armChestBiasDeg?: number;
+  readonly hairStyleMode?: HairStyleMode;
+  readonly hairSwingScale?: number;
   readonly forwardLeanDeg: number;
   readonly neckMotionScale: number;
   readonly footRollScale: number;
@@ -272,11 +322,15 @@ export interface ArticulatedPose {
   readonly neck: Point2D;
   readonly headCenter: Point2D;
   readonly hairAnchor: Point2D;
+  readonly hairMidWave: Point2D;
   readonly hairTip: Point2D;
   readonly torsoAngleRad: number;
   readonly neckAngleRad: number;
   readonly headAngleRad: number;
   readonly hairAngleRad: number;
+  readonly hairLowerWaveAngleRad: number;
+  readonly hairStyleMode: HairStyleMode;
+  readonly neutralStanding?: boolean;
   readonly pelvisTiltRad: number;
   readonly fallForwardComLeadPx: number;
   readonly nearLeg: LimbKinematics;

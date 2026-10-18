@@ -9,10 +9,16 @@ import type {
   RunnerPersonaId,
   RunnerVariantId,
 } from '../shared/types.js';
-import { DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC } from '../runner/body-proportions.js';
+import {
+  applyAssetTuningToRigSpec,
+  DEFAULT_GAIT_CONFIG,
+  DEFAULT_RIG_SPEC,
+  PHOTOREAL_ASSET_TUNING_DEFAULTS,
+} from '../runner/body-proportions.js';
 import { solveArticulatedPose } from '../runner/gait.js';
 import { RUNNER_PALETTES } from '../runner/palette.js';
 import { renderRunnerPoseToRaster } from '../runner/rasterizer.js';
+import { isPhotorealPersona } from '../runner/skin-registry.js';
 import { listOpaqueComponentSizes } from './connected-components.js';
 import { writePngFile } from './image-io.js';
 import { extractAndLoadPhotorealFemaleParts } from './photoreal-extractor.js';
@@ -56,6 +62,25 @@ export interface CycleAuditReport {
   readonly frames: readonly FrameDefectMetrics[];
 }
 
+function resolveDumpPersonaSettings(personaId: RunnerPersonaId) {
+  const tuning = isPhotorealPersona(personaId)
+    ? PHOTOREAL_ASSET_TUNING_DEFAULTS[personaId]
+    : undefined;
+  const gaitCfg = tuning
+    ? {
+        ...DEFAULT_GAIT_CONFIG,
+        armCarryFlexDeg: tuning.defaultArmCarryFlexDeg,
+        armChestBiasDeg: tuning.defaultArmChestBiasDeg,
+        hairStyleMode: tuning.defaultHairStyleMode,
+      }
+    : DEFAULT_GAIT_CONFIG;
+  return {
+    tuning,
+    gaitCfg,
+    rigSpec: applyAssetTuningToRigSpec(DEFAULT_RIG_SPEC, tuning),
+  };
+}
+
 export function dumpFullGaitCycleToTempDir(
   options: CycleDumpOptions = {},
 ): CycleAuditReport {
@@ -65,9 +90,10 @@ export function dumpFullGaitCycleToTempDir(
   const variant = options.variant ?? 'red';
   const framesDir = path.join(outDir, 'frames');
   fs.mkdirSync(framesDir, { recursive: true });
-  if (personaId === 'photo-sg-chinese-female') {
+  if (isPhotorealPersona(personaId)) {
     extractAndLoadPhotorealFemaleParts(process.cwd());
   }
+  const { tuning, gaitCfg, rigSpec } = resolveDumpPersonaSettings(personaId);
   const cols = 4;
   const rows = Math.ceil(frameCount / cols);
   const contactSheet = createRaster(
@@ -77,28 +103,26 @@ export function dumpFullGaitCycleToTempDir(
   fillRaster(contactSheet, { r: 226, g: 230, b: 238, a: 255 });
   const frameMetrics: FrameDefectMetrics[] = [];
   const rawFrames: RasterImage[] = [];
-  const poses: ArticulatedPose[] = [];
 
   for (let i = 0; i < frameCount; i++) {
-    const phase = i / frameCount;
-    const pose = solveArticulatedPose(phase, DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC);
+    const pose = solveArticulatedPose(i / frameCount, gaitCfg, rigSpec);
     const raw = renderRunnerPoseToRaster({
       pose,
       palette: RUNNER_PALETTES[variant],
       pixelScale: 1,
       personaId,
+      assetTuning: tuning,
     });
     rawFrames.push(raw);
-    poses.push(pose);
-    const metrics = writeAndMeasureCycleFrame(raw, pose, {
-      index: i,
-      framesDir,
-      contactSheet,
-      cols,
-    });
-    frameMetrics.push(metrics);
+    frameMetrics.push(
+      writeAndMeasureCycleFrame(raw, pose, {
+        index: i,
+        framesDir,
+        contactSheet,
+        cols,
+      }),
+    );
   }
-
   const contactSheetPath = path.join(outDir, 'contact-sheet-16frame.png');
   writePngFile(contactSheetPath, contactSheet);
   const jointCropsSheetPath = path.join(outDir, 'joint-crops-sheet.png');

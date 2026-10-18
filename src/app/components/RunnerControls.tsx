@@ -1,11 +1,16 @@
 import React from 'react';
 import type {
+  ArmSwingStyleId,
   BackdropVariantId,
   GaitConfig,
+  HairStyleMode,
   LocomotionModeId,
+  PhotorealAssetTuningSpec,
   RunnerPersonaId,
   RunnerVariantId,
 } from '../../shared/types.js';
+import { ARM_SWING_PRESETS } from '../../runner/body-proportions.js';
+import { formatPixels, formatScale } from './control-formatters.js';
 import type { RunnerSkinDefinition } from '../../runner/skin-registry.js';
 import {
   BACKDROP_OPTIONS,
@@ -32,6 +37,14 @@ export interface RunnerControlsProps {
   readonly onSelectBackdrop: (backdrop: BackdropVariantId) => void;
   readonly gaitConfig: GaitConfig;
   readonly onUpdateGait: <K extends keyof GaitConfig>(key: K, value: GaitConfig[K]) => void;
+  readonly onApplyArmSwingPreset?: (presetId: ArmSwingStyleId) => void;
+  readonly onResetGaitProfile?: () => void;
+  readonly activeAssetTuning?: PhotorealAssetTuningSpec;
+  readonly onUpdateAssetTuning?: <K extends keyof PhotorealAssetTuningSpec>(
+    key: K,
+    value: PhotorealAssetTuningSpec[K],
+  ) => void;
+  readonly onResetAssetTuning?: () => void;
   readonly skeletonOverlay: OverlayVisibility;
   readonly onToggleSkeleton: () => void;
   readonly orbitTrailOverlay: OverlayVisibility;
@@ -49,6 +62,9 @@ export function RunnerControls({
     <aside className="studio-controls-panel" data-testid="runner-controls-panel">
       <PersonaSelectorSection props={props} />
       <LocomotionModeSection props={props} />
+      <HairDynamicsSection props={props} />
+      <ArmSwingControlsSection props={props} />
+      <AssetTuningControlsSection props={props} />
       <PlaybackTransportSection props={props} />
       <TeamVariantSelectorSection props={props} />
       <BackdropSelectorSection props={props} />
@@ -66,6 +82,16 @@ const LOCOMOTION_MODES: readonly {
   { id: 'run', label: 'Running', sub: 'Flight + Midfoot Roll' },
   { id: 'walk', label: 'Walking', sub: 'Double Support (No Flight)' },
   { id: 'brisk-walk', label: 'Brisk Walk', sub: 'Fast Cadence (No Flight)' },
+];
+
+const HAIR_STYLE_MODES: readonly {
+  readonly id: HairStyleMode;
+  readonly label: string;
+  readonly sub: string;
+}[] = [
+  { id: 'ponytail', label: 'Sporty Ponytail', sub: 'High Occipital Tie & Bounce' },
+  { id: 'long-flowing', label: 'Long Flowing Hair', sub: '2-Wave Shoulder & Back Swing' },
+  { id: 'none', label: 'No Ponytail / Tucked', sub: 'Optional Hair Plume Off' },
 ];
 
 function LocomotionModeSection({
@@ -95,7 +121,326 @@ function LocomotionModeSection({
           </button>
         ))}
       </div>
+      {props.onResetGaitProfile && (
+        <button
+          type="button"
+          className="btn-secondary"
+          onClick={props.onResetGaitProfile}
+          data-testid="runner-controls__reset-profile"
+        >
+          ↺ Reset Active Profile Defaults
+        </button>
+      )}
     </div>
+  );
+}
+
+function HairDynamicsSection({
+  props,
+}: {
+  readonly props: RunnerControlsProps;
+}): React.ReactElement {
+  const activeHair = props.gaitConfig.hairStyleMode ?? 'ponytail';
+  const hairSwing = props.gaitConfig.hairSwingScale ?? 1.0;
+  return (
+    <div className="control-card" data-testid="hair-dynamics-section">
+      <h3 className="control-card-title">Hair Style & Swinging Dynamics</h3>
+      <div className="persona-toggle-grid">
+        {HAIR_STYLE_MODES.map((mode) => (
+          <button
+            key={mode.id}
+            type="button"
+            className={
+              activeHair === mode.id
+                ? 'persona-btn persona-btn--active'
+                : 'persona-btn'
+            }
+            onClick={() => props.onUpdateGait('hairStyleMode', mode.id)}
+            data-testid={`hair-mode-${mode.id}`}
+          >
+            <span className="persona-btn-title">{mode.label}</span>
+            <span className="persona-btn-subtitle">{mode.sub}</span>
+          </button>
+        ))}
+      </div>
+      <SliderControl
+        label="Hair Swing / Wave Amplitude"
+        displayValue={props.sliderLabels.hairSwingLabel}
+        min={0}
+        max={1.6}
+        step={0.05}
+        value={hairSwing}
+        onChange={(v) => props.onUpdateGait('hairSwingScale', v)}
+      />
+    </div>
+  );
+}
+
+function ArmSwingControlsSection({
+  props,
+}: {
+  readonly props: RunnerControlsProps;
+}): React.ReactElement {
+  const { gaitConfig, onUpdateGait, sliderLabels, onApplyArmSwingPreset } = props;
+  return (
+    <div className="control-card" data-testid="arm-swing-section">
+      <h3 className="control-card-title">Arm-Swing Motion & Chest Carry</h3>
+      {onApplyArmSwingPreset && (
+        <div className="persona-toggle-grid">
+          {ARM_SWING_PRESETS.map((preset) => (
+            <button
+              key={preset.id}
+              type="button"
+              className="persona-btn"
+              onClick={() => onApplyArmSwingPreset(preset.id)}
+              data-testid={`arm-preset-${preset.id}`}
+            >
+              <span className="persona-btn-title">{preset.label}</span>
+              <span className="persona-btn-subtitle">{preset.sub}</span>
+            </button>
+          ))}
+        </div>
+      )}
+      <SliderControl
+        label="Arm Swing Amplitude"
+        displayValue={sliderLabels.armSwingLabel}
+        min={0.25}
+        max={1.5}
+        step={0.05}
+        value={gaitConfig.armSwingScale}
+        onChange={(v) => onUpdateGait('armSwingScale', v)}
+      />
+      <SliderControl
+        label="Elbow Flexion (Chest Tuck)"
+        displayValue={sliderLabels.armCarryFlexLabel}
+        min={45}
+        max={125}
+        step={1}
+        value={gaitConfig.armCarryFlexDeg ?? 84}
+        onChange={(v) => onUpdateGait('armCarryFlexDeg', v)}
+      />
+      <SliderControl
+        label="Arm Carry Bias (Forward / Chestward)"
+        displayValue={sliderLabels.armChestBiasLabel}
+        min={-10}
+        max={28}
+        step={1}
+        value={gaitConfig.armChestBiasDeg ?? 4}
+        onChange={(v) => onUpdateGait('armChestBiasDeg', v)}
+      />
+      <p className="control-help" data-testid="arm-carry-bias-help">
+        Angular shoulder bias within the arm-swing cycle: positive values carry the arms farther
+        forward and often raise the hands. It is not a fixed vertical-height offset; elbow flexion
+        controls how tightly the hands tuck.
+      </p>
+    </div>
+  );
+}
+
+function AssetTuningControlsSection({
+  props,
+}: {
+  readonly props: RunnerControlsProps;
+}): React.ReactElement {
+  const { activeAssetTuning, onUpdateAssetTuning, onResetAssetTuning, sliderLabels } = props;
+  if (!activeAssetTuning || !onUpdateAssetTuning) {
+    return <div data-testid="asset-tuning-empty" />;
+  }
+  return (
+    <details className="control-card asset-tuning-card" data-testid="asset-tuning-section">
+      <summary className="asset-tuning-card__summary" data-testid="runner-controls__asset-tuning-toggle">
+        <span className="control-card-title">Per-Asset-Set Body Proportion Tuning</span>
+        <span className="asset-tuning-card__subtitle">
+          {activeAssetTuning.buildLabel} · ≈ {activeAssetTuning.estimatedHeightCm} cm
+        </span>
+      </summary>
+      <div className="asset-tuning-card__body">
+        <p className="persona-description">
+          Optional advanced controls. Lengths are normalized from the source profile; tune while
+          comparing the neutral standing calibration.
+        </p>
+      <SliderControl
+        label="Head Scale"
+        displayValue={formatScale(activeAssetTuning.headScale)}
+        min={0.8}
+        max={1.25}
+        step={0.02}
+        value={activeAssetTuning.headScale}
+        onChange={(v) => onUpdateAssetTuning('headScale', v)}
+      />
+      <SliderControl
+        label="Neck Length Scale"
+        displayValue={formatScale(activeAssetTuning.neckLengthScale)}
+        min={0.75}
+        max={1.5}
+        step={0.02}
+        value={activeAssetTuning.neckLengthScale}
+        onChange={(v) => onUpdateAssetTuning('neckLengthScale', v)}
+      />
+      <SliderControl
+        label="Torso Length Scale"
+        displayValue={formatScale(activeAssetTuning.torsoLengthScale)}
+        min={0.75}
+        max={1.6}
+        step={0.02}
+        value={activeAssetTuning.torsoLengthScale}
+        onChange={(v) => onUpdateAssetTuning('torsoLengthScale', v)}
+      />
+      <SliderControl
+        label="Upper Arm Length Scale"
+        displayValue={sliderLabels.upperArmLenLabel}
+        min={0.75}
+        max={1.6}
+        step={0.02}
+        value={activeAssetTuning.upperArmLengthScale}
+        onChange={(v) => onUpdateAssetTuning('upperArmLengthScale', v)}
+      />
+      <SliderControl
+        label="Forearm Length Scale"
+        displayValue={sliderLabels.forearmLenLabel}
+        min={0.75}
+        max={1.6}
+        step={0.02}
+        value={activeAssetTuning.forearmLengthScale}
+        onChange={(v) => onUpdateAssetTuning('forearmLengthScale', v)}
+      />
+      <SliderControl
+        label="Thigh Length Scale"
+        displayValue={formatScale(activeAssetTuning.thighLengthScale)}
+        min={0.75}
+        max={1.3}
+        step={0.02}
+        value={activeAssetTuning.thighLengthScale}
+        onChange={(v) => onUpdateAssetTuning('thighLengthScale', v)}
+      />
+      <SliderControl
+        label="Shin Length Scale"
+        displayValue={formatScale(activeAssetTuning.shinLengthScale)}
+        min={0.75}
+        max={1.3}
+        step={0.02}
+        value={activeAssetTuning.shinLengthScale}
+        onChange={(v) => onUpdateAssetTuning('shinLengthScale', v)}
+      />
+      <SliderControl
+        label="Foot Length Scale"
+        displayValue={formatScale(activeAssetTuning.footLengthScale)}
+        min={0.75}
+        max={1.3}
+        step={0.02}
+        value={activeAssetTuning.footLengthScale}
+        onChange={(v) => onUpdateAssetTuning('footLengthScale', v)}
+      />
+      <SliderControl
+        label="Hand Length"
+        displayValue={formatPixels(activeAssetTuning.handLengthPx)}
+        min={6}
+        max={18}
+        step={0.5}
+        value={activeAssetTuning.handLengthPx}
+        onChange={(v) => onUpdateAssetTuning('handLengthPx', v)}
+      />
+      <AssetBodyWidthsSliders
+        tuning={activeAssetTuning}
+        labels={sliderLabels}
+        onUpdate={onUpdateAssetTuning}
+      />
+      {onResetAssetTuning && (
+        <button
+          type="button"
+          className="btn-secondary"
+          onClick={onResetAssetTuning}
+          data-testid="runner-controls__reset-asset-tuning"
+        >
+          ↺ Reset Asset-Set Proportions
+        </button>
+      )}
+      </div>
+    </details>
+  );
+}
+
+function AssetBodyWidthsSliders({
+  tuning,
+  labels,
+  onUpdate,
+}: {
+  readonly tuning: PhotorealAssetTuningSpec;
+  readonly labels: FormattedSliderLabels;
+  readonly onUpdate: <K extends keyof PhotorealAssetTuningSpec>(
+    key: K,
+    value: PhotorealAssetTuningSpec[K],
+  ) => void;
+}): React.ReactElement {
+  return (
+    <>
+      <SliderControl
+        label="Arm Width (Half-Span)"
+        displayValue={labels.armWidthLabel}
+        min={13}
+        max={26}
+        step={0.5}
+        value={tuning.upperArmWidthPx}
+        onChange={(v) => {
+          onUpdate('upperArmWidthPx', v);
+          onUpdate('forearmWidthPx', v - 1.0);
+        }}
+      />
+      <SliderControl
+        label="Hand Width"
+        displayValue={formatPixels(tuning.handWidthPx)}
+        min={12}
+        max={24}
+        step={0.5}
+        value={tuning.handWidthPx}
+        onChange={(v) => onUpdate('handWidthPx', v)}
+      />
+      <SliderControl
+        label="Torso / Waist Width"
+        displayValue={labels.torsoWidthLabel}
+        min={32}
+        max={48}
+        step={0.5}
+        value={tuning.torsoWidthPx}
+        onChange={(v) => onUpdate('torsoWidthPx', v)}
+      />
+      <SliderControl
+        label="Pelvis Length Scale"
+        displayValue={formatScale(tuning.pelvisLengthScale)}
+        min={0.75}
+        max={1.4}
+        step={0.02}
+        value={tuning.pelvisLengthScale}
+        onChange={(v) => onUpdate('pelvisLengthScale', v)}
+      />
+      <SliderControl
+        label="Pelvis / Hip Width"
+        displayValue={labels.pelvisWidthLabel}
+        min={24}
+        max={36}
+        step={0.5}
+        value={tuning.pelvisWidthPx}
+        onChange={(v) => onUpdate('pelvisWidthPx', v)}
+      />
+      <SliderControl
+        label="Thigh Width"
+        displayValue={labels.thighWidthLabel}
+        min={23}
+        max={35}
+        step={0.5}
+        value={tuning.thighWidthPx}
+        onChange={(v) => onUpdate('thighWidthPx', v)}
+      />
+      <SliderControl
+        label="Shin / Calf Width"
+        displayValue={formatPixels(tuning.shinWidthPx)}
+        min={20}
+        max={34}
+        step={0.5}
+        value={tuning.shinWidthPx}
+        onChange={(v) => onUpdate('shinWidthPx', v)}
+      />
+    </>
   );
 }
 
@@ -106,7 +451,7 @@ function PersonaSelectorSection({
 }): React.ReactElement {
   return (
     <div className="control-card persona-card" data-testid="persona-selector-section">
-      <h3 className="control-card-title">Runner Persona (Skinnable Rig)</h3>
+      <h3 className="control-card-title">Runner Persona (Body-Positive Rig)</h3>
       <div className="persona-toggle-grid">
         {PERSONA_OPTIONS.map((skin) => (
           <button

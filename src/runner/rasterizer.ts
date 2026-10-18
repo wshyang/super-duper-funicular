@@ -2,6 +2,7 @@ import type {
   ArticulatedPose,
   BodyPartId,
   LimbKinematics,
+  PhotorealAssetTuningSpec,
   Point2D,
   RasterImage,
   RgbaColor,
@@ -12,7 +13,7 @@ import { blitRaster, createRaster } from '../pipeline/raster.js';
 import { DEFAULT_RIG_SPEC } from './body-proportions.js';
 import { parseHexColor } from './palette.js';
 import {
-  getPhotorealFemalePartBank,
+  getPhotorealPartBankForPersona,
   renderPhotorealFemalePoseOntoCanvas,
 } from './photoreal-rig.js';
 import { drawOutlinedDisc, drawTaperedCapsule, quantizePixelScale } from './shapes.js';
@@ -24,6 +25,7 @@ import {
 } from './skin-painters.js';
 import {
   applyPersonaSkinToPalette,
+  isPhotorealPersona,
   type RunnerSkinDefinition,
   resolveRunnerSkin,
 } from './skin-registry.js';
@@ -34,17 +36,21 @@ export interface RenderPoseOptions {
   readonly pixelScale: 1 | 2 | 3;
   readonly personaId?: RunnerPersonaId;
   readonly customSkin?: RunnerSkinDefinition;
+  readonly assetTuning?: PhotorealAssetTuningSpec;
 }
 
 export function renderRunnerPoseToRaster(options: RenderPoseOptions): RasterImage {
   const canvas = createRaster(DEFAULT_RIG_SPEC.canvasWidth, DEFAULT_RIG_SPEC.canvasHeight);
-  const skin =
-    options.customSkin ?? resolveRunnerSkin(options.personaId ?? 'sg-chinese-male');
+  const personaId = options.personaId ?? 'sg-chinese-male';
+  const skin = options.customSkin ?? resolveRunnerSkin(personaId);
   const skinnedPalette = applyPersonaSkinToPalette(options.palette, skin);
   const { pose } = options;
   if (
-    options.personaId === 'photo-sg-chinese-female' &&
-    renderPhotorealFemalePoseOntoCanvas(canvas, pose, options.palette)
+    isPhotorealPersona(personaId) &&
+    renderPhotorealFemalePoseOntoCanvas(canvas, pose, options.palette, {
+      personaId,
+      tuning: options.assetTuning,
+    })
   ) {
     invokeRegisteredSkinHooks(canvas, pose, { palette: skinnedPalette, skin });
     return quantizePixelScale(canvas, options.pixelScale);
@@ -385,8 +391,10 @@ export function renderIsolatedBodyPartToRaster(
   palette: RunnerPalette,
   personaId: RunnerPersonaId = 'sg-chinese-male',
 ): RasterImage {
-  if (personaId === 'photo-sg-chinese-female') {
-    const bankPart = getPhotorealFemalePartBank()[partId];
+  if (isPhotorealPersona(personaId)) {
+    const bankPart =
+      getPhotorealPartBankForPersona(personaId)[partId] ??
+      getPhotorealPartBankForPersona('photo-sg-chinese-female')[partId];
     if (bankPart) {
       return bankPart;
     }

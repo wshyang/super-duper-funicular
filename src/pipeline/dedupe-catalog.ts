@@ -51,7 +51,14 @@ const KNOWN_FILE_MAPPINGS: readonly CandidateMapping[] = [
     targetRelPath: 'src/images/spritesheets/runner-8frame-6color-photoreal-female-sheet.png',
     category: 'spritesheet-algorithmic',
     description:
-      'Photorealistic 6-color × 8-frame Singaporean Chinese Female runner sprite sheet composed from 10 studio photographic cutouts (lateral near limbs + medial inner far limbs/palm/shoe).',
+      'Photorealistic 6-color × 8-frame Singaporean Chinese Female (Athletic Build) runner sprite sheet composed from 10 studio photographic cutouts.',
+  },
+  {
+    sourceRelPath: 'src/images/spritesheets/runner-8frame-6color-photoreal-female-average-sheet.png',
+    targetRelPath: 'src/images/spritesheets/runner-8frame-6color-photoreal-female-average-sheet.png',
+    category: 'spritesheet-algorithmic',
+    description:
+      'Photorealistic 6-color × 8-frame Singaporean Chinese Female (Average / Everyday Body-Positive Build) runner sprite sheet composed from 10 studio photographic cutouts with swinging long flowing hair.',
   },
   {
     sourceRelPath: 'src/images/photoreal-female/01-master-lateral-profile-reference.png',
@@ -112,6 +119,133 @@ const KNOWN_FILE_MAPPINGS: readonly CandidateMapping[] = [
     targetRelPath: 'src/images/photoreal-female/10-far-left-leg-medial-inside-shoe.png',
     category: 'spritesheet-reference',
     description: 'Photorealistic cutout source: Left (Far) leg & shoe viewed from INSIDE (medial thigh, inner calf, white sock & medial arch shoe).',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-average/01-master-lateral-profile-reference.png',
+    targetRelPath: 'src/images/photoreal-female-average/01-master-lateral-profile-reference.png',
+    category: 'spritesheet-reference',
+    description: 'Master right-facing sagittal studio photograph of everyday average-build Singaporean Chinese woman on #FF00FF magenta.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-average/02-head-profile-right.png',
+    targetRelPath: 'src/images/photoreal-female-average/02-head-profile-right.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Average Build): Right-facing head & softer fuller facial profile with crimson headband.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-average/03-ponytail-hair-accessory.png',
+    targetRelPath: 'src/images/photoreal-female-average/03-ponytail-hair-accessory.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Average Build): Loose long flowing dark hair cascade plume.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-average/04-cervical-neck-cylinder.png',
+    targetRelPath: 'src/images/photoreal-female-average/04-cervical-neck-cylinder.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Average Build): Articulated cervical neck cylinder.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-average/05-torso-racerback-singlet.png',
+    targetRelPath: 'src/images/photoreal-female-average/05-torso-racerback-singlet.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Average Build): Full-waist crimson sleeveless running top with softer fuller waist contour.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-average/06-pelvis-sprinter-shorts.png',
+    targetRelPath: 'src/images/photoreal-female-average/06-pelvis-sprinter-shorts.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Average Build): Fuller everyday hip and glute contour in charcoal mid-thigh running shorts.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-average/07-near-right-arm-lateral-outside.png',
+    targetRelPath: 'src/images/photoreal-female-average/07-near-right-arm-lateral-outside.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Average Build): Right (Near) softer non-muscular arm viewed from OUTSIDE.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-average/08-far-left-arm-medial-inside-palm.png',
+    targetRelPath: 'src/images/photoreal-female-average/08-far-left-arm-medial-inside-palm.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Average Build): Left (Far) softer arm in 90-degree running L-bend viewed from INSIDE.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-average/09-near-right-leg-lateral-outside-shoe.png',
+    targetRelPath: 'src/images/photoreal-female-average/09-near-right-leg-lateral-outside-shoe.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Average Build): Right (Near) fuller leg & cushioned everyday running shoe viewed from OUTSIDE.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-average/10-far-left-leg-medial-inside-shoe.png',
+    targetRelPath: 'src/images/photoreal-female-average/10-far-left-leg-medial-inside-shoe.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Average Build): Left (Far) fuller leg & cushioned everyday running shoe viewed from INSIDE.',
+  },
+  {
+    sourceRelPath: 'src/images/spritesheets/runner-8frame-6color-photoreal-female-petite-sheet.png',
+    targetRelPath: 'src/images/spritesheets/runner-8frame-6color-photoreal-female-petite-sheet.png',
+    category: 'spritesheet-algorithmic',
+    description:
+      'Photorealistic 6-color × 8-frame Singaporean Chinese Female (Slim Petite UK 4-6 Build) runner sprite sheet composed from 10 studio photographic cutouts.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/01-master-lateral-profile-reference.png',
+    targetRelPath: 'src/images/photoreal-female-petite/01-master-lateral-profile-reference.png',
+    category: 'spritesheet-reference',
+    description: 'Master right-facing sagittal studio photograph of slim petite Singaporean Chinese female runner on #FF00FF magenta.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/02-head-profile-right.png',
+    targetRelPath: 'src/images/photoreal-female-petite/02-head-profile-right.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Delicate oval right-facing head & facial profile.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/03-ponytail-hair-accessory.png',
+    targetRelPath: 'src/images/photoreal-female-petite/03-ponytail-hair-accessory.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Compact sleek dark-brown ponytail & crimson tie.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/04-cervical-neck-cylinder.png',
+    targetRelPath: 'src/images/photoreal-female-petite/04-cervical-neck-cylinder.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Slender swan-like cervical neck cylinder.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/05-torso-racerback-singlet.png',
+    targetRelPath: 'src/images/photoreal-female-petite/05-torso-racerback-singlet.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Narrow petite female torso in crimson running singlet with white stripe.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/06-pelvis-sprinter-shorts.png',
+    targetRelPath: 'src/images/photoreal-female-petite/06-pelvis-sprinter-shorts.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Slim narrow hip and pelvis contour in black running shorts.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/07-near-right-arm-lateral-outside.png',
+    targetRelPath: 'src/images/photoreal-female-petite/07-near-right-arm-lateral-outside.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Right (Near) slender delicate female arm viewed from OUTSIDE.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/08-far-left-arm-medial-inside-palm.png',
+    targetRelPath: 'src/images/photoreal-female-petite/08-far-left-arm-medial-inside-palm.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Left (Far) slender delicate female arm in 90-degree L-bend viewed from INSIDE.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/09-near-right-leg-lateral-outside-shoe.png',
+    targetRelPath: 'src/images/photoreal-female-petite/09-near-right-leg-lateral-outside-shoe.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Right (Near) slim slender female leg & running shoe viewed from OUTSIDE.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-petite/10-far-left-leg-medial-inside-shoe.png',
+    targetRelPath: 'src/images/photoreal-female-petite/10-far-left-leg-medial-inside-shoe.png',
+    category: 'spritesheet-reference',
+    description: 'Photorealistic cutout source (Slim Petite Build): Left (Far) slim slender female leg & running shoe viewed from INSIDE.',
   },
   {
     sourceRelPath: 'src/images/backdrops/stadium-track-day.png',
@@ -222,9 +356,12 @@ function writeCatalogFiles(
   manifest: ImageCatalogManifest,
 ): void {
   const srcManifestPath = path.join(config.srcImagesDir, 'manifest.json');
+  const docsInventoryPath = path.join(config.repoRoot, 'docs/artwork-inventory.json');
   fs.mkdirSync(config.srcImagesDir, { recursive: true });
   fs.mkdirSync(path.dirname(config.publicCatalogPath), { recursive: true });
+  fs.mkdirSync(path.dirname(docsInventoryPath), { recursive: true });
   const payload = `${JSON.stringify(manifest, null, 2)}\n`;
   fs.writeFileSync(srcManifestPath, payload, 'utf8');
   fs.writeFileSync(config.publicCatalogPath, payload, 'utf8');
+  fs.writeFileSync(docsInventoryPath, payload, 'utf8');
 }

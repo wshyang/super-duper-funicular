@@ -1,46 +1,41 @@
-# Validation & Executed Gate Register (`docs/VALIDATION.md`)
+# Executed Validation Gates, Provenance & Environment Caveats (`docs/VALIDATION.md`)
 
 - **Repository:** `wshyang/super-duper-funicular`
-- **Branch:** `arena/917ef347-super-duper-funicular` (PR `#1`)
-- **Related Discipline:** `CLAUDE-validation.md §8–§10`, `GREENFIELD.md §8–§9`, and `docs/THREE_WAY_BRANCH_COMPARISON.md §5`.
+- **Active Branch:** `arena/917ef347-super-duper-funicular` (*PR `#1` — Sprite Motion Lab, at 100% Parity with Closely Watched PR `#8` `arena/e1300d3c-super-duper-funicular` @ `5203a69`*)
+- **Last Executed:** `2026-10-18`
+- **Related Discipline Rules:** `CLAUDE.md` Rule 4, `CLAUDE-validation.md §8–§10`, `docs/N_WAY_COMPARISON.md §6`.
 
 ---
 
-## 1. Executed Validation Gates (Current Checkout)
+## 1. Locally Executed Validation Gates (Current Turn)
 
-Every functional change in this branch is validated against the following locally executed commands before commit/push:
-
-1. **`npm run dedupe` (`tsx scripts/dedupe-images.ts`):**
-   - Scanned 17 image files across `src/images/` (byte SHA-256, raw RGBA pixel SHA-256, and 64-bit perceptual `dHash`); 17 unique assets cataloged in `public/sprites/catalog.json` (`0` duplicate files).
-2. **`npm run generate-sheets` (`tsx scripts/generate-algorithmic-sprites.ts`):**
-   - Extracted 17 `160 × 160` RGBA photorealistic cutouts (`public/sprites/photoreal/sg-chinese-female/parts/*.png`) with semicircular pivot caps, internal `6 px` Hermite shaft-shoulder blending, additive sprinter-shorts end-cap composites (`attachEndCapComposite`), and material-class skin/fabric spill purge (`0` bright singlet pixels on skin parts).
-   - Vectorized all 17 cutouts into standalone multi-band SVGs (`public/sprites/photoreal/sg-chinese-female/svg-parts/*.svg`) and stitched 8 hierarchical SVG pose frames (`svg-frames/frame-01..08.svg`).
-   - Generated 48-frame (`6 colorways × 8 frames`) sprite sheets for `sg-chinese-male`, `sg-chinese-female`, and `photo-sg-chinese-female`.
-3. **`npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female red` (`tsx scripts/dump-cycle-frames.ts`):**
-   - Dumped 16 full-cycle raw frames (`0°..337.5°`), 16 three-panel diagnostic plates (`frames/audit-frame-01..16-deg-000..338.png`), `contact-sheet-16frame.png`, `2×` magnified `joint-crops-sheet.png`, and `audit-report.json`.
-   - Verified quantitative telemetry: `totalDisconnectedIslands = 0`, `totalMagentaSpillPixels = 0`, `framesWithUncoveredJoints = 0`.
-   - Visually inspected `contact-sheet-16frame.png`, `joint-crops-sheet.png`, and `audit-frame-09-deg-180.png` via `read_file`.
-4. **`npm run typecheck` (`tsc --noEmit`):**
-   - Passed with zero TypeScript strict-mode errors.
-5. **`npm test` (`vitest run`):**
-   - **29/29 tests passed across 4 suites** (`src/pipeline/pipeline.test.ts`, `src/runner/runner.test.ts`, `src/discipline/greenfield-gate.test.ts`, `src/app/hooks/studio-view-model.test.ts`):
-     - Real reference JPEG (`1376 × 768`) `132 px` header & `6 × 8` grid detection, border-flood chroma key, and half-cycle duplicate IoU (`> 0.90`).
-     - Full-cycle 3-panel diagnostic dump (`totalDisconnectedIslands === 0`, `totalMagentaSpillPixels === 0`).
-     - Material-class matte invariant (`countBrightSingletPixels === 0` on `nearUpperArm`, `nearForearm`, `farUpperArm`, `farForearm`, `neck`) and `< 15%` near/far medial limb width parity (`measureNearFarLimbWidthParity`).
-     - Analytical 2-bone IK bone-length conservation, cervical neck articulation, 4-stage midfoot-to-toe foot roll, forward-falling center-of-mass lead, and `walk` / `brisk-walk` locomotion modes (`isFlightPhase === false` across all 16 phases + double support `2/2`).
-     - Automated Greenfield discipline gate (`<= 800 LOC` per file, `<= 50 LOC` per named function, `data-testid="{component-kebab}__{element-role}"` on interactive JSX elements, `#image-prompt-log`, `#continuous-learning-log`, and `#three-way-branch-comparison`).
-6. **`npm run build` (`tsc -b && vite build`):**
-   - Production bundle built cleanly into `dist/`.
-7. **Live Dev Server (`start_process`: `npm run dev`):**
-   - Verified listening on `0.0.0.0:3000`.
+| Validation Layer | Command Executed Locally | Exit Code & Measured Result | Provenance Category |
+|---|---|---|---|
+| **Live N-Way Branch Hash & History Refresh (`CROSS-13`)** | `npm run branches:compare` (`tsx scripts/compare-branches.ts`) | **Exit `0`** — Refreshed all $N = 5$ watched branch heads (`arena/917ef347` [PR `#1`], `arena/e1300d3c` [PR `#8` @ `5203a69`], `arena/263385da` [PR `#2` @ `b227e2f`], `arena/77ffb088` [PR `#3` @ `43352cf`], `arena/ce6d2a6e` [`bab689c`]) in `docs/BRANCH-TIPS.json`, `docs/BRANCH-HISTORY.json`, and `docs/N_WAY_COMPARISON.md` (`N_WAY_COMPARISON.md`) | Locally executed validation gate |
+| **TypeScript Strict Typecheck** | `npm run typecheck` (`tsc --noEmit`) | **Exit `0`** — Zero type errors across `src/**` and `scripts/**` | Locally executed validation gate |
+| **Automated Vitest Suite (45 Real-Asset, Calibration, UI & Discipline Tests)** | `npm test` (`vitest run`) | **Exit `0`** — **45 / 45 tests passed** across 7 test files (`src/pipeline/pipeline.test.ts` [15], `src/runner/runner.test.ts` [13], `src/runner/standing-pose.test.ts` [3], `src/discipline/greenfield-gate.test.ts` [5], `src/app/hooks/studio-view-model.test.ts` [6], `src/app/RunnerControls.test.tsx` [2], `src/app/components/standing-profile-panel.test.tsx` [1]) | Locally executed validation gate |
+| **Image Deduplication, Filing & Artwork Hash Inventory (`CROSS-16`)** | `npm run dedupe` (`tsx scripts/dedupe-images.ts`) | **Exit `0`** — `39` unique source assets filed under `src/images/**`; `0` duplicate files; `src/images/manifest.json`, `public/sprites/catalog.json`, and `docs/artwork-inventory.json` synchronized | Locally executed validation gate |
+| **16-Phase Full-Cycle Frame Dump & Multimodal Visual Audit** | `npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female red` | **Exit `0`** — `detachedIslands = 0`, `magentaSpill = 0`, `uncoveredJointFrames = 0`; `contact-sheet-16frame.png` and `joint-crops-sheet.png` visually inspected via `read_file` | Locally executed validation gate + Personally viewed visual output |
+| **Production Bundle Build** | `npm run build` (`tsc -b && vite build`) | **Exit `0`** — Built `dist/index.html`, `dist/assets/*.css`, and `dist/assets/*.js` cleanly | Locally executed validation gate |
+| **Greenfield AST, JSX, `data-testid` & SHIP-HATS Scratch Gate** | `src/discipline/greenfield-gate.test.ts` | **Exit `0`** — Verified all files `<= 800 LOC`, all named functions `<= 50 LOC`, presentation-only JSX interiors, `data-testid` on all components, `Dockerfile` (`0.0.0.0:3000`, `USER 1001:1001`, `HEALTHCHECK`), and `activate-shiphats.sh --non-interactive` in a temporary scratch directory | Locally executed validation gate |
 
 ---
 
-## 2. Honest Environment & Verification Limits
+## 2. Provenance Separation Across All $N = 5$ Branches
 
-1. **Container & CI Templates (`Dockerfile`, `Dockerfile.dev`, `Dockerfile.cloudflared`, `.gitlab-ci.yml.shiphats`, `activate-shiphats.sh`):**
-   - Verified structurally by `src/discipline/greenfield-gate.test.ts` and scratch-directory execution of `activate-shiphats.sh`. Docker image builds (`docker build`), `cloudflared` tunnel execution, and remote GitLab SHIP-HATS pipeline runners were **not** executed in this sandbox environment.
-2. **Cross-Branch Reference Checkouts (`/tmp/branch-263385da` & `/tmp/branch-77ffb088`):**
-   - Source code, specifications, and test suites on `origin/arena/263385da-super-duper-funicular` (`b227e2f`) and `origin/arena/77ffb088-super-duper-funicular` (`c690201`) were checked out into `/tmp` and read directly; their reported test counts (Branch 2: 39 unit / 14 Playwright tests; Branch 3: 177 unit tests) are cited as reference-branch evidence while our own 29 Vitest suites and 16-phase visual dumps were executed locally here.
-3. **2D Photographic Rig Scope & Honest Visual Limits:**
-   - Although `RECT-01`..`RECT-06` and `CROSS-01`..`CROSS-09` eliminate detached pixel islands (`0`), chroma spill (`0`), crossing white shorts stripes, rear-swing arm peeks, and `farForearm` width pinching (`< 15%` delta), the photorealistic persona remains a **2D articulated cutout rig synthesized from 10 studio plates** rather than a 3D Skinned Mesh or live-action video capture. Subtle studio lighting differences across independently generated plates and 2D perspective limits remain inherent to 2D cutout animation.
+Per `CLAUDE-validation.md §8.1`, we strictly distinguish:
+1. **Locally executed validation gates:** The 7 commands in Section 1 above were executed directly in `/home/user/super-duper-funicular` on `arena/e1300d3c-super-duper-funicular`.
+2. **Personally viewed visual output:** `/tmp/gait-cycle-audit/contact-sheet-16frame.png` and `/tmp/gait-cycle-audit/joint-crops-sheet.png` were opened and inspected with the multimodal `read_file` vision tool.
+3. **Read source code from sibling branches:**
+   - `origin/arena/917ef347-super-duper-funicular` @ `e172b0f1f8d9b640b65a4ba420f71965693adb23` was inspected in `/tmp/branch-917ef347`.
+   - `origin/arena/263385da-super-duper-funicular` @ `b227e2fe562be341f15f58955f539d325170729e` was inspected in `/tmp/branch-263385da`.
+   - `origin/arena/77ffb088-super-duper-funicular` @ `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` was inspected in `/tmp/branch-77ffb088`.
+   - `origin/arena/ce6d2a6e-super-duper-funicular` @ `bab689cdac3ba730138bfae09dda537978d61e09` was inspected in `/tmp/branch-ce6d2a6e`.
+4. **Other branches' reported results:** Branch 2's reported Playwright E2E count (`14 browser tests`) and Python `pytest` extraction count, and Branch 3's reported `178` unit tests at `43352cf`, are documented in `docs/N_WAY_COMPARISON.md` as external branch reports and are **not** claimed as locally executed here.
+
+---
+
+## 3. Environment & 2D Photographic Rig Caveats
+
+1. **Container Daemon & Remote CI Runners:** `Dockerfile`, `Dockerfile.dev`, `Dockerfile.cloudflared`, and `.gitlab-ci.yml.shiphats` are validated via static contract checks and `activate-shiphats.sh` scratch execution in `greenfield-gate.test.ts`; no Docker daemon build, live Cloudflare tunnel, or remote GitLab Dedicated runner is available inside this sandbox.
+2. **Inherent 2D Cutout Lighting & Seam Boundaries:** While our additive end-cap composite (`attachEndCapComposite`), `6 px` Hermite internal shaft blend (`CROSS-01`), material-class skin/fabric matte purge (`CROSS-07`), Jacobi harmonic joint-ball relaxation (`CROSS-08`), and `< 15%` medial/lateral width-parity gate (`CROSS-09`) achieve `0` detached islands and `0` magenta spill across all 16 phases, 2D planar warping of studio photographs remains an approximation of 3D human skin/fabric deformation at extreme flexion angles.

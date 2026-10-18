@@ -151,11 +151,12 @@
       "side": "far",
       "parentJoint": "collar",
       "childJoint": "farElbow",
-      "lengthPx": 30,
+      "lengthPx": 24.5,
       "thicknessPx": 11,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/farUpperArm.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/farUpperArm.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farUpperArm.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farUpperArm.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/farUpperArm.png"
     },
     {
       "partId": "farForearm",
@@ -164,11 +165,12 @@
       "side": "far",
       "parentJoint": "farElbow",
       "childJoint": "farWrist",
-      "lengthPx": 27,
+      "lengthPx": 21.5,
       "thicknessPx": 9,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/farForearm.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/farForearm.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farForearm.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farForearm.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/farForearm.png"
     },
     {
       "partId": "farHand",
@@ -177,11 +179,12 @@
       "side": "far",
       "parentJoint": "farWrist",
       "childJoint": "farKnuckle",
-      "lengthPx": 11,
-      "thicknessPx": 9,
+      "lengthPx": 8,
+      "thicknessPx": 8,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/farHand.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/farHand.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farHand.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farHand.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/farHand.png"
     },
     {
       "partId": "farThigh",
@@ -190,11 +193,12 @@
       "side": "far",
       "parentJoint": "pelvis",
       "childJoint": "farKnee",
-      "lengthPx": 45,
+      "lengthPx": 43,
       "thicknessPx": 16,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/farThigh.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/farThigh.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farThigh.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farThigh.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/farThigh.png"
     },
     {
       "partId": "farShin",
@@ -203,11 +207,12 @@
       "side": "far",
       "parentJoint": "farKnee",
       "childJoint": "farAnkle",
-      "lengthPx": 45,
+      "lengthPx": 43,
       "thicknessPx": 12,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/farShin.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/farShin.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farShin.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farShin.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/farShin.png"
     },
     {
       "partId": "farFoot",
@@ -220,7 +225,8 @@
       "thicknessPx": 9,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/farFoot.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/farFoot.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farFoot.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/farFoot.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/farFoot.png"
     },
     {
       "partId": "pelvis",
@@ -233,7 +239,8 @@
       "thicknessPx": 24,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/pelvis.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/pelvis.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/pelvis.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/pelvis.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/pelvis.png"
     },
     {
       "partId": "torso",
@@ -242,11 +249,12 @@
       "side": "center",
       "parentJoint": "pelvis",
       "childJoint": "collar",
-      "lengthPx": 38,
+      "lengthPx": 43,
       "thicknessPx": 26,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/torso.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/torso.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/torso.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/torso.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/torso.png"
     },
     {
       "partId": "neck",
@@ -259,11 +267,12 @@
       "thicknessPx": 10,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/neck.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/neck.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/neck.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/neck.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/neck.png"
     },
     {
       "partId": "hairAccessory",
-      "label": "Articulated Hair / Dynamic Ponytail",
+      "label": "Articulated Hair / Dynamic Ponytail or Flowing Plume",
       "layerOrder": 10,
       "side": "center",
       "parentJoint": "hairAnchor",
@@ -272,7 +281,8 @@
       "thicknessPx": 10,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/hairAccessory.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/hairAccessory.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/hairAccessory.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/hairAccessory.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/hairAccessory.png"
     },
     {
       "partId": "head",
@@ -285,7 +295,8 @@
       "thicknessPx": 26,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/head.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/head.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/head.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/head.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/head.png"
     },
     {
       "partId": "nearThigh",
@@ -294,11 +305,12 @@
       "side": "near",
       "parentJoint": "pelvis",
       "childJoint": "nearKnee",
-      "lengthPx": 45,
+      "lengthPx": 43,
       "thicknessPx": 17,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/nearThigh.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/nearThigh.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearThigh.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearThigh.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/nearThigh.png"
     },
     {
       "partId": "nearShin",
@@ -307,11 +319,12 @@
       "side": "near",
       "parentJoint": "nearKnee",
       "childJoint": "nearAnkle",
-      "lengthPx": 45,
+      "lengthPx": 43,
       "thicknessPx": 12,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/nearShin.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/nearShin.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearShin.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearShin.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/nearShin.png"
     },
     {
       "partId": "nearFoot",
@@ -324,7 +337,8 @@
       "thicknessPx": 10,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/nearFoot.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/nearFoot.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearFoot.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearFoot.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/nearFoot.png"
     },
     {
       "partId": "nearUpperArm",
@@ -333,11 +347,12 @@
       "side": "near",
       "parentJoint": "collar",
       "childJoint": "nearElbow",
-      "lengthPx": 30,
-      "thicknessPx": 12,
+      "lengthPx": 24.5,
+      "thicknessPx": 11,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/nearUpperArm.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/nearUpperArm.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearUpperArm.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearUpperArm.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/nearUpperArm.png"
     },
     {
       "partId": "nearForearm",
@@ -346,11 +361,12 @@
       "side": "near",
       "parentJoint": "nearElbow",
       "childJoint": "nearWrist",
-      "lengthPx": 27,
-      "thicknessPx": 10,
+      "lengthPx": 21.5,
+      "thicknessPx": 9,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/nearForearm.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/nearForearm.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearForearm.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearForearm.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/nearForearm.png"
     },
     {
       "partId": "nearHand",
@@ -359,11 +375,12 @@
       "side": "near",
       "parentJoint": "nearWrist",
       "childJoint": "nearKnuckle",
-      "lengthPx": 11,
-      "thicknessPx": 9,
+      "lengthPx": 8,
+      "thicknessPx": 8,
       "publicUrl": "/sprites/algorithmic/parts/sg-chinese-male/nearHand.png",
       "femalePublicUrl": "/sprites/algorithmic/parts/sg-chinese-female/nearHand.png",
-      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearHand.png"
+      "photoFemalePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female/nearHand.png",
+      "photoFemaleAveragePublicUrl": "/sprites/algorithmic/parts/photo-sg-chinese-female-average/nearHand.png"
     }
   ]
 }

@@ -8,9 +8,11 @@ import type {
   RunnerVariantId,
 } from '../shared/types.js';
 import {
+  applyAssetTuningToRigSpec,
   ARTICULATED_BODY_PARTS,
   DEFAULT_GAIT_CONFIG,
   DEFAULT_RIG_SPEC,
+  PHOTOREAL_ASSET_TUNING_DEFAULTS,
 } from '../runner/body-proportions.js';
 import { solveArticulatedPose } from '../runner/gait.js';
 import { RUNNER_PALETTES } from '../runner/palette.js';
@@ -42,9 +44,13 @@ export function generateAlgorithmicSpritesAndSheet(
   const maleResult = renderPersonaSheetAndFrames('sg-chinese-male', paths);
   const femaleResult = renderPersonaSheetAndFrames('sg-chinese-female', paths);
   renderPersonaSheetAndFrames('photo-sg-chinese-female', paths);
+  renderPersonaSheetAndFrames('photo-sg-chinese-female-average', paths);
+  renderPersonaSheetAndFrames('photo-sg-chinese-female-petite', paths);
   renderAllBodyPartCutouts(paths.publicAlgorithmicDir, 'sg-chinese-male');
   renderAllBodyPartCutouts(paths.publicAlgorithmicDir, 'sg-chinese-female');
   renderAllBodyPartCutouts(paths.publicAlgorithmicDir, 'photo-sg-chinese-female');
+  renderAllBodyPartCutouts(paths.publicAlgorithmicDir, 'photo-sg-chinese-female-average');
+  renderAllBodyPartCutouts(paths.publicAlgorithmicDir, 'photo-sg-chinese-female-petite');
   const manifest = buildAlgorithmicManifest(paths, maleResult, femaleResult);
   const manifestPath = path.join(paths.publicAlgorithmicDir, 'manifest.json');
   fs.writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
@@ -67,11 +73,15 @@ function renderPersonaSheetAndFrames(
   fillRaster(sheet, { r: 255, g: 0, b: 255, a: 255 });
   const urlsByVariant = renderAllVariantFrames(sheet, personaId, paths);
   const sheetFileName =
-    personaId === 'photo-sg-chinese-female'
-      ? 'runner-8frame-6color-photoreal-female-sheet.png'
-      : personaId === 'sg-chinese-female'
-        ? 'runner-8frame-6color-female-algorithmic-sheet.png'
-        : 'runner-8frame-6color-algorithmic-sheet.png';
+    personaId === 'photo-sg-chinese-female-petite'
+      ? 'runner-8frame-6color-photoreal-female-petite-sheet.png'
+      : personaId === 'photo-sg-chinese-female-average'
+        ? 'runner-8frame-6color-photoreal-female-average-sheet.png'
+        : personaId === 'photo-sg-chinese-female'
+          ? 'runner-8frame-6color-photoreal-female-sheet.png'
+          : personaId === 'sg-chinese-female'
+            ? 'runner-8frame-6color-female-algorithmic-sheet.png'
+            : 'runner-8frame-6color-algorithmic-sheet.png';
   const srcSheetPath = path.join(paths.srcImagesDir, 'spritesheets', sheetFileName);
   const pubSheetPath = path.join(paths.publicAlgorithmicDir, sheetFileName);
   writePngFile(srcSheetPath, sheet);
@@ -118,13 +128,31 @@ interface VariantRowJob {
 function renderSingleVariantRow(sheet: RasterImage, job: VariantRowJob): string[] {
   const palette = RUNNER_PALETTES[job.variant];
   const urls: string[] = [];
+  const tuning =
+    job.personaId === 'photo-sg-chinese-female-petite'
+      ? PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-petite']
+      : job.personaId === 'photo-sg-chinese-female-average'
+        ? PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female-average']
+        : job.personaId === 'photo-sg-chinese-female'
+          ? PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female']
+          : undefined;
+  const gaitCfg = tuning
+    ? {
+        ...DEFAULT_GAIT_CONFIG,
+        armCarryFlexDeg: tuning.defaultArmCarryFlexDeg,
+        armChestBiasDeg: tuning.defaultArmChestBiasDeg,
+        hairStyleMode: tuning.defaultHairStyleMode,
+      }
+    : DEFAULT_GAIT_CONFIG;
+  const rigSpec = applyAssetTuningToRigSpec(DEFAULT_RIG_SPEC, tuning);
   for (let col = 0; col < 8; col++) {
-    const pose = solveArticulatedPose(col / 8, DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC);
+    const pose = solveArticulatedPose(col / 8, gaitCfg, rigSpec);
     const frameRaster = renderRunnerPoseToRaster({
       pose,
       palette,
       pixelScale: 1,
       personaId: job.personaId,
+      assetTuning: tuning,
     });
     const fileName = `frame-${String(col + 1).padStart(2, '0')}.png`;
     const personaRel = `${job.personaId}/${job.variant}/${fileName}`;

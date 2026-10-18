@@ -83,11 +83,53 @@ export function renderArticulatedNeckAndHead(
   input: NeckAndHeadRenderInput,
 ): void {
   const { pose, palette, skin } = input;
-  if (skin.hairStyle === 'female-ponytail') {
+  const effectiveHairMode =
+    pose.hairStyleMode === 'none'
+      ? 'none'
+      : pose.hairStyleMode === 'long-flowing' || skin.hairStyle === 'female-long-flowing'
+        ? 'long-flowing'
+        : skin.hairStyle === 'female-ponytail'
+          ? 'ponytail'
+          : 'none';
+  if (effectiveHairMode === 'long-flowing') {
+    renderArticulatedLongFlowingHair(canvas, pose, skin);
+  } else if (effectiveHairMode === 'ponytail') {
     renderArticulatedPonytail(canvas, pose, skin);
   }
   renderCervicalNeckSegment(canvas, pose, { palette, skin });
   renderHeadAndFaceProfile(canvas, pose, { palette, skin });
+}
+
+export function renderArticulatedLongFlowingHair(
+  canvas: RasterImage,
+  pose: ArticulatedPose,
+  skin: RunnerSkinDefinition,
+): void {
+  const outline = parseHexColor('#141018');
+  const hairMain = parseHexColor(skin.hairColor);
+  const highlight = parseHexColor(skin.hairHighlight);
+  drawTaperedCapsule(canvas, {
+    start: pose.hairAnchor, end: pose.hairMidWave, radiusStart: 9.2, radiusEnd: 10.6,
+    fillColor: outline, outlineColor: outline, outlineWidth: 0,
+  });
+  drawTaperedCapsule(canvas, {
+    start: pose.hairMidWave, end: pose.hairTip, radiusStart: 10.2, radiusEnd: 4.8,
+    fillColor: outline, outlineColor: outline, outlineWidth: 0,
+  });
+  drawTaperedCapsule(canvas, {
+    start: pose.hairAnchor, end: pose.hairMidWave, radiusStart: 7.2, radiusEnd: 8.4,
+    fillColor: hairMain, outlineColor: hairMain, outlineWidth: 0,
+  });
+  drawTaperedCapsule(canvas, {
+    start: pose.hairMidWave, end: pose.hairTip, radiusStart: 8.0, radiusEnd: 3.0,
+    fillColor: hairMain, outlineColor: hairMain, outlineWidth: 0,
+  });
+  drawTaperedCapsule(canvas, {
+    start: { x: pose.hairAnchor.x - 1, y: pose.hairAnchor.y - 1 },
+    end: { x: pose.hairMidWave.x - 1, y: pose.hairMidWave.y - 1 },
+    radiusStart: 2.2, radiusEnd: 2.8,
+    fillColor: highlight, outlineColor: highlight, outlineWidth: 0,
+  });
 }
 
 export function renderArticulatedPonytail(

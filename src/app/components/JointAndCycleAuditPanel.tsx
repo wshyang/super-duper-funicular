@@ -31,9 +31,20 @@ export function JointAndCycleAuditPanel({
           </p>
         </div>
         <div className="sheet-links-group">
+          {inspector.photorealStatus === 'error' && inspector.onRetryPhotorealAssets && (
+            <button
+              type="button"
+              className="btn-secondary"
+              data-testid="joint-audit-panel__retry-assets"
+              onClick={inspector.onRetryPhotorealAssets}
+            >
+              Retry Photo Assets
+            </button>
+          )}
           <button
             type="button"
             className="btn-primary"
+            disabled={inspector.isExportBlocked}
             data-testid="joint-audit-panel__export-audit-png"
             onClick={inspector.downloadAuditPng}
           >

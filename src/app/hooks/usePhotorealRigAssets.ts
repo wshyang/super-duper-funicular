@@ -1,33 +1,88 @@
 import { useEffect, useState } from 'react';
-import type { BodyPartId, RasterImage } from '../../shared/types.js';
+import type {
+  BodyPartId,
+  PhotorealPersonaId,
+  RasterImage,
+  RunnerPersonaId,
+} from '../../shared/types.js';
 import { ARTICULATED_BODY_PARTS } from '../../runner/body-proportions.js';
 import {
-  hasPhotorealFemalePartBank,
+  hasPhotorealPartBankForPersona,
   type PhotorealPartBank,
-  setPhotorealFemalePartBank,
+  setPhotorealPartBankForPersona,
 } from '../../runner/photoreal-rig.js';
+import { isPhotorealPersona } from '../../runner/skin-registry.js';
 
 export type PhotorealLoadStatus = 'idle' | 'loaded' | 'error';
+
+export function buildPhotorealPartAssetUrl(
+  folder: string,
+  partId: BodyPartId,
+  revision: string,
+): string {
+  return `/sprites/photoreal/${folder}/parts/${partId}.png?v=${encodeURIComponent(revision)}`;
+}
 
 export function isCompletePhotorealBank(bank: PhotorealPartBank): boolean {
   return ARTICULATED_BODY_PARTS.every((part) => Boolean(bank[part.partId]));
 }
 
-export function usePhotorealRigAssets(): PhotorealLoadStatus {
-  const [status, setStatus] = useState<PhotorealLoadStatus>(
-    hasPhotorealFemalePartBank() ? 'loaded' : 'idle',
+export interface PhotorealAssetsState {
+  readonly status: PhotorealLoadStatus;
+  readonly retryPhotorealAssets: () => void;
+}
+
+export function isPhotorealExportBlocked(
+  personaId: string,
+  status: PhotorealLoadStatus,
+): boolean {
+  return (
+    isPhotorealPersona(personaId as RunnerPersonaId) && status !== 'loaded'
   );
+}
+
+function hasAllPhotorealBanks(): boolean {
+  return (
+    hasPhotorealPartBankForPersona('photo-sg-chinese-female') &&
+    hasPhotorealPartBankForPersona('photo-sg-chinese-female-average') &&
+    hasPhotorealPartBankForPersona('photo-sg-chinese-female-petite')
+  );
+}
+
+export function usePhotorealRigAssetsWithRetry(): PhotorealAssetsState {
+  const [status, setStatus] = useState<PhotorealLoadStatus>(
+    hasAllPhotorealBanks() ? 'loaded' : 'idle',
+  );
+  const [retryCount, setRetryCount] = useState<number>(0);
 
   useEffect(() => {
-    if (hasPhotorealFemalePartBank() || typeof Image === 'undefined') {
+    if (hasAllPhotorealBanks() || typeof Image === 'undefined') {
       return;
     }
     let cancelled = false;
-    loadAllPartsInBrowser()
-      .then((bank) => {
+    setStatus('idle');
+    const assetRevision = Date.now().toString(36);
+    Promise.all([
+      loadPersonaPartsInBrowser('photo-sg-chinese-female', assetRevision),
+      loadPersonaPartsInBrowser('photo-sg-chinese-female-average', assetRevision),
+      loadPersonaPartsInBrowser('photo-sg-chinese-female-petite', assetRevision),
+    ])
+      .then(([athleticBank, averageBank, petiteBank]) => {
         if (cancelled) return;
-        if (isCompletePhotorealBank(bank)) {
-          setPhotorealFemalePartBank(bank);
+        if (isCompletePhotorealBank(athleticBank)) {
+          setPhotorealPartBankForPersona('photo-sg-chinese-female', athleticBank);
+          if (isCompletePhotorealBank(averageBank)) {
+            setPhotorealPartBankForPersona(
+              'photo-sg-chinese-female-average',
+              averageBank,
+            );
+          }
+          if (isCompletePhotorealBank(petiteBank)) {
+            setPhotorealPartBankForPersona(
+              'photo-sg-chinese-female-petite',
+              petiteBank,
+            );
+          }
           setStatus('loaded');
         } else {
           setStatus('error');
@@ -39,15 +94,29 @@ export function usePhotorealRigAssets(): PhotorealLoadStatus {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [retryCount]);
 
-  return status;
+  const retryPhotorealAssets = () => setRetryCount((n) => n + 1);
+  return { status, retryPhotorealAssets };
 }
 
-async function loadAllPartsInBrowser(): Promise<PhotorealPartBank> {
+export function usePhotorealRigAssets(): PhotorealLoadStatus {
+  return usePhotorealRigAssetsWithRetry().status;
+}
+
+async function loadPersonaPartsInBrowser(
+  personaId: PhotorealPersonaId,
+  assetRevision: string,
+): Promise<PhotorealPartBank> {
+  const folder =
+    personaId === 'photo-sg-chinese-female-petite'
+      ? 'sg-chinese-female-petite'
+      : personaId === 'photo-sg-chinese-female-average'
+        ? 'sg-chinese-female-average'
+        : 'sg-chinese-female';
   const entries = await Promise.all(
     ARTICULATED_BODY_PARTS.map(async (part) => {
-      const url = `/sprites/photoreal/sg-chinese-female/parts/${part.partId}.png`;
+      const url = buildPhotorealPartAssetUrl(folder, part.partId, assetRevision);
       const raster = await decodeUrlToRaster(url);
       return [part.partId, raster] as const;
     }),

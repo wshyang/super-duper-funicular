@@ -2,6 +2,7 @@ import type {
   ArticulatedPose,
   GaitConfig,
   GaitPhaseName,
+  HairStyleMode,
   LimbKinematics,
   Point2D,
 } from '../shared/types.js';
@@ -62,11 +63,14 @@ export function solveArticulatedPose(
     neck: upper.neck,
     headCenter: upper.headCenter,
     hairAnchor: upper.hairAnchor,
+    hairMidWave: upper.hairMidWave,
     hairTip: upper.hairTip,
     torsoAngleRad: upper.torsoAngleRad,
     neckAngleRad: upper.neckAngleRad,
     headAngleRad: upper.headAngleRad,
     hairAngleRad: upper.hairAngleRad,
+    hairLowerWaveAngleRad: upper.hairLowerWaveAngleRad,
+    hairStyleMode: upper.hairStyleMode,
     pelvisTiltRad,
     fallForwardComLeadPx,
     nearLeg,
@@ -103,12 +107,15 @@ interface UpperBodyKinematics {
   readonly neckAngleRad: number;
   readonly headAngleRad: number;
   readonly hairAngleRad: number;
+  readonly hairLowerWaveAngleRad: number;
+  readonly hairStyleMode: HairStyleMode;
   readonly chest: Point2D;
   readonly shoulderOrigin: Point2D;
   readonly collar: Point2D;
   readonly neck: Point2D;
   readonly headCenter: Point2D;
   readonly hairAnchor: Point2D;
+  readonly hairMidWave: Point2D;
   readonly hairTip: Point2D;
 }
 
@@ -135,26 +142,79 @@ function computeUpperBodyArticulation(
     -Math.PI / 2 + headAngleRad * 0.6,
     ctx.rig.headRadius * 0.92,
   );
-  const hairAnchor = projectPoint(
-    headCenter,
-    Math.PI - 0.35 + headAngleRad * 0.5,
-    ctx.rig.headRadius * 0.88,
-  );
-  const hairWhipWave = Math.sin((phase - 0.24) * Math.PI * 4) * 0.42;
-  const hairAngleRad = Math.PI - 0.48 + hairWhipWave;
-  const hairTip = projectPoint(hairAnchor, hairAngleRad, ctx.rig.ponytailLength);
+  const hair = solveHairKinematics(headCenter, headAngleRad, phase, ctx);
   return {
     torsoAngleRad,
     neckAngleRad,
     headAngleRad,
-    hairAngleRad,
+    ...hair,
     chest,
     shoulderOrigin,
     collar,
     neck,
     headCenter,
+  };
+}
+
+function solveHairKinematics(
+  headCenter: Point2D,
+  headAngleRad: number,
+  phase: number,
+  ctx: LimbContext,
+): {
+  readonly hairAnchor: Point2D;
+  readonly hairMidWave: Point2D;
+  readonly hairTip: Point2D;
+  readonly hairAngleRad: number;
+  readonly hairLowerWaveAngleRad: number;
+  readonly hairStyleMode: HairStyleMode;
+} {
+  const hairStyleMode: HairStyleMode = ctx.config.hairStyleMode ?? 'ponytail';
+  const swingScale = ctx.config.hairSwingScale ?? 1.0;
+  if (hairStyleMode === 'long-flowing') {
+    const hairAnchor = projectPoint(
+      headCenter,
+      Math.PI - 0.55 + headAngleRad * 0.4,
+      ctx.rig.headRadius * 0.78,
+    );
+    const stridePendulum = Math.sin((phase - 0.14) * Math.PI * 2) * 0.26 * swingScale;
+    const stepBillow = Math.sin((phase - 0.22) * Math.PI * 4) * 0.32 * swingScale;
+    const hairAngleRad = Math.PI - 0.88 + stridePendulum + stepBillow;
+    const lagWave = Math.sin((phase - 0.35) * Math.PI * 4) * 0.42 * swingScale;
+    const hairLowerWaveAngleRad = hairAngleRad - 0.18 + lagWave;
+    const hairMidWave = projectPoint(hairAnchor, hairAngleRad, ctx.rig.ponytailLength * 0.56);
+    const hairTip = projectPoint(
+      hairMidWave,
+      hairLowerWaveAngleRad,
+      ctx.rig.ponytailLength * 0.66,
+    );
+    return {
+      hairAnchor,
+      hairMidWave,
+      hairTip,
+      hairAngleRad,
+      hairLowerWaveAngleRad,
+      hairStyleMode,
+    };
+  }
+  const hairAnchor = projectPoint(
+    headCenter,
+    Math.PI - 0.35 + headAngleRad * 0.5,
+    ctx.rig.headRadius * 0.88,
+  );
+  const hairWhipWave = Math.sin((phase - 0.24) * Math.PI * 4) * 0.42 * swingScale;
+  const hairAngleRad = Math.PI - 0.48 + hairWhipWave;
+  const hairLowerWaveAngleRad =
+    hairAngleRad + Math.cos((phase - 0.32) * Math.PI * 4) * 0.16 * swingScale;
+  const hairMidWave = projectPoint(hairAnchor, hairAngleRad, ctx.rig.ponytailLength * 0.5);
+  const hairTip = projectPoint(hairAnchor, hairAngleRad, ctx.rig.ponytailLength);
+  return {
     hairAnchor,
+    hairMidWave,
     hairTip,
+    hairAngleRad,
+    hairLowerWaveAngleRad,
+    hairStyleMode,
   };
 }
 
@@ -196,13 +256,20 @@ function solveArmKinematics(
   armPhase: number,
   ctx: LimbContext,
 ): LimbKinematics {
-  const swingWave = Math.cos(armPhase * Math.PI * 2) * ctx.config.armSwingScale;
+  const rawSwing = Math.cos(armPhase * Math.PI * 2) * ctx.config.armSwingScale;
+  const carryFlexDeg = ctx.config.armCarryFlexDeg ?? 84;
+  const chestBiasDeg = ctx.config.armChestBiasDeg ?? 4;
+  const baseFlexRad = ((carryFlexDeg - 14) * Math.PI) / 180;
+  const chestBiasRad = ((chestBiasDeg - 4) * Math.PI) / 180;
+  const rearClamp = chestBiasDeg > 8 && rawSwing < 0 ? 1 - Math.min(0.45, (chestBiasDeg - 8) * 0.02) : 1;
+  const swingWave = rawSwing * rearClamp;
   const farRearTuck = ctx.side === 'far' ? Math.max(0, -swingWave) : 0;
-  const upperAngleRad = 1.58 - 0.72 * swingWave - 0.56 * farRearTuck;
-  const forearmFlexRad = 1.22 + 0.36 * swingWave + 0.42 * farRearTuck;
+  const upperAngleRad =
+    1.54 - chestBiasRad * 0.85 - 0.68 * swingWave - 0.52 * farRearTuck;
+  const forearmFlexRad = baseFlexRad + 0.36 * swingWave + 0.42 * farRearTuck;
   const lowerAngleRad = upperAngleRad - forearmFlexRad;
-  const upperLen = ctx.rig.upperArmLength * (1 - 0.18 * farRearTuck);
-  const lowerLen = ctx.rig.forearmLength * (1 - 0.28 * farRearTuck);
+  const upperLen = ctx.rig.upperArmLength * (1 - 0.16 * farRearTuck);
+  const lowerLen = ctx.rig.forearmLength * (1 - 0.24 * farRearTuck);
   const midJoint = projectPoint(shoulder, upperAngleRad, upperLen);
   const endEffector = projectPoint(midJoint, lowerAngleRad, lowerLen);
   const tipPoint = projectPoint(endEffector, lowerAngleRad, ctx.rig.handRadius * 0.75);

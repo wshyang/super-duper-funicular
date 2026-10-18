@@ -9,8 +9,14 @@ import type {
 import { DEFAULT_RIG_SPEC } from '../../runner/body-proportions.js';
 import { solveArticulatedPose } from '../../runner/gait.js';
 import { RUNNER_PALETTES } from '../../runner/palette.js';
-import { getPhotorealFemalePartBank } from '../../runner/photoreal-rig.js';
+import { getPhotorealPartBankForPersona } from '../../runner/photoreal-rig.js';
 import { renderRunnerPoseToRaster } from '../../runner/rasterizer.js';
+import { isPhotorealPersona } from '../../runner/skin-registry.js';
+
+import {
+  isPhotorealExportBlocked,
+  type PhotorealLoadStatus,
+} from './usePhotorealRigAssets.js';
 
 export type InspectableJointPartId =
   | 'nearThigh'
@@ -94,6 +100,8 @@ export interface InspectorStudioInput {
   readonly personaId: RunnerPersonaId;
   readonly variant: RunnerVariantId;
   readonly gaitConfig: GaitConfig;
+  readonly photorealStatus?: PhotorealLoadStatus;
+  readonly onRetryPhotorealAssets?: () => void;
 }
 
 export function useJointAndAuditInspector(input: InspectorStudioInput) {
@@ -120,20 +128,17 @@ export function useJointAndAuditInspector(input: InspectorStudioInput) {
     radiusPx: activePartMeta.radiusPx,
     input,
   });
-  const downloadAuditPng = () => triggerAuditDownload(auditCanvasRef.current, input);
+  const photorealStatus = input.photorealStatus ?? 'loaded';
+  const isExportBlocked = isPhotorealExportBlocked(input.personaId, photorealStatus);
+  const downloadAuditPng = () =>
+    !isExportBlocked && triggerAuditDownload(auditCanvasRef.current, input);
   return {
-    selectedPart,
-    setSelectedPart,
-    pivotEnd,
-    setPivotEnd,
-    comparisonMode,
-    setComparisonMode,
-    angleDeg,
+    selectedPart, setSelectedPart, pivotEnd, setPivotEnd,
+    comparisonMode, setComparisonMode, angleDeg,
     angleLabel: `${angleDeg >= 0 ? '+' : ''}${angleDeg}°`,
-    setAngleDeg,
-    activePartMeta,
-    jointCanvasRef,
-    auditCanvasRef,
+    setAngleDeg, activePartMeta, jointCanvasRef, auditCanvasRef,
+    isExportBlocked, photorealStatus,
+    onRetryPhotorealAssets: input.onRetryPhotorealAssets,
     downloadAuditPng,
   };
 }
@@ -154,6 +159,7 @@ function useInspectorCanvasEffects(spec: InspectorEffectSpec): void {
     const canvas = spec.jointCanvasRef.current;
     if (!canvas) return;
     paintJointInspectorCanvas(canvas, {
+      personaId: spec.input.personaId,
       partId: spec.selectedPart,
       pivotEnd: spec.pivotEnd,
       comparisonMode: spec.comparisonMode,
@@ -162,6 +168,7 @@ function useInspectorCanvasEffects(spec: InspectorEffectSpec): void {
     });
   }, [
     spec.jointCanvasRef,
+    spec.input.personaId,
     spec.selectedPart,
     spec.pivotEnd,
     spec.comparisonMode,
@@ -187,6 +194,7 @@ function triggerAuditDownload(
 }
 
 interface JointPaintSpec {
+  readonly personaId: RunnerPersonaId;
   readonly partId: BodyPartId;
   readonly pivotEnd: PivotEndSelection;
   readonly comparisonMode: CapCutComparisonMode;
@@ -209,7 +217,10 @@ function paintJointInspectorCanvas(
   ctx.arc(cx, cy, spec.radiusPx * 1.45, 0, Math.PI * 2);
   ctx.fill();
 
-  const bank = getPhotorealFemalePartBank();
+  const photorealPersona = isPhotorealPersona(spec.personaId)
+    ? spec.personaId
+    : 'photo-sg-chinese-female';
+  const bank = getPhotorealPartBankForPersona(photorealPersona);
   const partRaster = bank[spec.partId];
   if (partRaster) {
     drawRotatedPartRaster(ctx, partRaster, spec);

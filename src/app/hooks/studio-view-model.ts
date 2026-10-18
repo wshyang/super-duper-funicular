@@ -3,6 +3,7 @@ import type {
   ArticulatedPose,
   BackdropVariantId,
   GaitConfig,
+  PhotorealAssetTuningSpec,
   Point2D,
   RunnerPersonaId,
   RunnerVariantId,
@@ -11,6 +12,7 @@ import {
   ARTICULATED_BODY_PARTS,
   DEFAULT_GAIT_CONFIG,
   DEFAULT_RIG_SPEC,
+  PHOTOREAL_ASSET_TUNING_DEFAULTS,
 } from '../../runner/body-proportions.js';
 import { CANONICAL_PHASE_NAMES, solveArticulatedPose } from '../../runner/gait.js';
 import { RUNNER_PALETTES } from '../../runner/palette.js';
@@ -174,11 +176,17 @@ function formatSinglePartReadout(
     (part.partId === 'nearFoot' && pose.nearLeg.isGrounded) ||
     (part.partId === 'farFoot' && pose.farLeg.isGrounded);
   const cutoutUrl =
-    personaId === 'photo-sg-chinese-female'
-      ? (part.photoFemalePublicUrl ?? part.femalePublicUrl)
-      : personaId === 'sg-chinese-female'
-        ? part.femalePublicUrl
-        : part.publicUrl;
+    personaId === 'photo-sg-chinese-female-petite'
+      ? `/sprites/algorithmic/parts/photo-sg-chinese-female-petite/${part.partId}.png`
+      : personaId === 'photo-sg-chinese-female-average'
+        ? (part.photoFemaleAveragePublicUrl ??
+            part.photoFemalePublicUrl ??
+            part.femalePublicUrl)
+        : personaId === 'photo-sg-chinese-female'
+          ? (part.photoFemalePublicUrl ?? part.femalePublicUrl)
+          : personaId === 'sg-chinese-female'
+            ? part.femalePublicUrl
+            : part.publicUrl;
   return {
     part,
     cutoutUrl,
@@ -277,12 +285,28 @@ export interface FormattedSliderLabels {
   readonly neckLabel: string;
   readonly footRollLabel: string;
   readonly strideLabel: string;
+  readonly armSwingLabel: string;
+  readonly armCarryFlexLabel: string;
+  readonly armChestBiasLabel: string;
+  readonly hairSwingLabel: string;
+  readonly upperArmLenLabel: string;
+  readonly forearmLenLabel: string;
+  readonly armWidthLabel: string;
+  readonly torsoWidthLabel: string;
+  readonly pelvisWidthLabel: string;
+  readonly thighWidthLabel: string;
 }
 
 export function buildFormattedSliderLabels(
   phase: number,
   gaitConfig: GaitConfig,
+  assetTuning: PhotorealAssetTuningSpec = PHOTOREAL_ASSET_TUNING_DEFAULTS[
+    'photo-sg-chinese-female'
+  ],
 ): FormattedSliderLabels {
+  const carryFlex = gaitConfig.armCarryFlexDeg ?? 84;
+  const chestBias = gaitConfig.armChestBiasDeg ?? 4;
+  const hairSwing = gaitConfig.hairSwingScale ?? 1.0;
   return {
     phasePctText: `${Math.round(phase * 100)}%`,
     cadenceLabel: `${gaitConfig.cadenceHz.toFixed(2)} Hz`,
@@ -290,6 +314,16 @@ export function buildFormattedSliderLabels(
     neckLabel: `${Math.round(gaitConfig.neckMotionScale * 100)}%`,
     footRollLabel: `${Math.round(gaitConfig.footRollScale * 100)}%`,
     strideLabel: `${Math.round(gaitConfig.strideLengthScale * 100)}%`,
+    armSwingLabel: `${Math.round(gaitConfig.armSwingScale * 100)}%`,
+    armCarryFlexLabel: `${Math.round(carryFlex)}°`,
+    armChestBiasLabel: `${chestBias >= 0 ? '+' : ''}${Math.round(chestBias)}°`,
+    hairSwingLabel: `${Math.round(hairSwing * 100)}%`,
+    upperArmLenLabel: `${Math.round(assetTuning.upperArmLengthScale * 100)}%`,
+    forearmLenLabel: `${Math.round(assetTuning.forearmLengthScale * 100)}%`,
+    armWidthLabel: `${assetTuning.upperArmWidthPx.toFixed(1)} px`,
+    torsoWidthLabel: `${assetTuning.torsoWidthPx.toFixed(1)} px`,
+    pelvisWidthLabel: `${assetTuning.pelvisWidthPx.toFixed(1)} px`,
+    thighWidthLabel: `${assetTuning.thighWidthPx.toFixed(1)} px`,
   };
 }
 
