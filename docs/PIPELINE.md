@@ -143,12 +143,12 @@ Model once, rig, animate, render 16 frames from an orthographic side camera.
       (per frame)             │        │ trunk · neck · hair       │──► control plate (PNG)
                               │        └───────────────────────────┘
                     ┌─────────▼──────────┐
-   S3  DEFORM      │ triangle mesh,     │  linear blend skinning,
-      (per frame)  │ weights per vertex │  affine texture mapping
+   S3  DEFORM      │ per-pixel bone-    │  atlas sampling,
+      (per frame)  │ frame sampling     │  2 layers, fixed order
                     └─────────┬──────────┘
                     ┌─────────▼──────────┐
-   S4  GATES       │ IoU · ground ·     │  per frame AND per cycle
-                    │ stretch · anatomy  │  machine-readable report
+   S4  GATES       │ pop · drift ·      │  per frame AND per persona
+                    │ ground · coverage  │  machine-readable report
                     └─────────┬──────────┘
                     ┌─────────▼──────────┐
    S5  DELIVER     │ frames · atlas ·   │  manifest: pivots, trim,
@@ -273,23 +273,43 @@ scope for this pipeline and stated as such in §8.
 
 ### S4 — Gates: measure the things that were wrong
 
-A gate that only counts islands certifies hygiene, not correctness. The revised
-gate set is in `src/analysis/`:
+A gate that only counts islands certifies hygiene, not correctness. Two levels,
+both machine-readable, both implemented:
 
-| Gate | Measures | Threshold |
+**Per frame** (`npm run plates`, `src/analysis/gates.ts`)
+
+| Gate | Measures | Budget |
 |---|---|---|
-| `controlIoU` | generated vs. S2 control plate | ≥ 0.92 |
-| `groundDeltaPx` | sole vs. ground line on contact frames | ≤ 1 px |
-| `islands` | detached opaque specks | 0 |
-| `chromaSpill` | key fringe pixels | 0 |
-| `adjacentPop` | silhouette IoU drop between neighbouring phases | ≤ 0.22 |
-| `centroidJitterPx` | horizontal drift between neighbouring phases | ≤ 1.5 px |
-| **`maxStretch`** | largest anisotropic scale of any triangle | ≤ 1.35 |
-| **`limbRatio`** | arm/leg and thigh/shin length vs. the persona profile | within 5 % |
-| **`syntheticFraction`** | share of atlas pixels that were invented | ≤ 0.25, and reported per frame |
+| `adjacentPop` | largest *change* in adjacent-frame silhouette IoU | ≤ 0.15 |
+| `centroidJitterPx` | head-centre horizontal drift between phases | ≤ 1.5 px |
+| `contactGroundSpreadPx` | spread of the lowest opaque row across stance frames | ≤ 2 px |
 
-The last three are the ones the old pipelines lacked, and they are the ones that
-would have caught the defects a human had to find by eye.
+**Per persona** (`npm run audit`, `out/audit/<id>/`)
+
+| Check | Measures | Budget |
+|---|---|---|
+| `atlas.syntheticFraction` | share of atlas cells invented | ≤ 0.35 |
+| `atlas.bonesWithoutEvidence` | bones with no photographed pixels | 0 |
+| `atlas.unassignedFraction` | photographed surface no capsule reached | ≤ 0.12 |
+| `correspondence.silhouetteIou` | rig vs. plate after measured placement | ≥ 0.35 |
+| `keying.holesInsideSubject` | subject pixels 4-surrounded by backdrop | ≤ 0.002 |
+| `frames.maxIslands` | detached opaque components per frame | 0 |
+| `frames.spillPixels` | backdrop-coloured pixels in the output | 0 |
+| `frames.crownReached` | frames that lose the crown | 0 |
+| `discipline.violations` | file/function size, determinism | 0 |
+
+Two rules keep these honest, and both were learned the hard way in this build:
+
+- **A gate that cannot fail is a bug** (`ADDENDA` A12).
+- **A metric that rewards the wrong thing is worse than no metric**
+  (§4.7.3, and `BRANCH_REVIEW` §3.6 from the other direction).
+
+Gates proposed in the first draft and *not* implemented are listed here so they
+are not mistaken for delivered work: `controlIoU` (generated vs. control plate —
+the control plate exists, the comparison is not wired), `maxStretch` (the sampler
+has no triangles to measure), `limbRatio` (geometry is derived from the rig, so
+the check would compare a value to itself), and `groundDeltaPx` (subsumed by
+`contactGroundSpreadPx`).
 
 ### S5 — Delivery
 
@@ -396,9 +416,12 @@ re-run; a pixel failure costs a generation budget.
 The atlas has no texture for regions the photograph never showed. This is real
 and it is bounded:
 
-- the fill is deterministic and its extent is measured (`syntheticFraction`);
-- the fill is confined to the *back* layer, which is drawn first and is
-  partly occluded in most frames;
+- the fill is deterministic and its extent is measured (`syntheticFraction`,
+  currently **0.217**: the far arm, far leg and far shoe are mirrored from the
+  near side and darkened, and nothing else is invented);
+- the fill is confined almost entirely to the *back* layer, which is drawn first
+  and is partly occluded in most frames; the only front-layer synthesis is the
+  interpolation of small holes *between* two observations;
 - if the fill is unacceptable, one image-model call per persona fixes it.
 
 The old architecture had the same problem (that is precisely why it demanded ten
@@ -438,7 +461,7 @@ geometry.
 | Stage | Deliverable | Status here |
 |---|---|---|
 | **1** | Profiler (`S0`), rig (`S2`), control plate, gates (`S4`) | implemented, tested, runnable |
-| **2** | Atlas unwrap (`S1`) + skinned rasteriser (`S3`) | implemented for the two-layer mesh with measured unwrap; see `docs/VALIDATION.md` for what was and was not verified visually |
+| **2** | Atlas unwrap (`S1`) + skinned sampler (`S3`) | implemented; two layers, three-stage assignment, all gates green — see `docs/VALIDATION.md` for what was and was not verified visually |
 | **3** | Atlas gap completion (`S6`) with prompt log | specified, not invoked (no generation budget spent in this change) |
 | **4** | Delivery manifest + SVG, all-or-nothing bank | manifest implemented |
 | **5** | Second and third persona, to prove "one photograph per persona" | requires one master plate each |
@@ -453,7 +476,7 @@ appearance.
 
 | Risk | Retire by |
 |---|---|
-| Skinning stretches texture visibly at extreme knee flexion | `maxStretch` gate at φ = 0.375 and 0.75 before any persona is added |
+| Texture stretches visibly at extreme knee flexion | `|v| ≤ 1` clamp plus a viewed joint crop at φ = 0.375 and 0.75 before any persona is added |
 | Atlas fill looks smeared on the far arm | `syntheticFraction` + a viewed contact sheet per persona |
 | Measured landmarks are wrong on an unusual build | profiler emits an overlay PNG; landmark rows are drawn on the plate and must be viewed before the persona is accepted |
 | Rig produces an unattractive run | isolate geometry from appearance: judge the control plate alone, at 16 phases |

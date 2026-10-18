@@ -27,9 +27,11 @@ any stage fails.
 | plates | `npm run plates` | 16 frames, 16 control plates, `standing.png`, `manifest.json` | ~4 s |
 | audit | `npm run audit` | `out/audit/athletic/audit-report.{json,txt}` | ~4 s |
 
-Whole repository: **30 TypeScript modules, 3 952 lines including tests**, 2680
-lines of documentation. For comparison, PR #1 carried 13 507 lines of TypeScript
-and 4 327 lines of docs for the same job.
+Whole repository: **30 TypeScript modules, 3 952 lines including 186 lines of
+tests**, plus 1 589 lines of new documentation (this file, `PIPELINE`, `FDS`,
+`SPEC`, `ADDENDA`, `BRANCH_REVIEW`, `README`). For comparison, PR #1 carried
+13 507 lines of TypeScript and 4 327 lines of documentation for the same job —
+and the documentation was larger than the code it described.
 
 ---
 
