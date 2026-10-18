@@ -1,0 +1,99 @@
+{
+  "rig": {
+    "canvasWidth": 220,
+    "canvasHeight": 256,
+    "groundY": 234,
+    "pelvisRestX": 94,
+    "pelvisRestY": 148,
+    "torsoLength": 43,
+    "neckLength": 13,
+    "headRadius": 13.5,
+    "ponytailLength": 26,
+    "upperArmLength": 24.5,
+    "forearmLength": 21.5,
+    "handRadius": 4.5,
+    "thighLength": 43,
+    "shinLength": 43,
+    "footLength": 28,
+    "heelOffsetLength": 6,
+    "midfootLength": 14,
+    "toeLength": 11
+  },
+  "gait": {
+    "cadenceHz": 1.55,
+    "strideLengthScale": 1,
+    "kneeDriveScale": 1,
+    "armSwingScale": 1,
+    "armCarryFlexDeg": 84,
+    "armChestBiasDeg": 4,
+    "hairStyleMode": "ponytail",
+    "hairSwingScale": 1,
+    "forwardLeanDeg": 22,
+    "neckMotionScale": 1,
+    "footRollScale": 1,
+    "bounceAmplitudeScale": 1,
+    "pixelScale": 1,
+    "locomotionMode": "run"
+  },
+  "generatedAt": "2026-10-18T21:59:32.762Z",
+  "locked": true,
+  "lockedBounds": {
+    "minX": 9.047624898877558,
+    "maxX": 175.83024754810893,
+    "minY": 6.871343900866492,
+    "maxY": 271.5,
+    "scale": 2.554523043591927,
+    "offsetX": 467.862607291962,
+    "offsetY": 28.446993664791705
+  },
+  "records": [
+    {
+      "key": "H01",
+      "phase": 0,
+      "phaseName": "Right Contact (Midfoot Strike)",
+      "file": "H01-pose-guide.png"
+    },
+    {
+      "key": "H02",
+      "phase": 0.125,
+      "phaseName": "Right Down (Sole Roll & Cushion)",
+      "file": "H02-pose-guide.png"
+    },
+    {
+      "key": "H03",
+      "phase": 0.25,
+      "phaseName": "Right Pass (Heel-Off & Toe Roll)",
+      "file": "H03-pose-guide.png"
+    },
+    {
+      "key": "H04",
+      "phase": 0.375,
+      "phaseName": "Right Flight (Forward Fall Drive)",
+      "file": "H04-pose-guide.png"
+    },
+    {
+      "key": "H05",
+      "phase": 0.5,
+      "phaseName": "Left Contact (Midfoot Strike)",
+      "file": "H05-pose-guide.png"
+    },
+    {
+      "key": "H06",
+      "phase": 0.625,
+      "phaseName": "Left Down (Sole Roll & Cushion)",
+      "file": "H06-pose-guide.png"
+    },
+    {
+      "key": "H07",
+      "phase": 0.75,
+      "phaseName": "Left Pass (Heel-Off & Toe Roll)",
+      "file": "H07-pose-guide.png"
+    },
+    {
+      "key": "H08",
+      "phase": 0.875,
+      "phaseName": "Left Flight (Forward Fall Drive)",
+      "file": "H08-pose-guide.png"
+    }
+  ]
+}
