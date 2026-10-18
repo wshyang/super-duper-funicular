@@ -1,5 +1,5 @@
 {
-  "observedAt": "2026-10-18T00:04:17Z",
+  "observedAt": "2026-10-18T00:05:31Z",
   "tips": [
     {
       "sha": "396ce256debcb5bdc2419cc0f3f399730b61ab36",
@@ -56,12 +56,30 @@
       "source": "remote"
     },
     {
-      "sha": "3708af7c59a41f6dd1059dc921a794106fa0c34d",
-      "committedAt": "2026-10-18T00:04:07+00:00",
-      "subject": "Stage 1+2: harmonised greenfield discipline, live n-way ledger, FDS/addenda, procedural runner engine + forensics + workbench",
+      "sha": "e10e7508a068bd55055af57840b2da01e221b243",
+      "committedAt": "2026-10-18T00:04:17+00:00",
+      "subject": "docs(ledger): post-push refresh — record this branch's first pushed SHA 3708af7 per the post-push rule",
       "row": "6",
       "branch": "arena/8dcf54e8-super-duper-funicular",
       "pr": "this PR",
+      "source": "remote"
+    },
+    {
+      "sha": "5ecdc7f74314f16dca0a15640862a0b40e6f243e",
+      "committedAt": "2026-10-18T00:01:43+00:00",
+      "subject": "Correct the reviewed hash for our branch in the ledger",
+      "row": "7",
+      "branch": "arena/110272a0-super-duper-funicular",
+      "pr": "#6",
+      "source": "remote"
+    },
+    {
+      "sha": "b2ab5b81e07d08c8ecd4b28788cef7c8fded6cde",
+      "committedAt": "2026-10-17T23:16:37+00:00",
+      "subject": "Adopt greenfield discipline and ship harmonised runner lab.",
+      "row": "8",
+      "branch": "arena/24e7b955-super-duper-funicular",
+      "pr": "#5 closed",
       "source": "remote"
     }
   ]

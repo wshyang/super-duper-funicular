@@ -15,6 +15,8 @@ const ROWS = [
   ['4', 'arena/ce6d2a6e-super-duper-funicular', 'none'],
   ['5', 'arena/64422739-super-duper-funicular', '#4'],
   ['6', 'arena/8dcf54e8-super-duper-funicular', 'this PR'],
+  ['7', 'arena/110272a0-super-duper-funicular', '#6'],
+  ['8', 'arena/24e7b955-super-duper-funicular', '#5 closed'],
 ] as const;
 
 const LEDGER = 'docs/N_WAY_COMPARISON.md';

@@ -298,3 +298,17 @@ Append-only, sequential `TURN-Lnn`. See entries below.
 - **Validation run:** see `docs/VALIDATION.md` delivery table (all ✅ rows).
 - **Next:** walk/brisk visual pass; browser smoke in preview; Q1 photo rig once
   image budget approved; refresh ledger after push (post-push rule).
+
+#### TURN-L02 addendum · 2026-10-18T00:05Z · n grows to 9 mid-turn
+- While opening PR #7, `gh pr list` revealed two siblings not present at
+  TURN-L01: `arena/110272a0` (PR #6 OPEN — a concurrent harmonisation twin with
+  its own n-way ledger, photo-prompt log and dump-cycle tool; 207 files / 8 test
+  files) and `arena/24e7b955` (PR #5 CLOSED — 56 files / 2 test files).
+- **Action taken same turn:** `tools/compare-branches.ts` extended to 9 rows;
+  ledger §1 refreshed (this branch `e10e750`, #6 `5ecdc7f7…`, #5† `b2ab5b81…`);
+  matrix gained `?` columns for the unreviewed peers; progress log appended.
+- **Learning:** "live" ledgers go stale within minutes under parallel work —
+  the post-push refresh rule and the PR-state join in the refresher both paid
+  for themselves this turn.
+- **Next:** TURN-L03 reviews PR #6 in a detached checkout (its SVG vectors and
+  joint calibration vs our CROSS-012/Q4 queue), then re-rates the matrix.

@@ -14,7 +14,7 @@
 ## 1. Latest observed tips
 
 <!-- branch-tips:start -->
-Observed (UTC): 2026-10-18T00:04:17Z via `npm run branches:compare` (git fetch of exact refs).
+Observed (UTC): 2026-10-18T00:05:31Z via `npm run branches:compare` (git fetch of exact refs).
 
 | # | Branch | PR | Full SHA | Commit time | Subject |
 |---|---|---|---|---|---|
@@ -24,7 +24,9 @@ Observed (UTC): 2026-10-18T00:04:17Z via `npm run branches:compare` (git fetch o
 | 3 | `arena/77ffb088-super-duper-funicular` | #3 OPEN | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | 2026-10-17T23:05:53+00:00 | Track live three-way feature parity and adopt multi-background photo audits |
 | 4 | `arena/ce6d2a6e-super-duper-funicular` | none | `bab689cdac3ba730138bfae09dda537978d61e09` | 2026-10-17T06:27:14+00:00 | Adopt GREENFIELD discipline; extract running sprites; procedural runner app |
 | 5 | `arena/64422739-super-duper-funicular` | #4 OPEN | `1a815d502f87cc88c5ded7ccd41f454c72a31b38` | 2026-10-17T23:13:29+00:00 | docs(ledger): record first-pushed SHA 2dd05fa per post-push refresh rule |
-| 6 | `arena/8dcf54e8-super-duper-funicular` | this PR | `3708af7c59a41f6dd1059dc921a794106fa0c34d` | 2026-10-18T00:04:07+00:00 | Stage 1+2: harmonised greenfield discipline, live n-way ledger, FDS/addenda, procedural runner engine + forensics + workbench |
+| 6 | `arena/8dcf54e8-super-duper-funicular` | #7 OPEN | `e10e7508a068bd55055af57840b2da01e221b243` | 2026-10-18T00:04:17+00:00 | docs(ledger): post-push refresh — record this branch's first pushed SHA 3708af7 per the post-push rule |
+| 7 | `arena/110272a0-super-duper-funicular` | #6 OPEN | `5ecdc7f74314f16dca0a15640862a0b40e6f243e` | 2026-10-18T00:01:43+00:00 | Correct the reviewed hash for our branch in the ledger |
+| 8 | `arena/24e7b955-super-duper-funicular` | #5 CLOSED | `b2ab5b81e07d08c8ecd4b28788cef7c8fded6cde` | 2026-10-17T23:16:37+00:00 | Adopt greenfield discipline and ship harmonised runner lab. |
 <!-- branch-tips:end -->
 
 Row roles (reviewed 2026-10-17, detached extracts at `/tmp/branches/*`):
@@ -37,7 +39,9 @@ Row roles (reviewed 2026-10-17, detached extracts at `/tmp/branches/*`):
 | 3 | `arena/77ffb088-super-duper-funicular` | #3 OPEN | Procedural Runner: domain-grouped `lib/`, arc end-caps, photo rig + mattes, self-refreshing 3-way ledger, 177 tests |
 | 4 | `arena/ce6d2a6e-super-duper-funicular` | none | smallest clean greenfield split, co-located tests, manifest pivots |
 | 5 | `arena/64422739-super-duper-funicular` | #4 OPEN | earlier harmonisation attempt: n-way ledger incl. main, merged CLAUDE, dependency-free procedural core |
-| 6 | `arena/8dcf54e8-super-duper-funicular` | this PR | **this branch** — harmonised synthesis: ledger owns 7 rows, pure-TS raster painter, extraction + flaw forensics + audit sheets + SVG stitcher + workbench |
+| 6 | `arena/8dcf54e8-super-duper-funicular` | #7 OPEN | **this branch** — harmonised synthesis: pure-TS raster painter, extraction + flaw forensics + audit sheets + SVG stitcher + workbench |
+| 7 | `arena/110272a0-super-duper-funicular` | #6 OPEN | concurrent harmonisation twin: 207 files, 8 test files, own N-way ledger, photo-prompt log, dump-cycle tool — **review queued (TURN-L03)** |
+| 8 | `arena/24e7b955-super-duper-funicular` | #5 CLOSED | earlier closed harmonisation attempt (56 files, 2 test files) — kept as a ledger row for history; review queued |
 
 ## 2. How the branches progress relative to each other
 
@@ -61,29 +65,29 @@ merged. Observed dynamics (append corrections, never rewrite):
 
 ## 3. Feature-parity matrix
 
-● present+evidenced · ◐ partial · ○ absent — as inspected 2026-10-17 from
+● present+evidenced · ◐ partial · ○ absent · ? not yet reviewed — as inspected 2026-10-17 from
 `/tmp/branches/*` (read code) plus each branch's own validation docs (reported).
 "Our" column becomes ● only with executed evidence named in `docs/VALIDATION.md`.
 
-| Capability | #1 | #2 | #3 | ce6 | #4 | ours | Parity exit criterion |
+| Capability | #1 | #2 | #3 | ce6 | #4 | #6 | #5† | ours | Parity exit criterion |
 |---|---|---|---|---|---|---|---|
-| Greenfield split CLAUDE-*.md + upstream verbatim + pinned SHA | ● | ◐ | ● | ● | ● | ● | discipline test asserts SHA + section files |
-| Living FDS + sequential ADDENDA, same-change | ● | ● | ● | ● | ● | ● | entries cite anchors/SHAs |
-| Continuous per-turn learning log | ● | ● | ● | ○ | ● | ● | entry every turn, incl. no-code turns |
-| Live ledger + refresher (n-way, main-inclusive) | ◐(3) | ○ | ◐(3) | ○ | ●(6) | ●(7) | `branches:compare` exit 0, history append-only |
-| 2-bone IK + gait + foot roll | ● | ● | ● | ● | ● | ◐ | unit tests over UI range + filmstrip visual pass |
-| Articulated rig ≥17 parts | ●(17) | ◐ | ● | ◐ | ◐ | ◐(17) | joint-seam visual audit inspected |
-| Procedural personas/skins | ● | ● | ● | ◐ | ● | ◐(2) | persona-switch test + renders |
-| Motion families (run/walk/brisk) | ◐ | ● | ◐ | ○ | ◐(run/walk) | ◐ | support-state tests + per-motion audit |
-| Sheet extraction on real JPEG (grid/chroma/dedupe/registration) | ● | ● | ● | ● | ○ | ● | byte-reproducible manifest, 48 frames |
-| Flaw forensics FLAW-01..05 | ● | ◐ | ● | ● | ○ | ● | metrics on real sheet match published ranges |
-| Pure-TS raster painter shared by tests/exports/app | ○ | ○ | ◐(napi) | ○ | ○ | ● | pixel assertions + canvas parity test |
-| Photo rig (far limbs, end caps, hip cut) | ● | ● | ● | ○ | ○ | ○ | CROSS-011 exit criteria |
-| SVG output | ● | ○ | ● | ○ | ○ | ◐ | CROSS-012 + stitched frames inspected |
-| Full-cycle audit sheets (16-phase light/dark/joint) | ● | ● | ● | ◐ | ○ | ● | sheet opened via read_file, findings logged |
-| Workbench UI (controls/filmstrip/library/export) | ● | ● | ● | ● | ◐ | ◐ | data-testid gate + HTTP smoke |
-| Tests (unit files / browser e2e) | 4 / ○ | 13 / ●(Playwright) | 14 / ○ | ~10 / ○ | 1 / ○ | 11 / ○(ADD-006) | `npm run validate` green |
-| Docker contract + inert SHIP-HATS + dev.sh | ● | ● | ● | ◐ | ◐ | ● | discipline tests; container build N/A in sandbox |
+| Greenfield split CLAUDE-*.md + upstream verbatim + pinned SHA | ● | ◐ | ● | ● | ● | ? | ? | ● | discipline test asserts SHA + section files |
+| Living FDS + sequential ADDENDA, same-change | ● | ● | ● | ● | ● | ? | ? | ● | entries cite anchors/SHAs |
+| Continuous per-turn learning log | ● | ● | ● | ○ | ● | ? | ? | ● | entry every turn, incl. no-code turns |
+| Live ledger + refresher (n-way, main-inclusive) | ◐(3) | ○ | ◐(3) | ○ | ●(6) | ? | ? | ●(7) | `branches:compare` exit 0, history append-only |
+| 2-bone IK + gait + foot roll | ● | ● | ● | ● | ● | ? | ? | ◐ | unit tests over UI range + filmstrip visual pass |
+| Articulated rig ≥17 parts | ●(17) | ◐ | ● | ◐ | ◐ | ? | ? | ◐(17) | joint-seam visual audit inspected |
+| Procedural personas/skins | ● | ● | ● | ◐ | ● | ? | ? | ◐(2) | persona-switch test + renders |
+| Motion families (run/walk/brisk) | ◐ | ● | ◐ | ○ | ◐(run/walk) | ? | ? | ◐ | support-state tests + per-motion audit |
+| Sheet extraction on real JPEG (grid/chroma/dedupe/registration) | ● | ● | ● | ● | ○ | ? | ? | ● | byte-reproducible manifest, 48 frames |
+| Flaw forensics FLAW-01..05 | ● | ◐ | ● | ● | ○ | ? | ? | ● | metrics on real sheet match published ranges |
+| Pure-TS raster painter shared by tests/exports/app | ○ | ○ | ◐(napi) | ○ | ○ | ? | ? | ● | pixel assertions + canvas parity test |
+| Photo rig (far limbs, end caps, hip cut) | ● | ● | ● | ○ | ○ | ? | ? | ○ | CROSS-011 exit criteria |
+| SVG output | ● | ○ | ● | ○ | ○ | ? | ? | ◐ | CROSS-012 + stitched frames inspected |
+| Full-cycle audit sheets (16-phase light/dark/joint) | ● | ● | ● | ◐ | ○ | ? | ? | ● | sheet opened via read_file, findings logged |
+| Workbench UI (controls/filmstrip/library/export) | ● | ● | ● | ● | ◐ | ? | ? | ◐ | data-testid gate + HTTP smoke |
+| Tests (unit files / browser e2e) | 4 / ○ | 13 / ●(Playwright) | 14 / ○ | ~10 / ○ | 1 / ○ | ? | ? | 11 / ○(ADD-006) | `npm run validate` green |
+| Docker contract + inert SHIP-HATS + dev.sh | ● | ● | ● | ◐ | ◐ | ? | ? | ● | discipline tests; container build N/A in sandbox |
 
 ## 4. Adoption queue (owner: this branch; status per turn)
 
@@ -109,3 +113,10 @@ merged. Observed dynamics (append corrections, never rewrite):
   (extraction, flaws, raster, audit, docker) — parity gaps now: photo rig (Q1),
   e2e (Q2), contour SVG (Q3), cut calibration (Q4), workbench browser sign-off.
   Sibling tips unchanged since TURN-L01 refresh (no peer pushed mid-turn).
+- **2026-10-18 (TURN-L02 addendum):** two new siblings discovered while opening
+  this branch's PR: `arena/110272a0` (PR #6, OPEN, 207 files, 8 test files, own
+  n-way ledger + photo-prompt log + dump-cycle tool) and `arena/24e7b955`
+  (PR #5, CLOSED, 56 files). n grows 7 → **9 rows**; refresher extended, matrix
+  gained two `?` columns pending review (TURN-L03 queue: read #6's ledger and
+  SVG/joint-calibration work, compare against our CROSS register; decide
+  adoptions both ways). PR #5 closed ⇒ history row only, no parity target.
