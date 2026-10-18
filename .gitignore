@@ -8,3 +8,6 @@ coverage
 .vite
 .DS_Store
 *.tsbuildinfo
+
+# python tooling
+scripts/__pycache__/
