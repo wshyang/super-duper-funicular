@@ -1,0 +1,22 @@
+# SHIP-HATS GitLab CI Entrypoint (kept inert with .shiphats suffix per GREENFIELD.md §10.3)
+include:
+  - project: 'innersource/sgts/ship-hats/ship-hats-templates'
+    ref: 'v1.1.12'
+    file:
+      - '/templates/.gitlab-ci-common.yml'
+      - '/templates/.gitlab-ci-docker.yml'
+  - local: '/.gitlab/ci/pipeline.gitlab-ci.yml'
+
+stages:
+  - .pre
+  - build
+  - test
+  - static-test
+  - sign
+  - runtime-test
+  - deploy
+
+variables:
+  PROJECT_NAME: '@@SHIPHATS_PROJECT_NAME@@'
+  AGENCY_NAMESPACE: '@@SHIPHATS_AGENCY_NAMESPACE@@'
+  NODE_IMAGE: 'nexus-docker.ship.gov.sg/node:22.12.0-alpine3.20'

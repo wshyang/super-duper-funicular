@@ -1,0 +1,1464 @@
+{
+  "schemaVersion": "1.0.0",
+  "sourceImage": "src/images/spritesheets/runner-8frame-6color-flawed-sheet.jpeg",
+  "sheetWidth": 2528,
+  "sheetHeight": 1696,
+  "headerHeight": 132,
+  "rows": 6,
+  "cols": 8,
+  "outputWidth": 220,
+  "outputHeight": 256,
+  "totalExtractedFrames": 48,
+  "uniquePosesPerRow": 4,
+  "totalUniquePoses": 24,
+  "variants": [
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "purple",
+    "orange"
+  ],
+  "frames": [
+    {
+      "variant": "red",
+      "frameIndex": 1,
+      "row": 0,
+      "col": 0,
+      "publicUrl": "/sprites/extracted/red/frame-01.png",
+      "filePath": "public/sprites/extracted/red/frame-01.png",
+      "cellBounds": {
+        "x": 2,
+        "y": 132,
+        "width": 306,
+        "height": 256
+      },
+      "spriteBoundsInCell": {
+        "x": 56,
+        "y": 18,
+        "width": 178,
+        "height": 231
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15255,
+      "pixelSha256": "904b10d1face39f09373e2798a2a912b60a0d7b048b3667497fbce911bfa3df5",
+      "dHash64": "00041d2a08240403",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0
+    },
+    {
+      "variant": "red",
+      "frameIndex": 2,
+      "row": 0,
+      "col": 1,
+      "publicUrl": "/sprites/extracted/red/frame-02.png",
+      "filePath": "public/sprites/extracted/red/frame-02.png",
+      "cellBounds": {
+        "x": 319,
+        "y": 132,
+        "width": 305,
+        "height": 256
+      },
+      "spriteBoundsInCell": {
+        "x": 63,
+        "y": 35,
+        "width": 158,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14517,
+      "pixelSha256": "106842ca83691a016ffff62263eb75efd48440f9f40f7d7983df9ae5edcd0a6b",
+      "dHash64": "0006142a0c164400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.585
+    },
+    {
+      "variant": "red",
+      "frameIndex": 3,
+      "row": 0,
+      "col": 2,
+      "publicUrl": "/sprites/extracted/red/frame-03.png",
+      "filePath": "public/sprites/extracted/red/frame-03.png",
+      "cellBounds": {
+        "x": 636,
+        "y": 132,
+        "width": 306,
+        "height": 256
+      },
+      "spriteBoundsInCell": {
+        "x": 46,
+        "y": 29,
+        "width": 202,
+        "height": 211
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15373,
+      "pixelSha256": "08b9103bc0f1fe33c6cea65611ebc9715e10c02189c46b95069a0230429b1cc4",
+      "dHash64": "0002142908340200",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6151
+    },
+    {
+      "variant": "red",
+      "frameIndex": 4,
+      "row": 0,
+      "col": 3,
+      "publicUrl": "/sprites/extracted/red/frame-04.png",
+      "filePath": "public/sprites/extracted/red/frame-04.png",
+      "cellBounds": {
+        "x": 954,
+        "y": 132,
+        "width": 304,
+        "height": 256
+      },
+      "spriteBoundsInCell": {
+        "x": 64,
+        "y": 10,
+        "width": 179,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14612,
+      "pixelSha256": "a9eb1f6d651a469a2e34fa667ed53a6d1f6704d7fe287b60857c13dbf2a40867",
+      "dHash64": "00040c2a04124400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6882
+    },
+    {
+      "variant": "red",
+      "frameIndex": 5,
+      "row": 0,
+      "col": 4,
+      "publicUrl": "/sprites/extracted/red/frame-05.png",
+      "filePath": "public/sprites/extracted/red/frame-05.png",
+      "cellBounds": {
+        "x": 1270,
+        "y": 132,
+        "width": 304,
+        "height": 256
+      },
+      "spriteBoundsInCell": {
+        "x": 55,
+        "y": 18,
+        "width": 177,
+        "height": 231
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15251,
+      "pixelSha256": "cd07c2dee191ba0b4fac3e83e443c1e3429bb10d1a810e5fd72237d6336f6d21",
+      "dHash64": "00041c2a08240403",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 1,
+      "duplicateSimilarityIoU": 0.9638
+    },
+    {
+      "variant": "red",
+      "frameIndex": 6,
+      "row": 0,
+      "col": 5,
+      "publicUrl": "/sprites/extracted/red/frame-06.png",
+      "filePath": "public/sprites/extracted/red/frame-06.png",
+      "cellBounds": {
+        "x": 1586,
+        "y": 132,
+        "width": 306,
+        "height": 256
+      },
+      "spriteBoundsInCell": {
+        "x": 68,
+        "y": 34,
+        "width": 158,
+        "height": 215
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14582,
+      "pixelSha256": "83d7e11422cd22a373d446617bd64ae6913f320c4bfa7e6b05364a4cbb0beee6",
+      "dHash64": "00060c0a0c164400",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 2,
+      "duplicateSimilarityIoU": 0.9687
+    },
+    {
+      "variant": "red",
+      "frameIndex": 7,
+      "row": 0,
+      "col": 6,
+      "publicUrl": "/sprites/extracted/red/frame-07.png",
+      "filePath": "public/sprites/extracted/red/frame-07.png",
+      "cellBounds": {
+        "x": 1904,
+        "y": 132,
+        "width": 305,
+        "height": 256
+      },
+      "spriteBoundsInCell": {
+        "x": 40,
+        "y": 23,
+        "width": 211,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15672,
+      "pixelSha256": "61728d84ad83456e463ac123cf85280a1307a5ed3b33af1503f6dac283bfe8d8",
+      "dHash64": "0002142b08320202",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 3,
+      "duplicateSimilarityIoU": 0.9068
+    },
+    {
+      "variant": "red",
+      "frameIndex": 8,
+      "row": 0,
+      "col": 7,
+      "publicUrl": "/sprites/extracted/red/frame-08.png",
+      "filePath": "public/sprites/extracted/red/frame-08.png",
+      "cellBounds": {
+        "x": 2220,
+        "y": 132,
+        "width": 306,
+        "height": 256
+      },
+      "spriteBoundsInCell": {
+        "x": 68,
+        "y": 12,
+        "width": 178,
+        "height": 212
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14475,
+      "pixelSha256": "9cc6f34802d6ce2cffa4101be07879cb7700d088bf6abd4ccae7b68d89648fff",
+      "dHash64": "00040c2a04164400",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 4,
+      "duplicateSimilarityIoU": 0.9485
+    },
+    {
+      "variant": "blue",
+      "frameIndex": 1,
+      "row": 1,
+      "col": 0,
+      "publicUrl": "/sprites/extracted/blue/frame-01.png",
+      "filePath": "public/sprites/extracted/blue/frame-01.png",
+      "cellBounds": {
+        "x": 2,
+        "y": 398,
+        "width": 306,
+        "height": 254
+      },
+      "spriteBoundsInCell": {
+        "x": 56,
+        "y": 17,
+        "width": 178,
+        "height": 231
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15231,
+      "pixelSha256": "afc5c62056c1eef1fff7f2322872f5dc55196b18b59c4d1874873cf039f8bebf",
+      "dHash64": "00041d2a08240403",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0
+    },
+    {
+      "variant": "blue",
+      "frameIndex": 2,
+      "row": 1,
+      "col": 1,
+      "publicUrl": "/sprites/extracted/blue/frame-02.png",
+      "filePath": "public/sprites/extracted/blue/frame-02.png",
+      "cellBounds": {
+        "x": 319,
+        "y": 398,
+        "width": 305,
+        "height": 254
+      },
+      "spriteBoundsInCell": {
+        "x": 63,
+        "y": 34,
+        "width": 158,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14546,
+      "pixelSha256": "7fe4201f000e7bd58ef1fa80cfabb3c4bfc133a2326dc50687dd71e6cfa8d357",
+      "dHash64": "00061c2a04164400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.5862
+    },
+    {
+      "variant": "blue",
+      "frameIndex": 3,
+      "row": 1,
+      "col": 2,
+      "publicUrl": "/sprites/extracted/blue/frame-03.png",
+      "filePath": "public/sprites/extracted/blue/frame-03.png",
+      "cellBounds": {
+        "x": 636,
+        "y": 398,
+        "width": 306,
+        "height": 254
+      },
+      "spriteBoundsInCell": {
+        "x": 46,
+        "y": 27,
+        "width": 202,
+        "height": 209
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15207,
+      "pixelSha256": "d71dda4ec0907fa6ba4c6002b3142f1f78305a5902a35e9778bc8bedaddb7dec",
+      "dHash64": "0002040b0c340200",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6195
+    },
+    {
+      "variant": "blue",
+      "frameIndex": 4,
+      "row": 1,
+      "col": 3,
+      "publicUrl": "/sprites/extracted/blue/frame-04.png",
+      "filePath": "public/sprites/extracted/blue/frame-04.png",
+      "cellBounds": {
+        "x": 954,
+        "y": 398,
+        "width": 304,
+        "height": 254
+      },
+      "spriteBoundsInCell": {
+        "x": 64,
+        "y": 10,
+        "width": 178,
+        "height": 212
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14463,
+      "pixelSha256": "6304db7acd08a518f56788c1cad9957b0aa0f3e2f2b215453b3e68c324575f8a",
+      "dHash64": "00042c2a0c164400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6799
+    },
+    {
+      "variant": "blue",
+      "frameIndex": 5,
+      "row": 1,
+      "col": 4,
+      "publicUrl": "/sprites/extracted/blue/frame-05.png",
+      "filePath": "public/sprites/extracted/blue/frame-05.png",
+      "cellBounds": {
+        "x": 1270,
+        "y": 398,
+        "width": 304,
+        "height": 254
+      },
+      "spriteBoundsInCell": {
+        "x": 55,
+        "y": 17,
+        "width": 177,
+        "height": 231
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15149,
+      "pixelSha256": "2fe0f4a397eca66b4842a096e282dac319b1bf60e10e48f9247043ee4379cc17",
+      "dHash64": "00040c2a08240403",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 1,
+      "duplicateSimilarityIoU": 0.9697
+    },
+    {
+      "variant": "blue",
+      "frameIndex": 6,
+      "row": 1,
+      "col": 5,
+      "publicUrl": "/sprites/extracted/blue/frame-06.png",
+      "filePath": "public/sprites/extracted/blue/frame-06.png",
+      "cellBounds": {
+        "x": 1586,
+        "y": 398,
+        "width": 306,
+        "height": 254
+      },
+      "spriteBoundsInCell": {
+        "x": 68,
+        "y": 33,
+        "width": 158,
+        "height": 215
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14523,
+      "pixelSha256": "9af3233547f3cd275304460b21931987e13e7275d46a991e8aa99e93d2d05c1e",
+      "dHash64": "00061c2a08164400",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 2,
+      "duplicateSimilarityIoU": 0.9628
+    },
+    {
+      "variant": "blue",
+      "frameIndex": 7,
+      "row": 1,
+      "col": 6,
+      "publicUrl": "/sprites/extracted/blue/frame-07.png",
+      "filePath": "public/sprites/extracted/blue/frame-07.png",
+      "cellBounds": {
+        "x": 1904,
+        "y": 398,
+        "width": 305,
+        "height": 254
+      },
+      "spriteBoundsInCell": {
+        "x": 40,
+        "y": 22,
+        "width": 211,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15612,
+      "pixelSha256": "aef32f3f3bffd3870464c3cf774665dbadb3367462424baec59a0d46e927b89c",
+      "dHash64": "000204290c320202",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 3,
+      "duplicateSimilarityIoU": 0.9057
+    },
+    {
+      "variant": "blue",
+      "frameIndex": 8,
+      "row": 1,
+      "col": 7,
+      "publicUrl": "/sprites/extracted/blue/frame-08.png",
+      "filePath": "public/sprites/extracted/blue/frame-08.png",
+      "cellBounds": {
+        "x": 2220,
+        "y": 398,
+        "width": 306,
+        "height": 254
+      },
+      "spriteBoundsInCell": {
+        "x": 68,
+        "y": 13,
+        "width": 178,
+        "height": 212
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14436,
+      "pixelSha256": "b909963bfc8f810b08cb3cdc0e52ddf954c48ac7051b09ed1e57341acc996a44",
+      "dHash64": "00040c2a04164400",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 4,
+      "duplicateSimilarityIoU": 0.9521
+    },
+    {
+      "variant": "green",
+      "frameIndex": 1,
+      "row": 2,
+      "col": 0,
+      "publicUrl": "/sprites/extracted/green/frame-01.png",
+      "filePath": "public/sprites/extracted/green/frame-01.png",
+      "cellBounds": {
+        "x": 2,
+        "y": 663,
+        "width": 306,
+        "height": 251
+      },
+      "spriteBoundsInCell": {
+        "x": 56,
+        "y": 15,
+        "width": 177,
+        "height": 232
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15142,
+      "pixelSha256": "036997b8aee91992c5b6e4c1b821e8c864331ec492831e97ef4615b1f008653e",
+      "dHash64": "00040d2a18240403",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0
+    },
+    {
+      "variant": "green",
+      "frameIndex": 2,
+      "row": 2,
+      "col": 1,
+      "publicUrl": "/sprites/extracted/green/frame-02.png",
+      "filePath": "public/sprites/extracted/green/frame-02.png",
+      "cellBounds": {
+        "x": 319,
+        "y": 663,
+        "width": 305,
+        "height": 251
+      },
+      "spriteBoundsInCell": {
+        "x": 63,
+        "y": 31,
+        "width": 158,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14520,
+      "pixelSha256": "7935dd73768d374981d2a99e7d9bc45bb957bc7a00f8f5ccc1dbffe61daf4259",
+      "dHash64": "00060c0a0c164400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.5871
+    },
+    {
+      "variant": "green",
+      "frameIndex": 3,
+      "row": 2,
+      "col": 2,
+      "publicUrl": "/sprites/extracted/green/frame-03.png",
+      "filePath": "public/sprites/extracted/green/frame-03.png",
+      "cellBounds": {
+        "x": 636,
+        "y": 663,
+        "width": 306,
+        "height": 251
+      },
+      "spriteBoundsInCell": {
+        "x": 46,
+        "y": 26,
+        "width": 201,
+        "height": 209
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15245,
+      "pixelSha256": "d8ab5b657f16a7efb537d8d349a884316a63039d4eddec9089a154fc4d24244c",
+      "dHash64": "0002040d08340200",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6259
+    },
+    {
+      "variant": "green",
+      "frameIndex": 4,
+      "row": 2,
+      "col": 3,
+      "publicUrl": "/sprites/extracted/green/frame-04.png",
+      "filePath": "public/sprites/extracted/green/frame-04.png",
+      "cellBounds": {
+        "x": 954,
+        "y": 663,
+        "width": 304,
+        "height": 251
+      },
+      "spriteBoundsInCell": {
+        "x": 64,
+        "y": 11,
+        "width": 178,
+        "height": 210
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14359,
+      "pixelSha256": "0ae65ab713ea26bf66726a6937eb192628effa524c938ef281a4ec9787f3384b",
+      "dHash64": "00040c2a0c124400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6832
+    },
+    {
+      "variant": "green",
+      "frameIndex": 5,
+      "row": 2,
+      "col": 4,
+      "publicUrl": "/sprites/extracted/green/frame-05.png",
+      "filePath": "public/sprites/extracted/green/frame-05.png",
+      "cellBounds": {
+        "x": 1270,
+        "y": 663,
+        "width": 304,
+        "height": 251
+      },
+      "spriteBoundsInCell": {
+        "x": 55,
+        "y": 15,
+        "width": 177,
+        "height": 232
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15128,
+      "pixelSha256": "7756aefb68f4505b1e8300267ca6ef76e3b368e0cc097a237cc7df222b1f4db2",
+      "dHash64": "00040c2a08240403",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 1,
+      "duplicateSimilarityIoU": 0.9582
+    },
+    {
+      "variant": "green",
+      "frameIndex": 6,
+      "row": 2,
+      "col": 5,
+      "publicUrl": "/sprites/extracted/green/frame-06.png",
+      "filePath": "public/sprites/extracted/green/frame-06.png",
+      "cellBounds": {
+        "x": 1586,
+        "y": 663,
+        "width": 306,
+        "height": 251
+      },
+      "spriteBoundsInCell": {
+        "x": 68,
+        "y": 31,
+        "width": 158,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14506,
+      "pixelSha256": "0022cbb2a70c39241afab8c6e4a5b618f295fbf964c3e1cc97b904d48c0ef6dd",
+      "dHash64": "0006040a04120400",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 2,
+      "duplicateSimilarityIoU": 0.9651
+    },
+    {
+      "variant": "green",
+      "frameIndex": 7,
+      "row": 2,
+      "col": 6,
+      "publicUrl": "/sprites/extracted/green/frame-07.png",
+      "filePath": "public/sprites/extracted/green/frame-07.png",
+      "cellBounds": {
+        "x": 1904,
+        "y": 663,
+        "width": 305,
+        "height": 251
+      },
+      "spriteBoundsInCell": {
+        "x": 40,
+        "y": 20,
+        "width": 211,
+        "height": 215
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15631,
+      "pixelSha256": "14577de69b2c861a6dbadf72929dc738bd1626113eb2d9066274cd03cb1871b8",
+      "dHash64": "0002042b08320202",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 3,
+      "duplicateSimilarityIoU": 0.8812
+    },
+    {
+      "variant": "green",
+      "frameIndex": 8,
+      "row": 2,
+      "col": 7,
+      "publicUrl": "/sprites/extracted/green/frame-08.png",
+      "filePath": "public/sprites/extracted/green/frame-08.png",
+      "cellBounds": {
+        "x": 2220,
+        "y": 663,
+        "width": 306,
+        "height": 251
+      },
+      "spriteBoundsInCell": {
+        "x": 69,
+        "y": 12,
+        "width": 177,
+        "height": 211
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14372,
+      "pixelSha256": "59b44d06eae4c093a816576468f5b42637c4de53f789b6c0bac7d95dc2112ef0",
+      "dHash64": "00040c2a0c124400",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 4,
+      "duplicateSimilarityIoU": 0.9604
+    },
+    {
+      "variant": "yellow",
+      "frameIndex": 1,
+      "row": 3,
+      "col": 0,
+      "publicUrl": "/sprites/extracted/yellow/frame-01.png",
+      "filePath": "public/sprites/extracted/yellow/frame-01.png",
+      "cellBounds": {
+        "x": 2,
+        "y": 925,
+        "width": 306,
+        "height": 249
+      },
+      "spriteBoundsInCell": {
+        "x": 58,
+        "y": 15,
+        "width": 174,
+        "height": 230
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15029,
+      "pixelSha256": "903793718f1ff8628b70d50977cfb26e8762e444cef419bb1ba1da847c6c5536",
+      "dHash64": "00040c2a08240403",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0
+    },
+    {
+      "variant": "yellow",
+      "frameIndex": 2,
+      "row": 3,
+      "col": 1,
+      "publicUrl": "/sprites/extracted/yellow/frame-02.png",
+      "filePath": "public/sprites/extracted/yellow/frame-02.png",
+      "cellBounds": {
+        "x": 319,
+        "y": 925,
+        "width": 305,
+        "height": 249
+      },
+      "spriteBoundsInCell": {
+        "x": 63,
+        "y": 30,
+        "width": 159,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14603,
+      "pixelSha256": "4570868391b8ececdd1b49e6bc6a01876879f301129717bd1050d6b0caca179a",
+      "dHash64": "0006040e0c120400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.5948
+    },
+    {
+      "variant": "yellow",
+      "frameIndex": 3,
+      "row": 3,
+      "col": 2,
+      "publicUrl": "/sprites/extracted/yellow/frame-03.png",
+      "filePath": "public/sprites/extracted/yellow/frame-03.png",
+      "cellBounds": {
+        "x": 636,
+        "y": 925,
+        "width": 306,
+        "height": 249
+      },
+      "spriteBoundsInCell": {
+        "x": 47,
+        "y": 23,
+        "width": 199,
+        "height": 209
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15151,
+      "pixelSha256": "976482800ffe132b3e8a41922fa211e71b01b14d5aeeb44b611bd13b9297daf3",
+      "dHash64": "0002040908340200",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6434
+    },
+    {
+      "variant": "yellow",
+      "frameIndex": 4,
+      "row": 3,
+      "col": 3,
+      "publicUrl": "/sprites/extracted/yellow/frame-04.png",
+      "filePath": "public/sprites/extracted/yellow/frame-04.png",
+      "cellBounds": {
+        "x": 954,
+        "y": 925,
+        "width": 304,
+        "height": 249
+      },
+      "spriteBoundsInCell": {
+        "x": 64,
+        "y": 10,
+        "width": 178,
+        "height": 209
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14281,
+      "pixelSha256": "1c9930bd932dd14b9c04663b86e76aa867d61ddc19a4a11424af3f08690302dd",
+      "dHash64": "00040c2a04124400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6868
+    },
+    {
+      "variant": "yellow",
+      "frameIndex": 5,
+      "row": 3,
+      "col": 4,
+      "publicUrl": "/sprites/extracted/yellow/frame-05.png",
+      "filePath": "public/sprites/extracted/yellow/frame-05.png",
+      "cellBounds": {
+        "x": 1270,
+        "y": 925,
+        "width": 304,
+        "height": 249
+      },
+      "spriteBoundsInCell": {
+        "x": 56,
+        "y": 15,
+        "width": 175,
+        "height": 230
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14989,
+      "pixelSha256": "380cab7eff98d9bc6df9e163145bcebeb3313250576c7e45e366a0aff17dc610",
+      "dHash64": "00040c2a18240403",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 1,
+      "duplicateSimilarityIoU": 0.9629
+    },
+    {
+      "variant": "yellow",
+      "frameIndex": 6,
+      "row": 3,
+      "col": 5,
+      "publicUrl": "/sprites/extracted/yellow/frame-06.png",
+      "filePath": "public/sprites/extracted/yellow/frame-06.png",
+      "cellBounds": {
+        "x": 1586,
+        "y": 925,
+        "width": 306,
+        "height": 249
+      },
+      "spriteBoundsInCell": {
+        "x": 68,
+        "y": 29,
+        "width": 158,
+        "height": 215
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14553,
+      "pixelSha256": "745f5162ee2f0549b1dfeeb067109a1b673f5b79e6a2dd8fc5c5d439511db078",
+      "dHash64": "0006040e0c124400",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 2,
+      "duplicateSimilarityIoU": 0.9692
+    },
+    {
+      "variant": "yellow",
+      "frameIndex": 7,
+      "row": 3,
+      "col": 6,
+      "publicUrl": "/sprites/extracted/yellow/frame-07.png",
+      "filePath": "public/sprites/extracted/yellow/frame-07.png",
+      "cellBounds": {
+        "x": 1904,
+        "y": 925,
+        "width": 305,
+        "height": 249
+      },
+      "spriteBoundsInCell": {
+        "x": 41,
+        "y": 19,
+        "width": 209,
+        "height": 215
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15568,
+      "pixelSha256": "6f2132887ceb90c39847f5ff238e867d45dc71fadda926910cd25a7e6621855f",
+      "dHash64": "0002040b08760202",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 3,
+      "duplicateSimilarityIoU": 0.902
+    },
+    {
+      "variant": "yellow",
+      "frameIndex": 8,
+      "row": 3,
+      "col": 7,
+      "publicUrl": "/sprites/extracted/yellow/frame-08.png",
+      "filePath": "public/sprites/extracted/yellow/frame-08.png",
+      "cellBounds": {
+        "x": 2220,
+        "y": 925,
+        "width": 306,
+        "height": 249
+      },
+      "spriteBoundsInCell": {
+        "x": 69,
+        "y": 13,
+        "width": 177,
+        "height": 209
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14263,
+      "pixelSha256": "4652b4d91e826ae68376153e05b275361dff724749c97c83acfa83e11bf87412",
+      "dHash64": "00040c2a04164400",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 4,
+      "duplicateSimilarityIoU": 0.95
+    },
+    {
+      "variant": "purple",
+      "frameIndex": 1,
+      "row": 4,
+      "col": 0,
+      "publicUrl": "/sprites/extracted/purple/frame-01.png",
+      "filePath": "public/sprites/extracted/purple/frame-01.png",
+      "cellBounds": {
+        "x": 2,
+        "y": 1186,
+        "width": 306,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 56,
+        "y": 12,
+        "width": 175,
+        "height": 231
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15028,
+      "pixelSha256": "c5533068d08c7fd4b8d70ca2c6d58a76fd574992301ce3df69d345b5c8aeb22b",
+      "dHash64": "00041c2a08240403",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0
+    },
+    {
+      "variant": "purple",
+      "frameIndex": 2,
+      "row": 4,
+      "col": 1,
+      "publicUrl": "/sprites/extracted/purple/frame-02.png",
+      "filePath": "public/sprites/extracted/purple/frame-02.png",
+      "cellBounds": {
+        "x": 319,
+        "y": 1186,
+        "width": 305,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 63,
+        "y": 28,
+        "width": 159,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14579,
+      "pixelSha256": "c9f76042a2f8ffb6e075e1b8294ef95e84f3b4bd9782cbabb2e1a7b3105fbc82",
+      "dHash64": "000614060c160400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.5925
+    },
+    {
+      "variant": "purple",
+      "frameIndex": 3,
+      "row": 4,
+      "col": 2,
+      "publicUrl": "/sprites/extracted/purple/frame-03.png",
+      "filePath": "public/sprites/extracted/purple/frame-03.png",
+      "cellBounds": {
+        "x": 636,
+        "y": 1186,
+        "width": 306,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 48,
+        "y": 20,
+        "width": 198,
+        "height": 210
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15259,
+      "pixelSha256": "3f16107958d531fbf31e94440a8c44b288dd657dbdb2e8f8e463a26245a09b6a",
+      "dHash64": "0002140904340200",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6486
+    },
+    {
+      "variant": "purple",
+      "frameIndex": 4,
+      "row": 4,
+      "col": 3,
+      "publicUrl": "/sprites/extracted/purple/frame-04.png",
+      "filePath": "public/sprites/extracted/purple/frame-04.png",
+      "cellBounds": {
+        "x": 954,
+        "y": 1186,
+        "width": 304,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 64,
+        "y": 11,
+        "width": 178,
+        "height": 207
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14238,
+      "pixelSha256": "528483337488383fca80bb99b4ff9fa1c689da1534640f8b04a04553ac41729b",
+      "dHash64": "00040c2a0c160400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6786
+    },
+    {
+      "variant": "purple",
+      "frameIndex": 5,
+      "row": 4,
+      "col": 4,
+      "publicUrl": "/sprites/extracted/purple/frame-05.png",
+      "filePath": "public/sprites/extracted/purple/frame-05.png",
+      "cellBounds": {
+        "x": 1270,
+        "y": 1186,
+        "width": 304,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 56,
+        "y": 12,
+        "width": 176,
+        "height": 231
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14975,
+      "pixelSha256": "591972725a1eba9a5ecf0720d0cf981e4bef74e321657d1c86af600a3fcd76d8",
+      "dHash64": "0004242a08240403",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 1,
+      "duplicateSimilarityIoU": 0.9411
+    },
+    {
+      "variant": "purple",
+      "frameIndex": 6,
+      "row": 4,
+      "col": 5,
+      "publicUrl": "/sprites/extracted/purple/frame-06.png",
+      "filePath": "public/sprites/extracted/purple/frame-06.png",
+      "cellBounds": {
+        "x": 1586,
+        "y": 1186,
+        "width": 306,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 67,
+        "y": 26,
+        "width": 159,
+        "height": 216
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14757,
+      "pixelSha256": "c8f8969bbf9b9d531c95bd51a5bf741a1a60388f6745acbda97ce28f72b51ddd",
+      "dHash64": "0006142a0c160000",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 2,
+      "duplicateSimilarityIoU": 0.9498
+    },
+    {
+      "variant": "purple",
+      "frameIndex": 7,
+      "row": 4,
+      "col": 6,
+      "publicUrl": "/sprites/extracted/purple/frame-07.png",
+      "filePath": "public/sprites/extracted/purple/frame-07.png",
+      "cellBounds": {
+        "x": 1904,
+        "y": 1186,
+        "width": 305,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 42,
+        "y": 18,
+        "width": 208,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15571,
+      "pixelSha256": "5a9f8b49f3e9ebb62019ca24269e4d22d0ea2ff0170a4f2cca12a29d6741c54a",
+      "dHash64": "0002142b0c320202",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 3,
+      "duplicateSimilarityIoU": 0.8846
+    },
+    {
+      "variant": "purple",
+      "frameIndex": 8,
+      "row": 4,
+      "col": 7,
+      "publicUrl": "/sprites/extracted/purple/frame-08.png",
+      "filePath": "public/sprites/extracted/purple/frame-08.png",
+      "cellBounds": {
+        "x": 2220,
+        "y": 1186,
+        "width": 306,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 69,
+        "y": 12,
+        "width": 177,
+        "height": 208
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14352,
+      "pixelSha256": "61c7079fe488a80068798535abb374973f448f3b2eb5c321c4ac233ed2f15276",
+      "dHash64": "00040c2a0c124400",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 4,
+      "duplicateSimilarityIoU": 0.9295
+    },
+    {
+      "variant": "orange",
+      "frameIndex": 1,
+      "row": 5,
+      "col": 0,
+      "publicUrl": "/sprites/extracted/orange/frame-01.png",
+      "filePath": "public/sprites/extracted/orange/frame-01.png",
+      "cellBounds": {
+        "x": 2,
+        "y": 1444,
+        "width": 306,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 56,
+        "y": 12,
+        "width": 176,
+        "height": 230
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15081,
+      "pixelSha256": "9675f48d216e452d5b6f2a5f32660e4e55e26434c0e10774107fee1df208f8ff",
+      "dHash64": "00041c2a08240403",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0
+    },
+    {
+      "variant": "orange",
+      "frameIndex": 2,
+      "row": 5,
+      "col": 1,
+      "publicUrl": "/sprites/extracted/orange/frame-02.png",
+      "filePath": "public/sprites/extracted/orange/frame-02.png",
+      "cellBounds": {
+        "x": 319,
+        "y": 1444,
+        "width": 305,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 63,
+        "y": 26,
+        "width": 160,
+        "height": 215
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14687,
+      "pixelSha256": "971d1a9243e758ca62ad58e638c7389ee0db88acdf0419520b5db684ea4721ba",
+      "dHash64": "0006040a0c160400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.5827
+    },
+    {
+      "variant": "orange",
+      "frameIndex": 3,
+      "row": 5,
+      "col": 2,
+      "publicUrl": "/sprites/extracted/orange/frame-03.png",
+      "filePath": "public/sprites/extracted/orange/frame-03.png",
+      "cellBounds": {
+        "x": 636,
+        "y": 1444,
+        "width": 306,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 48,
+        "y": 19,
+        "width": 198,
+        "height": 211
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15284,
+      "pixelSha256": "91e3dfa58411baaeef81fc5d4f4d828c6fa25cc61a34f85f179f2b55481e7320",
+      "dHash64": "000214290c348200",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.641
+    },
+    {
+      "variant": "orange",
+      "frameIndex": 4,
+      "row": 5,
+      "col": 3,
+      "publicUrl": "/sprites/extracted/orange/frame-04.png",
+      "filePath": "public/sprites/extracted/orange/frame-04.png",
+      "cellBounds": {
+        "x": 954,
+        "y": 1444,
+        "width": 304,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 64,
+        "y": 12,
+        "width": 178,
+        "height": 206
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14195,
+      "pixelSha256": "3d31e47156265e16defbd67b493442238386de640153bac9458f6fc65e012da4",
+      "dHash64": "00040c2a04124400",
+      "isDuplicateInRow": false,
+      "duplicateOfFrame": null,
+      "duplicateSimilarityIoU": 0.6851
+    },
+    {
+      "variant": "orange",
+      "frameIndex": 5,
+      "row": 5,
+      "col": 4,
+      "publicUrl": "/sprites/extracted/orange/frame-05.png",
+      "filePath": "public/sprites/extracted/orange/frame-05.png",
+      "cellBounds": {
+        "x": 1270,
+        "y": 1444,
+        "width": 304,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 56,
+        "y": 12,
+        "width": 176,
+        "height": 231
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15088,
+      "pixelSha256": "b65a0b3b236f37f17bd378af85beaf43d407241eabbac3a0d789f659a36395c8",
+      "dHash64": "0004042a08240403",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 1,
+      "duplicateSimilarityIoU": 0.9736
+    },
+    {
+      "variant": "orange",
+      "frameIndex": 6,
+      "row": 5,
+      "col": 5,
+      "publicUrl": "/sprites/extracted/orange/frame-06.png",
+      "filePath": "public/sprites/extracted/orange/frame-06.png",
+      "cellBounds": {
+        "x": 1586,
+        "y": 1444,
+        "width": 306,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 66,
+        "y": 25,
+        "width": 161,
+        "height": 215
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14718,
+      "pixelSha256": "06273ce2de758a42a621576879baacb624b84ef1849daf269265e9f6d3f5438b",
+      "dHash64": "0006140a0c164000",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 2,
+      "duplicateSimilarityIoU": 0.955
+    },
+    {
+      "variant": "orange",
+      "frameIndex": 7,
+      "row": 5,
+      "col": 6,
+      "publicUrl": "/sprites/extracted/orange/frame-07.png",
+      "filePath": "public/sprites/extracted/orange/frame-07.png",
+      "cellBounds": {
+        "x": 1904,
+        "y": 1444,
+        "width": 305,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 42,
+        "y": 18,
+        "width": 207,
+        "height": 214
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 15544,
+      "pixelSha256": "93067bdeb6a93eb600b9be378f52a78ed65d5c39af79f57166ac9769a4f756d7",
+      "dHash64": "0002040b0c720202",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 3,
+      "duplicateSimilarityIoU": 0.9136
+    },
+    {
+      "variant": "orange",
+      "frameIndex": 8,
+      "row": 5,
+      "col": 7,
+      "publicUrl": "/sprites/extracted/orange/frame-08.png",
+      "filePath": "public/sprites/extracted/orange/frame-08.png",
+      "cellBounds": {
+        "x": 2220,
+        "y": 1444,
+        "width": 306,
+        "height": 246
+      },
+      "spriteBoundsInCell": {
+        "x": 69,
+        "y": 12,
+        "width": 177,
+        "height": 208
+      },
+      "anchorPoint": {
+        "x": 110,
+        "y": 242
+      },
+      "foregroundPixels": 14435,
+      "pixelSha256": "6925af926d21ba4e3a61a6672a41ed8eb50eccad541fc799eb10d8f5f62c72c2",
+      "dHash64": "00040c2a0c124400",
+      "isDuplicateInRow": true,
+      "duplicateOfFrame": 4,
+      "duplicateSimilarityIoU": 0.9315
+    }
+  ]
+}

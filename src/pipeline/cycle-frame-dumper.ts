@@ -1,0 +1,554 @@
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import type {
+  ArticulatedPose,
+  GaitConfig,
+  PhotorealAssetTuningSpec,
+  Point2D,
+  RasterImage,
+  RgbaColor,
+  RunnerPersonaId,
+  RunnerVariantId,
+} from '../shared/types.js';
+import {
+  type AnatomicalRigSpec,
+  applyAssetTuningToRigSpec,
+  DEFAULT_GAIT_CONFIG,
+  DEFAULT_RIG_SPEC,
+  PHOTOREAL_ASSET_TUNING_DEFAULTS,
+} from '../runner/body-proportions.js';
+import { solveArticulatedPose } from '../runner/gait.js';
+import { RUNNER_PALETTES } from '../runner/palette.js';
+import { renderRunnerPoseToRaster } from '../runner/rasterizer.js';
+import { isPhotorealPersona } from '../runner/skin-registry.js';
+import { solveStandingUprightPose } from '../runner/standing-pose.js';
+import { listOpaqueComponentSizes } from './connected-components.js';
+import { writePngFile } from './image-io.js';
+import { extractAndLoadPhotorealFemaleParts } from './photoreal-extractor.js';
+import { blitRaster, createRaster, fillRaster, readPixel, writePixel } from './raster.js';
+
+export interface CycleDumpOptions {
+  readonly outDir?: string;
+  readonly frameCount?: number;
+  readonly personaId?: RunnerPersonaId;
+  readonly variant?: RunnerVariantId;
+  readonly assetTuning?: Partial<PhotorealAssetTuningSpec>;
+  readonly gaitOverride?: Partial<GaitConfig>;
+}
+
+export interface FrameDefectMetrics {
+  readonly frameIndex: number;
+  readonly phase: number;
+  readonly phaseDeg: number;
+  readonly phaseName: string;
+  readonly rawFramePath: string;
+  readonly auditFramePath: string;
+  readonly foregroundPixelCount: number;
+  readonly disconnectedIslandsCount: number;
+  readonly detachedIslandPixels: number;
+  readonly magentaSpillPixelsCount: number;
+  readonly semiTransparentFringeCount: number;
+  readonly lowestFootY: number;
+  readonly groundLineDeltaPx: number;
+  readonly uncoveredJointNames: readonly string[];
+}
+
+export interface CycleAuditReport {
+  readonly outDir: string;
+  readonly personaId: RunnerPersonaId;
+  readonly variant: RunnerVariantId;
+  readonly frameCount: number;
+  readonly contactSheetPath: string;
+  readonly jointCropsSheetPath: string;
+  readonly standingProfileAuditPath: string | null;
+  readonly reportJsonPath: string;
+  readonly resolvedAssetTuning: PhotorealAssetTuningSpec | null;
+  readonly effectiveRigLengths: {
+    readonly torsoLength: number;
+    readonly upperArmLength: number;
+    readonly forearmLength: number;
+    readonly thighLength: number;
+    readonly shinLength: number;
+  };
+  readonly totalDisconnectedIslands: number;
+  readonly totalMagentaSpillPixels: number;
+  readonly framesWithUncoveredJoints: number;
+  readonly frames: readonly FrameDefectMetrics[];
+}
+
+function resolveDumpPersonaSettings(
+  personaId: RunnerPersonaId,
+  assetTuningOverride?: Partial<PhotorealAssetTuningSpec>,
+  gaitOverride?: Partial<GaitConfig>,
+) {
+  const baseTuning = isPhotorealPersona(personaId)
+    ? PHOTOREAL_ASSET_TUNING_DEFAULTS[personaId]
+    : undefined;
+  const tuning: PhotorealAssetTuningSpec | undefined = baseTuning
+    ? { ...baseTuning, ...assetTuningOverride }
+    : undefined;
+  const gaitCfg: GaitConfig = {
+    ...DEFAULT_GAIT_CONFIG,
+    ...(tuning
+      ? {
+          armCarryFlexDeg: tuning.defaultArmCarryFlexDeg,
+          armChestBiasDeg: tuning.defaultArmChestBiasDeg,
+          hairStyleMode: tuning.defaultHairStyleMode,
+        }
+      : {}),
+    ...gaitOverride,
+  };
+  return {
+    tuning,
+    gaitCfg,
+    rigSpec: applyAssetTuningToRigSpec(DEFAULT_RIG_SPEC, tuning),
+  };
+}
+
+export function dumpFullGaitCycleToTempDir(
+  options: CycleDumpOptions = {},
+): CycleAuditReport {
+  const outDir = options.outDir ?? path.join(os.tmpdir(), 'gait-cycle-audit');
+  const frameCount = options.frameCount ?? 16;
+  const personaId = options.personaId ?? 'photo-sg-chinese-female';
+  const variant = options.variant ?? 'red';
+  const framesDir = path.join(outDir, 'frames');
+  fs.mkdirSync(framesDir, { recursive: true });
+  if (isPhotorealPersona(personaId)) {
+    extractAndLoadPhotorealFemaleParts(process.cwd());
+  }
+  const { tuning, gaitCfg, rigSpec } = resolveDumpPersonaSettings(
+    personaId,
+    options.assetTuning,
+    options.gaitOverride,
+  );
+  const cols = 4;
+  const rows = Math.ceil(frameCount / cols);
+  const contactSheet = createRaster(
+    cols * DEFAULT_RIG_SPEC.canvasWidth,
+    rows * DEFAULT_RIG_SPEC.canvasHeight,
+  );
+  fillRaster(contactSheet, { r: 226, g: 230, b: 238, a: 255 });
+  const frameMetrics: FrameDefectMetrics[] = [];
+  const rawFrames: RasterImage[] = [];
+  const poses: ArticulatedPose[] = [];
+
+  for (let i = 0; i < frameCount; i++) {
+    const pose = solveArticulatedPose(i / frameCount, gaitCfg, rigSpec);
+    poses.push(pose);
+    const raw = renderRunnerPoseToRaster({
+      pose,
+      palette: RUNNER_PALETTES[variant],
+      pixelScale: 1,
+      personaId,
+      assetTuning: tuning,
+    });
+    rawFrames.push(raw);
+    frameMetrics.push(
+      writeAndMeasureCycleFrame(raw, pose, {
+        index: i,
+        framesDir,
+        contactSheet,
+        cols,
+      }),
+    );
+  }
+  const contactSheetPath = path.join(outDir, 'contact-sheet-16frame.png');
+  writePngFile(contactSheetPath, contactSheet);
+  const jointCropsSheetPath = path.join(outDir, 'joint-crops-sheet.png');
+  writePngFile(jointCropsSheetPath, buildZoomedJointCropsSheet(rawFrames, poses));
+  const standingProfileAuditPath = writeStandingProfileAuditPlate(outDir, {
+    personaId,
+    variant,
+    rigSpec,
+    gaitCfg,
+    tuning,
+  });
+  return writeCycleAuditReportJson(outDir, {
+    personaId,
+    variant,
+    frameCount,
+    contactSheetPath,
+    jointCropsSheetPath,
+    standingProfileAuditPath,
+    resolvedAssetTuning: tuning ?? null,
+    effectiveRigLengths: {
+      torsoLength: Number(rigSpec.torsoLength.toFixed(2)),
+      upperArmLength: Number(rigSpec.upperArmLength.toFixed(2)),
+      forearmLength: Number(rigSpec.forearmLength.toFixed(2)),
+      thighLength: Number(rigSpec.thighLength.toFixed(2)),
+      shinLength: Number(rigSpec.shinLength.toFixed(2)),
+    },
+    frames: frameMetrics,
+  });
+}
+
+function writeStandingProfileAuditPlate(
+  outDir: string,
+  ctx: {
+    readonly personaId: RunnerPersonaId;
+    readonly variant: RunnerVariantId;
+    readonly rigSpec: AnatomicalRigSpec;
+    readonly gaitCfg: GaitConfig;
+    readonly tuning: PhotorealAssetTuningSpec | undefined;
+  },
+): string | null {
+  const standingPose = solveStandingUprightPose(ctx.rigSpec, ctx.gaitCfg.hairStyleMode);
+  const rawStanding = renderRunnerPoseToRaster({
+    pose: standingPose,
+    palette: RUNNER_PALETTES[ctx.variant],
+    pixelScale: 1,
+    personaId: ctx.personaId,
+    assetTuning: ctx.tuning,
+  });
+  const plate = buildThreePanelAuditPlate(rawStanding, standingPose);
+  const outPath = path.join(outDir, 'standing-profile-audit.png');
+  writePngFile(outPath, plate);
+  return outPath;
+}
+
+function writeAndMeasureCycleFrame(
+  raw: RasterImage,
+  pose: ArticulatedPose,
+  ctx: {
+    readonly index: number;
+    readonly framesDir: string;
+    readonly contactSheet: RasterImage;
+    readonly cols: number;
+  },
+): FrameDefectMetrics {
+  const num = String(ctx.index + 1).padStart(2, '0');
+  const deg = String(Math.round(pose.phase * 360)).padStart(3, '0');
+  const rawFramePath = path.join(ctx.framesDir, `raw-frame-${num}-deg-${deg}.png`);
+  const auditFramePath = path.join(ctx.framesDir, `audit-frame-${num}-deg-${deg}.png`);
+  writePngFile(rawFramePath, raw);
+  const auditPlate = buildThreePanelAuditPlate(raw, pose);
+  writePngFile(auditFramePath, auditPlate);
+  const cellPanel = renderNeutralPanelWithGround(raw, DEFAULT_RIG_SPEC.groundY);
+  const col = ctx.index % ctx.cols;
+  const row = Math.floor(ctx.index / ctx.cols);
+  blitRaster(ctx.contactSheet, cellPanel, {
+    x: col * DEFAULT_RIG_SPEC.canvasWidth,
+    y: row * DEFAULT_RIG_SPEC.canvasHeight,
+  });
+  return computeFrameDefectMetrics(raw, pose, {
+    frameIndex: ctx.index + 1,
+    rawFramePath,
+    auditFramePath,
+  });
+}
+
+function computeFrameDefectMetrics(
+  raw: RasterImage,
+  pose: ArticulatedPose,
+  meta: {
+    readonly frameIndex: number;
+    readonly rawFramePath: string;
+    readonly auditFramePath: string;
+  },
+): FrameDefectMetrics {
+  const sizes = listOpaqueComponentSizes(raw, 2);
+  const detached = sizes.slice(1);
+  const detachedIslandPixels = detached.reduce((acc, s) => acc + s, 0);
+  const scan = scanPixelAnomalies(raw);
+  const uncoveredJointNames = findUncoveredJoints(raw, pose);
+  return {
+    frameIndex: meta.frameIndex,
+    phase: Number(pose.phase.toFixed(4)),
+    phaseDeg: Math.round(pose.phase * 360),
+    phaseName: pose.phaseName,
+    rawFramePath: meta.rawFramePath,
+    auditFramePath: meta.auditFramePath,
+    foregroundPixelCount: scan.foregroundCount,
+    disconnectedIslandsCount: detached.length,
+    detachedIslandPixels,
+    magentaSpillPixelsCount: scan.magentaSpillCount,
+    semiTransparentFringeCount: scan.fringeCount,
+    lowestFootY: scan.maxY,
+    groundLineDeltaPx: scan.maxY - DEFAULT_RIG_SPEC.groundY,
+    uncoveredJointNames,
+  };
+}
+
+function scanPixelAnomalies(raw: RasterImage): {
+  readonly foregroundCount: number;
+  readonly magentaSpillCount: number;
+  readonly fringeCount: number;
+  readonly maxY: number;
+} {
+  let foregroundCount = 0;
+  let magentaSpillCount = 0;
+  let fringeCount = 0;
+  let maxY = 0;
+  for (let y = 0; y < raw.height; y++) {
+    for (let x = 0; x < raw.width; x++) {
+      const p = readPixel(raw, x, y);
+      if (p.a < 16) continue;
+      foregroundCount++;
+      if (y > maxY) maxY = y;
+      if (p.a < 140) fringeCount++;
+      if (p.r > 165 && p.b > 150 && p.r - p.g > 42 && p.b - p.g > 36) {
+        magentaSpillCount++;
+      }
+    }
+  }
+  return { foregroundCount, magentaSpillCount, fringeCount, maxY };
+}
+
+function findUncoveredJoints(raw: RasterImage, pose: ArticulatedPose): string[] {
+  const joints: ReadonlyArray<{ readonly name: string; readonly pt: Point2D }> = [
+    { name: 'neck', pt: pose.neck },
+    { name: 'collar', pt: pose.collar },
+    { name: 'pelvis', pt: pose.pelvis },
+    { name: 'nearElbow', pt: pose.nearArm.midJoint },
+    { name: 'nearKnee', pt: pose.nearLeg.midJoint },
+    { name: 'nearAnkle', pt: pose.nearLeg.endEffector },
+    { name: 'farKnee', pt: pose.farLeg.midJoint },
+    { name: 'farAnkle', pt: pose.farLeg.endEffector },
+  ];
+  const uncovered: string[] = [];
+  for (const j of joints) {
+    const cx = Math.round(j.pt.x);
+    const cy = Math.round(j.pt.y);
+    const maxA = Math.max(
+      readPixel(raw, cx, cy).a,
+      readPixel(raw, cx - 1, cy).a,
+      readPixel(raw, cx + 1, cy).a,
+      readPixel(raw, cx, cy - 1).a,
+      readPixel(raw, cx, cy + 1).a,
+    );
+    if (maxA < 160) uncovered.push(j.name);
+  }
+  return uncovered;
+}
+
+function buildThreePanelAuditPlate(
+  raw: RasterImage,
+  pose: ArticulatedPose,
+): RasterImage {
+  const w = raw.width;
+  const h = raw.height;
+  const plate = createRaster(w * 3, h);
+  const left = renderNeutralPanelWithGround(raw, DEFAULT_RIG_SPEC.groundY);
+  const mid = renderDarkAnomalyHighlightPanel(raw);
+  const right = renderJointOverlayPanel(left, pose);
+  blitRaster(plate, left, { x: 0, y: 0 });
+  blitRaster(plate, mid, { x: w, y: 0 });
+  blitRaster(plate, right, { x: w * 2, y: 0 });
+  return plate;
+}
+
+function renderNeutralPanelWithGround(
+  raw: RasterImage,
+  groundY: number,
+): RasterImage {
+  const out = createRaster(raw.width, raw.height);
+  fillRaster(out, { r: 226, g: 230, b: 238, a: 255 });
+  for (let x = 12; x < raw.width - 12; x++) {
+    writePixel(out, { x, y: groundY }, { r: 148, g: 158, b: 176, a: 255 });
+  }
+  for (let y = 0; y < raw.height; y++) {
+    for (let x = 0; x < raw.width; x++) {
+      const p = readPixel(raw, x, y);
+      if (p.a === 0) continue;
+      const bg = readPixel(out, x, y);
+      const a = p.a / 255;
+      writePixel(out, { x, y }, {
+        r: Math.round(p.r * a + bg.r * (1 - a)),
+        g: Math.round(p.g * a + bg.g * (1 - a)),
+        b: Math.round(p.b * a + bg.b * (1 - a)),
+        a: 255,
+      });
+    }
+  }
+  return out;
+}
+
+function renderDarkAnomalyHighlightPanel(raw: RasterImage): RasterImage {
+  const out = createRaster(raw.width, raw.height);
+  fillRaster(out, { r: 24, g: 28, b: 38, a: 255 });
+  for (let y = 0; y < raw.height; y++) {
+    for (let x = 0; x < raw.width; x++) {
+      const p = readPixel(raw, x, y);
+      if (p.a === 0) continue;
+      const isSpill = p.r > 165 && p.b > 150 && p.r - p.g > 42 && p.b - p.g > 36;
+      if (isSpill) {
+        writePixel(out, { x, y }, { r: 0, g: 255, b: 255, a: 255 });
+      } else {
+        const a = p.a / 255;
+        writePixel(out, { x, y }, {
+          r: Math.round(p.r * a + 24 * (1 - a)),
+          g: Math.round(p.g * a + 28 * (1 - a)),
+          b: Math.round(p.b * a + 38 * (1 - a)),
+          a: 255,
+        });
+      }
+    }
+  }
+  return out;
+}
+
+function renderJointOverlayPanel(
+  basePanel: RasterImage,
+  pose: ArticulatedPose,
+): RasterImage {
+  const out = createRaster(basePanel.width, basePanel.height);
+  out.data.set(basePanel.data);
+  const pivots: ReadonlyArray<{ readonly pt: Point2D; readonly color: RgbaColor }> = [
+    { pt: pose.headCenter, color: { r: 0, g: 210, b: 255, a: 255 } },
+    { pt: pose.neck, color: { r: 0, g: 255, b: 120, a: 255 } },
+    { pt: pose.collar, color: { r: 255, g: 200, b: 0, a: 255 } },
+    { pt: pose.pelvis, color: { r: 255, g: 60, b: 180, a: 255 } },
+    { pt: pose.nearArm.midJoint, color: { r: 255, g: 80, b: 40, a: 255 } },
+    { pt: pose.nearLeg.midJoint, color: { r: 40, g: 140, b: 255, a: 255 } },
+    { pt: pose.nearLeg.endEffector, color: { r: 40, g: 140, b: 255, a: 255 } },
+    { pt: pose.nearLeg.ballPoint, color: { r: 20, g: 220, b: 100, a: 255 } },
+  ];
+  for (const item of pivots) {
+    drawCrosshair(out, item.pt, item.color);
+  }
+  return out;
+}
+
+function drawCrosshair(img: RasterImage, pt: Point2D, color: RgbaColor): void {
+  const cx = Math.round(pt.x);
+  const cy = Math.round(pt.y);
+  for (let d = -3; d <= 3; d++) {
+    if (cx + d >= 0 && cx + d < img.width && cy >= 0 && cy < img.height) {
+      writePixel(img, { x: cx + d, y: cy }, color);
+    }
+    if (cy + d >= 0 && cy + d < img.height && cx >= 0 && cx < img.width) {
+      writePixel(img, { x: cx, y: cy + d }, color);
+    }
+  }
+}
+
+function resolvePoseAdaptiveZones(
+  pose: ArticulatedPose | undefined,
+  cropW: number,
+  cropH: number,
+  canvasW: number,
+  canvasH: number,
+): ReadonlyArray<{ readonly minX: number; readonly minY: number }> {
+  const clampX = (x: number) => Math.max(0, Math.min(canvasW - cropW, Math.round(x)));
+  const clampY = (y: number) => Math.max(0, Math.min(canvasH - cropH, Math.round(y)));
+  if (!pose) {
+    return [
+      { minX: 62, minY: 42 },
+      { minX: 60, minY: 98 },
+      { minX: 55, minY: 160 },
+    ];
+  }
+  const neckShoulderCenterX = (pose.neck.x + pose.collar.x) * 0.5;
+  const neckShoulderCenterY = (pose.neck.y + pose.collar.y) * 0.5 + 8;
+  const pelvisCenterX = pose.pelvis.x;
+  const pelvisCenterY = pose.pelvis.y + 4;
+  const footCenterX = (pose.nearLeg.midJoint.x + pose.nearLeg.endEffector.x) * 0.5;
+  const footMinY = pose.groundY + 8 - cropH;
+  return [
+    { minX: clampX(neckShoulderCenterX - cropW * 0.45), minY: clampY(neckShoulderCenterY - cropH * 0.48) },
+    { minX: clampX(pelvisCenterX - cropW * 0.45), minY: clampY(pelvisCenterY - cropH * 0.46) },
+    { minX: clampX(footCenterX - cropW * 0.45), minY: clampY(footMinY) },
+  ];
+}
+
+function buildZoomedJointCropsSheet(
+  rawFrames: readonly RasterImage[],
+  poses: readonly ArticulatedPose[] = [],
+): RasterImage {
+  const cropW = 90;
+  const cropH = 80;
+  const scale = 2;
+  const cellW = cropW * scale;
+  const cellH = cropH * scale;
+  const count = Math.max(1, rawFrames.length);
+  const sampleIndices = [
+    0,
+    Math.floor(count * 0.25),
+    Math.floor(count * 0.5),
+    Math.floor(count * 0.75),
+  ];
+  const sheet = createRaster(sampleIndices.length * cellW, 3 * cellH);
+  fillRaster(sheet, { r: 226, g: 230, b: 238, a: 255 });
+  for (let c = 0; c < sampleIndices.length; c++) {
+    const idx = sampleIndices[c] ?? 0;
+    const frame = rawFrames[idx] ?? rawFrames[0]!;
+    const pose = poses[idx] ?? poses[0];
+    const zones = resolvePoseAdaptiveZones(pose, cropW, cropH, frame.width, frame.height);
+    const panel = renderNeutralPanelWithGround(frame, DEFAULT_RIG_SPEC.groundY);
+    for (let r = 0; r < zones.length; r++) {
+      blitMagnifiedZone(sheet, panel, {
+        srcMinX: zones[r]!.minX,
+        srcMinY: zones[r]!.minY,
+        cropW,
+        cropH,
+        dstOffsetX: c * cellW,
+        dstOffsetY: r * cellH,
+        scale,
+      });
+    }
+  }
+  return sheet;
+}
+
+function blitMagnifiedZone(
+  dst: RasterImage,
+  src: RasterImage,
+  spec: {
+    readonly srcMinX: number;
+    readonly srcMinY: number;
+    readonly cropW: number;
+    readonly cropH: number;
+    readonly dstOffsetX: number;
+    readonly dstOffsetY: number;
+    readonly scale: number;
+  },
+): void {
+  for (let y = 0; y < spec.cropH * spec.scale; y++) {
+    const sy = Math.min(src.height - 1, spec.srcMinY + Math.floor(y / spec.scale));
+    for (let x = 0; x < spec.cropW * spec.scale; x++) {
+      const sx = Math.min(src.width - 1, spec.srcMinX + Math.floor(x / spec.scale));
+      writePixel(
+        dst,
+        { x: spec.dstOffsetX + x, y: spec.dstOffsetY + y },
+        readPixel(src, sx, sy),
+      );
+    }
+  }
+}
+
+function writeCycleAuditReportJson(
+  outDir: string,
+  data: Omit<
+    CycleAuditReport,
+    | 'outDir'
+    | 'reportJsonPath'
+    | 'totalDisconnectedIslands'
+    | 'totalMagentaSpillPixels'
+    | 'framesWithUncoveredJoints'
+  >,
+): CycleAuditReport {
+  const reportJsonPath = path.join(outDir, 'audit-report.json');
+  const totalDisconnectedIslands = data.frames.reduce(
+    (s, f) => s + f.disconnectedIslandsCount,
+    0,
+  );
+  const totalMagentaSpillPixels = data.frames.reduce(
+    (s, f) => s + f.magentaSpillPixelsCount,
+    0,
+  );
+  const framesWithUncoveredJoints = data.frames.filter(
+    (f) => f.uncoveredJointNames.length > 0,
+  ).length;
+  const report: CycleAuditReport = {
+    outDir,
+    ...data,
+    reportJsonPath,
+    totalDisconnectedIslands,
+    totalMagentaSpillPixels,
+    framesWithUncoveredJoints,
+  };
+  fs.writeFileSync(reportJsonPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+  return report;
+}
