@@ -14,7 +14,7 @@
 ## 1. Latest observed tips
 
 <!-- branch-tips:start -->
-Observed (UTC): 2026-10-17T23:27:31Z via `npm run branches:compare` (git fetch of exact refs).
+Observed (UTC): 2026-10-18T00:04:17Z via `npm run branches:compare` (git fetch of exact refs).
 
 | # | Branch | PR | Full SHA | Commit time | Subject |
 |---|---|---|---|---|---|
@@ -24,7 +24,7 @@ Observed (UTC): 2026-10-17T23:27:31Z via `npm run branches:compare` (git fetch o
 | 3 | `arena/77ffb088-super-duper-funicular` | #3 OPEN | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | 2026-10-17T23:05:53+00:00 | Track live three-way feature parity and adopt multi-background photo audits |
 | 4 | `arena/ce6d2a6e-super-duper-funicular` | none | `bab689cdac3ba730138bfae09dda537978d61e09` | 2026-10-17T06:27:14+00:00 | Adopt GREENFIELD discipline; extract running sprites; procedural runner app |
 | 5 | `arena/64422739-super-duper-funicular` | #4 OPEN | `1a815d502f87cc88c5ded7ccd41f454c72a31b38` | 2026-10-17T23:13:29+00:00 | docs(ledger): record first-pushed SHA 2dd05fa per post-push refresh rule |
-| 6 | `arena/8dcf54e8-super-duper-funicular` | this PR | `396ce256debcb5bdc2419cc0f3f399730b61ab36` | 2026-10-17T13:53:48+08:00 | Add files via upload |
+| 6 | `arena/8dcf54e8-super-duper-funicular` | this PR | `3708af7c59a41f6dd1059dc921a794106fa0c34d` | 2026-10-18T00:04:07+00:00 | Stage 1+2: harmonised greenfield discipline, live n-way ledger, FDS/addenda, procedural runner engine + forensics + workbench |
 <!-- branch-tips:end -->
 
 Row roles (reviewed 2026-10-17, detached extracts at `/tmp/branches/*`):

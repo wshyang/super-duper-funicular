@@ -1,5 +1,5 @@
 {
-  "observedAt": "2026-10-17T23:27:31Z",
+  "observedAt": "2026-10-18T00:04:17Z",
   "tips": [
     {
       "sha": "396ce256debcb5bdc2419cc0f3f399730b61ab36",
@@ -56,13 +56,13 @@
       "source": "remote"
     },
     {
-      "sha": "396ce256debcb5bdc2419cc0f3f399730b61ab36",
-      "committedAt": "2026-10-17T13:53:48+08:00",
-      "subject": "Add files via upload",
+      "sha": "3708af7c59a41f6dd1059dc921a794106fa0c34d",
+      "committedAt": "2026-10-18T00:04:07+00:00",
+      "subject": "Stage 1+2: harmonised greenfield discipline, live n-way ledger, FDS/addenda, procedural runner engine + forensics + workbench",
       "row": "6",
       "branch": "arena/8dcf54e8-super-duper-funicular",
       "pr": "this PR",
-      "source": "local-unpushed"
+      "source": "remote"
     }
   ]
 }
