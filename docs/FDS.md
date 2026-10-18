@@ -1,6 +1,6 @@
 # Functional Design Specification — Harmonised N-Way Greenfield Studio & Algorithmic Running Engine
 
-- **Document Version:** 4.8.0
+- **Document Version:** 4.9.0
 - **Date:** 2026-10-18
 - **Status:** Active Canonical Specification (`[INTENT_ALIGNED]`)
 - **Active Session Branch:** `arena/e1300d3c-super-duper-funicular`
@@ -930,7 +930,7 @@ See [`docs/THREE_WAY_BRANCH_COMPARISON.md`](./THREE_WAY_BRANCH_COMPARISON.md) (`
 
 ---
 
-### 12.4 Turn-by-Turn Continuous Learning Register (`TURN-L01`..`TURN-L20`)
+### 12.4 Turn-by-Turn Continuous Learning Register (`TURN-L01`..`TURN-L21`)
 
 | Turn ID & Date | Context & Trigger | Concrete Evidence Inspected | Technical Learnings & Decisions Taken | Executed Validation & Next Action |
 |---|---|---|---|---|
@@ -956,6 +956,7 @@ See [`docs/THREE_WAY_BRANCH_COMPARISON.md`](./THREE_WAY_BRANCH_COMPARISON.md) (`
 | **`TURN-L19`** (`2026-10-18`, *Athletic Bust Landmark Height Correction*) | User correction: the rendered athletic bust still sat too low after the previous torso/source updates. | Re-inspected the generated athletic torso plate, extracted torso part, 16-frame gait cycle, and a neutral side-by-side source-vs-stitched standing comparison at `/tmp/standing-bust-compare.png`. | Extended the athletic torso extraction lower bound from source `y=605` to `y=735`, moving the chest landmark from about output `y=80` to `y=67` while retaining the waist endpoint; added a local non-linear landmark lift to move that bust landmark to `y=57` while preserving the top (`y=24`) and waist (`y=122`) anchors. The warp is athletic-only and does not alter petite/average assets or generic rig geometry. | Added a landmark-preservation unit test; regenerated sheets and inspected the upright comparison plus 16-frame cycle. Cycle telemetry: `detachedIslands=0`, `magentaSpill=0`, `uncoveredJointFrames=0`. Final validation passed: `npm test` (44/44), `npm run typecheck`, and `npm run build`; committed as a follow-up on the existing PR. Recheck breast height against the source profile if torso geometry changes again. |
 
 | **`TURN-L20`** (`2026-10-18`, *Bust Size Recheck & Photoreal Asset Cache Busting*) | User reported that the rendered athletic bust still looked unchanged and too large, raising the possibility that the app was showing cached art. | Traced browser loading in `src/app/hooks/usePhotorealRigAssets.ts`; it requested fixed PNG URLs with no cache revision. Re-rendered the current parts in a fresh process and compared the neutral stitched profile against the keyed master (`/tmp/standing-bust-final-compare.png`). | Added a per-load URL revision to every photoreal body-part request so new browser loads cannot reuse prior cached cutouts. Further shaped the athletic torso locally: retain the `y=67→57` lift and reduce anterior chest projection by 22% only around the bust landmark, leaving top/waist anchors and petite/average assets untouched. Source-vs-rig review shows chest level and projection closer to the athletic reference; a hard reload is required to discard an already-loaded in-memory bank. | Added cache-URL and silhouette-anchor regression coverage; regenerated sheets and visually inspected `/tmp/standing-bust-final-compare.png` plus all 16 phases in `/tmp/gait-bust-final/contact-sheet-16frame.png`. Final checks passed: `npm test` (45/45), `npm run typecheck`, and `npm run build`; update PR #8 with the cache-busting and contour correction. |
+| **`TURN-L21`** (`2026-10-18`, *Athletic Collarbone Bulge Removal & Shoulder Contour Review*) | User reported a new tumor-like bulge at the athletic runner’s collarbone after the bust/cache correction and explicitly asked that removal not create another unnatural shoulder shape. | Inspected the athletic `torso.png`, the assembled runner’s 16-frame contact sheet and joint crops, and reran extraction after each shoulder-fill/contour adjustment. | Isolate the athletic torso extraction in `extractAthleticTorso`; replace the attached arm/skin-shadow patch with row-matched singlet while preserving the white side stripe and an opaque torso closure. Taper the outer shoulder edge rather than leaving an arm-shaped flesh mound. Keep the articulated arm separate and preserve petite/average mappings. Visual assessment is on the assembled figure, not only the cutout. | Added shoulder-cleanup and closed-stump regression assertions; regenerated all sheets. Final `/tmp/gait-collarbone-compromise/contact-sheet-16frame.png` and joint crops show no flesh-colored collarbone bulb; telemetry is `detachedIslands=0`, `magentaSpill=0`, `uncoveredJointFrames=0`. Final checks: `npm test` (46/46), `npm run typecheck`, `npm run build`; update existing PR #8. |
 
 
 ---
@@ -999,6 +1000,7 @@ See [`docs/THREE_WAY_BRANCH_COMPARISON.md`](./THREE_WAY_BRANCH_COMPARISON.md) (`
 | `4.6.0` | `2026-10-18` | `ADD-035` | Replaced the athletic master with a visually audited neutral parallel-leg profile, updated its pixel-height calibration, modestly widened the petite preset, tested and reverted chest-location remaps that introduced seams, added future relative-height scaling for multi-persona displays, and logged eleven generation attempts (`Calls #62`..`#72`), including rejected candidates and a limit-blocked torso retry. Recorded `TURN-L18`. |
 | `4.7.0` | `2026-10-18` | `ADD-036` | Corrected the still-low athletic bust landmark with a locally non-linear vertical torso remap that raises the chest contour while preserving the shoulder and waist anchors; added a regression test and visually checked the neutral source-vs-rig comparison and regenerated gait cycle. Recorded `TURN-L19`. |
 | `4.8.0` | `2026-10-18` | `ADD-037` | Added per-load cache revisions to photoreal part URLs; refined the athletic torso with a 22% local anterior bust-projection reduction and landmark lift, preserving torso top/waist anchors; validated against the neutral source-vs-rig profile and gait cycle. Recorded `TURN-L20`. |
+| `4.9.0` | `2026-10-18` | `ADD-038` | Removed the athletic torso’s collarbone skin/shadow bulb with singlet fill, kept the shoulder closure opaque, tapered the shoulder edge, and visually checked the assembled gait cycle plus telemetry. Recorded `TURN-L21`. |
 
 
 

@@ -19,7 +19,11 @@ import {
   purgeSkinPartFabricSpill,
 } from './photoreal-matte-and-qc.js';
 import { createRaster, readPixel, writePixel } from './raster.js';
-import { extractAthleticFarArmParts, extractAthleticNeck, raiseAthleticBustLandmark } from './athletic-reference-extractor.js';
+import {
+  extractAthleticFarArmParts,
+  extractAthleticNeck,
+  extractAthleticTorso,
+} from './athletic-reference-extractor.js';
 import {
   applyPivotArcRoundedCut,
   cutArticulatedLimbWithRoundedEnds,
@@ -341,30 +345,23 @@ function extractTorsoCutout(
 ): RasterImage {
   const isAvg = tier === 'average';
   const isPetite = tier === 'petite';
-  // The athletic close torso plate already has a closed skin-covered shoulder stump.
-  const cleaned =
-    tier === 'athletic'
-      ? src
-      : cleanAverageTorsoNeckStub(src);
-  const aligned = extractSimilarityAlignedPart(cleaned, {
-    srcStart: isAvg ? { x: 682, y: 182 } : isPetite ? { x: 668, y: 145 } : { x: 663, y: 165 },
-    srcEnd: isAvg ? { x: 712, y: 585 } : isPetite ? { x: 704, y: 615 } : { x: 706, y: 735 },
-    dstStart: isAvg ? { x: 74, y: 22 } : { x: 74, y: 24 },
-    dstEnd: isAvg ? { x: 80, y: 124 } : isPetite ? { x: 80, y: 118 } : { x: 80, y: 122 },
-    cropBox: isAvg
-      ? { minX: 525, minY: 138, maxX: 880, maxY: 665 }
-      : isPetite
-        ? { minX: 550, minY: 128, maxX: 855, maxY: 622 }
-        : { minX: 534, minY: 142, maxX: 874, maxY: 760 },
-    shadeScale: 1.0,
-  });
-  const raw = tier === 'athletic' ? raiseAthleticBustLandmark(aligned) : aligned;
+  const raw = tier === 'athletic'
+    ? extractAthleticTorso(src)
+    : extractSimilarityAlignedPart(cleanAverageTorsoNeckStub(src), {
+        srcStart: isAvg ? { x: 682, y: 182 } : { x: 668, y: 145 },
+        srcEnd: isAvg ? { x: 712, y: 585 } : { x: 704, y: 615 },
+        dstStart: { x: 74, y: isAvg ? 22 : 24 },
+        dstEnd: { x: 80, y: isAvg ? 124 : 118 },
+        cropBox: isAvg
+          ? { minX: 525, minY: 138, maxX: 880, maxY: 665 }
+          : { minX: 550, minY: 128, maxX: 855, maxY: 622 },
+        shadeScale: 1.0,
+      });
   return applyPivotArcRoundedCut(raw, {
     pivot: { x: 80, y: isAvg ? 114 : isPetite ? 105 : 108 },
     radiusX: isAvg ? 46 : isPetite ? 26 : 31,
     radiusY: isPetite ? 18 : 20,
-    cutSide: 'below',
-    featherPx: 3.5,
+    cutSide: 'below', featherPx: 3.5,
   });
 }
 

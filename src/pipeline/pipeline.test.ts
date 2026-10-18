@@ -27,11 +27,28 @@ import {
   cutHorizontalLimbWithRoundedEnds,
 } from './rounded-joint-cutter.js';
 import { extractArmSegmentsFromMasterSideProfile } from './side-profile-arm-extractor.js';
-import { raiseAthleticBustLandmark } from './athletic-reference-extractor.js';
+import {
+  raiseAthleticBustLandmark,
+  sealAthleticTorsoShoulderBulge,
+} from './athletic-reference-extractor.js';
 import { vectorizeRasterCutoutToSvg } from './svg-vectorizer.js';
 import type { ExtractedSheetManifest, SpriteFlawAnalysisReport } from '../shared/types.js';
 
 describe('Magenta chroma-key and raster primitives', () => {
+  it('removes the collarbone shoulder bulb but keeps a solid singlet stump', () => {
+    const torso = createRaster(160, 160);
+    for (let y = 20; y <= 56; y++) {
+      for (let x = 40; x <= 64; x++) writePixel(torso, { x, y }, { r: 150, g: 25, b: 40, a: 255 });
+      for (let x = 65; x <= 115; x++) writePixel(torso, { x, y }, { r: 205, g: 145, b: 112, a: 255 });
+    }
+    const corrected = sealAthleticTorsoShoulderBulge(torso);
+    const filledShoulder = readPixel(corrected, 91, 36);
+    expect(filledShoulder.a).toBe(255);
+    expect(filledShoulder.r).toBeGreaterThan(filledShoulder.g * 1.35);
+    expect(readPixel(corrected, 101, 36).a).toBe(0);
+    expect(readPixel(corrected, 70, 36)).toEqual({ r: 150, g: 25, b: 40, a: 255 });
+  });
+
   it('raises the athletic torso bust landmark while preserving the waist anchor', () => {
     const torso = createRaster(160, 160);
     for (let x = 50; x <= 110; x++) {
@@ -96,9 +113,9 @@ describe('Real reference sprite sheet grid detection and extraction verification
     }
     expect(clothingOrHairPixels).toBe(0);
 
-    // This opaque skin pixel is inside the shoulder stump, not its silhouette;
-    // it guards against restoring the see-through armhole/lining artifact.
-    expect(readPixel(torso, 100, 60).a).toBeGreaterThan(128);
+    // A solid jersey pixel inside the shoulder closure guards against reopening
+    // the armhole and exposing the inner lining.
+    expect(readPixel(torso, 90, 60).a).toBeGreaterThan(128);
 
     // In the left-palm plate the thumb is the lateral projection, while the
     // four fingers continue down the hand. Both must survive extraction.
