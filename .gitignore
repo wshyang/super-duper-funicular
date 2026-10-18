@@ -1,0 +1,9 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+
+# Review worktrees for watched PR branches (ADD-002) — scratch checkouts, not deliverables
+review-pr1/
+review-pr8/
