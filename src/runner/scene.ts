@@ -1,6 +1,7 @@
 import type {
   BodyPartId,
   Calibration,
+  JointStyle,
   GaitSettings,
   PoseFrame,
   Primitive,
@@ -16,6 +17,7 @@ import {
   circle,
   darken,
   ellipsePoints,
+  lighten,
   limb,
   polygon,
   shine,
@@ -173,44 +175,6 @@ const hairPart = (
   };
 };
 
-const armParts = (frame: PoseFrame, far: boolean, skin: string, radius: number): ScenePart[] => {
-  const arm = far ? frame.pose.farArm : frame.pose.nearArm;
-  const suffix = far ? 'far' : 'near';
-  return [
-    limb(
-      `${suffix}UpperArm`,
-      arm.shoulder,
-      arm.elbow,
-      radius,
-      skin,
-      far,
-      circle(arm.shoulder, radius * 0.96, darken(skin, 0.16), { outlineWidth: 0 }),
-    ),
-    limb(
-      `${suffix}Forearm`,
-      arm.elbow,
-      arm.wrist,
-      radius * 0.9,
-      skin,
-      far,
-      circle(arm.elbow, radius * 0.86, darken(skin, 0.18), { outlineWidth: 0 }),
-    ),
-    {
-      part: `${suffix}Hand`,
-      primitives: [
-        circle(arm.wrist, radius * 0.58, darken(skin, 0.1), {
-          outline: far ? OUTLINE_FAR : OUTLINE,
-          outlineWidth: 0.9,
-        }),
-        circle(arm.hand, radius * 0.78, skin, {
-          outline: far ? OUTLINE_FAR : OUTLINE,
-          outlineWidth: 0.9,
-        }),
-      ],
-    },
-  ];
-};
-
 const sockPrimitives = (
   ankle: Vec2,
   knee: Vec2,
@@ -228,15 +192,84 @@ const sockPrimitives = (
   ];
 };
 
+/** Recessed ball at a joint: dark rim, lighter ball, small highlight. */
+const socketPrimitives = (
+  center: Vec2,
+  radius: number,
+  skin: string,
+  far: boolean,
+): Primitive[] => [
+  circle(center, radius * 1.02, darken(skin, far ? 0.42 : 0.3), {
+    outline: far ? OUTLINE_FAR : OUTLINE,
+    outlineWidth: 0.8,
+  }),
+  circle(center, radius * 0.62, far ? darken(skin, 0.18) : lighten(skin, 0.04), {
+    outlineWidth: 0,
+  }),
+  circle(
+    add(center, vec(-radius * 0.16, -radius * 0.18)),
+    radius * 0.2,
+    'rgba(255, 255, 255, 0.35)',
+    {
+      outlineWidth: 0,
+    },
+  ),
+];
+
+const armParts = (
+  frame: PoseFrame,
+  far: boolean,
+  skin: string,
+  radius: number,
+  jointStyle: JointStyle,
+): ScenePart[] => {
+  const arm = far ? frame.pose.farArm : frame.pose.nearArm;
+  const suffix = far ? 'far' : 'near';
+  const socket = jointStyle === 'socket';
+  const shoulderJoint: Primitive[] = [
+    circle(arm.shoulder, radius * 0.96, darken(skin, 0.16), { outlineWidth: 0 }),
+    ...(socket ? socketPrimitives(arm.shoulder, radius * 0.8, skin, far) : []),
+  ];
+  const elbowJoint: Primitive[] = [
+    circle(arm.elbow, radius * 0.86, darken(skin, 0.18), { outlineWidth: 0 }),
+    ...(socket ? socketPrimitives(arm.elbow, radius * 0.72, skin, far) : []),
+  ];
+  return [
+    limb(`${suffix}UpperArm`, arm.shoulder, arm.elbow, radius, skin, far, shoulderJoint),
+    limb(`${suffix}Forearm`, arm.elbow, arm.wrist, radius * 0.9, skin, far, elbowJoint),
+    {
+      part: `${suffix}Hand`,
+      primitives: [
+        circle(arm.wrist, radius * 0.58, darken(skin, 0.1), {
+          outline: far ? OUTLINE_FAR : OUTLINE,
+          outlineWidth: 0.9,
+        }),
+        circle(arm.hand, radius * 0.78, skin, {
+          outline: far ? OUTLINE_FAR : OUTLINE,
+          outlineWidth: 0.9,
+        }),
+      ],
+    },
+  ];
+};
+
+const jointStyleOf = (settings: GaitSettings): JointStyle => settings.jointStyle ?? 'socket';
+
 const legParts = (
   frame: PoseFrame,
   far: boolean,
   skin: string,
   width: number,
   socks: string,
+  jointStyle: JointStyle,
 ): ScenePart[] => {
   const leg = far ? frame.pose.farLeg : frame.pose.nearLeg;
   const suffix = far ? 'far' : 'near';
+  const socket = jointStyle === 'socket';
+  const hipJoint: Primitive[] = [
+    circle(leg.hip, width * 0.9, darken(skin, 0.14), { outlineWidth: 0 }),
+    ...(socket ? socketPrimitives(leg.hip, width * 0.78, skin, far) : []),
+  ];
   const shin = limb(
     `${suffix}Shin`,
     leg.knee,
@@ -244,18 +277,10 @@ const legParts = (
     width * 0.93,
     skin,
     far,
-    circle(leg.knee, width * 0.82, darken(skin, 0.2), { outlineWidth: 0 }),
+    socket ? socketPrimitives(leg.knee, width * 0.72, skin, far) : [],
   );
   return [
-    limb(
-      `${suffix}Thigh`,
-      leg.hip,
-      leg.knee,
-      width,
-      skin,
-      far,
-      circle(leg.hip, width * 0.9, darken(skin, 0.14), { outlineWidth: 0 }),
-    ),
+    limb(`${suffix}Thigh`, leg.hip, leg.knee, width, skin, far, hipJoint),
     {
       ...shin,
       primitives: [
@@ -298,9 +323,10 @@ export const buildScene = (
   const nearSkin = persona.skin;
   const farSkin = darken(persona.skin, 0.3);
   const socks = darken(palette.primary, 0.08);
+  const jointStyle = jointStyleOf(settings);
   const parts: ScenePart[] = [
-    ...armParts(frame, true, farSkin, rig.farLimbWidth),
-    ...legParts(frame, true, farSkin, rig.farLimbWidth, socks),
+    ...armParts(frame, true, farSkin, rig.farLimbWidth, jointStyle),
+    ...legParts(frame, true, farSkin, rig.farLimbWidth, socks, jointStyle),
     pelvisPart(frame, palette.shorts, palette.accent),
     {
       part: 'neck',
@@ -312,8 +338,8 @@ export const buildScene = (
     hairPart(frame, persona.hair, persona.ponytail, frame.pose.headAngleRad),
     torsoPart(frame, palette.primary, palette.accent, rig.torso),
     headPart(frame, nearSkin, persona.skinShade, persona.hair, rig.headRadiusX, rig.headRadiusY),
-    ...legParts(frame, false, nearSkin, rig.nearLimbWidth, socks),
-    ...armParts(frame, false, nearSkin, rig.nearLimbWidth * 0.95),
+    ...legParts(frame, false, nearSkin, rig.nearLimbWidth, socks, jointStyle),
+    ...armParts(frame, false, nearSkin, rig.nearLimbWidth * 0.95, jointStyle),
   ];
   const ordered = PART_ORDER.map((id) => parts.find((part) => part.part === id)).filter(
     (part): part is ScenePart => part !== undefined,

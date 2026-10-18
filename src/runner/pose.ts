@@ -122,7 +122,7 @@ const upperBodyOf = (
 ): UpperBody => {
   const hip = add(baseHip, calibration.hip);
   const torsoVector = rotate(vec(0, -rig.torso), lean);
-  const shoulderCenter = add(add(hip, scale(torsoVector, 0.86)), calibration.shoulder);
+  const shoulderCenter = add(add(hip, scale(torsoVector, 0.9)), calibration.shoulder);
   const neckBase = add(hip, scale(torsoVector, 0.985));
   const neckAngle = lean * 0.45;
   const neckTop = add(
@@ -168,8 +168,8 @@ export const solvePose = (
   // Leg roots stay on the uncalibrated pelvis so hip nudges never stretch a leg chain.
   const nearHip = add(baseHip, vec(rig.hipWidth * 0.18, 5));
   const farHip = add(baseHip, vec(-rig.hipWidth * 0.18, 4));
-  const nearShoulder = add(upper.shoulder, vec(3, rig.shoulderDrop));
-  const farShoulder = add(upper.shoulder, vec(-8, rig.shoulderDrop + 1));
+  const nearShoulder = add(upper.shoulder, vec(4, rig.shoulderDrop));
+  const farShoulder = add(upper.shoulder, vec(-9, rig.shoulderDrop + 1));
   const pose: BodyPose = {
     origin: baseHip,
     ...upper,

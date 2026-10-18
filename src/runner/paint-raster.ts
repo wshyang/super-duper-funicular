@@ -1,4 +1,5 @@
 import type { Primitive, RenderScene, Vec2 } from '../shared/types.ts';
+import { parseColor as parseCssColor } from './scene-shapes.ts';
 
 export interface RasterImage {
   readonly width: number;
@@ -14,31 +15,8 @@ interface Rgba {
 }
 
 const parseColor = (color: string): Rgba => {
-  if (color.startsWith('#')) {
-    const value = color.slice(1);
-    const full =
-      value.length === 3
-        ? value
-            .split('')
-            .map((channel) => channel + channel)
-            .join('')
-        : value;
-    return {
-      r: Number.parseInt(full.slice(0, 2), 16) / 255,
-      g: Number.parseInt(full.slice(2, 4), 16) / 255,
-      b: Number.parseInt(full.slice(4, 6), 16) / 255,
-      a: 1,
-    };
-  }
-  const match = color.match(/rgba?\(([^)]+)\)/);
-  if (!match) return { r: 0, g: 0, b: 0, a: 1 };
-  const parts = (match[1] as string).split(',').map((part) => Number.parseFloat(part.trim()));
-  return {
-    r: (parts[0] ?? 0) / 255,
-    g: (parts[1] ?? 0) / 255,
-    b: (parts[2] ?? 0) / 255,
-    a: parts[3] === undefined ? 1 : parts[3],
-  };
+  const { r, g, b, a } = parseCssColor(color);
+  return { r: r / 255, g: g / 255, b: b / 255, a };
 };
 
 const circlePolygon = (center: Vec2, radius: number, segments = 44): Vec2[] => {

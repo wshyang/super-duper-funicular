@@ -10,7 +10,8 @@ Live priorities. Completed items leave this file only when their outcome is reco
 | P0 | Far arm crosses the torso silhouette at φ≈0.55–0.75 | viewed audit sheet | 16-phase sheet where the near chain reads in front at every phase |
 | P0 | ~~Shoe overlaps the near shin at max dorsiflexion~~ **fixed this turn** | viewed audit sheet | sock capsule covers the junction; shoe radii reduced; verified at φ 0.15–0.40 |
 | P1 | Ponytail reads as one blob at high cadence | viewed audit sheet | three distinguishable segments with measurable lag |
-| P1 | Browser verification story | no browser runtime in sandbox | a suite that can run where a browser exists, with video on by default |
+| P1 | Browser verification story | no browser runtime in sandbox | Playwright suite + config committed (video on); **unrun** — browser download blocked |
+| P0 | ~~Black preview page~~ | viewed by the user in the live preview | **Fixed**: rgba-safe colour parser + jsdom canvas-mock mount test |
 
 ## 2. Next (parity queue)
 

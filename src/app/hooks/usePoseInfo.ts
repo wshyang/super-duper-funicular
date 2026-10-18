@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import type { BodyPartId, GaitSettings } from '../../shared/types.ts';
-import { buildScene } from '../../runner/scene.ts';
+import { PART_ORDER } from '../../shared/constants.ts';
 import { canonicalFrameIndex, motionLabel } from '../../runner/gait.ts';
 import { solvePose } from '../../runner/pose.ts';
 
@@ -18,13 +18,14 @@ export const usePoseInfo = (
   visibleParts?: readonly BodyPartId[],
 ): PoseInfo =>
   useMemo(() => {
+    // Only the pose is needed here; building a full scene per frame would
+    // repaint-cost 60 times a second for a part count.
     const frame = solvePose(settings, phase);
-    const scene = buildScene(settings, phase, { visibleParts });
     return {
       isFlight: frame.isFlight,
       isDoubleSupport: frame.isDoubleSupport,
       canonicalIndex: canonicalFrameIndex(phase),
       motionName: motionLabel(settings.motion),
-      partCount: scene.parts.length,
+      partCount: visibleParts ? visibleParts.length : PART_ORDER.length,
     };
   }, [settings, phase, visibleParts]);

@@ -1,4 +1,12 @@
-import type { GaitSettings, MotionId, Palette, PaletteId, Persona, PersonaId } from './types.ts';
+import type {
+  JointStyle,
+  GaitSettings,
+  MotionId,
+  Palette,
+  PaletteId,
+  Persona,
+  PersonaId,
+} from './types.ts';
 
 export const APP_NAME = 'Funicular Motion Lab';
 export const APP_VERSION = '0.1.0';
@@ -109,6 +117,7 @@ export const MOTION_BY_ID = Object.fromEntries(
 
 export const DEFAULT_GAIT: GaitSettings = {
   persona: 'mei-lin',
+  jointStyle: 'socket',
   palette: 'red',
   motion: 'run',
   cadence: 0.82,
@@ -116,6 +125,11 @@ export const DEFAULT_GAIT: GaitSettings = {
   footLift: 1,
   lean: 1,
 };
+
+export const JOINT_STYLES: readonly { id: JointStyle; label: string; description: string }[] = [
+  { id: 'socket', label: 'Ball sockets', description: 'Recessed ball at every joint' },
+  { id: 'smooth', label: 'Smooth', description: 'Continuous capsule limbs' },
+];
 
 export const PHASE_STEP = 1 / 8;
 

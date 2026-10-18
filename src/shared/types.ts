@@ -30,8 +30,11 @@ export interface Persona {
   readonly ponytail: boolean;
 }
 
+export type JointStyle = 'smooth' | 'socket';
+
 export interface GaitSettings {
   readonly persona: PersonaId;
+  readonly jointStyle: JointStyle;
   readonly palette: PaletteId;
   readonly motion: MotionId;
   readonly cadence: number;

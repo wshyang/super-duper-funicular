@@ -14,15 +14,17 @@ drifts from `src/generated/branch-tips.json`.
 ## 1. Latest observed remote tips
 
 <!-- branch-tips:start -->
+
 Observed (UTC): 2026-10-18T00:01:25.348Z
 
-| Implementation | Branch | Full remote SHA | Commit time |
-| --- | --- | --- | --- |
-| Sprite Motion Lab | `arena/917ef347-super-duper-funicular` | `e172b0f1f8d9b640b65a4ba420f71965693adb23` | 2026-10-17T23:09:40+00:00 |
-| Stride Lab | `arena/263385da-super-duper-funicular` | `b227e2fe562be341f15f58955f539d325170729e` | 2026-10-17T21:55:19+00:00 |
-| Funicular | `arena/77ffb088-super-duper-funicular` | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | 2026-10-17T23:05:53+00:00 |
-| Procedural Runner | `arena/ce6d2a6e-super-duper-funicular` | `bab689cdac3ba730138bfae09dda537978d61e09` | 2026-10-17T06:27:14+00:00 |
+| Implementation              | Branch                                 | Full remote SHA                            | Commit time               |
+| --------------------------- | -------------------------------------- | ------------------------------------------ | ------------------------- |
+| Sprite Motion Lab           | `arena/917ef347-super-duper-funicular` | `e172b0f1f8d9b640b65a4ba420f71965693adb23` | 2026-10-17T23:09:40+00:00 |
+| Stride Lab                  | `arena/263385da-super-duper-funicular` | `b227e2fe562be341f15f58955f539d325170729e` | 2026-10-17T21:55:19+00:00 |
+| Funicular                   | `arena/77ffb088-super-duper-funicular` | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | 2026-10-17T23:05:53+00:00 |
+| Procedural Runner           | `arena/ce6d2a6e-super-duper-funicular` | `bab689cdac3ba730138bfae09dda537978d61e09` | 2026-10-17T06:27:14+00:00 |
 | Funicular Motion Lab (ours) | `arena/110272a0-super-duper-funicular` | `213608b86a7100abe7dfcdc7dfeb19e54f004601` | 2026-10-18T00:01:20+00:00 |
+
 <!-- branch-tips:end -->
 
 Our own row always trails the branch tip by exactly the commit that regenerates this table — the
@@ -173,6 +175,24 @@ above and a ledger row, and the gate keeps them visible.
   to the uncalibrated pose; default offsets are a no-op; SSR test asserts six sliders and both
   export buttons. **Parity:** interactive calibration moves Gap → Yes; ours is now 19 Yes / 4 Gap.
   **Still Gap:** photographic persona, rounded-end photo joint cutter, browser E2E, Docker build.
+
+- **2026-10-18 / T05 — black-screen fix, browser-faithful DOM tests, ball sockets.**
+  The preview rendered black because `darken`/`lighten` parsed only `#rrggbb`, so mixing the
+  `rgba(255,255,255,0.15)` sheen produced `#NaNa2NaN`; Chrome throws in `addColorStop` on an invalid
+  colour, the canvas effect threw, and React unmounted the tree. Fixed by a single colour parser in
+  `scene-shapes.ts` that accepts hex, `rgb()` and `rgba()` (alpha blended and preserved), clamped
+  channels, and a `formatColor` that never emits NaN; `paint-raster` now reuses the same parser.
+  Regression cover: a jsdom mount test with a canvas mock that rejects invalid colours exactly as
+  Chrome does (both `fillStyle` assignment and `addColorStop`), mounting the whole app and clicking
+  every tab; plus a scene test that walks every persona × palette × phase and asserts every painted
+  colour is valid and still valid after `lighten`/`darken`.
+  Also shipped: switchable **ball sockets** at hip, knee, shoulder and elbow; `usePoseInfo` no longer
+  builds a full scene every animation frame (it only needs the pose and a part count); `Controls.tsx`
+  split into `Slider` and `Playback` modules to stay under the file target.
+  **Parity:** joint cutter moves Gap → Partial (photo-plate cutter still absent). Ours 21 Yes /
+  1 Partial / 1 Gap. **Browser E2E:** the Playwright suite and config are committed with video on by
+  default, but `npx playwright install chromium` cannot download in this sandbox — the suite is
+  **unrun**, and the jsdom mount test is the executed substitute.
 
 - **2026-10-17 / T02 — discipline gate executable, refactors, shoe/sock pass.** Our tip moved
   `396ce25 → 192898f` (pushed). The gate is now a TypeScript AST walk (measured function bodies,

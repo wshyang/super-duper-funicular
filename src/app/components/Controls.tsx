@@ -1,7 +1,13 @@
-import type { GaitSettings, MotionId, PaletteId, PersonaId } from '../../shared/types.ts';
-import { MOTIONS, PALETTES, PERSONAS } from '../../shared/constants.ts';
-import type { AnimationClock } from '../hooks/useAnimationClock.ts';
+import type {
+  GaitSettings,
+  JointStyle,
+  MotionId,
+  PaletteId,
+  PersonaId,
+} from '../../shared/types.ts';
+import { JOINT_STYLES, MOTIONS, PALETTES, PERSONAS } from '../../shared/constants.ts';
 import type { OverlayKey, Overlays } from '../hooks/useWorkspace.ts';
+import { Slider } from './Slider.tsx';
 
 const formatCadence = (value: number): string => `${value.toFixed(2)} cyc/s`;
 const formatPercent = (value: number): string => `${(value * 100).toFixed(0)}%`;
@@ -11,41 +17,6 @@ export interface ControlsProps {
   readonly onChange: (patch: Partial<GaitSettings>) => void;
   readonly onReset: () => void;
 }
-
-interface SliderProps {
-  readonly label: string;
-  readonly value: number;
-  readonly min: number;
-  readonly max: number;
-  readonly step: number;
-  readonly testId: string;
-  readonly format: (value: number) => string;
-  readonly onChange: (value: number) => void;
-}
-
-const Slider = (props: SliderProps): React.JSX.Element => {
-  const formatted = props.format(props.value);
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    props.onChange(Number.parseFloat(event.target.value));
-  };
-  return (
-    <label className="slider">
-      <span className="slider__label">
-        {props.label}
-        <output className="slider__value">{formatted}</output>
-      </span>
-      <input
-        type="range"
-        min={props.min}
-        max={props.max}
-        step={props.step}
-        value={props.value}
-        data-testid={props.testId}
-        onChange={handleChange}
-      />
-    </label>
-  );
-};
 
 const PersonaGrid = ({ settings, onChange }: ControlsProps): React.JSX.Element => (
   <div className="persona-grid">
@@ -114,6 +85,27 @@ const PaletteChoices = ({ settings, onChange }: ControlsProps): React.JSX.Elemen
   </div>
 );
 
+const JointChoices = ({ settings, onChange }: ControlsProps): React.JSX.Element => (
+  <div className="segmented" role="group" aria-label="Joint style">
+    {JOINT_STYLES.map((style) => {
+      const active = settings.jointStyle === style.id;
+      return (
+        <button
+          key={style.id}
+          type="button"
+          className={active ? 'segmented__option segmented__option--active' : 'segmented__option'}
+          onClick={() => onChange({ jointStyle: style.id as JointStyle })}
+          data-testid={`joints__option-${style.id}`}
+          aria-pressed={active}
+          title={style.description}
+        >
+          {style.label}
+        </button>
+      );
+    })}
+  </div>
+);
+
 export const CharacterPanel = (props: ControlsProps): React.JSX.Element => (
   <section className="panel" aria-label="Character and motion">
     <div className="panel-head">
@@ -130,6 +122,8 @@ export const CharacterPanel = (props: ControlsProps): React.JSX.Element => (
     <PersonaGrid {...props} />
     <h3 className="control-label">Motion</h3>
     <MotionChoices {...props} />
+    <h3 className="control-label">Joints</h3>
+    <JointChoices {...props} />
     <h3 className="control-label">Colourway</h3>
     <PaletteChoices {...props} />
   </section>
@@ -185,121 +179,6 @@ export const GaitControls = ({ settings, onChange }: GaitControlsProps): React.J
     />
   </section>
 );
-
-export interface PlaybackProps {
-  readonly clock: AnimationClock;
-  readonly phase: number;
-  readonly onSeek: (phase: number) => void;
-}
-
-const SPEEDS = [0.25, 0.5, 1, 2] as const;
-
-const SpeedSelect = ({ clock }: { clock: AnimationClock }): React.JSX.Element => {
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
-    clock.setSpeed(Number.parseFloat(event.target.value));
-  };
-  return (
-    <label className="speed">
-      Speed
-      <select value={clock.speed} onChange={handleChange} data-testid="playback__speed">
-        {SPEEDS.map((value) => (
-          <option key={value} value={value}>
-            {value}×
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-};
-
-const TransportRow = ({
-  clock,
-  phase,
-}: {
-  clock: AnimationClock;
-  phase: number;
-}): React.JSX.Element => {
-  const degrees = (phase * 360).toFixed(0);
-  const phaseLabel = phase.toFixed(3);
-  return (
-    <div className="playback-row">
-      <button
-        type="button"
-        className="primary-button"
-        onClick={clock.toggle}
-        data-testid="playback__play-toggle"
-        aria-pressed={clock.isPlaying}
-      >
-        {clock.isPlaying ? 'Pause' : 'Play'}
-      </button>
-      <button
-        type="button"
-        className="ghost-button"
-        onClick={() => clock.step(-1)}
-        data-testid="playback__step-back"
-      >
-        − ⅛
-      </button>
-      <button
-        type="button"
-        className="ghost-button"
-        onClick={() => clock.step(1)}
-        data-testid="playback__step-forward"
-      >
-        + ⅛
-      </button>
-      <SpeedSelect clock={clock} />
-      <span className="playback__readout" data-testid="playback__readout">
-        φ {phaseLabel} · {degrees}°
-      </span>
-    </div>
-  );
-};
-
-const PHASE_BUTTONS = Array.from({ length: 8 }, (_, index) => ({
-  index,
-  phase: index / 8,
-  caption: String(index + 1).padStart(2, '0'),
-}));
-
-const PhaseButtons = ({ onSeek }: { onSeek: (phase: number) => void }): React.JSX.Element => (
-  <div className="phase-buttons">
-    {PHASE_BUTTONS.map((item) => (
-      <button
-        key={item.index}
-        type="button"
-        className="phase-button"
-        onClick={() => onSeek(item.phase)}
-        data-testid={`playback__phase-${item.caption}`}
-      >
-        {item.caption}
-      </button>
-    ))}
-  </div>
-);
-
-export const PlaybackBar = ({ clock, phase, onSeek }: PlaybackProps): React.JSX.Element => {
-  const handleScrub = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    onSeek(Number.parseFloat(event.target.value));
-  };
-  return (
-    <section className="panel panel--playback" aria-label="Playback">
-      <TransportRow clock={clock} phase={phase} />
-      <input
-        className="scrubber"
-        type="range"
-        min={0}
-        max={1}
-        step={0.001}
-        value={phase}
-        onChange={handleScrub}
-        data-testid="playback__scrubber"
-        aria-label="Gait phase"
-      />
-      <PhaseButtons onSeek={onSeek} />
-    </section>
-  );
-};
 
 export interface OverlayProps {
   readonly overlays: Overlays;

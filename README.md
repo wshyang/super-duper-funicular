@@ -24,15 +24,15 @@ Node 20.19+ (developed on 22). No server, no database, no accounts.
 
 ## What is in the box
 
-| Area | What it does |
-| --- | --- |
-| **Motion studio** | Live articulated runner, reference-frame comparison, playback with phase scrub and eight phase buttons, persona / colourway / motion switching that preserves phase, four gait sliders, skeleton / ground / onion-skin overlays |
-| **Rig inspector** | Isolate any of the 17 parts in painter order, and nudge the pelvis, shoulder socket or head with six clamped offset sliders |
-| **Source diagnostics** | The measured verdict on the original sheet: duplicate pose pairs, stance-side lock, foot separation, scale and baseline jitter |
-| **Asset library** | All 48 extracted reference frames, six colourways, with a lightbox |
-| **Vector output** | All 48 frames traced to pure SVG paths (median-cut palette, marching squares, RDP), each with its measured mask IoU and a download link |
-| **Parity ledger** | 23-capability union across five implementations, with the observed tip of each branch and an explicit acceptance note per row |
-| **Exports** | A transparent 8-cell sprite sheet, a 16-phase × 3-panel audit sheet and a calibrated sheet + JSON pair, all painted by the same scene the stage uses |
+| Area                   | What it does                                                                                                                                                                                                                                  |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Motion studio**      | Live articulated runner, reference-frame comparison, playback with phase scrub and eight phase buttons, persona / colourway / motion / joint-style switching that preserves phase, four gait sliders, skeleton / ground / onion-skin overlays |
+| **Rig inspector**      | Isolate any of the 17 parts in painter order, and nudge the pelvis, shoulder socket or head with six clamped offset sliders                                                                                                                   |
+| **Source diagnostics** | The measured verdict on the original sheet: duplicate pose pairs, stance-side lock, foot separation, scale and baseline jitter                                                                                                                |
+| **Asset library**      | All 48 extracted reference frames, six colourways, with a lightbox                                                                                                                                                                            |
+| **Vector output**      | All 48 frames traced to pure SVG paths (median-cut palette, marching squares, RDP), each with its measured mask IoU and a download link                                                                                                       |
+| **Parity ledger**      | 23-capability union across five implementations, with the observed tip of each branch and an explicit acceptance note per row                                                                                                                 |
+| **Exports**            | A transparent 8-cell sprite sheet, a 16-phase × 3-panel audit sheet and a calibrated sheet + JSON pair, all painted by the same scene the stage uses                                                                                          |
 
 ## Artwork
 
@@ -61,8 +61,10 @@ flaw report. Re-running it reproduces the committed output byte-for-byte.
 - **No photographic persona and no photo-plate joint cutter.** Those remain `Gap` rows in
   `docs/N_WAY_COMPARISON.md`, each with an exit criterion. Pure-SVG output and interactive joint
   calibration are shipped and measured (mean mask IoU 0.926; leg-chain invariants asserted in tests).
-- **No browser E2E suite.** This sandbox has no browser runtime; `docs/VALIDATION.md` says so
-  explicitly rather than implying coverage.
+- **No executed browser E2E suite.** `tests/e2e/studio.spec.ts` and `playwright.config.ts` are
+  committed (video on by default), but browsers cannot be downloaded in this sandbox. What _is_
+  executed is a jsdom mount of the whole app against a canvas mock that rejects invalid colours the
+  way browsers do — the class of bug that once produced a black page.
 - **The Dockerfiles are statically gate-checked, not built here.**
 - The visual audit sheet shows a far-arm occlusion and a shoe/shin overlap at some phases. They are
   recorded in `PLAN.md` and `docs/VALIDATION.md`, not hidden.
@@ -91,6 +93,6 @@ src/shared/          contracts, palettes, parity matrix
 src/generated/       branch tip snapshots + history (written by branches:compare)
 public/sprites/      extracted PNGs + manifest + analysis
 tools/               pipeline, audit dump, branch compare
-tests/               runner, pipeline, vectors, app smoke, discipline
+tests/               runner, pipeline, vectors, app (SSR + jsdom), e2e, discipline
 docs/                FDS, addenda, ledger, validation, plan, prompts, provenance
 ```

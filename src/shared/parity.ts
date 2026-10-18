@@ -166,8 +166,9 @@ export const PARITY_ROWS: readonly ParityRow[] = [
     strideLab: 'yes',
     funicular: 'partial',
     proceduralRunner: 'gap',
-    ours: 'gap',
-    acceptance: 'Procedural joints are capsule-rounded; photo cutter remains deferred.',
+    ours: 'partial',
+    acceptance:
+      'Ball sockets shipped at hip, knee, shoulder and elbow (switchable); photo-plate cutter still absent.',
   },
   {
     capability: 'Pure-SVG vector output',

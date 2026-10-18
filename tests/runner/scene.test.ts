@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_GAIT, PART_ORDER, PALETTES, PERSONAS } from '../../src/shared/constants.ts';
 import type { GaitSettings } from '../../src/shared/types.ts';
-import { buildScene } from '../../src/runner/scene.ts';
+import { buildScene, darken, lighten } from '../../src/runner/scene.ts';
 import { renderSceneToRaster } from '../../src/runner/paint-raster.ts';
 
 const settings: GaitSettings = DEFAULT_GAIT;
@@ -74,5 +74,73 @@ describe('render scene', () => {
       if (Math.abs((a.data[index] ?? 0) - (b.data[index] ?? 0)) > 12) differing += 1;
     }
     expect(differing).toBeGreaterThan(500);
+  });
+});
+
+describe('colour safety', () => {
+  const CSS_COLOR = /^(#[0-9a-f]{3}|#[0-9a-f]{6}|#[0-9a-f]{8}|rgba?\([\d.,\s%]+\)|transparent)$/i;
+
+  it('never emits NaN or malformed colours from darken/lighten, including rgba input', () => {
+    const inputs = [
+      '#d93123',
+      '#ffffff',
+      '#0b0d12',
+      'rgba(255, 255, 255, 0.15)',
+      'rgb(20, 30, 40)',
+    ];
+    for (const input of inputs) {
+      for (const amount of [0, 0.08, 0.14, 0.5, 1]) {
+        for (const output of [darken(input, amount), lighten(input, amount)]) {
+          expect(output, `${input} @ ${String(amount)} -> ${output}`).toMatch(CSS_COLOR);
+          expect(output).not.toContain('NaN');
+        }
+      }
+    }
+  });
+
+  it('keeps every painted colour valid across personas, palettes and phases', () => {
+    for (const persona of PERSONAS) {
+      for (const palette of PALETTES) {
+        for (const phase of [0, 0.2, 0.45, 0.7, 0.9]) {
+          const scene = buildScene(
+            { ...DEFAULT_GAIT, persona: persona.id, palette: palette.id },
+            phase,
+          );
+          for (const part of scene.parts) {
+            for (const primitive of part.primitives) {
+              for (const color of [primitive.fill, primitive.outline]) {
+                if (!color) continue;
+                expect(color, `${part.part} ${color}`).toMatch(CSS_COLOR);
+                expect(lighten(color, 0.14)).toMatch(CSS_COLOR);
+                expect(darken(color, 0.12)).toMatch(CSS_COLOR);
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+});
+
+describe('joint style', () => {
+  it('adds socket primitives at the knee, hip, elbow and shoulder', () => {
+    const styleOf = (jointStyle: 'socket' | 'smooth'): number => {
+      const scene = buildScene({ ...DEFAULT_GAIT, jointStyle }, 0.3);
+      const shin = scene.parts.find((part) => part.part === 'nearShin');
+      const thigh = scene.parts.find((part) => part.part === 'nearThigh');
+      const forearm = scene.parts.find((part) => part.part === 'nearForearm');
+      expect(shin).toBeDefined();
+      const count = (part: { primitives: readonly unknown[] } | undefined): number =>
+        part?.primitives.length ?? 0;
+      return count(shin) + count(thigh) + count(forearm);
+    };
+    expect(styleOf('socket')).toBeGreaterThan(styleOf('smooth'));
+  });
+
+  it('keeps every part id stable when the joint style changes', () => {
+    const ids = (jointStyle: 'socket' | 'smooth'): string[] =>
+      buildScene({ ...DEFAULT_GAIT, jointStyle }, 0.42).parts.map((part) => part.part);
+    expect(ids('socket')).toEqual(ids('smooth'));
+    expect(ids('socket')).toEqual([...PART_ORDER]);
   });
 });

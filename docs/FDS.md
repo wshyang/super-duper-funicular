@@ -567,3 +567,40 @@ audit flagged. The rejected option is recorded here so it is not reintroduced.
 
 **Continuous learning register.** TURN-L01 bootstrap, TURN-L02 gate/refactor/shoe-sock, TURN-L03
 vectoriser, TURN-L04 calibration. Evidence in the same turn; ledger refreshed by tool, never by hand.
+
+### TURN-L05 · 2026-10-18 · Black-screen postmortem, browser-faithful tests, ball sockets
+
+**The defect.** The live preview rendered a black page while the build, the type checker and 56 tests
+were all green. Cause: `darken()`/`lighten()` parsed only `#rrggbb`. Mixing the sheen colour
+`rgba(255, 255, 255, 0.15)` produced the string `#NaNa2NaN`; Chrome throws a `SyntaxError` from
+`CanvasGradient.addColorStop` for an unparsable colour, the exception escaped the canvas effect, and
+React unmounted the whole tree. The deterministic raster painter never imported those helpers, so no
+test could see it — the bug lived exactly in the browser-only path.
+
+**Why the existing tests missed it.** Every UI test used `renderToStaticMarkup`, which runs effects
+never. Nothing executed the canvas paint path. This is the same class of mistake as trusting a build
+exit code as proof that the app works.
+
+**Fix.** One colour parser in `scene-shapes.ts` accepts `#rgb`, `#rrggbb`, `rgb()` and `rgba()`,
+blends and preserves alpha, clamps channels and rounds safely; `formatColor` emits hex when opaque
+and `rgba()` otherwise, so no NaN can reach a canvas. `paint-raster` reuses the same parser instead
+of keeping a second, diverging copy.
+
+**Test that would have caught it.** `tests/app/dom-mount.test.ts` runs the app in jsdom with a canvas
+mock whose `fillStyle`/`strokeStyle` setters and `addColorStop` validate colours the way browsers do.
+It mounts the whole app, asserts painted operation and gradient counts, and clicks through all six
+tabs. `tests/runner/scene.test.ts` additionally walks every persona × palette × phase and asserts
+every painted colour is valid — and remains valid after `lighten`/`darken`.
+
+**Also in this entry.** Ball sockets (recessed rim, lighter ball, highlight) at hip, knee, shoulder
+and elbow, switchable through `settings.jointStyle`, which moves that parity row Gap → Partial.
+`usePoseInfo` stopped building a full scene per animation frame. `Controls.tsx` split into `Slider`
+and `Playback` modules to satisfy the 400-line target rather than raising it.
+
+**Honest limits.** `npx playwright install chromium` cannot download browsers in this sandbox, so the
+committed Playwright suite — video on by default — is **unrun**; the jsdom mount test is the executed
+substitute, and it cannot catch layout, CSS or real canvas rasterisation defects.
+
+**Continuous learning register.** TURN-L01 bootstrap, L02 gate/refactor/shoe-sock, L03 vectoriser,
+L04 calibration, L05 black-screen postmortem. The new standing rule: **any code path that only runs
+in a browser needs a test that executes it**, even if that test has to fake the canvas.
