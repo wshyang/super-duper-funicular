@@ -367,3 +367,13 @@ Every architectural, algorithmic, or tooling decision not fixed by a single lite
 - **Practical learning:** The head/neck seam must be reviewed perceptually at both normal and enlarged scale; a single connected alpha component does not establish an anatomically smooth attachment. Maintain explicit source ownership at overlapping joints and a shared rig pivot.
 - **Related Spec Section:** `docs/FDS.md §11.6`, `§12.4` (`TURN-L27`).
 - **Practical Impact:** Regenerated only `public/sprites/photoreal/sg-chinese-female/parts/head.png`; no master source photo or other persona cutout was changed.
+
+
+## `ADD-046` — Camera-Far Forearm Angle Diversity Experiment
+- **What was decided:** Test two custom camera-far forearm angle ranges while holding the H02 body/legs and camera-near arm constant: forward/up (X05, screen angle `−41.4°`) and rear/down (X06, `149.5°`). Keep both inserts outside the canonical H00–H08 manifest and do not accept them as crops unless side identity, anatomy, wardrobe and key quality pass independently.
+- **Why:** Review of the H01–H08 bank confirmed the user's observation: camera-far arms repeated similar near-torso angles and yielded little exposed far-forearm contour.
+- **Executed test:** Rendered custom 1408 × 768 solved-joint guides and generated Calls #89–#90 against the unchanged Athletic master. X05 exposes a raised forward forearm, cuff and hand beyond the front torso contour, but has an open palm, the opposing hand against the shorts silhouette, and lower-background shading. X06 exposes the rear/down forearm, cuff and hand outside the rear torso/hip edge, while preserving a separately readable raised opposite arm; its background also retains floor shading. Identity, outfit and profile remain recognizable. Exact prompts, guide/candidate paths and SHA-256 hashes are in `docs/POSE_HARVEST_LOG.md`.
+- **Validation and limits:** Individually inspected both outputs and guides. The target arm placements are diverse; camera-far chirality cannot be proven from a single profile image, and neither candidate passes crop/key review. No source photograph, production sprite or canonical manifest was modified.
+- **Practical learning:** Design elbow/wrist geometry to move the far forearm beyond the torso contour, and evaluate far-arm visibility separately from aggregate arm visibility. Prompt claims are not proof of far-side identity; background/key cleanliness remains a distinct gate.
+- **Related Spec Section:** `docs/FDS.md §11.7`, `§12.4` (`TURN-L28`), `docs/POSE_BANK_PIPELINE.md`, `docs/POSE_HARVEST_LOG.md` Calls #89–#90.
+- **Practical Impact:** Adds two reviewed non-production guide/candidate pairs and a far-forearm diversity gate to pose-bank learnings; canonical poses and production assets remain unchanged.
