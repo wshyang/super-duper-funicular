@@ -2,7 +2,7 @@
 
 - **Repository:** `wshyang/super-duper-funicular`
 - **Active Branch:** `arena/62955c1e-super-duper-funicular`
-- **Version:** `1.0.0` (PROPOSAL — pending user review of `§9 Open Questions`)
+- **Version:** `1.1.0` (PROPOSAL — `§9` Q1 answered by user on 2026-10-18: 3D route evaluation authorised; Q2–Q5 open)
 - **Date:** `2026-10-18`
 - **Author:** Arena.ai agent turn `TURN-L04` (`docs/FDS.md#continuous-learning-log`)
 - **Supersedes / Extends:** the converged photographic pipeline carried by PR `#1` (`arena/917ef347-super-duper-funicular` @ `936f37ce07f18e38fc4f5b3880c80029ec9f55cf`) and PR `#8` (`arena/e1300d3c-super-duper-funicular` @ `04d5caf432ff81be0307a3ec79e894da1b60045c`), assessed in [`docs/BRANCH_ASSESSMENT_PR1_PR8.md`](./BRANCH_ASSESSMENT_PR1_PR8.md) (`#branch-assessment`)
@@ -192,7 +192,10 @@ Every audit run whose findings drive a decision commits a downscaled evidence pa
 | **S1 — Ground-truth harness** | Build the decomposition math against the *procedural* renderer: synthesise atlas poses with known landmarks/ownership, then assert Stage 3 recovers parts, pivots and masks exactly. Calibration-schema + gate tooling. No image generations. | Unit tests green on synthetic ground truth; schema frozen |
 | **S2 — Relight MVP on existing assets** | Histogram normalisation + cap gradient easing on PR `#1`'s committed parts; baseline all `§3.8` metrics on PR `#1` and PR `#8` assets | Metrics baselined; visible seam reduction confirmed by eyes + numbers |
 | **S3 — One persona end-to-end** | Generate Stage 0 + atlas for ONE persona inside the 8-call budget; run Stages 2–5; A/B against PR `#1` frames with `§3.8` metrics and human review | New persona beats PR `#1` on seamContrast/proportionError with ≤ 8 calls |
-| **S4 — Motion + parity + CI evidence** | Stage 6 gait fit; SVG parity; evidence packs and perceptual gates in `npm test` | All `§8` acceptance criteria green in CI |
+| **S3B — Route B textured-mesh persona** | Template mesh + UV atlas + skin weights authored; T0–T7 implemented on the PoC renderer (`src/render/`); one persona baked & rendered | Route B persona renders 16 phases with §11.9 gates green |
+| **S4 — A/B decision + motion + CI evidence** | Sprint-3 A/B gate (§11.12); Stage 6 gait fit; evidence packs and perceptual gates in `npm test` | Winning route selected with metrics + blind review; all `§8` acceptance criteria green in CI |
+
+**PoC already executed (Sprint 0 evidence):** `src/render/software-renderer.ts` + `mesh-factory.ts` + `software-renderer.test.ts` render an 8-pose skinned UV-textured capsule chain deterministically at 1.7–19.6 ms/frame with single-component silhouettes; evidence pack committed at `docs/evidence/poc-software-render/` (`ADD-006`).
 
 **Risk register:** identity drift across atlas poses (mitigation: master-reference lock + head-crop dHash reject gate); atlas pose not obeying prescription (pose-estimate check before acceptance, one re-roll inside budget); segmentation/occlusion mis-scoring (chroma field makes matte exact — occlusion is the only error source, and it is measured, not assumed); 10-image/turn platform cap (budget ≤ 8/persona/turn by design, `IMG-ERR-15`).
 
@@ -229,10 +232,11 @@ Distilled from PR `#1` `PLAN.md §4`, `FDS §8.4`, PR `#8` turn register; status
 6. `strideDtw` within fitted tolerance; hip/knee ROM inside published running ranges.
 7. Legacy telemetry unchanged: `detachedIslands = 0`, `magentaSpill = 0`, `uncoveredJoints = 0`.
 8. Every decision-driving audit has a committed evidence pack (`docs/evidence/`).
+9. Route B additional: reprojection silhouette IoU ≥ 0.93; UV coverage reported; chart-border seam contrast ≤ τ; material-slot bleed = 0; render determinism hash-stable across runs.
 
 ## 9. Open Questions for the User
 
-1. **Strategic route:** is the 2D photographic cutout route a hard product constraint, or may Sprint 4+ evaluate a textured-3D render pipeline (`§10 Option B`) as the endgame (it removes F1–F6 entirely at the cost of a 3D asset toolchain)?
+1. **Strategic route:** ~~open~~ **ANSWERED 2026-10-18:** the 3D route may be evaluated; its full design incl. AI-assisted skin generation is `§11` (`#route-3d`), to be A/B-tested against Route A in Sprint 3/4 (§11.12). Remaining: whether SVG stays a first-class output (`§9.3`) and whether the template mesh may later be replaced by a fitted parametric body (SMPL-class) — deferred until Route B proves out.
 2. **Identity tolerance:** how much face/garment drift across atlas poses is acceptable before a pose is rejected?
 3. **Delivery targets:** 8/16/24-frame loops, target resolution and whether SVG output remains a requirement.
 4. **Reference motion provenance:** may we fit gait curves to tracked video / published gait data, and under which licence?
@@ -243,14 +247,121 @@ Distilled from PR `#1` `PLAN.md §4`, `FDS §8.4`, PR `#8` turn register; status
 | Option | Sketch | Strengths | Weaknesses | Verdict |
 |---|---|---|---|---|
 | **A — Atlas decomposition (this proposal)** | Whole-body plates → deterministic decomposition | Uses existing rig/render/code; small generation budget; every failure family addressed incrementally; testable ground truth in S1 | Still 2D cutouts: extreme-flexion texture limits remain (mitigated by `P-R5`) | **Recommended now** |
-| **B — Textured 3D render pipeline** | Fit/author a textured humanoid; render parts & frames from an orthographic side camera at arbitrary poses | F1–F6 vanish (no per-part prompting, exact occlusion control, consistent lighting, exact ground contact, infinite frames, true medial/lateral by isolation renders) | 3D asset creation toolchain in-sandbox; texture quality risk; larger upfront cost | **Evaluate at Sprint 4 as endgame** |
+| **B — Textured 3D render pipeline** | Fixed-topology textured humanoid; AI supplies whole-body multi-view plates + masked UV inpaint only; pure-TS orthographic renderer | F1–F6 vanish by construction; one texture per character; garments deform continuously; exact ground contact; infinite frames | Template/UV/skin-weight authoring upfront; multi-view drift gates needed | **Fully designed in `§11`; A/B-tested vs Route A in Sprint 3/4** |
 | **C — Video-to-sprites** | Image-to-video run cycle from the master; track + matte frames | Natural motion, coherent lighting | No loop guarantee, identity drift over time, whole-body sprites only (no articulable parts, no recolor/retime/persona tuning) | Rejected as primary; usable only as a motion reference for Stage 6 |
 | **D — Procedural geometry + photographic albedo swatches** | Limbs as procedural capsules textured by fabric/skin swatches, analytic shading | Total control, tiny asset set | Loses the "photographic sprite" character the product asks for | Rejected as primary; its shading model is reused in Stage 4 |
 
 ---
 
-## 11. Changelog
+## 11. The 3D Route, Evaluated: AI-Assisted Skin Generation for a Textured-Mesh Pipeline (`#route-3d`)
+
+User decision `2026-10-18`: *"You may evaluate the 3d route, but you need to ideate in your pipeline how we do AI assisted generation of image assets (ie: your 3d skins)."* This section is that evaluation and that ideation. It does not replace Route A; it defines Route B completely enough to be A/B-tested in Sprint 3 (`§11.12`).
+
+### 11.1 Verdict
+
+**Feasible in this sandbox, and strictly better on failure families F1–F6 — conditional on bounding what AI is allowed to generate.** The decisive derisking evidence is committed at `docs/evidence/poc-software-render/` (`ADD-006`): a pure-TypeScript orthographic software rasteriser skinned a UV-textured two-bone capsule chain through 8 sagittal poses at **1.7–19.6 ms/frame** (676 tris, 160×200), byte-identical across repeated renders, with a **single connected silhouette at every flexion angle** (the 3D analogue of the 2D pivot-cap continuity gate). A full 17-part body at ~10–20 k tris and 220×256 is therefore seconds per 16-frame cycle in pure TS — no GPU, no WebGL, no native lock-in (`#nfr-purity` holds).
+
+The reason Route B kills F1–F6 is structural, not incremental: there are **no isolated parts to prompt for** (F1), **one texture for the whole character** (F2, F3), **no pixel windows** (F4), **garments are mesh material slots that deform continuously** (F5), and **albedo is stored separately from pose shading** (F6).
+
+### 11.2 Architecture (Stages T0–T7)
+
+```
+T0 CHARACTER LOCK        1 call   sagittal master plate (identity, garment, palette)
+T1 GEOMETRY (no AI)      code     fixed-topology template mesh + canonical skeleton
+                                  (same 17-joint hierarchy as Route A), per-persona
+                                  bone scale vector fitted to master landmarks;
+                                  deterministic UV atlas shipped with the template
+T2 MULTI-VIEW PLATES     4 calls  same character, orthographic R-side / L-side /
+                                  front / back, A-pose, flat shadowless light, #FF00FF
+T3 PROJECTION BAKE +     code+AI  visibility-weighted multi-view bake into UV;
+    MASKED UV COMPLETION 1–2 calls diffusion INPAINTS ONLY the code-computed
+                                  missing-texel mask (medial surfaces, armpits,
+                                  inner thighs, under-bust)
+T4 DELIGHT & MAP DERIVE  code     albedo = baked colour − fitted low-order light;
+                                  normals/AO procedural or baked from mesh
+T5 SKIN & MOTION         code     linear blend skinning (weights authored once on
+                                  the fixed topology); gait curves per Stage 6
+T6 RENDER                code     pure-TS orthographic rasteriser (PoC-proven);
+                                  8/16/24/48-frame loops; audit plates unchanged
+T7 GATES & EVIDENCE      code     Route A §3.8 metrics + 3D-specific gates (§11.9)
+```
+
+### 11.3 The AI-Assist Matrix — what AI generates vs what code guarantees
+
+This is the core ideation answer: **AI never free-generates a skin; AI supplies whole-body photographs and masked completions, and code owns every pixel-to-texel registration.**
+
+| Asset | AI role (stochastic, gated) | Code role (deterministic, tested) | Accept / reject gate |
+|---|---|---|---|
+| Sagittal master plate (T0) | whole-body figure in its strong prior: one person, prescribed stance, garment, palette | camera/prompt prescription; filing + hash | single-subject, orientation, identity descriptors |
+| R/L/F/B view plates (T2) | same character re-posed by image-to-image from the master (identity lock by reference) | orthographic camera model per view; silhouette sanity vs T1 mesh | head-crop dHash across views ≤ τ; garment colour histogram ΔE ≤ τ; limb-gap check |
+| Missing-texel completion (T3) | **masked inpaint only**: fill the visibility-mask holes in the partially baked UV image, conditioned on the partial UV + master as style ref | visibility bake produces the partial UV and the exact hole mask; post-blend chart-border easing | seam contrast across chart borders; per-material histogram continuity; 1 retry in budget |
+| Tileable micro-swatches (optional) | fabric weave / skin micro-detail as tileable swatches | tiling validation (wrap ΔE), placement by material slot at fixed UV scale | wrap-seam ΔE ≤ τ |
+| Detail normals (optional, later) | photo-to-normal on a swatch only | mip + strength clamp; never on identity regions | — |
+| Mesh, UV atlas, skeleton, skin weights, bake, delight, AO, render, gates | **none** | everything | unit tests + synthetic ground truth (Sprint 1 harness reused) |
+
+Why this decomposition is the safe one: every historically catalogued diffusion failure (`IMG-ERR-01..16`) is a failure of *unbounded* generation (isolated anatomy, chirality, second shoes, cross-sections). In Route B the generation tasks are (a) complete humans — the model's strongest prior — and (b) hole-filling inside an existing texture — a local continuity task with the surrounding pixels as hard context. The geometrically dangerous work (registration, pivots, ownership, proportions) never touches the stochastic layer.
+
+### 11.4 Multi-view bake mathematics & the visibility mask
+
+Template topology is fixed, so the UV atlas is fixed; let `P(t)` be the 3D position of texel `t` and `N(t)` its surface normal. For view camera `k` with orthographic direction `d_k` and plate `I_k`:
+
+- visibility `w_k(t) = max(0, N(t)·(−d_k))` if `t`'s projection passes a depth test against the mesh in view `k`, else `0`;
+- baked colour `C(t) = Σ_k w_k(t)·I_k(proj_k(P(t))) / Σ_k w_k(t)` over views with `w_k > τ_v`;
+- hole mask `M = { t : Σ_k w_k(t) ≤ τ_v }` — exactly the surfaces no external camera sees (medial limbs, armpits, inner thighs, under-bust, crotch, sole-adjacent shoe walls).
+
+`M` is the prompt-free, code-computed specification of what the inpaint call may touch. The right-side master is the **hero view**: the runtime sprite camera is right-orthographic, so texels visible to it get the highest-quality source; bake order weights R-side first on ties.
+
+### 11.5 UV atlas design rule
+
+Charts are cut **along garment seams and hidden surfaces** (singlet neckline/armhole, shorts waistband/leg hem, sock collar, shoe topline, inner-limb lines), so any residual chart-border seam lands where a real seam or a self-occluded region already exists. One chart per (body region × material slot); chart layout is data in the template, versioned, and asserted stable by a gate (UV drift would silently re-bake every persona).
+
+### 11.6 View consistency & identity gates
+
+Image-to-image re-posing drifts (hair, logo placement, stripe width). Gates before bake: head-crop dHash across the 4 views ≤ τ_identity; per-material colour histogram ΔE ≤ τ_palette; stripe/garment-boundary positions measured on front/back vs master within 3% of height. A failing view is re-rolled once inside budget; if it still fails, the bake degrades gracefully — the failing view is dropped and its surface area joins mask `M` for inpaint completion (documented in the run report).
+
+### 11.7 Delighting, normals, AO
+
+Plates are prompted flat/shadowless; residual shading is removed by fitting a per-material low-order (linear + quadratic) gradient over the baked albedo and dividing it out (`P-R5`), validated by albedo variance within each material region. Normals: procedural per material slot (fabric weave, shoe leather grain); AO baked deterministically from the mesh (vertex-centred hemisphere sampling at build time, stored per texel). No AI in this stage in MVP.
+
+### 11.8 Garments as material slots
+
+Singlet/shorts/socks/shoes are face sets on the one mesh with their own UV charts and albedo regions. Because the mesh deforms, the white shorts stripe is **one continuous texture region** — scissoring (F5) cannot be expressed, let alone occur. Persona variants = same topology + different bone-scale vector + different baked texture; cross-persona silhouette lock (F3) cannot occur because no persona's texture is ever used as another's template.
+
+### 11.9 Renderer choice, SVG question, and 3D-specific gates
+
+- **Renderer:** the PoC's pure-TS rasteriser grows into production: z-buffer, bilinear UV sampling (mips optional at sprite scale), Lambert + baked AO + optional rim, deterministic byte-identical output, 16/24/48-frame loops trivially cheap. Rejected: three.js/WebGL (headless GL needs native libs/GPU in-sandbox; `headless-gl`/`node-canvas` violate `#nfr-purity`), Python rasterisers (same lock-in rule).
+- **SVG:** becomes a *derived* artifact — the existing `svg-vectorizer` traces rendered frames (quantized-band look), or is dropped per user answer (`§9.3`). Vector-native stitching of a deforming mesh is not attempted.
+- **New gates (`#feat-perceptual-gates` extension):** reprojection silhouette IoU (rendered R-side vs master plate) ≥ 0.93; UV coverage % (non-hole texels) reported per persona; chart-border seam contrast ≤ τ; albedo variance per material ≤ τ after delight; texture bleed (texel colour crossing a material slot boundary) = 0; plus all Route A §3.8 metrics on rendered frames.
+
+### 11.10 Risk register (Route B specific)
+
+| Risk | Mitigation |
+|---|---|
+| Multi-view identity/garment drift | §11.6 gates; graceful view-drop into mask `M`; inpaint reconciles minor drift because the base is projected, not invented |
+| Diffusion refuses truly flat light | delighting stage absorbs residual; reject plates with cast shadows on the backdrop (magenta makes shadows detectable) |
+| Inpaint seams at chart borders | chart cuts along real seams (§11.5); border easing; seam-contrast gate |
+| Template topology too crude for face/hands | sprite scale is 220×256 (head ≈ 20 px): validate visually at delivery scale, not at mesh scale; optional head detail card as a decal later |
+| Software renderer correctness | synthetic ground-truth rasterisation tests (Sprint 1 harness); determinism hash gate; cross-check vs Route A frames |
+| Upfront cost (mesh + UV + skinning authoring) | one-time template asset, versioned in-repo; reused by every persona forever |
+
+### 11.11 Generation budget ledger (per persona, `P-R8` respected)
+
+| Call | Purpose |
+|---|---|
+| 1 | T0 sagittal master |
+| 2–5 | T2 L-side, front, back (+ R-side re-roll reserve) |
+| 6–7 | T3 masked UV inpaint (1 + 1 retry) |
+| 8 | reserve (swatch or view re-roll) |
+
+Observed today: ~24 calls/persona on PR `#1`. Route B target: ≤ 8, same ceiling as Route A.
+
+### 11.12 Route A vs Route B decision gate (Sprint 3)
+
+Build both personas from the same persona spec: Route A (atlas decomposition, `§3`) and Route B (textured mesh, `§11`). Compare on: §3.8 + §11.9 metric tables, generation calls consumed, engineering hours to first acceptable persona, and blind human review of 16-phase contact sheets. The winner becomes production; the loser is retained as fallback renderer/asset path (Route A's cutouts remain a valid low-cost tier for illustrated personas). Either outcome retires the PR `#1`/PR `#8` extraction magic numbers.
+
+## 12. Changelog
 
 | Version | Date | Addendum | Change |
 |---|---|---|---|
 | `1.0.0` | `2026-10-18` | `ADD-003` | Initial design of record after assessment of PR `#1` @ `936f37c` and PR `#8` @ `04d5caf` |
+| `1.1.0` | `2026-10-18` | `ADD-006` | 3D route evaluated and fully designed (`§11`, `#route-3d`): AI-assist matrix for skin/texture generation, multi-view bake + masked UV inpaint, UV-atlas seam rule, pure-TS renderer derisked by committed PoC evidence, Sprint-3 A/B decision gate |

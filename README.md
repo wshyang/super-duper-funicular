@@ -16,6 +16,7 @@
 - `src/images/` — canonically filed artwork + `manifest.json` (SHA-256 provenance); includes the defective reference sheet from `main`.
 - `src/discipline/` — mechanical GREENFIELD gate (`npm test`).
 - `src/calibration/` — (Sprint 1) per-persona/per-pose landmark & material-ownership datasets.
+- `src/render/` — pure-TS orthographic skinned software renderer (Route B PoC, evidence in `docs/evidence/poc-software-render/`).
 - `src/pipeline/`, `src/runner/`, `src/app/` — (Sprints 1–4) decomposition, rig/render, workbench.
 - `docs/evidence/` — committed downscaled audit evidence packs.
 - `/home/user/workdirs/pr1|pr8` — read-only inspection copies of the reference branches (outside the repo; `PROVENANCE.md` inside each).

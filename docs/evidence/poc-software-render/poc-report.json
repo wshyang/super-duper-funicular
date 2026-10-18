@@ -1,0 +1,101 @@
+{
+  "run": "poc-software-render",
+  "date": "2026-10-18",
+  "branch": "arena/62955c1e-super-duper-funicular",
+  "purpose": "Derisk Route B (PIPELINE_REVISION_PROPOSAL §11): deterministic pure-TS skinned orthographic rasterisation of a UV-textured capsule chain at sprite scale.",
+  "mesh": {
+    "vertices": 364,
+    "triangles": 676
+  },
+  "frames": [
+    {
+      "pose": 0,
+      "boneAngles": [
+        0,
+        0
+      ],
+      "opaquePixels": 3940,
+      "opaqueComponents": 1,
+      "renderMs": 19.73,
+      "frameSha256": "67d65d05c33ac10195b86f7ddba0d6b0ea6315bb751d248361da972650a71f6f"
+    },
+    {
+      "pose": 1,
+      "boneAngles": [
+        0.35,
+        -0.7
+      ],
+      "opaquePixels": 3763,
+      "opaqueComponents": 1,
+      "renderMs": 2.74,
+      "frameSha256": "0c1b13051c3755c4bb2bb874c4d49d29c946ef92c8091ab9ec330abe4ed03ed3"
+    },
+    {
+      "pose": 2,
+      "boneAngles": [
+        0.6,
+        -1.5
+      ],
+      "opaquePixels": 3717,
+      "opaqueComponents": 1,
+      "renderMs": 3.27,
+      "frameSha256": "89a73cd9d8a90d2fab54b4d0067f8b866151d75f4be0de40e31ba852973c2a64"
+    },
+    {
+      "pose": 3,
+      "boneAngles": [
+        0.2,
+        -2.2
+      ],
+      "opaquePixels": 3597,
+      "opaqueComponents": 1,
+      "renderMs": 1.98,
+      "frameSha256": "e6f19e4443ad775ffc0f43ec072a0504e9559744b0b48110ff830dfa33c63ff6"
+    },
+    {
+      "pose": 4,
+      "boneAngles": [
+        -0.3,
+        -1.6
+      ],
+      "opaquePixels": 3400,
+      "opaqueComponents": 1,
+      "renderMs": 1.55,
+      "frameSha256": "2bb8aa2e463bf9e0619524a5321a9198890a989f178078c49c421996c96d9153"
+    },
+    {
+      "pose": 5,
+      "boneAngles": [
+        -0.6,
+        -0.9
+      ],
+      "opaquePixels": 2957,
+      "opaqueComponents": 1,
+      "renderMs": 1.26,
+      "frameSha256": "11ffe9bdfc70ff29adceb2f3e288565d039a85e19631582c7c74c00d6ec81b5c"
+    },
+    {
+      "pose": 6,
+      "boneAngles": [
+        -0.35,
+        -0.3
+      ],
+      "opaquePixels": 3776,
+      "opaqueComponents": 1,
+      "renderMs": 1.66,
+      "frameSha256": "70f37b49e50aa9ad68fa1ea25cfa01afd04465dded7022fc633453133b7c1e75"
+    },
+    {
+      "pose": 7,
+      "boneAngles": [
+        0.15,
+        -0.5
+      ],
+      "opaquePixels": 3768,
+      "opaqueComponents": 1,
+      "renderMs": 1.39,
+      "frameSha256": "a3756dd05e1fcac9e9b307e2becc37c799cb56117f0f7992f56da2d456efd9a5"
+    }
+  ],
+  "opaqueSpreadRatioInfoOnly": 0.2495
+}

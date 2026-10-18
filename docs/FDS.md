@@ -2,7 +2,7 @@
 
 - **Repository:** `wshyang/super-duper-funicular`
 - **Active Branch:** `arena/62955c1e-super-duper-funicular`
-- **FDS Version:** `1.0.0`
+- **FDS Version:** `1.1.0`
 - **Construction Guide:** [`FDS_BUILDER.md`](../FDS_BUILDER.md) (upstream `wshyang/greenfield` @ `8ba7402`)
 - **Companion Documents:** [`docs/SPEC.md`](./SPEC.md), [`docs/ADDENDA.md`](./ADDENDA.md), [`docs/PIPELINE_REVISION_PROPOSAL.md`](./PIPELINE_REVISION_PROPOSAL.md) (`#revised-pipeline`), [`docs/BRANCH_ASSESSMENT_PR1_PR8.md`](./BRANCH_ASSESSMENT_PR1_PR8.md) (`#branch-assessment`), [`docs/VALIDATION.md`](./VALIDATION.md)
 
@@ -37,8 +37,9 @@ The revision inverts the current design: diffusion generates only **whole-body**
 | `P0` | Branch assessment (`#branch-assessment`), discipline adoption, design of record | **Complete this turn** (`ADD-001`..`ADD-005`) |
 | `P1` | Sprint 1: ground-truth decomposition harness + calibration schema | Not started |
 | `P2` | Sprint 2: relight/MVP normalisation + metric baselines on PR `#1`/PR `#8` assets | Not started |
-| `P3` | Sprint 3: one persona end-to-end inside the 8-call generation budget | Not started |
-| `P4` | Sprint 4: motion realism, SVG parity, CI evidence packs | Not started |
+| `P3` | Sprint 3: one persona end-to-end inside the 8-call generation budget (Route A) | Not started |
+| `P3B` | Sprint 3B: Route B textured-mesh persona on the pure-TS renderer (`#route-3d`); renderer PoC **already executed** (`docs/evidence/poc-software-render/`) | PoC complete; mesh/UV/bake not started |
+| `P4` | Sprint 4: A/B decision gate, motion realism, CI evidence packs | Not started |
 
 ## 3. Core Objects (`#obj-*`) {#core-objects}
 
@@ -57,7 +58,13 @@ A whole-body generation of one locked character in a prescribed running pose (`A
 ### 3.5 `#obj-articulated-pose` — 17-Part Articulated Runner Pose (`P1-Core`, retained)
 The retained 17-element Z-ordered rig from PR `#1` `FDS §8.1.1` (far limbs 1–6, pelvis 7, neck 8, hair 9, torso 10, head 11, near limbs 12–17), solved by two-bone IK with contralateral phase and 2-segment plantar roll.
 
-### 3.6 `#obj-evidence-pack` — Committed Evidence Pack (`P2-Core`, `P-R7`)
+### 3.6 `#obj-textured-mesh` — Fixed-Topology Textured Body Mesh (`P3B-Core`, `#route-3d`)
+Template humanoid mesh (~10–20 k tris) with canonical 17-joint skeleton, authored skin weights, deterministic UV atlas (charts cut along garment seams), and material slots (singlet/shorts/socks/shoes/skin). Per-persona instance = bone-scale vector + baked texture; topology and UV never vary per persona.
+
+### 3.7 `#obj-skin-texture` — Baked Skin (Albedo + AO + Optional Normal) (`P3B-Core`)
+UV-space albedo produced by visibility-weighted multi-view bake from the T2 plates, hole-masked UV inpaint completion (AI touches only the code-computed mask), delighted by per-material gradient division; AO baked from mesh; procedural material normals. Provenance: per-texel source view recorded in the run report.
+
+### 3.8 `#obj-evidence-pack` — Committed Evidence Pack (`P2-Core`, `P-R7`)
 `docs/evidence/<run-id>/`: downscaled contact sheet, `audit-report.json`, `SHA256SUMS`; ≤ ~2 MB; required for any audit whose findings drive a decision.
 
 ## 4. Central Relationship Map {#relationship-map}
@@ -103,7 +110,16 @@ MVP histogram normalisation + cap gradient easing; full directional shade model 
 ### 6.5 `#feat-perceptual-gates` — Perceptual Audit Metrics (`P2-Core`)
 `seamContrast`, `jointGapArea`, `jointOverlapArea`, `stripeDuplication`, `proportionError`, `groundContactDelta`, `strideDtw` alongside legacy island/spill/coverage telemetry (`#revised-pipeline §3.8`).
 
-### 6.6 `#feat-motion-fit` — Reference-Fitted Gait Curves (`P4-Optional`)
+### 6.6 `#feat-multiview-skin` — Multi-View Plate Generation & Masked UV Completion (`P3B-Core`)
+T0/T2 generation under identity gates (head-crop dHash, palette ΔE, garment-boundary positions) and T3 masked inpaint limited to the visibility hole mask (`PROPOSAL §11.3–11.6`).
+
+### 6.7 `#feat-uv-bake` — Visibility-Weighted Projection Bake (`P3B-Core`)
+Deterministic texel colouring from orthographic views with depth-tested visibility weights; hole mask emission; chart-border easing (`PROPOSAL §11.4`).
+
+### 6.8 `#feat-software-renderer` — Pure-TS Orthographic Skinned Renderer (`P3B-Core`)
+Z-buffered UV-sampled linear-blend-skinning rasteriser, byte-identical output; PoC proven at 1.7–19.6 ms/frame with single-component silhouettes (`docs/evidence/poc-software-render/`).
+
+### 6.9 `#feat-motion-fit` — Reference-Fitted Gait Curves (`P4-Optional`)
 Hip/knee/arm amplitude-phase curves fitted to tracked reference running data, validated by DTW (`#revised-pipeline §3.7`).
 
 ## 7. User Flows {#user-flows}
@@ -132,6 +148,7 @@ No `generate_image` call has been made on this branch yet. The log opens below a
 | **`TURN-L01`** (`2026-10-18`) | User asked to assess PR `#1` and PR `#8` in separate working directories and examine their intent. | Fetched `refs/pull/1/head` → `/home/user/workdirs/pr1` @ `936f37ce07f18e38fc4f5b3880c80029ec9f55cf`; `refs/pull/8/head` → `/home/user/workdirs/pr8` @ `04d5caf432ff81be0307a3ec79e894da1b60045c`; `gh pr view 1/8`; `diff -rq` = 279 differing paths (~235 binary). | The branches are two experiments on one converged design: PR `#1` = engine + forensics + SVG; PR `#8` = athletic asset rebuild + 5-persona audit. Divergence is concentrated in athletic extraction and ledgers. | Adopted: assessment recorded in `docs/BRANCH_ASSESSMENT_PR1_PR8.md`. | `git ls-remote`, `gh pr view`, `diff -rq` executed locally. Next: read all FDS documents. |
 | **`TURN-L02`** (`2026-10-18`) | Read all FDS documents of both branches to learn the background and the encountered issues. | PR `#1` `docs/FDS.md` (1097 lines, v5.1.0: `§8` thought process, `§8.4` `IMG-ERR-01..16`/`PIPE-ERR-01..08`, `§9` 72-call prompt log, `§10` SVG math, `§11` audit workflow, `§12` learning register), `docs/ADDENDA.md` (`ADD-001..041`), `PLAN.md`, `docs/SPRITE_ANIMATION_FLAW_ANALYSIS.md`, `docs/VALIDATION.md`, `docs/SPEC.md`; PR `#8` `docs/FDS.md` (`TURN-L12..L21`), `docs/VALIDATION.md`, `docs/ADDENDA.md` (`ADD-001..039`); `GREENFIELD.md`, `FDS_BUILDER.md`, `CLAUDE*.md` of both. | Eight failure families synthesised (`F1..F8`, `BRANCH_ASSESSMENT §1.2`/`PROPOSAL §1.2`): the stochastic generator is over-constrained per isolated part and under-constrained across plates; deterministic repair magic-numbers are where new defects are born; telemetry passes while users still see seams. PR `#8`'s four-turn bust/collarbone regression chain is the cleanest proof. | Adopted: inversion principle (`#revised-pipeline §1.3`). Rejected: retrying any `§7` dead end as-is. | No new code. Next: discipline adoption. |
 | **`TURN-L03`** (`2026-10-18`) | User instructed: adopt the GREENFIELD + CLAUDE discipline into this repository. | Copied verbatim from PR `#1` @ `936f37c`: `GREENFIELD.md`, `FDS_BUILDER.md`, `docs/greenfield/GREENFIELD.md`, `CLAUDE.md` (re-authored bindings), `CLAUDE-{checklist,conventions,database,decisions,deployment,function-design,testing,validation}.md`, `.claude/skills/audit-gait-cycle/SKILL.md`, `tsconfig.json`, `vitest.config.ts`, `.gitignore`, Dockerfile triplet, `.dockerignore`, inert `*.shiphats` set + `activate-shiphats.sh`, `dev.sh`, `.env.example/.env.test`; adapted `src/discipline/greenfield-gate.test.ts`; filed the defective sheet per `ADD-002`. | The discipline corpus is byte-identical between PR `#1` and PR `#8` except branch bindings, so a single adoption serves both lineages. Its mechanical gate is the enforcement surface; ledger-heavy rules (N-way parity) were scoped down to reference-branch observation for this branch's mission. | Adopted: full corpus + gate. Deferred: pipeline scripts/deps until Sprint 1. | `npm install`, `npm run validate` executed (see `docs/VALIDATION.md`). Next: design of record. |
+| **`TURN-L05`** (`2026-10-18`) | User authorised evaluating the 3D route and required ideation of AI-assisted image-asset (3D skin) generation. | PoC executed locally: `src/render/{software-renderer,mesh-factory}.ts` + test; evidence pack `docs/evidence/poc-software-render/` (contact-8pose.png, poc-report.json, SHA256SUMS); 8/8 gates green incl. determinism hash and 1-component silhouette per pose. First PoC run failed its own coverage-spread assertion (folded legs legitimately overlap in projection) and a chain-translation sign bug split pose 1 into 2 components — both fixed and retained as learning: the joint-continuity gate is *connectivity*, not opaque-area stability. | Route B is feasible in-sandbox without native/GL deps; AI's safe role is whole-body plates + masked UV inpaint only (`#route-3d §11.3` AI-assist matrix); geometry/UV/bake/skin/render stay deterministic. Route A retained; A/B gate in Sprint 3/4 (`§11.12`). | Adopted: `PROPOSAL` v1.1.0 `§11`, `ADD-006`, new objects/features `#obj-textured-mesh`, `#obj-skin-texture`, `#feat-multiview-skin`, `#feat-uv-bake`, `#feat-software-renderer`. Deferred: SMPL-class body fitting, SVG-first-class question. | `npm run validate` (8/8). Next: user answers `§9` Q2–Q5; Sprint 1 harness. |
 | **`TURN-L04`** (`2026-10-18`) | User asked for ideation on a revised pipeline addressing the issues encountered by PR `#1` and PR `#8`. | Personally viewed: `main` defective sheet; PR `#1` `frame-01/04/05` (photoreal athletic), `01-master-lateral-profile-reference.png`, `parts/torso.png`; PR `#8` `frame-01`. Read: both extractors, cutter, rig, dumper, gate. | Visual confirmation of `F7`: PR `#1` frames pass all telemetry yet show walk-like mid-stance scissoring and scale-mismatched shoes; PR `#8`'s rebuilt athletic shows collar spike + low oversized shoe (matching its own `+6 px` report). Hence the proposal's whole-body atlas inversion, material ownership, relight split, and perceptual gates. | Adopted: `docs/PIPELINE_REVISION_PROPOSAL.md` v1.0.0 as design of record (`ADD-003`). Deferred to user: `§9` open questions (3D endgame, identity tolerance, frame targets, motion licence, sibling-branch freeze). | `npm run validate` green. Next: user review of open questions, then Sprint 1. |
 
 ## 11. Day-Zero Bootstrap (`R4`) {#day-zero-bootstrap}
@@ -153,3 +170,4 @@ Skeleton-first: discipline corpus, living docs (`FDS`, `SPEC`, `ADDENDA`, `VALID
 | Version | Date | Addendum | Change |
 |---|---|---|---|
 | `1.0.0` | `2026-10-18` | `ADD-001`..`ADD-005` | Day-zero bootstrap: discipline adoption, branch assessment, revised pipeline design of record, learning register opened |
+| `1.1.0` | `2026-10-18` | `ADD-006` | 3D route evaluated (`#route-3d`): AI-assist matrix for skin generation, multi-view bake + masked UV inpaint, pure-TS renderer PoC with committed evidence, Sprint-3 A/B decision gate |
