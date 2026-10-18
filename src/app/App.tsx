@@ -120,6 +120,7 @@ function StudioMainContent({
               personaId: studio.personaId,
               variant: studio.variant,
               gaitConfig: studio.gaitConfig,
+              assetTuning: studio.activeAssetTuning,
               photorealStatus: studio.photorealStatus,
               onRetryPhotorealAssets: studio.retryPhotorealAssets,
             }}

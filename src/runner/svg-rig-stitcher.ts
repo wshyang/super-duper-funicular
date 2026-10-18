@@ -2,9 +2,11 @@ import type {
   ArticulatedPose,
   BodyPartId,
   LimbKinematics,
+  PhotorealAssetTuningSpec,
   Point2D,
 } from '../shared/types.js';
 import type { VectorizedPartSvg } from '../pipeline/svg-vectorizer.js';
+import { resolvePhotorealAssetTuning } from './body-proportions.js';
 
 export interface SvgSegmentPlacement {
   readonly partId: BodyPartId;
@@ -143,51 +145,63 @@ function computeHandTip(arm: LimbKinematics, handLenPx: number): Point2D {
   };
 }
 
-function buildRigPlacements(pose: ArticulatedPose): readonly SvgSegmentPlacement[] {
+function buildRigPlacements(
+  pose: ArticulatedPose,
+  assetTuning?: PhotorealAssetTuningSpec,
+): readonly SvgSegmentPlacement[] {
+  const tuning = resolvePhotorealAssetTuning(assetTuning?.personaId, assetTuning);
   const stdTop: Point2D = { x: 80, y: 36 };
   const stdBot: Point2D = { x: 80, y: 124 };
   const headPivot: Point2D = { x: pose.neck.x + 2.0, y: pose.neck.y + 2.0 };
   const headCrown: Point2D = {
     x: headPivot.x + 1.0 + Math.sin(pose.neckAngleRad) * 2.0,
-    y: headPivot.y - 26.5,
+    y: headPivot.y - 26.5 * tuning.headScale,
   };
   const ponyBounce = Math.sin(pose.phase * Math.PI * 4 - 0.55) * 4.0;
   const ponyRoot: Point2D = { x: headPivot.x - 7.5, y: headPivot.y - 15.5 };
   const ponyTip: Point2D = { x: ponyRoot.x - 25, y: ponyRoot.y + 3.0 + ponyBounce };
-  const shoulderSocket: Point2D = {
-    x: pose.nearArm.hipOrShoulder.x - 0.5,
-    y: pose.nearArm.hipOrShoulder.y - 2.5,
+  const shoulderSocket: Point2D = { x: pose.nearArm.hipOrShoulder.x - 0.5, y: pose.nearArm.hipOrShoulder.y - 1.5 };
+  const pelvisTop: Point2D = {
+    x: pose.pelvis.x + 1.5 + (pose.collar.x - pose.pelvis.x) * 0.16,
+    y: pose.pelvis.y - 8.5 + tuning.hipOffsetY,
+  };
+  const pelvisBot: Point2D = {
+    x: pose.pelvis.x - 1.0,
+    y: pose.pelvis.y + 12.5 * tuning.pelvisLengthScale + tuning.hipOffsetY,
   };
   return [
-    { partId: 'farUpperArm', start: pose.farArm.hipOrShoulder, end: pose.farArm.midJoint, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 23 },
-    { partId: 'farForearm', start: pose.farArm.midJoint, end: pose.farArm.endEffector, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 23 },
-    { partId: 'farHand', start: pose.farArm.endEffector, end: computeHandTip(pose.farArm, 9.0), srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 21 },
-    { partId: 'farShin', start: pose.farLeg.midJoint, end: pose.farLeg.endEffector, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 28 },
-    { partId: 'farThigh', start: pose.farLeg.hipOrShoulder, end: pose.farLeg.midJoint, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 28 },
-    { partId: 'neck', start: { x: pose.neck.x + 1.5, y: pose.neck.y - 1.5 }, end: { x: pose.collar.x + 0.5, y: pose.collar.y + 3.5 }, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 17 },
-    { partId: 'torso', start: { x: pose.collar.x - 0.5, y: pose.collar.y - 2.0 }, end: { x: pose.pelvis.x, y: pose.pelvis.y + 2.0 }, srcStart: { x: 74, y: 26 }, srcEnd: { x: 80, y: 120 }, dstHalfWidthPx: 41 },
-    { partId: 'nearShin', start: pose.nearLeg.midJoint, end: pose.nearLeg.endEffector, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 29 },
-    { partId: 'nearThigh', start: pose.nearLeg.hipOrShoulder, end: pose.nearLeg.midJoint, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 29 },
-    { partId: 'pelvis', start: { x: pose.pelvis.x + 1.0, y: pose.pelvis.y - 7.5 }, end: { x: pose.pelvis.x - 1.5, y: pose.pelvis.y + 12.5 }, srcStart: { x: 82, y: 32 }, srcEnd: { x: 78, y: 120 }, dstHalfWidthPx: 25 },
-    { partId: 'hairAccessory', start: ponyRoot, end: ponyTip, srcStart: { x: 142, y: 82 }, srcEnd: { x: 14, y: 86 }, dstHalfWidthPx: 19 },
-    { partId: 'head', start: headCrown, end: headPivot, srcStart: { x: 76, y: 12 }, srcEnd: { x: 76, y: 120 }, dstHalfWidthPx: 23 },
-    { partId: 'nearUpperArm', start: shoulderSocket, end: pose.nearArm.midJoint, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 25 },
-    { partId: 'nearForearm', start: pose.nearArm.midJoint, end: pose.nearArm.endEffector, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 25 },
-    { partId: 'nearHand', start: pose.nearArm.endEffector, end: computeHandTip(pose.nearArm, 9.5), srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: 22 },
+    { partId: 'farUpperArm', start: pose.farArm.hipOrShoulder, end: pose.farArm.midJoint, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(tuning.upperArmWidthPx * 0.92) },
+    { partId: 'farForearm', start: pose.farArm.midJoint, end: pose.farArm.endEffector, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(tuning.forearmWidthPx * 0.92) },
+    { partId: 'farHand', start: pose.farArm.endEffector, end: computeHandTip(pose.farArm, tuning.handLengthPx), srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(tuning.handWidthPx * 0.92) },
+    { partId: 'farShin', start: pose.farLeg.midJoint, end: pose.farLeg.endEffector, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(tuning.shinWidthPx * 0.95) },
+    { partId: 'farThigh', start: pose.farLeg.hipOrShoulder, end: pose.farLeg.midJoint, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(tuning.thighWidthPx * 0.95) },
+    { partId: 'neck', start: { x: pose.neck.x + 2.2, y: pose.neck.y - 1.5 }, end: { x: pose.collar.x + 1.0, y: pose.collar.y + 3.5 }, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: Math.round(tuning.torsoWidthPx * 0.48) },
+    { partId: 'torso', start: { x: pose.collar.x - 0.5, y: pose.collar.y - 2.0 }, end: { x: pose.pelvis.x - 1.0, y: pose.pelvis.y + 1.0 }, srcStart: { x: 74, y: 26 }, srcEnd: { x: 80, y: 120 }, dstHalfWidthPx: tuning.torsoWidthPx },
+    { partId: 'pelvis', start: pelvisTop, end: pelvisBot, srcStart: { x: 82, y: 32 }, srcEnd: { x: 78, y: 120 }, dstHalfWidthPx: tuning.pelvisWidthPx },
+    { partId: 'nearShin', start: pose.nearLeg.midJoint, end: pose.nearLeg.endEffector, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: tuning.shinWidthPx },
+    { partId: 'nearThigh', start: pose.nearLeg.hipOrShoulder, end: pose.nearLeg.midJoint, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: tuning.thighWidthPx },
+    { partId: 'hairAccessory', start: ponyRoot, end: ponyTip, srcStart: { x: 142, y: 82 }, srcEnd: { x: 14, y: 86 }, dstHalfWidthPx: Math.round(18 * tuning.headScale) },
+    { partId: 'head', start: headCrown, end: headPivot, srcStart: { x: 76, y: 12 }, srcEnd: { x: 76, y: 120 }, dstHalfWidthPx: 23 * tuning.headScale },
+    { partId: 'nearUpperArm', start: shoulderSocket, end: pose.nearArm.midJoint, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: tuning.upperArmWidthPx },
+    { partId: 'nearForearm', start: pose.nearArm.midJoint, end: pose.nearArm.endEffector, srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: tuning.forearmWidthPx },
+    { partId: 'nearHand', start: pose.nearArm.endEffector, end: computeHandTip(pose.nearArm, tuning.handLengthPx), srcStart: stdTop, srcEnd: stdBot, dstHalfWidthPx: tuning.handWidthPx },
   ];
 }
 
 /**
  * Stitches all 17 vectorized SVG articulated elements into a single hierarchical SVG document
- * ordered back-to-front (`zOrder = 1..17`) with rounded-end joint superimposition and 2-segment foot roll.
+ * ordered back-to-front (`zOrder = 1..17`) with rounded-end joint superimposition, 2-segment foot roll,
+ * and per-element `PhotorealAssetTuningSpec` sizing/scaling controls.
  */
 export function stitchArticulatedSvgRig(
   pose: ArticulatedPose,
   vectorParts: Readonly<Record<BodyPartId, VectorizedPartSvg>>,
   canvasSize: { readonly width: number; readonly height: number } = { width: 220, height: 256 },
+  assetTuning?: PhotorealAssetTuningSpec,
 ): string {
+  const tuning = resolvePhotorealAssetTuning(assetTuning?.personaId, assetTuning);
   const byId = new Map<BodyPartId, SvgSegmentPlacement>();
-  for (const seg of buildRigPlacements(pose)) {
+  for (const seg of buildRigPlacements(pose, tuning)) {
     byId.set(seg.partId, seg);
   }
   const orderedIds: readonly BodyPartId[] = [
@@ -223,7 +237,7 @@ export function stitchArticulatedSvgRig(
     }
   }
   return [
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${canvasSize.width} ${canvasSize.height}" width="${canvasSize.width}" height="${canvasSize.height}" data-phase="${pose.phase.toFixed(4)}">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${canvasSize.width} ${canvasSize.height}" width="${canvasSize.width}" height="${canvasSize.height}" data-phase="${pose.phase.toFixed(4)}" data-persona-id="${tuning.personaId}" data-torso-width="${tuning.torsoWidthPx}" data-head-scale="${tuning.headScale.toFixed(3)}">`,
     groups.join('\n'),
     `</svg>`,
   ].join('\n');

@@ -403,6 +403,33 @@ describe('Real reference sprite sheet grid detection and extraction verification
       );
     }
   });
+
+  it('propagates PhotorealAssetTuningSpec element sizing/scaling controls across cycle dumps and SVG rigs for all 3 photoreal personas', () => {
+    for (const slug of ['sg-chinese-female-petite', 'sg-chinese-female', 'sg-chinese-female-average'] as const) {
+      const svgFrame = fs.readFileSync(
+        path.join(process.cwd(), 'public/sprites/photoreal', slug, 'svg-frames/frame-01.svg'),
+        'utf8',
+      );
+      expect(svgFrame).toContain('data-torso-width=');
+      expect(svgFrame).toContain('data-head-scale=');
+    }
+    const tmpAuditDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cycle-tuning-test-'));
+    const report = dumpFullGaitCycleToTempDir({
+      outDir: tmpAuditDir,
+      frameCount: 4,
+      personaId: 'photo-sg-chinese-female-average',
+      variant: 'red',
+      assetTuning: { torsoLengthScale: 1.38, torsoWidthPx: 46, headScale: 1.04 },
+    });
+    expect(report.resolvedAssetTuning?.torsoLengthScale).toBe(1.38);
+    expect(report.resolvedAssetTuning?.torsoWidthPx).toBe(46);
+    expect(report.effectiveRigLengths.torsoLength).toBeCloseTo(43 * 1.38, 1);
+    expect(report.standingProfileAuditPath).not.toBeNull();
+    expect(fs.existsSync(report.standingProfileAuditPath!)).toBe(true);
+    expect(report.totalDisconnectedIslands).toBe(0);
+    expect(report.totalMagentaSpillPixels).toBe(0);
+    fs.rmSync(tmpAuditDir, { recursive: true, force: true });
+  });
 });
 
 function countOpaquePixels(img: { width: number; height: number; data: Uint8ClampedArray }): number {

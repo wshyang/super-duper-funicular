@@ -14,6 +14,46 @@ interface SimilarityExtractSpec {
   readonly shadeScale: number;
 }
 
+export function cleanAthleticTorsoNeckStub(src: RasterImage): RasterImage {
+  const out = createRaster(src.width, src.height);
+  out.data.set(src.data);
+  for (let y = 0; y < 250; y++) {
+    for (let x = 0; x < 760; x++) {
+      const p = readPixel(out, x, y);
+      if (p.a === 0) continue;
+      const isSinglet = p.r > 115 && p.r - p.g > 55 && p.r > p.b * 1.35;
+      const isWhiteStripe = p.r > 180 && p.g > 180 && p.b > 180;
+      if (!isSinglet && !isWhiteStripe && (y < 155 || x < 645)) {
+        writePixel(out, { x, y }, { r: 0, g: 0, b: 0, a: 0 });
+      }
+    }
+  }
+  return out;
+}
+
+export function mirrorAthleticTorsoToRightProfile(src: RasterImage): RasterImage {
+  const out = createRaster(src.width, src.height);
+  for (let y = 0; y < src.height; y++) {
+    for (let x = 0; x < src.width; x++) {
+      const sx = 158 - x;
+      if (sx < 0 || sx >= src.width) continue;
+      const p = readPixel(src, sx, y);
+      if (p.a === 0) continue;
+      if (x < 72 && y < 56) {
+        const minAllowedY = 25 + (72 - x) * 0.52;
+        if (y < minAllowedY) {
+          const excess = minAllowedY - y;
+          const alpha = excess >= 2.5 ? 0 : Math.round(p.a * (1 - excess / 2.5));
+          if (alpha > 0) writePixel(out, { x, y }, { ...p, a: alpha });
+          continue;
+        }
+      }
+      writePixel(out, { x, y }, p);
+    }
+  }
+  return out;
+}
+
 export function raiseAthleticBustLandmark(src: RasterImage): RasterImage {
   const out = createRaster(src.width, src.height);
   const topY = 24;
@@ -40,23 +80,57 @@ export function raiseAthleticBustLandmark(src: RasterImage): RasterImage {
 
 export function extractAthleticNeck(src: RasterImage): RasterImage {
   const neckSource = createRaster(src.width, src.height);
-  for (let y = 350; y <= 420; y++) {
-    const t = (y - 350) / 70;
-    const minX = Math.round(725 - 80 * t);
-    const maxX = Math.round(765 - 65 * t + 15 * Math.sin(t * Math.PI));
+  for (let y = 350; y <= 424; y++) {
+    const t = (y - 350) / 74;
+    const minX = Math.round(672 + 12 * t);
+    const maxX = Math.round(774 - 12 * t);
     for (let x = minX; x <= maxX; x++) {
       const p = readPixel(src, x, y);
-      const isSkin = p.a > 32 && p.r > 75 && p.g > 48 && p.b > 28 &&
-        p.r > p.g * 1.08 && p.g > p.b * 1.08 && p.g < 205;
-      if (isSkin) writePixel(neckSource, { x, y }, p);
+      const isSkin = p.a > 32 && p.r > 95 && p.g > 55 && p.b > 32 &&
+        p.r > p.g * 1.1 && p.g > p.b * 1.08 && p.g < 205 &&
+        !(p.r > 135 && p.g < 52 && p.b < 65);
+      if (isSkin) {
+        const lum = (p.r + p.g + p.b) / 3;
+        const boost = lum < 125 ? 125 / Math.max(60, lum) : 1.0;
+        writePixel(neckSource, { x, y }, {
+          r: Math.min(235, Math.round(p.r * boost)),
+          g: Math.min(185, Math.round(p.g * boost)),
+          b: Math.min(145, Math.round(p.b * boost)),
+          a: 255,
+        });
+      }
     }
   }
   const cropped = extractAlignedPart(neckSource, {
-    srcStart: { x: 748, y: 352 }, srcEnd: { x: 680, y: 410 },
+    srcStart: { x: 724, y: 358 }, srcEnd: { x: 722, y: 420 },
     dstStart: { x: 80, y: 36 }, dstEnd: { x: 80, y: 124 },
-    cropBox: { minX: 640, minY: 345, maxX: 775, maxY: 425 }, shadeScale: 0.98,
+    cropBox: { minX: 660, minY: 348, maxX: 780, maxY: 426 }, shadeScale: 0.98,
   });
-  return widenPart(cropped, 1.5);
+  return taperNeckCapsuleEdges(cropped);
+}
+
+function taperNeckCapsuleEdges(src: RasterImage): RasterImage {
+  const out = createRaster(src.width, src.height);
+  for (let y = 0; y < src.height; y++) {
+    const tY = Math.max(0, Math.min(1, (y - 36) / 88));
+    const halfW = 25.5 + 2.0 * tY;
+    for (let x = 0; x < src.width; x++) {
+      const dist = Math.abs(x - 80);
+      if (dist > halfW) continue;
+      const p = readPixel(src, x, y);
+      if (p.a === 0) continue;
+      const feather = dist > halfW - 2.5 ? Math.max(0, (halfW - dist) / 2.5) : 1.0;
+      writePixel(out, { x, y }, { ...p, a: Math.round(p.a * feather) });
+    }
+  }
+  const topRounded = applyPivotArcRoundedCut(out, {
+    pivot: { x: 80, y: 36 }, radiusX: 26, radiusY: 25,
+    cutSide: 'above', featherPx: 2.5,
+  });
+  return applyPivotArcRoundedCut(topRounded, {
+    pivot: { x: 80, y: 124 }, radiusX: 28, radiusY: 25,
+    cutSide: 'below', featherPx: 2.5,
+  });
 }
 
 export function extractAthleticFarArmParts(
@@ -128,15 +202,4 @@ function extractAlignedPart(src: RasterImage, spec: SimilarityExtractSpec): Rast
 
 function shade(p: RgbaColor, scale: number): RgbaColor {
   return { r: Math.round(p.r * scale), g: Math.round(p.g * scale), b: Math.round(p.b * scale), a: p.a };
-}
-
-function widenPart(src: RasterImage, scaleX: number): RasterImage {
-  const out = createRaster(src.width, src.height);
-  for (let y = 0; y < src.height; y++) {
-    for (let x = 0; x < src.width; x++) {
-      const p = sampleBilinearRgba(src, 80 + (x - 80) / scaleX, y);
-      if (p.a > 0) writePixel(out, { x, y }, p);
-    }
-  }
-  return out;
 }

@@ -72,7 +72,7 @@ function JointEndCutterCard({
       <div className="stage-card-header">
         <h3>Articulated Element End-Cutter & Cuff Composite</h3>
         <span className="badge badge--emerald">
-          {inspector.activePartMeta.compositeNote}
+          {inspector.tunedBadgeLabel}
         </span>
       </div>
       <div className="control-row">

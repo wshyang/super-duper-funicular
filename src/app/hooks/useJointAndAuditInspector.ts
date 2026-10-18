@@ -2,11 +2,16 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type {
   BodyPartId,
   GaitConfig,
+  PhotorealAssetTuningSpec,
   RasterImage,
   RunnerPersonaId,
   RunnerVariantId,
 } from '../../shared/types.js';
-import { DEFAULT_RIG_SPEC } from '../../runner/body-proportions.js';
+import {
+  applyAssetTuningToRigSpec,
+  DEFAULT_RIG_SPEC,
+  resolvePhotorealAssetTuning,
+} from '../../runner/body-proportions.js';
 import { solveArticulatedPose } from '../../runner/gait.js';
 import { RUNNER_PALETTES } from '../../runner/palette.js';
 import { getPhotorealPartBankForPersona } from '../../runner/photoreal-rig.js';
@@ -100,8 +105,31 @@ export interface InspectorStudioInput {
   readonly personaId: RunnerPersonaId;
   readonly variant: RunnerVariantId;
   readonly gaitConfig: GaitConfig;
+  readonly assetTuning?: PhotorealAssetTuningSpec;
   readonly photorealStatus?: PhotorealLoadStatus;
   readonly onRetryPhotorealAssets?: () => void;
+}
+
+function resolveTunedPartScale(
+  partId: InspectableJointPartId,
+  tuning: PhotorealAssetTuningSpec,
+): { readonly widthScale: number; readonly lengthScale: number } {
+  switch (partId) {
+    case 'nearThigh':
+    case 'farThigh':
+      return { widthScale: tuning.thighWidthPx / 29, lengthScale: tuning.thighLengthScale };
+    case 'nearShin':
+    case 'farShin':
+      return { widthScale: tuning.shinWidthPx / 29, lengthScale: tuning.shinLengthScale };
+    case 'nearUpperArm':
+    case 'farUpperArm':
+      return { widthScale: tuning.upperArmWidthPx / 20, lengthScale: tuning.upperArmLengthScale };
+    case 'nearForearm':
+    case 'farForearm':
+      return { widthScale: tuning.forearmWidthPx / 18, lengthScale: tuning.forearmLengthScale };
+    case 'neck':
+      return { widthScale: tuning.torsoWidthPx / 30, lengthScale: tuning.torsoLengthScale };
+  }
 }
 
 export function useJointAndAuditInspector(input: InspectorStudioInput) {
@@ -113,20 +141,23 @@ export function useJointAndAuditInspector(input: InspectorStudioInput) {
   const jointCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const auditCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const activePartMeta = useMemo(
-    () =>
-      INSPECTABLE_JOINT_PARTS.find((item) => item.id === selectedPart) ??
-      INSPECTABLE_JOINT_PARTS[0]!,
+    () => INSPECTABLE_JOINT_PARTS.find((item) => item.id === selectedPart) ?? INSPECTABLE_JOINT_PARTS[0]!,
     [selectedPart],
   );
+  const resolvedTuning = useMemo(
+    () => resolvePhotorealAssetTuning(input.personaId, input.assetTuning),
+    [input.personaId, input.assetTuning],
+  );
+  const tunedScale = useMemo(
+    () => resolveTunedPartScale(selectedPart, resolvedTuning),
+    [selectedPart, resolvedTuning],
+  );
+  const effectiveRadiusPx = Math.round(activePartMeta.radiusPx * tunedScale.widthScale);
+  const tunedBadgeLabel = `${activePartMeta.compositeNote} · Tuned r=${effectiveRadiusPx}px (${tunedScale.widthScale.toFixed(2)}×W / ${tunedScale.lengthScale.toFixed(2)}×L)`;
   useInspectorCanvasEffects({
-    jointCanvasRef,
-    auditCanvasRef,
-    selectedPart,
-    pivotEnd,
-    comparisonMode,
-    angleDeg,
-    radiusPx: activePartMeta.radiusPx,
-    input,
+    jointCanvasRef, auditCanvasRef, selectedPart, pivotEnd, comparisonMode,
+    angleDeg, radiusPx: effectiveRadiusPx,
+    widthScale: tunedScale.widthScale, lengthScale: tunedScale.lengthScale, input,
   });
   const photorealStatus = input.photorealStatus ?? 'loaded';
   const isExportBlocked = isPhotorealExportBlocked(input.personaId, photorealStatus);
@@ -136,7 +167,8 @@ export function useJointAndAuditInspector(input: InspectorStudioInput) {
     selectedPart, setSelectedPart, pivotEnd, setPivotEnd,
     comparisonMode, setComparisonMode, angleDeg,
     angleLabel: `${angleDeg >= 0 ? '+' : ''}${angleDeg}°`,
-    setAngleDeg, activePartMeta, jointCanvasRef, auditCanvasRef,
+    setAngleDeg, activePartMeta, effectiveRadiusPx, tunedScale,
+    tunedBadgeLabel, jointCanvasRef, auditCanvasRef,
     isExportBlocked, photorealStatus,
     onRetryPhotorealAssets: input.onRetryPhotorealAssets,
     downloadAuditPng,
@@ -151,6 +183,8 @@ interface InspectorEffectSpec {
   readonly comparisonMode: CapCutComparisonMode;
   readonly angleDeg: number;
   readonly radiusPx: number;
+  readonly widthScale: number;
+  readonly lengthScale: number;
   readonly input: InspectorStudioInput;
 }
 
@@ -165,6 +199,8 @@ function useInspectorCanvasEffects(spec: InspectorEffectSpec): void {
       comparisonMode: spec.comparisonMode,
       angleDeg: spec.angleDeg,
       radiusPx: spec.radiusPx,
+      widthScale: spec.widthScale,
+      lengthScale: spec.lengthScale,
     });
   }, [
     spec.jointCanvasRef,
@@ -174,6 +210,8 @@ function useInspectorCanvasEffects(spec: InspectorEffectSpec): void {
     spec.comparisonMode,
     spec.angleDeg,
     spec.radiusPx,
+    spec.widthScale,
+    spec.lengthScale,
   ]);
   useEffect(() => {
     const canvas = spec.auditCanvasRef.current;
@@ -200,6 +238,8 @@ interface JointPaintSpec {
   readonly comparisonMode: CapCutComparisonMode;
   readonly angleDeg: number;
   readonly radiusPx: number;
+  readonly widthScale: number;
+  readonly lengthScale: number;
 }
 
 function paintJointInspectorCanvas(
@@ -247,7 +287,7 @@ function drawRotatedPartRaster(
   ctx.save();
   ctx.translate(ctx.canvas.width / 2, ctx.canvas.height / 2);
   ctx.rotate((spec.angleDeg * Math.PI) / 180);
-  ctx.scale(1.35, 1.35);
+  ctx.scale(1.35 * spec.widthScale, 1.35 * spec.lengthScale);
   if (spec.comparisonMode === 'base-square') {
     ctx.fillStyle = 'rgba(220, 75, 75, 0.28)';
     ctx.fillRect(-spec.radiusPx, -18, spec.radiusPx * 2, 18);
@@ -289,6 +329,7 @@ function paintSixteenPhaseAuditCanvas(
   ctx.fillStyle = '#0f141d';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   const palette = RUNNER_PALETTES[input.variant];
+  const tunedRigSpec = applyAssetTuningToRigSpec(DEFAULT_RIG_SPEC, input.assetTuning);
 
   for (let idx = 0; idx < 16; idx++) {
     const phase = idx / 16;
@@ -296,12 +337,13 @@ function paintSixteenPhaseAuditCanvas(
     const row = Math.floor(idx / 4);
     const x0 = col * cellW;
     const y0 = row * cellH;
-    const pose = solveArticulatedPose(phase, input.gaitConfig, DEFAULT_RIG_SPEC);
+    const pose = solveArticulatedPose(phase, input.gaitConfig, tunedRigSpec);
     const raster = renderRunnerPoseToRaster({
       pose,
       palette,
       pixelScale: 1,
       personaId: input.personaId,
+      assetTuning: input.assetTuning,
     });
     paintSingleAuditCell(ctx, { x0, y0, cellW, cellH, idx, pose, raster });
   }

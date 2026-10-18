@@ -165,8 +165,8 @@ function renderTorsoAndNeck(
     y: pose.collar.y - 2.0,
   };
   const torsoBottom: Point2D = {
-    x: pose.pelvis.x,
-    y: pose.pelvis.y + 2.0,
+    x: pose.pelvis.x - 1.0,
+    y: pose.pelvis.y + 1.0,
   };
   warpPhotorealSegmentToQuad(canvas, bank.torso, {
     dstStart: torsoTop,
@@ -185,9 +185,10 @@ function renderNearLegAndPelvisShorts(
   ctx: RigLayerContext,
 ): void {
   const { bank, palette, tuning } = ctx;
+  const leanLeadX = (pose.collar.x - pose.pelvis.x) * 0.16;
   const pelvisTop: Point2D = {
-    x: pose.pelvis.x + 1.5,
-    y: pose.pelvis.y - 6.5 + tuning.hipOffsetY,
+    x: pose.pelvis.x + 1.5 + leanLeadX,
+    y: pose.pelvis.y - 8.5 + tuning.hipOffsetY,
   };
   const pelvisBottom: Point2D = {
     x: pose.pelvis.x - 1.0,

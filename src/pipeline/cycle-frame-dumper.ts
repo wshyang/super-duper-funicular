@@ -3,6 +3,8 @@ import os from 'node:os';
 import path from 'node:path';
 import type {
   ArticulatedPose,
+  GaitConfig,
+  PhotorealAssetTuningSpec,
   Point2D,
   RasterImage,
   RgbaColor,
@@ -10,6 +12,7 @@ import type {
   RunnerVariantId,
 } from '../shared/types.js';
 import {
+  type AnatomicalRigSpec,
   applyAssetTuningToRigSpec,
   DEFAULT_GAIT_CONFIG,
   DEFAULT_RIG_SPEC,
@@ -19,6 +22,7 @@ import { solveArticulatedPose } from '../runner/gait.js';
 import { RUNNER_PALETTES } from '../runner/palette.js';
 import { renderRunnerPoseToRaster } from '../runner/rasterizer.js';
 import { isPhotorealPersona } from '../runner/skin-registry.js';
+import { solveStandingUprightPose } from '../runner/standing-pose.js';
 import { listOpaqueComponentSizes } from './connected-components.js';
 import { writePngFile } from './image-io.js';
 import { extractAndLoadPhotorealFemaleParts } from './photoreal-extractor.js';
@@ -29,6 +33,8 @@ export interface CycleDumpOptions {
   readonly frameCount?: number;
   readonly personaId?: RunnerPersonaId;
   readonly variant?: RunnerVariantId;
+  readonly assetTuning?: Partial<PhotorealAssetTuningSpec>;
+  readonly gaitOverride?: Partial<GaitConfig>;
 }
 
 export interface FrameDefectMetrics {
@@ -55,25 +61,44 @@ export interface CycleAuditReport {
   readonly frameCount: number;
   readonly contactSheetPath: string;
   readonly jointCropsSheetPath: string;
+  readonly standingProfileAuditPath: string | null;
   readonly reportJsonPath: string;
+  readonly resolvedAssetTuning: PhotorealAssetTuningSpec | null;
+  readonly effectiveRigLengths: {
+    readonly torsoLength: number;
+    readonly upperArmLength: number;
+    readonly forearmLength: number;
+    readonly thighLength: number;
+    readonly shinLength: number;
+  };
   readonly totalDisconnectedIslands: number;
   readonly totalMagentaSpillPixels: number;
   readonly framesWithUncoveredJoints: number;
   readonly frames: readonly FrameDefectMetrics[];
 }
 
-function resolveDumpPersonaSettings(personaId: RunnerPersonaId) {
-  const tuning = isPhotorealPersona(personaId)
+function resolveDumpPersonaSettings(
+  personaId: RunnerPersonaId,
+  assetTuningOverride?: Partial<PhotorealAssetTuningSpec>,
+  gaitOverride?: Partial<GaitConfig>,
+) {
+  const baseTuning = isPhotorealPersona(personaId)
     ? PHOTOREAL_ASSET_TUNING_DEFAULTS[personaId]
     : undefined;
-  const gaitCfg = tuning
-    ? {
-        ...DEFAULT_GAIT_CONFIG,
-        armCarryFlexDeg: tuning.defaultArmCarryFlexDeg,
-        armChestBiasDeg: tuning.defaultArmChestBiasDeg,
-        hairStyleMode: tuning.defaultHairStyleMode,
-      }
-    : DEFAULT_GAIT_CONFIG;
+  const tuning: PhotorealAssetTuningSpec | undefined = baseTuning
+    ? { ...baseTuning, ...assetTuningOverride }
+    : undefined;
+  const gaitCfg: GaitConfig = {
+    ...DEFAULT_GAIT_CONFIG,
+    ...(tuning
+      ? {
+          armCarryFlexDeg: tuning.defaultArmCarryFlexDeg,
+          armChestBiasDeg: tuning.defaultArmChestBiasDeg,
+          hairStyleMode: tuning.defaultHairStyleMode,
+        }
+      : {}),
+    ...gaitOverride,
+  };
   return {
     tuning,
     gaitCfg,
@@ -93,7 +118,11 @@ export function dumpFullGaitCycleToTempDir(
   if (isPhotorealPersona(personaId)) {
     extractAndLoadPhotorealFemaleParts(process.cwd());
   }
-  const { tuning, gaitCfg, rigSpec } = resolveDumpPersonaSettings(personaId);
+  const { tuning, gaitCfg, rigSpec } = resolveDumpPersonaSettings(
+    personaId,
+    options.assetTuning,
+    options.gaitOverride,
+  );
   const cols = 4;
   const rows = Math.ceil(frameCount / cols);
   const contactSheet = createRaster(
@@ -103,9 +132,11 @@ export function dumpFullGaitCycleToTempDir(
   fillRaster(contactSheet, { r: 226, g: 230, b: 238, a: 255 });
   const frameMetrics: FrameDefectMetrics[] = [];
   const rawFrames: RasterImage[] = [];
+  const poses: ArticulatedPose[] = [];
 
   for (let i = 0; i < frameCount; i++) {
     const pose = solveArticulatedPose(i / frameCount, gaitCfg, rigSpec);
+    poses.push(pose);
     const raw = renderRunnerPoseToRaster({
       pose,
       palette: RUNNER_PALETTES[variant],
@@ -126,15 +157,55 @@ export function dumpFullGaitCycleToTempDir(
   const contactSheetPath = path.join(outDir, 'contact-sheet-16frame.png');
   writePngFile(contactSheetPath, contactSheet);
   const jointCropsSheetPath = path.join(outDir, 'joint-crops-sheet.png');
-  writePngFile(jointCropsSheetPath, buildZoomedJointCropsSheet(rawFrames));
+  writePngFile(jointCropsSheetPath, buildZoomedJointCropsSheet(rawFrames, poses));
+  const standingProfileAuditPath = writeStandingProfileAuditPlate(outDir, {
+    personaId,
+    variant,
+    rigSpec,
+    gaitCfg,
+    tuning,
+  });
   return writeCycleAuditReportJson(outDir, {
     personaId,
     variant,
     frameCount,
     contactSheetPath,
     jointCropsSheetPath,
+    standingProfileAuditPath,
+    resolvedAssetTuning: tuning ?? null,
+    effectiveRigLengths: {
+      torsoLength: Number(rigSpec.torsoLength.toFixed(2)),
+      upperArmLength: Number(rigSpec.upperArmLength.toFixed(2)),
+      forearmLength: Number(rigSpec.forearmLength.toFixed(2)),
+      thighLength: Number(rigSpec.thighLength.toFixed(2)),
+      shinLength: Number(rigSpec.shinLength.toFixed(2)),
+    },
     frames: frameMetrics,
   });
+}
+
+function writeStandingProfileAuditPlate(
+  outDir: string,
+  ctx: {
+    readonly personaId: RunnerPersonaId;
+    readonly variant: RunnerVariantId;
+    readonly rigSpec: AnatomicalRigSpec;
+    readonly gaitCfg: GaitConfig;
+    readonly tuning: PhotorealAssetTuningSpec | undefined;
+  },
+): string | null {
+  const standingPose = solveStandingUprightPose(ctx.rigSpec, ctx.gaitCfg.hairStyleMode);
+  const rawStanding = renderRunnerPoseToRaster({
+    pose: standingPose,
+    palette: RUNNER_PALETTES[ctx.variant],
+    pixelScale: 1,
+    personaId: ctx.personaId,
+    assetTuning: ctx.tuning,
+  });
+  const plate = buildThreePanelAuditPlate(rawStanding, standingPose);
+  const outPath = path.join(outDir, 'standing-profile-audit.png');
+  writePngFile(outPath, plate);
+  return outPath;
 }
 
 function writeAndMeasureCycleFrame(
@@ -353,26 +424,60 @@ function drawCrosshair(img: RasterImage, pt: Point2D, color: RgbaColor): void {
   }
 }
 
+function resolvePoseAdaptiveZones(
+  pose: ArticulatedPose | undefined,
+  cropW: number,
+  cropH: number,
+  canvasW: number,
+  canvasH: number,
+): ReadonlyArray<{ readonly minX: number; readonly minY: number }> {
+  const clampX = (x: number) => Math.max(0, Math.min(canvasW - cropW, Math.round(x)));
+  const clampY = (y: number) => Math.max(0, Math.min(canvasH - cropH, Math.round(y)));
+  if (!pose) {
+    return [
+      { minX: 62, minY: 42 },
+      { minX: 60, minY: 98 },
+      { minX: 55, minY: 160 },
+    ];
+  }
+  const neckShoulderCenterX = (pose.neck.x + pose.collar.x) * 0.5;
+  const neckShoulderCenterY = (pose.neck.y + pose.collar.y) * 0.5 + 8;
+  const pelvisCenterX = pose.pelvis.x;
+  const pelvisCenterY = pose.pelvis.y + 4;
+  const footCenterX = (pose.nearLeg.midJoint.x + pose.nearLeg.endEffector.x) * 0.5;
+  const footMinY = pose.groundY + 8 - cropH;
+  return [
+    { minX: clampX(neckShoulderCenterX - cropW * 0.45), minY: clampY(neckShoulderCenterY - cropH * 0.48) },
+    { minX: clampX(pelvisCenterX - cropW * 0.45), minY: clampY(pelvisCenterY - cropH * 0.46) },
+    { minX: clampX(footCenterX - cropW * 0.45), minY: clampY(footMinY) },
+  ];
+}
+
 function buildZoomedJointCropsSheet(
   rawFrames: readonly RasterImage[],
+  poses: readonly ArticulatedPose[] = [],
 ): RasterImage {
   const cropW = 90;
   const cropH = 80;
   const scale = 2;
   const cellW = cropW * scale;
   const cellH = cropH * scale;
-  const sampleIndices = [0, 4, 8, 12];
-  const zones = [
-    { minX: 62, minY: 42 },
-    { minX: 60, minY: 98 },
-    { minX: 55, minY: 145 },
+  const count = Math.max(1, rawFrames.length);
+  const sampleIndices = [
+    0,
+    Math.floor(count * 0.25),
+    Math.floor(count * 0.5),
+    Math.floor(count * 0.75),
   ];
-  const sheet = createRaster(sampleIndices.length * cellW, zones.length * cellH);
+  const sheet = createRaster(sampleIndices.length * cellW, 3 * cellH);
   fillRaster(sheet, { r: 226, g: 230, b: 238, a: 255 });
-  for (let r = 0; r < zones.length; r++) {
-    for (let c = 0; c < sampleIndices.length; c++) {
-      const frame = rawFrames[sampleIndices[c] ?? 0] ?? rawFrames[0]!;
-      const panel = renderNeutralPanelWithGround(frame, DEFAULT_RIG_SPEC.groundY);
+  for (let c = 0; c < sampleIndices.length; c++) {
+    const idx = sampleIndices[c] ?? 0;
+    const frame = rawFrames[idx] ?? rawFrames[0]!;
+    const pose = poses[idx] ?? poses[0];
+    const zones = resolvePoseAdaptiveZones(pose, cropW, cropH, frame.width, frame.height);
+    const panel = renderNeutralPanelWithGround(frame, DEFAULT_RIG_SPEC.groundY);
+    for (let r = 0; r < zones.length; r++) {
       blitMagnifiedZone(sheet, panel, {
         srcMinX: zones[r]!.minX,
         srcMinY: zones[r]!.minY,

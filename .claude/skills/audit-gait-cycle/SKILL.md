@@ -11,20 +11,25 @@ Use this skill whenever modifying articulated cutouts (`src/pipeline/photoreal-e
 
 ## Step 1 — Dump Full Cycle Screenshots & Telemetry to a Temporary Directory
 
-Execute the CLI dumper to generate a 16-frame ($22.5^\circ$ phase increments across $\phi \in [0, 1)$) diagnostic suite in `/tmp/gait-cycle-audit`:
+Execute the CLI dumper for a single persona or across **all 3 photographic personas (`all-photoreal`)** (`photo-sg-chinese-female-petite`, `photo-sg-chinese-female`, `photo-sg-chinese-female-average`), optionally passing `PhotorealAssetTuningSpec` sizing/scaling overrides:
 
 ```bash
-npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female red
+# Multi-persona batch dump across all 3 photographic builds:
+npm run dump-cycle -- /tmp/audit-rectified 16 all-photoreal red
+
+# Single-persona dump with optional element sizing/scaling tuning overrides:
+npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female-average red --torso-length=1.35 --torso-width=45 --head-scale=1.0
 ```
 
-This generates:
-1. `/tmp/gait-cycle-audit/audit-report.json`: Per-frame quantitative defect metrics (`disconnectedIslandsCount`, `detachedIslandPixels`, `magentaSpillPixelsCount`, `semiTransparentFringeCount`, `lowestFootY`, `groundLineDeltaPx`, and `uncoveredJointNames`).
-2. `/tmp/gait-cycle-audit/contact-sheet-16frame.png`: A `4 × 4` full-cycle overview grid (`880 × 1024`) over a neutral warm-grey backdrop (`#E2E6EE`) with the track ground line (`y = 212`).
-3. `/tmp/gait-cycle-audit/joint-crops-sheet.png`: A `2×` magnified close-up grid (`720 × 480`) across phases $\phi \in \{0.00, 0.25, 0.50, 0.75\}$ and 3 critical articulation zones:
+This generates (per persona):
+1. `audit-report.json`: Per-frame quantitative defect metrics (`disconnectedIslandsCount`, `detachedIslandPixels`, `magentaSpillPixelsCount`, `semiTransparentFringeCount`, `lowestFootY`, `groundLineDeltaPx`, `uncoveredJointNames`) plus `resolvedAssetTuning` (`PhotorealAssetTuningSpec`) and `effectiveRigLengths`.
+2. `contact-sheet-16frame.png`: A `4 × 4` full-cycle overview grid (`880 × 1024`) over a neutral warm-grey backdrop (`#E2E6EE`) with the track ground line (`y = 234`).
+3. `joint-crops-sheet.png`: A pose-adaptive `2×` magnified close-up grid (`720 × 480`) across phases $\phi \in \{0.00, 0.25, 0.50, 0.75\}$ and 3 critical articulation zones dynamically centered on the solved joints:
    - **Row 1:** Head + Cervical Neck + Shoulder Socket + Upper Torso
    - **Row 2:** Lower Torso + Pelvis Shorts + Near/Far Thigh Shorts-Cuff & Knee
-   - **Row 3:** Near & Far Ankle Sock + 2-Segment Rolling Shoe
-4. `/tmp/gait-cycle-audit/frames/audit-frame-01-deg-000.png` .. `audit-frame-16-deg-338.png`: 16 three-panel (`660 × 256`) diagnostic screenshots:
+   - **Row 3:** Near & Far Ankle Sock + 2-Segment Rolling Shoe + Ground Line (`y = 234`)
+4. `standing-profile-audit.png`: A 3-panel (`660 × 256`) neutral upright standing calibration plate (`solveStandingUprightPose`) verifying head-to-sole element sizing/scaling and waist-to-shorts continuity.
+5. `frames/audit-frame-01-deg-000.png` .. `audit-frame-16-deg-338.png`: 16 three-panel (`660 × 256`) diagnostic screenshots:
    - **Left panel:** Neutral studio grey (`#E2E6EE`) + ground reference line.
    - **Center panel:** High-contrast dark slate (`#181C26`) with cyan (`#00FFFF`) magenta-spill highlights.
    - **Right panel:** Kinematic joint pivot crosshairs (`headCenter`, `neck`, `collar`, `pelvis`, `nearElbow`, `nearKnee`, `nearAnkle`, `nearBall`).

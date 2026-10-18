@@ -253,6 +253,21 @@ export function createInitialAssetTuningMap(): PhotorealAssetTuningMap {
   };
 }
 
+export function resolvePhotorealAssetTuning(
+  personaId?: string,
+  tuning?: PhotorealAssetTuningSpec,
+): PhotorealAssetTuningSpec {
+  if (tuning) return tuning;
+  if (
+    personaId === 'photo-sg-chinese-female-average' ||
+    personaId === 'photo-sg-chinese-female-petite' ||
+    personaId === 'photo-sg-chinese-female'
+  ) {
+    return PHOTOREAL_ASSET_TUNING_DEFAULTS[personaId];
+  }
+  return PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female'];
+}
+
 export function applyAssetTuningToRigSpec(
   baseRig: AnatomicalRigSpec,
   tuning?: PhotorealAssetTuningSpec,

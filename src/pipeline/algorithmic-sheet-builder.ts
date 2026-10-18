@@ -3,6 +3,7 @@ import path from 'node:path';
 import type {
   AlgorithmicManifest,
   BodyPartId,
+  PhotorealPersonaId,
   RasterImage,
   RunnerPersonaId,
   RunnerVariantId,
@@ -16,6 +17,7 @@ import {
 } from '../runner/body-proportions.js';
 import { solveArticulatedPose } from '../runner/gait.js';
 import { RUNNER_PALETTES } from '../runner/palette.js';
+import { getPhotorealPartBankForPersona } from '../runner/photoreal-rig.js';
 import {
   renderIsolatedBodyPartToRaster,
   renderRunnerPoseToRaster,
@@ -191,12 +193,42 @@ function renderAllBodyPartCutouts(
   }
 }
 
+function resolvePhotorealOutputSlug(personaId: PhotorealPersonaId): string {
+  if (personaId === 'photo-sg-chinese-female-average') {
+    return 'sg-chinese-female-average';
+  }
+  if (personaId === 'photo-sg-chinese-female-petite') {
+    return 'sg-chinese-female-petite';
+  }
+  return 'sg-chinese-female';
+}
+
 function exportVectorizedSvgPartsAndFrames(
   photorealParts: Readonly<Partial<Record<BodyPartId, RasterImage>>>,
   repoRoot: string,
 ): void {
-  const svgPartsDir = path.join(repoRoot, 'public/sprites/photoreal/sg-chinese-female/svg-parts');
-  const svgFramesDir = path.join(repoRoot, 'public/sprites/photoreal/sg-chinese-female/svg-frames');
+  const personas: readonly PhotorealPersonaId[] = [
+    'photo-sg-chinese-female',
+    'photo-sg-chinese-female-average',
+    'photo-sg-chinese-female-petite',
+  ];
+  for (const personaId of personas) {
+    const bank =
+      personaId === 'photo-sg-chinese-female'
+        ? photorealParts
+        : (getPhotorealPartBankForPersona(personaId) ?? photorealParts);
+    exportSinglePersonaSvgPartsAndFrames(personaId, bank, repoRoot);
+  }
+}
+
+function exportSinglePersonaSvgPartsAndFrames(
+  personaId: PhotorealPersonaId,
+  photorealParts: Readonly<Partial<Record<BodyPartId, RasterImage>>>,
+  repoRoot: string,
+): void {
+  const slug = resolvePhotorealOutputSlug(personaId);
+  const svgPartsDir = path.join(repoRoot, 'public/sprites/photoreal', slug, 'svg-parts');
+  const svgFramesDir = path.join(repoRoot, 'public/sprites/photoreal', slug, 'svg-frames');
   fs.mkdirSync(svgPartsDir, { recursive: true });
   fs.mkdirSync(svgFramesDir, { recursive: true });
   const upwardIds = new Set<BodyPartId>(['head', 'hairAccessory', 'torso', 'pelvis']);
@@ -215,9 +247,22 @@ function exportVectorizedSvgPartsAndFrames(
     vectorParts[part.partId] = vec;
     fs.writeFileSync(path.join(svgPartsDir, `${part.partId}.svg`), `${vec.fullSvgDocument}\n`, 'utf8');
   }
+  const tuning = PHOTOREAL_ASSET_TUNING_DEFAULTS[personaId];
+  const gaitCfg = {
+    ...DEFAULT_GAIT_CONFIG,
+    armCarryFlexDeg: tuning.defaultArmCarryFlexDeg,
+    armChestBiasDeg: tuning.defaultArmChestBiasDeg,
+    hairStyleMode: tuning.defaultHairStyleMode,
+  };
+  const rigSpec = applyAssetTuningToRigSpec(DEFAULT_RIG_SPEC, tuning);
   for (let col = 0; col < 8; col++) {
-    const pose = solveArticulatedPose(col / 8, DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC);
-    const stitched = stitchArticulatedSvgRig(pose, vectorParts);
+    const pose = solveArticulatedPose(col / 8, gaitCfg, rigSpec);
+    const stitched = stitchArticulatedSvgRig(
+      pose,
+      vectorParts,
+      { width: rigSpec.canvasWidth, height: rigSpec.canvasHeight },
+      tuning,
+    );
     const fileName = `frame-${String(col + 1).padStart(2, '0')}.svg`;
     fs.writeFileSync(path.join(svgFramesDir, fileName), `${stitched}\n`, 'utf8');
   }

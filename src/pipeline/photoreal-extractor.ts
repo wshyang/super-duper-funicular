@@ -1,35 +1,19 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type {
-  BodyPartId,
-  PhotorealPersonaId,
-  Point2D,
-  RasterImage,
-  RgbaColor,
-} from '../shared/types.js';
-import {
-  type PhotorealPartBank,
-  setPhotorealFemalePartBank,
-  setPhotorealPartBankForPersona,
-} from '../runner/photoreal-rig.js';
+import type { BodyPartId, PhotorealPersonaId, Point2D, RasterImage, RgbaColor } from '../shared/types.js';
+import { type PhotorealPartBank, setPhotorealFemalePartBank, setPhotorealPartBankForPersona } from '../runner/photoreal-rig.js';
 import { sampleBilinearRgba } from '../runner/photoreal-warp.js';
 import { readImageFile, writePngFile } from './image-io.js';
-import {
-  fillHollowJointBallByJacobiRelaxation,
-  purgeSkinPartFabricSpill,
-} from './photoreal-matte-and-qc.js';
+import { fillHollowJointBallByJacobiRelaxation, purgeSkinPartFabricSpill } from './photoreal-matte-and-qc.js';
 import { createRaster, readPixel, writePixel } from './raster.js';
-import { extractAthleticFarArmParts, extractAthleticNeck, raiseAthleticBustLandmark } from './athletic-reference-extractor.js';
 import {
-  applyPivotArcRoundedCut,
-  cutArticulatedLimbWithRoundedEnds,
-  cutHorizontalLimbWithRoundedEnds,
-} from './rounded-joint-cutter.js';
+  cleanAthleticTorsoNeckStub, extractAthleticFarArmParts, extractAthleticNeck,
+  mirrorAthleticTorsoToRightProfile, raiseAthleticBustLandmark,
+} from './athletic-reference-extractor.js';
+import { applyPivotArcRoundedCut, cutArticulatedLimbWithRoundedEnds, cutHorizontalLimbWithRoundedEnds } from './rounded-joint-cutter.js';
 import {
-  cleanAverageTorsoNeckStub,
-  extractArmSegmentsFromMasterSideProfile,
-  fillInteriorHandPinholes,
-  normalizeFingertipMagentaShadow,
+  cleanAverageTorsoNeckStub, extractArmSegmentsFromMasterSideProfile,
+  fillInteriorHandPinholes, normalizeFingertipMagentaShadow,
 } from './side-profile-arm-extractor.js';
 
 export { extractArmSegmentsFromMasterSideProfile };
@@ -313,8 +297,11 @@ function extractNeckCutout(
   tier: PersonaBuildTier = 'athletic',
 ): RasterImage {
   if (tier === 'athletic' && src.width >= 1300 && src.height >= 700) {
-    return fillHollowJointBallByJacobiRelaxation(extractAthleticNeck(src), {
-      pivot: { x: 80, y: 36 }, radiusPx: 26,
+    const topFilled = fillHollowJointBallByJacobiRelaxation(extractAthleticNeck(src), {
+      pivot: { x: 80, y: 36 }, radiusPx: 25,
+    });
+    return fillHollowJointBallByJacobiRelaxation(topFilled, {
+      pivot: { x: 80, y: 124 }, radiusPx: 26,
     });
   }
   const purged = purgeSkinPartFabricSpill(src).cleaned;
@@ -341,37 +328,36 @@ function extractTorsoCutout(
 ): RasterImage {
   const isAvg = tier === 'average';
   const isPetite = tier === 'petite';
-  // The athletic close torso plate already has a closed skin-covered shoulder stump.
   const cleaned =
     tier === 'athletic'
-      ? src
+      ? cleanAthleticTorsoNeckStub(src)
       : cleanAverageTorsoNeckStub(src);
   const aligned = extractSimilarityAlignedPart(cleaned, {
-    srcStart: isAvg ? { x: 682, y: 182 } : isPetite ? { x: 668, y: 145 } : { x: 663, y: 165 },
+    srcStart: isAvg ? { x: 682, y: 182 } : isPetite ? { x: 668, y: 145 } : { x: 685, y: 165 },
     srcEnd: isAvg ? { x: 712, y: 585 } : isPetite ? { x: 704, y: 615 } : { x: 706, y: 735 },
-    dstStart: isAvg ? { x: 74, y: 22 } : { x: 74, y: 24 },
+    dstStart: isAvg ? { x: 74, y: 22 } : isPetite ? { x: 74, y: 24 } : { x: 78, y: 24 },
     dstEnd: isAvg ? { x: 80, y: 124 } : isPetite ? { x: 80, y: 118 } : { x: 80, y: 122 },
     cropBox: isAvg
       ? { minX: 525, minY: 138, maxX: 880, maxY: 665 }
       : isPetite
         ? { minX: 550, minY: 128, maxX: 855, maxY: 622 }
-        : { minX: 534, minY: 142, maxX: 874, maxY: 760 },
+        : { minX: 495, minY: 142, maxX: 878, maxY: 760 },
     shadeScale: 1.0,
   });
-  const raw = tier === 'athletic' ? raiseAthleticBustLandmark(aligned) : aligned;
+  const raw =
+    tier === 'athletic'
+      ? mirrorAthleticTorsoToRightProfile(raiseAthleticBustLandmark(aligned))
+      : aligned;
   return applyPivotArcRoundedCut(raw, {
-    pivot: { x: 80, y: isAvg ? 114 : isPetite ? 105 : 108 },
-    radiusX: isAvg ? 46 : isPetite ? 26 : 31,
+    pivot: { x: 78, y: isAvg ? 112 : isPetite ? 105 : 108 },
+    radiusX: isAvg ? 44 : isPetite ? 26 : 31,
     radiusY: isPetite ? 18 : 20,
     cutSide: 'below',
     featherPx: 3.5,
   });
 }
 
-function extractPelvisCutout(
-  src: RasterImage,
-  tier: PersonaBuildTier = 'athletic',
-): RasterImage {
+function extractPelvisCutout(src: RasterImage, tier: PersonaBuildTier = 'athletic'): RasterImage {
   const isAvg = tier === 'average';
   const isPetite = tier === 'petite';
   const raw = extractSimilarityAlignedPart(src, {
@@ -386,32 +372,28 @@ function extractPelvisCutout(
         : { minX: 435, minY: 40, maxX: 918, maxY: 732 },
     shadeScale: 1.0,
   });
-  if (tier !== 'average') {
-    for (let y = 20; y < raw.height; y++) {
-      const refFabric = readPixel(raw, 56, y);
-      if (refFabric.a < 128) continue;
-      for (let x = 62; x <= 102; x++) {
-        const p = readPixel(raw, x, y);
-        if (p.a > 32 && p.r > 65 && p.g > 65 && p.b > 65) {
-          writePixel(raw, { x, y }, { ...refFabric, a: p.a });
-        }
+  for (let y = 4; y < raw.height; y++) {
+    const p52 = readPixel(raw, 52, y);
+    const p46 = readPixel(raw, 46, y);
+    const ref =
+      p52.a >= 128 && p52.r <= 55
+        ? p52
+        : p46.a >= 128 && p46.r <= 55
+          ? p46
+          : { r: 22, g: 24, b: 28, a: 255 };
+    for (let x = 58; x <= 114; x++) {
+      const p = readPixel(raw, x, y);
+      if (p.a > 24 && (p.r > 58 || p.g > 58 || p.b > 58)) {
+        writePixel(raw, { x, y }, { r: ref.r, g: ref.g, b: ref.b, a: p.a });
       }
     }
   }
   const rx = isAvg ? 45 : isPetite ? 26 : 36;
   const topRounded = applyPivotArcRoundedCut(raw, {
-    pivot: { x: 80, y: 40 },
-    radiusX: rx,
-    radiusY: 16,
-    cutSide: 'above',
-    featherPx: 3.0,
+    pivot: { x: 80, y: 40 }, radiusX: rx, radiusY: 16, cutSide: 'above', featherPx: 3.0,
   });
   return applyPivotArcRoundedCut(topRounded, {
-    pivot: { x: 76, y: isPetite ? 102 : 108 },
-    radiusX: rx,
-    radiusY: isPetite ? 16 : 22,
-    cutSide: 'below',
-    featherPx: 3.5,
+    pivot: { x: 76, y: isPetite ? 102 : 108 }, radiusX: rx, radiusY: isPetite ? 16 : 22, cutSide: 'below', featherPx: 3.5,
   });
 }
 

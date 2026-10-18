@@ -1,16 +1,16 @@
 {
-  "observedAt": "2026-10-18T04:00:03.838Z",
+  "observedAt": "2026-10-18T04:28:11.408Z",
   "activeSessionBranch": "arena/917ef347-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 1 (Ours — Sprite Motion Lab)",
       "branch": "arena/917ef347-super-duper-funicular",
       "prStatus": "PR #1 Open (Active Session Branch)",
-      "hash": "fd796157ca645472d8a3059323f4b376e60a1b52",
-      "shortHash": "fd79615",
-      "committedAt": "2026-10-18T04:00:00+00:00",
-      "subject": "feat(pr8-parity): add PR #8 to watchlist, pull e1300d3c (5203a69) to /tmp/pr8-e1300d3c & reach full parity (ADD-024..038, TURN-L12..L21)",
-      "commitCountFromMain": 7
+      "hash": "237965400674c5ee5b00d921cb1ef4727c22d344",
+      "shortHash": "2379654",
+      "committedAt": "2026-10-18T04:00:03+00:00",
+      "subject": "docs(branches): refresh live branch tips after PR #8 parity push",
+      "commitCountFromMain": 8
     },
     {
       "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
