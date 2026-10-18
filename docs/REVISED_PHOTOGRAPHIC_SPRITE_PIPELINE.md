@@ -1,18 +1,19 @@
-# Revised Photographic-Sprite Pipeline — Proposal
+# Revised Photographic-Sprite Pipeline — Rationale and Failure Map
 
-- **Status:** Design proposal; not yet selected or approved for implementation.
+- **Status:** Background rationale. The concrete v1 3D-to-sprite recipe is now [`AI_3D_TO_SPRITE_IMPLEMENTATION.md`](AI_3D_TO_SPRITE_IMPLEMENTATION.md).
+- **Pilot path:** AI-generated design → textured Tripo GLB → Mixamo rig/run → Blender 4.5 cleanup/render → tested Python/Pillow atlas packer.
 - **Background:** [`FDS.md`](FDS.md) and [`BRANCH_ASSESSMENT.md`](BRANCH_ASSESSMENT.md).
-- **Constraint:** PR #1 and PR #8 remain separate review worktrees; this proposal does not import their code.
+- **Constraint:** PR #1 and PR #8 remain separate review worktrees; this document and the implementation guide do not import their code.
 
 ## 1. Recommendation
 
-Do not respond to the branch failures by adding more unstructured prompt retries or more hidden per-persona pixel-coordinate patches. Adopt a **source-first, manifest-driven pipeline** with an early authoring-mode decision, a small one-persona pilot, explicit normalized landmarks, deterministic build inputs, and two independent quality gates: automated measurements **and** human visual approval.
+Do not respond to the branch failures by adding more unstructured prompt retries or more hidden per-persona pixel-coordinate patches. Use a **source-first, manifest-driven pipeline**: one approved AI-generated identity, one textured 3D mesh/rig, a deterministic render configuration, a contact-aware report, and separate machine and human release gates.
 
-The branches demonstrate that a 17-part cutout rig can be animated and tested, but also that good telemetry can coexist with visible seams. If the product needs one fixed photographic run loop, complete captured/rendered frames are likely a better first comparison than cutting the body into 17 pieces. If it needs arbitrary gait tuning or reusable parts, keep a rig—but make the source set, masks, landmarks, overlap, and per-persona tuning explicit data rather than scattered extractor exceptions. A 3D-to-sprite route is a third option when long-term pose/scale control justifies the higher setup cost.
+For the requested v1 implementation, use the 3D-to-sprite route specified in [`AI_3D_TO_SPRITE_IMPLEMENTATION.md`](AI_3D_TO_SPRITE_IMPLEMENTATION.md): AI-generated reference → Tripo image-to-3D → Mixamo auto-rig and run animation → Blender cleanup/foot correction/orthographic render → 16 transparent frames → tested atlas packer. The alternative authoring modes below are context only, not an open menu for this pilot.
 
-**Do not default to independently generated full-cycle diffusion frames.** They may change identity, costume, limb count, or camera between frames. Use generation as a source-creation aid, then accept a source set only after identity and pose review; prefer a controlled capture or a consistently rigged/rendered character for final motion.
+**Do not default to independently generated full-cycle diffusion frames.** They may change identity, costume, limb count, or camera between frames. Use generation for the character's source art and model texture; use the same rigged model for every animation frame.
 
-## 2. Authoring-mode decision gate
+## 2. Authoring-mode comparison (context; v1 uses 3D-to-sprite)
 
 | Mode | Best fit | Advantages | Main risks/costs |
 |---|---|---|---|
@@ -20,7 +21,7 @@ The branches demonstrate that a 17-part cutout rig can be animated and tested, b
 | **Articulated 2D/2.5D cutout rig** | Tuneable phase, body proportions, and gait using sprite parts | Reusable parts, low runtime cost, tunable kinematics | Hardest mode for texture continuity, hidden/far-side anatomy, joint overlap, and non-rigid shoe roll; more annotation and visual repair |
 | **Rigged 3D character rendered to sprites** | Many actions, personas, and scale/pose variations | One identity and camera can render many deterministic poses; joints/contact are solved before sprite export | Higher modeling/rigging cost; photorealism and texture quality are not automatic; requires a 3D toolchain |
 
-**Pilot rule:** compare options using the same one-persona art direction and target output size. Evaluate a neutral frame and representative contact, pass, flight, and opposite-contact frames. Select on required editability, visual continuity at display size, authoring cost, and storage/runtime constraints—not on which branch already has more code. A 16-phase cycle is the review baseline, not a settled production frame count.
+**V1 choice:** use the 3D-to-sprite row. The concrete tool choices, file paths, render settings, atlas command, and acceptance gates are fixed in [`AI_3D_TO_SPRITE_IMPLEMENTATION.md`](AI_3D_TO_SPRITE_IMPLEMENTATION.md). The 16-frame/220×256/24 fps settings are pilot defaults carried forward from the reviewed audit workflow, not permanent product requirements.
 
 ## 3. Failure-to-countermeasure map
 
@@ -147,13 +148,12 @@ A real schema must validate required values, relative paths, hash formats, and m
 5. **P4 — Expand personas:** add one persona at a time from an independent approved source set; compare each against its own neutral reference and its own full-cycle audit.
 6. **P5 — Release integration:** add consumer/runtime behavior only after complete-bank and atomic-promotion behavior are defined and tested.
 
-## 7. Decisions still needed
+## 7. Inputs still required to execute the pilot
 
-- Fixed loop versus tuneable gait/rig.
-- Capture availability/rights versus generated source versus 3D avatar.
-- Target resolution, production frame count, display scale, and runtime.
-- Required personas and acceptable visual style.
-- Maximum acceptable seam/texture discontinuity at the actual viewing size.
-- Whether a 3D toolchain or frame-by-frame asset size is acceptable.
+- Access to Tripo image-to-3D and Mixamo accounts, with terms suitable for the intended use.
+- Approval of the fictional athletic-runner prompt/reference before generating the model.
+- A rights-cleared textured `.glb` export and a Mixamo-rigged run-cycle `.fbx`; neither is present in the current checkout.
+- For production promotion, verify that the pilot defaults (`220×256`, 16 frames, 24 fps, ground line `y=234`) match the target display; they do not block the first pilot render.
+- A human review of the resulting mesh, texture, Blender cycle, contact markers, and final atlas.
 
-Until those are answered, this document is a concrete proposal for a pilot—not an authorization to generate or commit a new production asset set.
+The atlas packer is implemented locally. The external image-to-3D/auto-rig steps and Blender render cannot be reported as completed until those inputs and tools are available.

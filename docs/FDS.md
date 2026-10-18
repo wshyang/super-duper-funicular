@@ -1,8 +1,8 @@
 # Functional Design Specification — Photographic Running-Sprite Pipeline
 
-- **Version:** 0.1.0
+- **Version:** 0.2.0
 - **Date:** 2026-10-18
-- **Status:** **Draft proposal — no production pipeline or authoring mode has been approved**
+- **Status:** **Draft — concrete 3D-to-sprite pilot selected; production assets not yet approved**
 - **Canonical contract:** this document; decisions outside it go in [`ADDENDA.md`](ADDENDA.md)
 - **Source baseline:** `incorrect running sprites.jpeg` in the repository root
 - **Reference implementations:** [PR #1](https://github.com/wshyang/super-duper-funicular/pull/1), reviewed at `936f37ce07f18e38fc4f5b3880c80029ec9f55cf`; [PR #8](https://github.com/wshyang/super-duper-funicular/pull/8), reviewed at `04d5caf432ff81be0307a3ec79e894da1b60045c`
@@ -13,9 +13,9 @@
 
 Define a reproducible way to create, assemble, audit, and release photographic sprite assets for running animation without repeating the source-image, cutout, alignment, and visual-quality failures documented in PR #1 and PR #8.
 
-The current checkout is a design/review baseline, not the application implemented in either PR. It contains the supplied JPEG and project documentation added for this review. The PR worktrees are separate, detached references and have not been merged or copied into this checkout.
+The current checkout is a design/implementation baseline, not the application implemented in either PR. It contains the supplied JPEG, project documentation, and a tested Python/Pillow atlas packer; it does not yet contain a 3D model, Blender scene, run animation, or render exporter. The PR worktrees are separate, detached references and have not been merged or copied into this checkout.
 
-The proposal leaves a key product choice open: **captured full-body frames, an articulated 2D/2.5D cutout rig, or a rendered 3D character exported as sprites**. These modes optimize for different things. The next implementation should not assume that independently generated body-part plates are the only or best source of photographic motion.
+For the requested first implementation, use one concrete 3D-to-sprite path: AI-generated reference art → textured Tripo image-to-3D GLB → Mixamo auto-rig/run cycle → Blender cleanup, foot-contact correction, and orthographic render → transparent PNG atlas. The pilot defaults are one fictional athletic runner, 16 frames at 24 fps, `220 × 256` per frame, a 4 × 4 atlas, and a top-origin ground line at `y = 234`. Exact steps are in [`AI_3D_TO_SPRITE_IMPLEMENTATION.md`](AI_3D_TO_SPRITE_IMPLEMENTATION.md). These are pilot settings, not yet a production contract.
 
 ## 2. Background and evidence boundaries
 
@@ -49,9 +49,9 @@ See [`BRANCH_ASSESSMENT.md`](BRANCH_ASSESSMENT.md) for exact branch metrics, com
 
 ### Non-goals for this draft
 
-- Selecting a specific image-generation provider, model, framework, runtime, or renderer.
+- Treating the pilot's external tools or settings as a final production commitment before the model and rendered cycle pass review.
 - Treating generated archetype prompts as measured real-world body heights.
-- Requiring every product to use a 17-part rig, SVG output, 3D, or frame-by-frame capture.
+- Requiring the eventual product to use a 17-part rig, SVG output, or the pilot's exact frame count.
 - Treating automated pixel counters as a substitute for visual review.
 
 ## 4. Core objects
@@ -87,7 +87,7 @@ Build the selected mode from a complete, single-persona source set:
 - **Articulated 2D/2.5D mode:** assemble reviewed parts using normalized landmarks, explicit occlusion order, and enough texture underlap at joints. Avoid arbitrary non-uniform stretching and per-persona code forks.
 - **3D-to-sprite mode:** render a locked camera, lighting and scale from one rigged identity; export transparent frames and the same audit manifest.
 
-Mode selection is open until the intended editability, fidelity, and asset-authoring cost are clarified.
+The v1 pilot uses 3D-to-sprite as defined in [`AI_3D_TO_SPRITE_IMPLEMENTATION.md`](AI_3D_TO_SPRITE_IMPLEMENTATION.md); changing the pilot mode later requires a recorded addendum.
 
 ### `#feat-cycle` — Cyclic animation and support contract
 
@@ -103,12 +103,12 @@ Build candidates in staging. Promote a complete, approved manifest atomically; d
 
 ## 6. User flow
 
-1. Select a source mode, target persona/build, output size/style, and rights-cleared references.
-2. Create or import a source set and record exact prompt/capture/render provenance.
-3. Inspect source plates; reject or refine candidates before extraction.
-4. Preflight and annotate landmarks/masks; build in staging from the source hashes and versioned configuration.
-5. Review static output and neutral alignment, then render a dense cycle audit.
-6. Run automated gates; inspect the full-cycle and magnified artifacts; record accept/reject decisions and defects.
+1. Generate and approve the fictional athletic-runner reference images; record exact prompt/reference provenance.
+2. Create a textured GLB from the approved reference, clean it in Blender, auto-rig/apply a run action through Mixamo, then correct support-foot contacts in Blender.
+3. Render the fixed 16-frame cycle and record the expected support foot and sole marker for each frame.
+4. Pack the transparent frames with the tested atlas tool and retain source/build hashes and the contact manifest.
+5. Review the neutral model, full-cycle atlas, and magnified frames; reject identity, texture, deformation, contact, or loop defects.
+6. Run the packer and contact checks; record technical results separately from human visual approval.
 7. Promote only the complete approved revision and retain the audit/provenance record.
 
 ## 7. Quality attributes
@@ -122,7 +122,7 @@ Build candidates in staging. Promote a complete, approved manifest atomically; d
 
 ## 8. Draft acceptance criteria
 
-The pipeline proposal is ready for an implementation pilot when the user selects the authoring mode and target output contract. A candidate implementation must then demonstrate:
+The v1 pilot path and its concrete frame-level gates are defined in [`AI_3D_TO_SPRITE_IMPLEMENTATION.md`](AI_3D_TO_SPRITE_IMPLEMENTATION.md). The first render can begin when an approved source image has been converted into a textured GLB and a Mixamo-rigged run-cycle FBX is available. A production-ready pipeline must demonstrate:
 
 1. A complete and provenance-bearing manifest for one persona.
 2. A reproducible build from immutable sources and explicit landmarks/configuration.
@@ -132,17 +132,16 @@ The pipeline proposal is ready for an implementation pilot when the user selects
 6. Automated checks plus documented human approval of the contact sheet and magnified artifact views.
 7. An atomic release path that cannot serve a partial part bank.
 
-Thresholds such as allowable landmark error, support-foot tolerance, color spill, and minimum frame count remain to be calibrated on the selected output resolution and source mode. Values cited in PR documents are evidence about those branches, not approved acceptance thresholds for this project.
+The pilot starts with 16 frames and an absolute support-sole tolerance of 1 px. Other production thresholds (including color spill, cycle closure, and runtime/render budgets) must be calibrated on the actual output and target display. Values cited in PR documents are evidence about those branches, not approved thresholds for this project.
 
-## 9. Open decisions
+## 9. Decisions deferred until after the pilot
 
-1. Is the primary goal one fixed, high-fidelity running loop, or a tuneable rig with editable gait/persona parameters?
-2. Are rights-cleared photographic capture/video sources available, or must the source be generated/rendered?
-3. Which output resolution, frame count, camera orientation, background/alpha format, and playback/runtime must be supported?
-4. Which personas and visual variation are required in the first release?
-5. What level of joint/seam visibility is acceptable at the target display scale?
-6. Which build environment and image libraries are appropriate? No PR-specific stack is binding yet.
-7. What are the quantitative tolerances for the selected mode, after a visually approved pilot establishes a baseline?
+1. Does the fixed run-in-place sprite loop meet the product need, or is a tuneable runtime rig required for a later production release?
+2. Are Tripo and Mixamo accessible under terms suitable for the intended use and distribution?
+3. Before production promotion, do the pilot defaults (`220 × 256`, 16 frames, 24 fps, right-facing orthographic camera, transparent RGBA, ground line `y = 234`) match the target display/runtime? This does not block the first pilot render.
+4. After inspecting the first generated reference, does it meet the approved fictional-runner direction in the implementation guide? Reject/regenerate before model generation if not.
+5. What visible seam/deformation level is acceptable at native display size?
+6. What additional measurable production thresholds should be set after visual approval? The pilot starts with an absolute support-sole tolerance of 1 px.
 
 ## 10. Prompt log and continuous learning
 
@@ -160,8 +159,17 @@ No image-generation calls were made in the current baseline review. Historical p
 - **Decision / scope:** Add a project-specific FDS and proposal; keep the branch worktrees separate and unchanged; preserve GREENFIELD as an upstream template but apply only relevant engineering rules through this `CLAUDE.md`; do not copy either PR's implementation, stack assumptions, or all-branch parity obligation into the baseline.
 - **Validation / next:** Both PR worktrees remained clean; all local Markdown link targets resolve; `git diff --cached --check` passed for the documentation patch. The next decision is the source mode (captured sequence, articulated 2D/2.5D, or 3D-to-sprites) and target output contract; no production implementation has been started.
 
+#### `TURN-L02` — Concrete AI-to-3D-to-sprite pilot (2026-10-18)
+
+- **Context:** User rejected an open-ended mode proposal and asked for a concrete step-by-step implementation of the 3D-to-sprite route using AI-generated art.
+- **Evidence:** Checked the base checkout: no Blender executable, `.glb`, `.fbx`, or application pipeline is present. Added `tools/sprite_pipeline/pack_atlas.py` with a pinned Pillow dependency and tests; exercised it on synthetic 16-frame RGBA inputs and inspected the `880 × 1024` atlas and manifest. No image-generation call, 3D model, or production render was made.
+- **Decision:** Fix the v1 pilot path to separate AI design references → textured Tripo GLB → Blender cleanup → Mixamo rig/run action → Blender support-foot correction and locked-camera render → tested atlas packer. Use 16 frames, `220 × 256`, 24 fps, 4 × 4 atlas, ground row 234, and a 1 px support-sole tolerance as provisional pilot settings. Record the selected workflow in `ADD-003`; keep production release approval pending.
+- **Learning:** A concrete export contract can be implemented and tested before a character model exists: require consecutive RGBA frames, preserve exact cell pixels, hash each source/output, record alpha bounds, and fail the support-foot gate when the expected sole marker exceeds tolerance. A rendered image still cannot be claimed until a textured GLB and rigged cycle are supplied and visually reviewed.
+- **Validation / next:** Pillow 13.0.0 unit suite passed (10 tests). A synthetic 16-frame RGBA run packed to `880 × 1024`; its 16-entry contact sidecar passed and the manifest recorded the expected support foot and `0 px` sole error. The first test-discovery attempt failed because the tests folder lacked `__init__.py`; adding the package marker fixed discovery. The next external input is the approved textured GLB and corresponding run-cycle FBX; Blender rendering remains unverified in this sandbox.
+
 ## 11. Changelog
 
 | Version | Date | Summary |
 |---|---|---|
 | `0.1.0` | `2026-10-18` | Established this draft contract from the PR #1/#8 reviews and added the initial learning entry. |
+| `0.2.0` | `2026-10-18` | Selected the concrete AI-generated-reference → textured 3D model → auto-rig → Blender render pilot and added a tested RGBA atlas packer with per-frame provenance and support-foot sidecar checks. |

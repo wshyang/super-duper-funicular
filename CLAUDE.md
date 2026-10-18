@@ -4,9 +4,9 @@ This is the project-specific working agreement for the current repository. It ad
 
 ## Repository state and source of truth
 
-- The original checkout is an intake/review baseline. Its supplied source asset is `incorrect running sprites.jpeg`; it does **not** yet contain the application, extractor, rig, or build scripts found in PR #1 or PR #8.
+- The checkout began as an intake/review baseline with the supplied source asset `incorrect running sprites.jpeg`. It now also contains a tested Python/Pillow atlas packer, but no generated character, rig, Blender scene, or rendered production cycle.
 - The current canonical product/design contract is [`docs/FDS.md`](docs/FDS.md). Record decisions that extend or change it in [`docs/ADDENDA.md`](docs/ADDENDA.md), in the same change.
-- [`docs/REVISED_PHOTOGRAPHIC_SPRITE_PIPELINE.md`](docs/REVISED_PHOTOGRAPHIC_SPRITE_PIPELINE.md) is a proposal, not an implementation commitment. Do not silently treat its unresolved choices as approved requirements.
+- [`docs/AI_3D_TO_SPRITE_IMPLEMENTATION.md`](docs/AI_3D_TO_SPRITE_IMPLEMENTATION.md) is the selected v1 pilot recipe. [`docs/REVISED_PHOTOGRAPHIC_SPRITE_PIPELINE.md`](docs/REVISED_PHOTOGRAPHIC_SPRITE_PIPELINE.md) explains the failure rationale and alternatives; it does not supersede the concrete pilot steps.
 - [`docs/BRANCH_ASSESSMENT.md`](docs/BRANCH_ASSESSMENT.md) records evidence for PR #1 and PR #8. Their checkouts at `/home/user/pr-review/pr-1` and `/home/user/pr-review/pr-8` are separate, detached review worktrees. Keep them separate and unchanged unless explicitly asked to work on them.
 - `GREENFIELD.md` is a verbatim upstream standing-instructions template from `wshyang/greenfield` at `8ba74027be5fad41e48cadde82cc0120d628b109`. Treat it as a reference template; this file is the project-specific overlay.
 
@@ -55,7 +55,7 @@ If a UI framework is later selected, keep presentation components declarative an
 - Calibrate each persona from its own approved master and landmark set. Do not reuse one body tier's outline/radii as another's source of truth, or “fix” bad source anatomy by shrinking bones until proportions look stunted.
 - Keep source geometry, semantic/matte masks, landmarks, rig transforms, and per-persona tuning versioned and inspectable; avoid hidden pixel-coordinate exceptions in shared code.
 - Keep the original source immutable. Generate candidate outputs into staging and promote them atomically only after automated and visual gates pass.
-- Choose the authoring mode (captured frames, articulated 2D/2.5D, or rendered 3D-to-sprites) explicitly before building production assets. The current pipeline proposal compares these modes; it does not preselect one.
+- The selected v1 pilot uses AI-generated design references → textured 3D model → rigged run cycle → Blender-rendered sprites. Treat this as a concrete pilot, not automatic approval of production art or a permanent product-wide authoring constraint. See `docs/AI_3D_TO_SPRITE_IMPLEMENTATION.md` and record any route change in `docs/ADDENDA.md`.
 
 ## Session and branch safety
 

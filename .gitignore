@@ -1,0 +1,13 @@
+# Local development environment
+.venv/
+__pycache__/
+*.py[cod]
+
+# Generated renders, packed atlases, and audit artifacts
+/build/
+
+# Large 3D intermediates are stored in project artifact storage or Git LFS
+/assets/ai/runner-athletic/model-source/
+/assets/ai/runner-athletic/working/
+/assets/ai/runner-athletic/*.blend
+/assets/ai/runner-athletic/*.fbx
