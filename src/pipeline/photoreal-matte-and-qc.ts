@@ -23,7 +23,7 @@ export function isSkinTonePixel(r: number, g: number, b: number): boolean {
 }
 
 export function isBrightSingletStrapPixel(r: number, g: number, b: number): boolean {
-  return r >= 120 && r - g >= 96 && (g < 52 || r - b > 96);
+  return r >= 120 && r - g >= 96 && (g < 65 || r - b > 110);
 }
 
 export function purgeSkinPartFabricSpill(img: RasterImage): {

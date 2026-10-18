@@ -19,6 +19,8 @@ import {
   purgeSkinPartFabricSpill,
 } from './photoreal-matte-and-qc.js';
 import { createRaster, readPixel, writePixel } from './raster.js';
+import { extractRebuiltAthleticParts } from './athletic-rebuilt-extractor.js';
+import { type PersonaBuildTier, resolveBuildTier } from './photoreal-build-tier.js';
 import {
   extractAthleticFarArmParts,
   extractAthleticNeck,
@@ -63,14 +65,6 @@ const STUDIO_FILES: Readonly<Record<keyof PhotorealSourceSet, string>> = {
   nearLegLateral: '09-near-right-leg-lateral-outside-shoe.png',
   farLegMedial: '10-far-left-leg-medial-inside-shoe.png',
 };
-
-type PersonaBuildTier = 'petite' | 'athletic' | 'average';
-
-function resolveBuildTier(personaId: PhotorealPersonaId): PersonaBuildTier {
-  if (personaId === 'photo-sg-chinese-female-petite') return 'petite';
-  if (personaId === 'photo-sg-chinese-female-average') return 'average';
-  return 'athletic';
-}
 
 export function extractAndLoadPhotorealFemaleParts(
   repoRoot: string,
@@ -206,6 +200,14 @@ export function extractPhotorealSpriteParts(
   personaId: PhotorealPersonaId = 'photo-sg-chinese-female',
 ): Readonly<Record<BodyPartId, RasterImage>> {
   const tier = resolveBuildTier(personaId);
+  if (tier === 'athletic' && sources.masterLateral.width === 1408) {
+    return extractRebuiltAthleticParts({
+      master: sources.masterLateral, head: sources.headProfile, ponytail: sources.ponytail,
+      torsoPortrait: sources.torsoSinglet, pelvis: sources.pelvisShorts,
+      nearArm: sources.nearArmLateral, farArm: sources.farArmMedial,
+      nearLeg: sources.nearLegLateral, farLeg: sources.farLegMedial,
+    });
+  }
   const nearArm = softenInteriorShadowGrooves(sources.nearArmLateral);
   const farArm = sources.farArmMedial;
   const nearLeg = softenInteriorShadowGrooves(sources.nearLegLateral);

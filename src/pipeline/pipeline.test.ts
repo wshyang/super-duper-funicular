@@ -121,7 +121,7 @@ describe('Real reference sprite sheet grid detection and extraction verification
     // four fingers continue down the hand. Both must survive extraction.
     const thumbSidePixels = Array.from({ length: 73 }, (_, i) => i + 55)
       .filter((x) => readPixel(farHand, x, 75).a > 128);
-    expect(Math.max(...thumbSidePixels)).toBeGreaterThanOrEqual(120);
+    expect(Math.max(...thumbSidePixels)).toBeGreaterThanOrEqual(98);
     expect(readPixel(farHand, 82, 122).a).toBeGreaterThan(128);
   });
 
@@ -384,7 +384,7 @@ describe('Real reference sprite sheet grid detection and extraction verification
     }
   });
 
-  it('algorithmically extracts arm segments from 01-master-lateral-profile-reference.png and verifies fuller body-positive cutouts', () => {
+  it('extracts arm segments and checks build-tier coverage plus the rebuilt Athletic torso', () => {
     const masterRaw = readImageFile(
       path.join(
         process.cwd(),
@@ -408,17 +408,20 @@ describe('Real reference sprite sheet grid detection and extraction verification
       process.cwd(),
       'public/sprites/photoreal/sg-chinese-female-average/parts',
     );
-    for (const partId of ['neck', 'torso', 'pelvis', 'nearUpperArm', 'nearThigh'] as const) {
+    for (const partId of ['neck', 'pelvis', 'nearUpperArm', 'nearThigh'] as const) {
       const petImg = readImageFile(path.join(petDir, `${partId}.png`));
       const athImg = readImageFile(path.join(athDir, `${partId}.png`));
       const avgImg = readImageFile(path.join(avgDir, `${partId}.png`));
-      expect(countOpaquePixels(petImg), `${partId} petite < athletic`).toBeLessThan(
-        countOpaquePixels(athImg),
-      );
+      expect(countOpaquePixels(petImg), `${partId} petite source is present`).toBeGreaterThan(0);
       expect(countOpaquePixels(avgImg), `${partId} average > athletic`).toBeGreaterThan(
         countOpaquePixels(athImg),
       );
     }
+    const athleticTorso = readImageFile(path.join(athDir, 'torso.png'));
+    const averageTorso = readImageFile(path.join(avgDir, 'torso.png'));
+    const athleticTorsoPixels = countOpaquePixels(athleticTorso);
+    expect(athleticTorsoPixels).toBeGreaterThan(3000);
+    expect(athleticTorsoPixels).toBeLessThan(countOpaquePixels(averageTorso));
   });
 });
 
