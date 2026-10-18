@@ -1,16 +1,16 @@
 {
-  "observedAt": "2026-10-18T04:31:12.588Z",
+  "observedAt": "2026-10-18T04:40:39.718Z",
   "activeSessionBranch": "arena/917ef347-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 1 (Ours — Sprite Motion Lab)",
       "branch": "arena/917ef347-super-duper-funicular",
       "prStatus": "PR #1 Open (Active Session Branch)",
-      "hash": "57cd3ae2be43d5a354c73fc4c1f9218fe27a980b",
-      "shortHash": "57cd3ae",
-      "committedAt": "2026-10-18T04:31:07+00:00",
-      "subject": "feat(audit,pipeline): run 3-persona cycle audit (RECT-07..09) and propagate PhotorealAssetTuningSpec across SVG, dumper & inspector (ADD-039)",
-      "commitCountFromMain": 9
+      "hash": "fa3c988293809caed0b6ecd7985ba5dd9e8ae9b4",
+      "shortHash": "fa3c988",
+      "committedAt": "2026-10-18T04:31:12+00:00",
+      "subject": "docs(comparison): refresh live watched branch tips after ADD-039",
+      "commitCountFromMain": 10
     },
     {
       "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",

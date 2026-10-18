@@ -14,6 +14,63 @@ interface SimilarityExtractSpec {
   readonly shadeScale: number;
 }
 
+export function extractAthleticTorso(src: RasterImage): RasterImage {
+  const cleaned = cleanAthleticTorsoNeckStub(src);
+  const aligned = extractAlignedPart(cleaned, {
+    srcStart: { x: 663, y: 165 }, srcEnd: { x: 706, y: 735 },
+    dstStart: { x: 74, y: 24 }, dstEnd: { x: 80, y: 122 },
+    cropBox: { minX: 495, minY: 142, maxX: 874, maxY: 760 }, shadeScale: 1.0,
+  });
+  const sealed = sealAthleticTorsoShoulderBulge(raiseAthleticBustLandmark(aligned));
+  return mirrorAthleticTorsoToRightProfile(sealed);
+}
+
+export function sealAthleticTorsoShoulderBulge(src: RasterImage): RasterImage {
+  const out = createRaster(src.width, src.height);
+  out.data.set(src.data);
+  for (let y = 20; y <= 72; y++) {
+    const t = (y - 20) / 52;
+    const shoulderSideX = Math.round(101 - 7 * Math.sin(Math.PI * t) + 3 * t);
+    const naturalShoulderX = Math.round(88 + 0.42 * (y - 20));
+    const maxShoulderX = Math.min(shoulderSideX, naturalShoulderX);
+    if (y <= 64) {
+      const fillStartX = 68;
+      const fabric = findRowSinglet(out, y, fillStartX);
+      for (let x = fillStartX; x <= maxShoulderX; x++) {
+        const pixel = readPixel(out, x, y);
+        const isWhiteStripe = pixel.r > 180 && pixel.g > 170 && pixel.b > 170;
+        if (pixel.a > 0 && !isWhiteStripe) writePixel(out, { x, y }, { ...fabric, a: pixel.a });
+      }
+    }
+    for (let x = maxShoulderX + 1; x <= 116; x++) {
+      const p = readPixel(out, x, y);
+      if (p.a > 0) writePixel(out, { x, y }, { ...p, a: 0 });
+    }
+  }
+  return out;
+}
+
+function findRowSinglet(img: RasterImage, y: number, beforeX: number): RgbaColor {
+  let refX = -1;
+  for (let x = Math.min(beforeX - 1, 86); x >= 42; x--) {
+    if (isSinglet(readPixel(img, x, y))) { refX = x; break; }
+  }
+  if (refX < 0) return { r: 146, g: 25, b: 42, a: 255 };
+  let r = 0, g = 0, b = 0, count = 0;
+  for (let yy = Math.max(0, y - 2); yy <= Math.min(img.height - 1, y + 2); yy++) {
+    for (let x = Math.max(0, refX - 2); x <= Math.min(img.width - 1, refX + 2); x++) {
+      const p = readPixel(img, x, yy);
+      if (!isSinglet(p)) continue;
+      r += p.r; g += p.g; b += p.b; count++;
+    }
+  }
+  return count ? { r: Math.round(r / count), g: Math.round(g / count), b: Math.round(b / count), a: 255 } : { r: 146, g: 25, b: 42, a: 255 };
+}
+
+function isSinglet(p: RgbaColor): boolean {
+  return p.a > 128 && p.r > p.g * 1.35 && p.g < 115 && p.b < 130;
+}
+
 export function cleanAthleticTorsoNeckStub(src: RasterImage): RasterImage {
   const out = createRaster(src.width, src.height);
   out.data.set(src.data);
