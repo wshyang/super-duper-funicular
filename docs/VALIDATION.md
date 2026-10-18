@@ -82,3 +82,38 @@ Per `CLAUDE-validation.md §8` (honest validation) and §8.1 (4-way provenance s
 ### Next actions requiring validation
 - Spend spare keyframe slots on the two flagged blend spans (pending user review).
 - 6-colour garment-tint export; additional personas; K7 texture/tone/identity numeric scores.
+
+## 2026-10-18 — `TURN-L03` (part-atlas extractor pivot: rig fit → 15-part segmentation → lossless cutouts + manifests)
+
+**Environment:** branch `arena/7f9c98b1-super-duper-funicular`, on top of `a5b541c` (P2 v1). No new image generation (generate_image budget untouched this turn).
+
+### Layer 1 — Source code read
+- Own modules end-to-end before/at first run: `src/pipeline/chroma-key.ts` (`applyAlpha` returns a full RGBA image — root cause of the alpha-plane indexing bug), `src/pipeline/segment-parts.ts` (label array semantics, negative extremity ids, joint disc painting), `src/pipeline/image-io.ts` (`saveImage` copy semantics), `src/runner/rig.ts` (FK, capsule radii, spec↔vector), `src/runner/fit-skeleton.ts` (objective construction), `src/pipeline/distance-transform.ts`, `src/shared/rig.ts` (manifest types).
+
+### Layer 2 — Personally viewed visuals (`read_file`)
+- `atlas/skeleton-overlays.png` — three times across the turn: dangling-limb failure (pre-table), legs-correct-arms-tucked failure (post width-consistency), and the final accepted sheet (all 8 poses tracked; fit IoU 0.76–0.86).
+- `src/images/p2/sg-chinese-female/key-01-phi-000.png` and `key-02-phi-125.png` — ground truth for the arm-pose audit that produced the pose-table arm rows.
+- `atlas/parts-montage.png` — all 15 part rows × 8 keys; torsos/heads/shins/shoes clean; far-limb rows partially claim shorts fragments where occluded (2D limitation, ADD-017 impact note).
+- `atlas/reassembly-proof.png` — original vs recomposed columns visually identical for all 8 keys; diff column uniformly background (zero mismatched pixels), matching the numeric 1.0 / 0% / 0.000.
+- Debug composites during the turn (prior-vs-fitted overlays, in-memory diff images) — viewed, then deleted with the debug scripts.
+
+### Layer 3 — Locally executed gates
+| Command (this repo) | Result |
+|---|---|
+| `npx tsc --noEmit` | ✅ clean (run after every edit batch; caught 10+ breakages before execution) |
+| `npm run extract-parts` | ✅ 8/8 keys: fit IoU 0.7569–0.8911, reassembly IoU **1.00000**, alphaMismatch **0.000%**, meanAbsRgbDiff **0.000** on every key; `atlas/<key>/` = 15 part PNGs + `manifest.json` |
+| `npm test` | ✅ **16/16** (9 real-asset pipeline + 4 discipline gate + 3 new atlas tests: disk-level pixel-exact recomposition of all 8 shipped atlases; manifest well-formedness incl. opaque-pixel-count ↔ PNG equality; per-key segmentation covers the silhouette exactly in both directions) |
+| Manifest spot probe (node) | ✅ pivots/distalTips/axes/lengths/widths/bboxes populated; empty parts (e.g. `nearHand` key-01, fist absorbed by forearm + wrist disc) ship as 1×1 transparent PNGs with FK distalTip retained |
+
+### Layer 4 — Other branches' reported results (cited, not re-verified)
+- None this turn; all work against this branch's own assets.
+
+### Honest caveats
+- Fit IoU 0.76–0.86 is torso/leg-accurate; arm joints rest on audited table values, not per-plate optimisation — the final overlay sheet was judged acceptable by eye, not claimed optimal.
+- Far-limb parts are semantically imperfect where the body occludes them (coverage, not semantics, is the invariant — reassembly is exact regardless).
+- The pose table is scoped to this persona's 8 keys; new poses/personas need a new audited row (ADD-018).
+- Three intermediate extract-run defect classes (RGBA/alpha-plane indexing, negative-label skip, transparent-blit erase) were shipped to disk in earlier runs within this turn before being caught by dedicated pixel-count probes; the final committed artifacts are from the fixed pipeline (re-verified by the disk-level test).
+
+### Next actions requiring validation
+- User review of the atlas (montage + manifests + proof sheet) against the intent of "programmatically extracted articulating elements".
+- If approved: articulated rig playback driven by the manifests; occlusion-aware far-limb refinement; additional personas/poses via new pose-table rows.

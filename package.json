@@ -13,7 +13,8 @@
     "persona:bible": "tsx scripts/persona-bible.ts",
     "register-plates": "tsx scripts/register-plates.ts",
     "conform": "tsx scripts/register-plates.ts",
-    "compose": "tsx scripts/compose.ts"
+    "compose": "tsx scripts/compose.ts",
+    "extract-parts": "tsx scripts/extract-parts.ts"
   },
   "dependencies": {
     "jpeg-js": "^0.4.4",

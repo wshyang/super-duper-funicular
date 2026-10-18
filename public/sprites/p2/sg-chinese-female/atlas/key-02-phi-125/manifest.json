@@ -1,0 +1,347 @@
+{
+  "keyPath": "src/images/p2/sg-chinese-female/key-02-phi-125.png",
+  "phase": 0.125,
+  "figureHeightPx": 676,
+  "fitSilhouetteIoU": 0.8613,
+  "canvas": {
+    "width": 1376,
+    "height": 768
+  },
+  "parts": {
+    "farUpperArm": {
+      "partId": "farUpperArm",
+      "pivot": {
+        "x": 694.37,
+        "y": 238.51
+      },
+      "distalTip": {
+        "x": 633.75,
+        "y": 414.21
+      },
+      "boneAxisRad": 2.4208,
+      "lengthPx": 125.74,
+      "meanWidthPx": 35.18,
+      "bbox": {
+        "x": 574,
+        "y": 202,
+        "width": 154,
+        "height": 129
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/farUpperArm.png",
+      "opaquePixelCount": 8188
+    },
+    "farForearm": {
+      "partId": "farForearm",
+      "pivot": {
+        "x": 599.91,
+        "y": 321.49
+      },
+      "distalTip": {
+        "x": 651.81,
+        "y": 484.94
+      },
+      "boneAxisRad": 1.2208,
+      "lengthPx": 98.7,
+      "meanWidthPx": 17.77,
+      "bbox": {
+        "x": 572,
+        "y": 314,
+        "width": 79,
+        "height": 115
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/farForearm.png",
+      "opaquePixelCount": 3392
+    },
+    "farHand": {
+      "partId": "farHand",
+      "pivot": {
+        "x": 633.75,
+        "y": 414.21
+      },
+      "distalTip": {
+        "x": 651.81,
+        "y": 484.94
+      },
+      "boneAxisRad": 1.3208,
+      "lengthPx": 73.01,
+      "meanWidthPx": 26.51,
+      "bbox": {
+        "x": 621,
+        "y": 394,
+        "width": 28,
+        "height": 44
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/farHand.png",
+      "opaquePixelCount": 816
+    },
+    "farThigh": {
+      "partId": "farThigh",
+      "pivot": {
+        "x": 667.2,
+        "y": 404.25
+      },
+      "distalTip": {
+        "x": 699.71,
+        "y": 446.14
+      },
+      "boneAxisRad": 2.0008,
+      "lengthPx": 165.62,
+      "meanWidthPx": 46.21,
+      "bbox": {
+        "x": 562,
+        "y": 371,
+        "width": 139,
+        "height": 210
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/farThigh.png",
+      "opaquePixelCount": 8317
+    },
+    "farShin": {
+      "partId": "farShin",
+      "pivot": {
+        "x": 598.16,
+        "y": 554.8
+      },
+      "distalTip": {
+        "x": 729.17,
+        "y": 544.58
+      },
+      "boneAxisRad": -0.8192,
+      "lengthPx": 148.72,
+      "meanWidthPx": 29.64,
+      "bbox": {
+        "x": 579,
+        "y": 438,
+        "width": 182,
+        "height": 137
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/farShin.png",
+      "opaquePixelCount": 3420
+    },
+    "farFoot": {
+      "partId": "farFoot",
+      "pivot": {
+        "x": 699.71,
+        "y": 446.14
+      },
+      "distalTip": {
+        "x": 729.17,
+        "y": 544.58
+      },
+      "boneAxisRad": 1.28,
+      "lengthPx": 102.75,
+      "meanWidthPx": 30.5,
+      "bbox": {
+        "x": 677,
+        "y": 399,
+        "width": 150,
+        "height": 137
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/farFoot.png",
+      "opaquePixelCount": 8279
+    },
+    "pelvis": {
+      "partId": "pelvis",
+      "pivot": {
+        "x": 675.32,
+        "y": 404.25
+      },
+      "distalTip": {
+        "x": 687.54,
+        "y": 317.5
+      },
+      "boneAxisRad": -1.4308,
+      "lengthPx": 87.61,
+      "meanWidthPx": 51.7,
+      "bbox": {
+        "x": 634,
+        "y": 285,
+        "width": 108,
+        "height": 153
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/pelvis.png",
+      "opaquePixelCount": 10814
+    },
+    "torso": {
+      "partId": "torso",
+      "pivot": {
+        "x": 687.54,
+        "y": 317.5
+      },
+      "distalTip": {
+        "x": 704.37,
+        "y": 198.08
+      },
+      "boneAxisRad": -1.4308,
+      "lengthPx": 120.6,
+      "meanWidthPx": 45.65,
+      "bbox": {
+        "x": 641,
+        "y": 147,
+        "width": 104,
+        "height": 205
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/torso.png",
+      "opaquePixelCount": 13345
+    },
+    "head": {
+      "partId": "head",
+      "pivot": {
+        "x": 704.37,
+        "y": 198.08
+      },
+      "distalTip": {
+        "x": 722.85,
+        "y": 78.63
+      },
+      "boneAxisRad": -1.3308,
+      "lengthPx": 121.68,
+      "meanWidthPx": 33.48,
+      "bbox": {
+        "x": 657,
+        "y": 63,
+        "width": 109,
+        "height": 167
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/head.png",
+      "opaquePixelCount": 11129
+    },
+    "nearThigh": {
+      "partId": "nearThigh",
+      "pivot": {
+        "x": 683.43,
+        "y": 404.25
+      },
+      "distalTip": {
+        "x": 537.38,
+        "y": 673.25
+      },
+      "boneAxisRad": 1.8508,
+      "lengthPx": 165.62,
+      "meanWidthPx": 38.16,
+      "bbox": {
+        "x": 622,
+        "y": 371,
+        "width": 150,
+        "height": 257
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/nearThigh.png",
+      "opaquePixelCount": 10617
+    },
+    "nearShin": {
+      "partId": "nearShin",
+      "pivot": {
+        "x": 637.66,
+        "y": 563.42
+      },
+      "distalTip": {
+        "x": 605.96,
+        "y": 749.76
+      },
+      "boneAxisRad": 2.3108,
+      "lengthPx": 148.72,
+      "meanWidthPx": 21.35,
+      "bbox": {
+        "x": 522,
+        "y": 555,
+        "width": 109,
+        "height": 134
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/nearShin.png",
+      "opaquePixelCount": 4299
+    },
+    "nearFoot": {
+      "partId": "nearFoot",
+      "pivot": {
+        "x": 537.38,
+        "y": 673.25
+      },
+      "distalTip": {
+        "x": 605.96,
+        "y": 749.76
+      },
+      "boneAxisRad": 0.84,
+      "lengthPx": 102.75,
+      "meanWidthPx": 18.85,
+      "bbox": {
+        "x": 504,
+        "y": 645,
+        "width": 93,
+        "height": 95
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/nearFoot.png",
+      "opaquePixelCount": 4091
+    },
+    "nearUpperArm": {
+      "partId": "nearUpperArm",
+      "pivot": {
+        "x": 710.6,
+        "y": 238.51
+      },
+      "distalTip": {
+        "x": 892.6,
+        "y": 352.12
+      },
+      "boneAxisRad": 0.8208,
+      "lengthPx": 125.74,
+      "meanWidthPx": 32.17,
+      "bbox": {
+        "x": 678,
+        "y": 181,
+        "width": 193,
+        "height": 232
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/nearUpperArm.png",
+      "opaquePixelCount": 10483
+    },
+    "nearForearm": {
+      "partId": "nearForearm",
+      "pivot": {
+        "x": 796.3,
+        "y": 330.51
+      },
+      "distalTip": {
+        "x": 933.83,
+        "y": 412.38
+      },
+      "boneAxisRad": 0.2208,
+      "lengthPx": 98.7,
+      "meanWidthPx": 22.3,
+      "bbox": {
+        "x": 778,
+        "y": 203,
+        "width": 95,
+        "height": 267
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/nearForearm.png",
+      "opaquePixelCount": 2192
+    },
+    "nearHand": {
+      "partId": "nearHand",
+      "pivot": {
+        "x": 892.6,
+        "y": 352.12
+      },
+      "distalTip": {
+        "x": 933.83,
+        "y": 412.38
+      },
+      "boneAxisRad": 0.9708,
+      "lengthPx": 73.01,
+      "meanWidthPx": 0,
+      "bbox": {
+        "x": 0,
+        "y": 0,
+        "width": 1,
+        "height": 1
+      },
+      "pngPath": "/sprites/p2/sg-chinese-female/atlas/key-02-phi-125/nearHand.png",
+      "opaquePixelCount": 0
+    }
+  },
+  "reassembly": {
+    "silhouetteIoU": 1,
+    "alphaMismatchFraction": 0,
+    "meanAbsRgbDiff": 0
+  }
+}
