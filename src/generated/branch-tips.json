@@ -1,5 +1,5 @@
 {
-  "observedAt": "2026-10-17T23:40:22.234Z",
+  "observedAt": "2026-10-18T00:01:25.348Z",
   "tips": [
     {
       "name": "Sprite Motion Lab",
@@ -32,9 +32,9 @@
     {
       "name": "Funicular Motion Lab (ours)",
       "branch": "arena/110272a0-super-duper-funicular",
-      "hash": "3da6fff6f1290177fe3b3aaea3664fc5649341f0",
-      "committedAt": "2026-10-17T23:40:14+00:00",
-      "subject": "Raise run foot clearance and record the reverted hip-height trial (remote tip; local delta may be ahead)"
+      "hash": "213608b86a7100abe7dfcdc7dfeb19e54f004601",
+      "committedAt": "2026-10-18T00:01:20+00:00",
+      "subject": "Add interactive joint/hip calibration with registered exports (remote tip; local delta may be ahead)"
     }
   ]
 }
