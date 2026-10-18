@@ -1,0 +1,1066 @@
+[
+  {
+    "observedAt": "2026-10-17T23:20:54.858Z",
+    "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "Active Session Branch",
+        "hash": "396ce256debcb5bdc2419cc0f3f399730b61ab36",
+        "shortHash": "396ce25",
+        "committedAt": "2026-10-17T13:53:48+08:00",
+        "subject": "Add files via upload",
+        "commitCountFromMain": 0
+      },
+      {
+        "role": "Branch 1 (Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open",
+        "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "shortHash": "e172b0f",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T00:49:41.875Z",
+    "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "Active Session Branch",
+        "hash": "1296db38ea6b07c4f7031b398f2ed1067790e3ca",
+        "shortHash": "1296db3",
+        "committedAt": "2026-10-18T00:49:37+00:00",
+        "subject": "feat(rig,assets,discipline): regenerate female arms & fuller body-positive torso/neck, fix T-rex arm scaling, add side-profile arm extractor & codify asset examination gate (ADD-029..031)",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 1 (Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open",
+        "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "shortHash": "e172b0f",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T01:17:16.842Z",
+    "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "Active Session Branch",
+        "hash": "bf2bf66734b3d4183b93e78462130765f4cfa6e0",
+        "shortHash": "bf2bf66",
+        "committedAt": "2026-10-18T01:17:07+00:00",
+        "subject": "feat(persona): add slim petite Singaporean Chinese female photorealistic persona (Wave 6)",
+        "commitCountFromMain": 3
+      },
+      {
+        "role": "Branch 1 (Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open",
+        "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "shortHash": "e172b0f",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T01:39:37.140Z",
+    "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "Active Session Branch",
+        "hash": "2c7f0145338257b2f06965257bef34fb9379753d",
+        "shortHash": "2c7f014",
+        "committedAt": "2026-10-18T01:39:33+00:00",
+        "subject": "fix(photoreal): uncrop anterior neck, add medial shoulder stump on far arm, and remove overlapping second shoe on far leg (Wave 7)",
+        "commitCountFromMain": 5
+      },
+      {
+        "role": "Branch 1 (Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open",
+        "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "shortHash": "e172b0f",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T02:40:29.530Z",
+    "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "Active Session Branch",
+        "hash": "591a40cbc5a7653bb4901750204204862b21616c",
+        "shortHash": "591a40c",
+        "committedAt": "2026-10-18T01:39:37+00:00",
+        "subject": "docs(branches): update live branch comparison snapshot for Wave 7",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 1 (Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open",
+        "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "shortHash": "e172b0f",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T02:42:23.411Z",
+    "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "Active Session Branch",
+        "hash": "c8c8a50b0b74a07c9de9d37c60ce3db7fa859f99",
+        "shortHash": "c8c8a50",
+        "committedAt": "2026-10-18T02:42:15+00:00",
+        "subject": "feat(photoreal): add neutral standing profile calibration and source-ratio defaults",
+        "commitCountFromMain": 7
+      },
+      {
+        "role": "Branch 1 (Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open",
+        "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "shortHash": "e172b0f",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T02:43:00.299Z",
+    "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "Active Session Branch",
+        "hash": "bbb22cbbe3153bca391604ae5107938ec31ac1cf",
+        "shortHash": "bbb22cb",
+        "committedAt": "2026-10-18T02:42:28+00:00",
+        "subject": "docs(branches): refresh live five-way tips after proportion calibration",
+        "commitCountFromMain": 8
+      },
+      {
+        "role": "Branch 1 (Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open",
+        "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "shortHash": "e172b0f",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T03:02:33.746Z",
+    "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "Active Session Branch",
+        "hash": "8a7fd6faba3b1e3b5901474103261685087c7f1b",
+        "shortHash": "8a7fd6f",
+        "committedAt": "2026-10-18T02:43:05+00:00",
+        "subject": "docs(fds): record calibration evidence and refresh live branch ledger",
+        "commitCountFromMain": 9
+      },
+      {
+        "role": "Branch 1 (Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open",
+        "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "shortHash": "e172b0f",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T03:58:37.240Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "shortHash": "e172b0f",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "34d48443f43c0c3584b3d440a19a5c46882e13f1",
+        "shortHash": "34d4844",
+        "committedAt": "2026-10-18T03:58:15+00:00",
+        "subject": "Remove athletic collarbone shoulder bulge",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T04:00:03.838Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "fd796157ca645472d8a3059323f4b376e60a1b52",
+        "shortHash": "fd79615",
+        "committedAt": "2026-10-18T04:00:00+00:00",
+        "subject": "feat(pr8-parity): add PR #8 to watchlist, pull e1300d3c (5203a69) to /tmp/pr8-e1300d3c & reach full parity (ADD-024..038, TURN-L12..L21)",
+        "commitCountFromMain": 7
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "34d48443f43c0c3584b3d440a19a5c46882e13f1",
+        "shortHash": "34d4844",
+        "committedAt": "2026-10-18T03:58:15+00:00",
+        "subject": "Remove athletic collarbone shoulder bulge",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T04:28:11.408Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "237965400674c5ee5b00d921cb1ef4727c22d344",
+        "shortHash": "2379654",
+        "committedAt": "2026-10-18T04:00:03+00:00",
+        "subject": "docs(branches): refresh live branch tips after PR #8 parity push",
+        "commitCountFromMain": 8
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "34d48443f43c0c3584b3d440a19a5c46882e13f1",
+        "shortHash": "34d4844",
+        "committedAt": "2026-10-18T03:58:15+00:00",
+        "subject": "Remove athletic collarbone shoulder bulge",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T04:31:12.588Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "57cd3ae2be43d5a354c73fc4c1f9218fe27a980b",
+        "shortHash": "57cd3ae",
+        "committedAt": "2026-10-18T04:31:07+00:00",
+        "subject": "feat(audit,pipeline): run 3-persona cycle audit (RECT-07..09) and propagate PhotorealAssetTuningSpec across SVG, dumper & inspector (ADD-039)",
+        "commitCountFromMain": 9
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "34d48443f43c0c3584b3d440a19a5c46882e13f1",
+        "shortHash": "34d4844",
+        "committedAt": "2026-10-18T03:58:15+00:00",
+        "subject": "Remove athletic collarbone shoulder bulge",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T04:40:39.718Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "fa3c988293809caed0b6ecd7985ba5dd9e8ae9b4",
+        "shortHash": "fa3c988",
+        "committedAt": "2026-10-18T04:31:12+00:00",
+        "subject": "docs(comparison): refresh live watched branch tips after ADD-039",
+        "commitCountFromMain": 10
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "34d48443f43c0c3584b3d440a19a5c46882e13f1",
+        "shortHash": "34d4844",
+        "committedAt": "2026-10-18T03:58:15+00:00",
+        "subject": "Remove athletic collarbone shoulder bulge",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T04:41:19.634Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "45b7241a9ee73163208ccbf7003c95fe7a57f9c7",
+        "shortHash": "45b7241",
+        "committedAt": "2026-10-18T04:41:16+00:00",
+        "subject": "feat(athletic): sync PR #8 (34d4844) sealAthleticTorsoShoulderBulge with right-profile torso & refresh branch tips",
+        "commitCountFromMain": 11
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "34d48443f43c0c3584b3d440a19a5c46882e13f1",
+        "shortHash": "34d4844",
+        "committedAt": "2026-10-18T03:58:15+00:00",
+        "subject": "Remove athletic collarbone shoulder bulge",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T06:46:12.040Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "425c4191b1f5aea8c5b8bcd478a52b9b808a640d",
+        "shortHash": "425c419",
+        "committedAt": "2026-10-18T04:41:19+00:00",
+        "subject": "docs(comparison): refresh watched branch tips after syncing PR #8 34d4844",
+        "commitCountFromMain": 12
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "04d5caf432ff81be0307a3ec79e894da1b60045c",
+        "shortHash": "04d5caf",
+        "committedAt": "2026-10-18T06:20:52+00:00",
+        "subject": "Add five-persona gait audit workflow and results",
+        "commitCountFromMain": 15
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T09:33:32.158Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "936f37ce07f18e38fc4f5b3880c80029ec9f55cf",
+        "shortHash": "936f37c",
+        "committedAt": "2026-10-18T06:47:04+00:00",
+        "subject": "docs(compare): refresh 5-way branch tips ledger (PR #8 @ 04d5caf)",
+        "commitCountFromMain": 14
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "195fd47231fc94edc23f54ffb7f20bd7fbfc3803",
+        "shortHash": "195fd47",
+        "committedAt": "2026-10-18T07:11:20+00:00",
+        "subject": "fix: refine athletic upright rig assembly",
+        "commitCountFromMain": 16
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T12:39:44.199Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "571515b2a0cb0c9f71c77f9be7bff7ef8701ebe0",
+        "shortHash": "571515b",
+        "committedAt": "2026-10-18T09:34:48+00:00",
+        "subject": "docs(compare): refresh 5-way branch tips ledger (PR #8 @ 195fd47)",
+        "commitCountFromMain": 16
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "3e6ad932f470a8a81cc045ada3c8a82ae28d4521",
+        "shortHash": "3e6ad93",
+        "committedAt": "2026-10-18T12:18:19+00:00",
+        "subject": "docs: plan pose-bank harvesting strategy",
+        "commitCountFromMain": 17
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T13:23:29.409Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "52866c81a2e9656285f2cc90a3958c2100f5ae1f",
+        "shortHash": "52866c8",
+        "committedAt": "2026-10-18T12:40:58+00:00",
+        "subject": "docs(compare): refresh 5-way branch tips ledger (PR #8 @ 3e6ad93)",
+        "commitCountFromMain": 18
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "60ca65353e2b5ff9481abed4540c84131cf18e38",
+        "shortHash": "60ca653",
+        "committedAt": "2026-10-18T13:10:19+00:00",
+        "subject": "feat: add pose-bank regeneration pipeline and pilot",
+        "commitCountFromMain": 18
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  },
+  {
+    "observedAt": "2026-10-18T21:27:34.034Z",
+    "activeSessionBranch": "arena/917ef347-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 1 (Ours — Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open (Active Session Branch)",
+        "hash": "0481e7e4ca1da8e8de0abe74b2d7d0b72d441097",
+        "shortHash": "0481e7e",
+        "committedAt": "2026-10-18T21:27:20+00:00",
+        "subject": "fix(rig): resolve torso-neck-head attachment regression across all 3 photoreal personas and phase-harvested bank (ADD-045, PIPE-ERR-11..14)",
+        "commitCountFromMain": 21
+      },
+      {
+        "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "PR #8 Open (Closely Watched)",
+        "hash": "5330a64d89cd912394a8e4e27c77a941a6f46b2e",
+        "shortHash": "5330a64",
+        "committedAt": "2026-10-18T21:18:17+00:00",
+        "subject": "Fix Athletic head-neck rig attachment",
+        "commitCountFromMain": 21
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  }
+]
