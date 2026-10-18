@@ -1,0 +1,58 @@
+[
+  {
+    "observedAt": "2026-10-17T23:20:54.858Z",
+    "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
+    "tips": [
+      {
+        "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
+        "branch": "arena/e1300d3c-super-duper-funicular",
+        "prStatus": "Active Session Branch",
+        "hash": "396ce256debcb5bdc2419cc0f3f399730b61ab36",
+        "shortHash": "396ce25",
+        "committedAt": "2026-10-17T13:53:48+08:00",
+        "subject": "Add files via upload",
+        "commitCountFromMain": 0
+      },
+      {
+        "role": "Branch 1 (Sprite Motion Lab)",
+        "branch": "arena/917ef347-super-duper-funicular",
+        "prStatus": "PR #1 Open",
+        "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
+        "shortHash": "e172b0f",
+        "committedAt": "2026-10-17T23:09:40+00:00",
+        "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
+        "commitCountFromMain": 6
+      },
+      {
+        "role": "Branch 2 (Stride Lab Workbench)",
+        "branch": "arena/263385da-super-duper-funicular",
+        "prStatus": "PR #2 Open",
+        "hash": "b227e2fe562be341f15f58955f539d325170729e",
+        "shortHash": "b227e2f",
+        "committedAt": "2026-10-17T21:55:19+00:00",
+        "subject": "Build Stride Lab motion workbench with photographic rig and cycle audits",
+        "commitCountFromMain": 1
+      },
+      {
+        "role": "Branch 3 (Funicular / Photo-Rig & Matte Lab)",
+        "branch": "arena/77ffb088-super-duper-funicular",
+        "prStatus": "PR #3 Open",
+        "hash": "43352cf3fe8cb6c486aa79a59954d5972a5e13ac",
+        "shortHash": "43352cf",
+        "committedAt": "2026-10-17T23:05:53+00:00",
+        "subject": "Track live three-way feature parity and adopt multi-background photo audits",
+        "commitCountFromMain": 13
+      },
+      {
+        "role": "Branch 4 (Initial Greenfield Prototype)",
+        "branch": "arena/ce6d2a6e-super-duper-funicular",
+        "prStatus": "Historical Prototype",
+        "hash": "bab689cdac3ba730138bfae09dda537978d61e09",
+        "shortHash": "bab689c",
+        "committedAt": "2026-10-17T06:27:14+00:00",
+        "subject": "Adopt GREENFIELD discipline; extract running sprites; procedural runner app",
+        "commitCountFromMain": 1
+      }
+    ]
+  }
+]

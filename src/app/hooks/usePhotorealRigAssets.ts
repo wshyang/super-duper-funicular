@@ -1,0 +1,137 @@
+import { useEffect, useState } from 'react';
+import type {
+  BodyPartId,
+  PhotorealPersonaId,
+  RasterImage,
+  RunnerPersonaId,
+} from '../../shared/types.js';
+import { ARTICULATED_BODY_PARTS } from '../../runner/body-proportions.js';
+import {
+  hasPhotorealPartBankForPersona,
+  type PhotorealPartBank,
+  setPhotorealPartBankForPersona,
+} from '../../runner/photoreal-rig.js';
+import { isPhotorealPersona } from '../../runner/skin-registry.js';
+
+export type PhotorealLoadStatus = 'idle' | 'loaded' | 'error';
+
+export function isCompletePhotorealBank(bank: PhotorealPartBank): boolean {
+  return ARTICULATED_BODY_PARTS.every((part) => Boolean(bank[part.partId]));
+}
+
+export interface PhotorealAssetsState {
+  readonly status: PhotorealLoadStatus;
+  readonly retryPhotorealAssets: () => void;
+}
+
+export function isPhotorealExportBlocked(
+  personaId: string,
+  status: PhotorealLoadStatus,
+): boolean {
+  return (
+    isPhotorealPersona(personaId as RunnerPersonaId) && status !== 'loaded'
+  );
+}
+
+function hasAllPhotorealBanks(): boolean {
+  return (
+    hasPhotorealPartBankForPersona('photo-sg-chinese-female') &&
+    hasPhotorealPartBankForPersona('photo-sg-chinese-female-average')
+  );
+}
+
+export function usePhotorealRigAssetsWithRetry(): PhotorealAssetsState {
+  const [status, setStatus] = useState<PhotorealLoadStatus>(
+    hasAllPhotorealBanks() ? 'loaded' : 'idle',
+  );
+  const [retryCount, setRetryCount] = useState<number>(0);
+
+  useEffect(() => {
+    if (hasAllPhotorealBanks() || typeof Image === 'undefined') {
+      return;
+    }
+    let cancelled = false;
+    setStatus('idle');
+    Promise.all([
+      loadPersonaPartsInBrowser('photo-sg-chinese-female'),
+      loadPersonaPartsInBrowser('photo-sg-chinese-female-average'),
+    ])
+      .then(([athleticBank, averageBank]) => {
+        if (cancelled) return;
+        if (isCompletePhotorealBank(athleticBank)) {
+          setPhotorealPartBankForPersona('photo-sg-chinese-female', athleticBank);
+          if (isCompletePhotorealBank(averageBank)) {
+            setPhotorealPartBankForPersona(
+              'photo-sg-chinese-female-average',
+              averageBank,
+            );
+          }
+          setStatus('loaded');
+        } else {
+          setStatus('error');
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setStatus('error');
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [retryCount]);
+
+  const retryPhotorealAssets = () => setRetryCount((n) => n + 1);
+  return { status, retryPhotorealAssets };
+}
+
+export function usePhotorealRigAssets(): PhotorealLoadStatus {
+  return usePhotorealRigAssetsWithRetry().status;
+}
+
+async function loadPersonaPartsInBrowser(
+  personaId: PhotorealPersonaId,
+): Promise<PhotorealPartBank> {
+  const folder =
+    personaId === 'photo-sg-chinese-female-average'
+      ? 'sg-chinese-female-average'
+      : 'sg-chinese-female';
+  const entries = await Promise.all(
+    ARTICULATED_BODY_PARTS.map(async (part) => {
+      const url = `/sprites/photoreal/${folder}/parts/${part.partId}.png`;
+      const raster = await decodeUrlToRaster(url);
+      return [part.partId, raster] as const;
+    }),
+  );
+  const bank: Partial<Record<BodyPartId, RasterImage>> = {};
+  for (const [partId, raster] of entries) {
+    if (raster) {
+      bank[partId] = raster;
+    }
+  }
+  return bank;
+}
+
+function decodeUrlToRaster(url: string): Promise<RasterImage | null> {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth || 160;
+      canvas.height = img.naturalHeight || 160;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        resolve(null);
+        return;
+      }
+      ctx.drawImage(img, 0, 0);
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      resolve({
+        width: canvas.width,
+        height: canvas.height,
+        data: new Uint8ClampedArray(imageData.data),
+      });
+    };
+    img.onerror = () => resolve(null);
+    img.src = url;
+  });
+}

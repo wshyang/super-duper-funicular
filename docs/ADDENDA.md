@@ -1,0 +1,262 @@
+# Sequentially-Numbered Addenda Register (`GREENFIELD.md §1`)
+
+Every architectural, algorithmic, or tooling decision not fixed by a single literal reading of the prompt is recorded here in the same change that implements it.
+
+---
+
+## `ADD-001` — Adoption and Section Split of `wshyang/greenfield`
+- **What was decided:** Copy `GREENFIELD.md` and `FDS_BUILDER.md` from `wshyang/greenfield` into the repository root, create a contextualised `CLAUDE.md` index, and split each `##` section into `CLAUDE-decisions.md`, `CLAUDE-testing.md`, `CLAUDE-database.md`, `CLAUDE-conventions.md`, `CLAUDE-function-design.md`, `CLAUDE-validation.md`, `CLAUDE-deployment.md`, and `CLAUDE-checklist.md`.
+- **Why:** `GREENFIELD.md §0` mandates establishing the split documentation architecture on day one so agents and contributors can query focused sections without loading the full corpus.
+- **Related Spec Section:** `docs/FDS.md#exec-summary`
+- **Practical Impact:** Every module and test adheres to the Greenfield function design, testing, and deployment contracts.
+
+## `ADD-002` — Canonical Filing of Reference Sprite Sheet into `/src/images/`
+- **What was decided:** Relocate the root `incorrect running sprites.jpeg` into `src/images/spritesheets/runner-8frame-6color-flawed-sheet.jpeg`, generate the corrected algorithmic sheet at `src/images/spritesheets/runner-8frame-6color-algorithmic-sheet.png`, and generate three parallax stadium backdrops in `src/images/backdrops/stadium-track-{day,dusk,night}.png`, indexed by `src/images/manifest.json`.
+- **Why:** Deliverable 1 & 2 require deduplicating repository art and filing assets into `/src/images` using meaningful filenames.
+- **Related Spec Section:** `docs/FDS.md#obj-image-asset`, `docs/FDS.md#feat-dedupe`
+- **Practical Impact:** `npm run dedupe` is idempotent: it relocates `incorrect running sprites.jpeg` if present, deduplicates by byte SHA-256, RGBA pixel SHA-256, and 64-bit dHash, and keeps `/src/images/manifest.json` updated.
+
+## `ADD-003` — Pure-TypeScript Image Decoding (`jpeg-js` + `pngjs`)
+- **What was decided:** Implement all raster decoding, chroma-keying, connected-component labeling, and PNG encoding in pure TypeScript using `jpeg-js` and `pngjs`.
+- **Why:** Outbound sandbox network access is restricted to allowlisted registries; native C++ image libraries that fetch prebuilt binaries from arbitrary hosts can fail in locked-down CI or container builds.
+- **Related Spec Section:** `docs/FDS.md#nfr`
+- **Practical Impact:** `npm ci --ignore-scripts` succeeds deterministically inside Alpine Docker builds and local sandboxes.
+
+## `ADD-004` — Two-Stage Border Flood-Fill + Interior Island Magenta Chroma Key
+- **What was decided:** Combine border-seeded flood-fill (`R >= 205, B >= 198, R-G >= 95, B-G >= 90, |R-B| <= 45`) with high-confidence interior magenta island seeding (`R >= 218, B >= 215, R-G >= 112`) and a 1-pixel boundary despill pass.
+- **Why:** Row 5 (`purple`) uses a violet jersey (`RGB ~ 128, 51, 157`). A naive global hue threshold either erodes the purple jersey or leaves enclosed magenta loops (such as the triangle between the bent rear arm and torso) unkeyed.
+- **Related Spec Section:** `docs/FDS.md#feat-extract`
+- **Practical Impact:** All 48 extracted sprites (`public/sprites/extracted/{variant}/frame-0{1..8}.png`) have clean transparent backgrounds, keyed interior arm loops, and intact purple jerseys.
+
+## `ADD-005` — Centroid-Registered `220 × 256` Cutout Canvas & Intra-Row Deduplication
+- **What was decided:** Register each cut-out character onto a `220 × 256` RGBA canvas with its foreground centroid anchored at `(110, 132)`, and classify intra-row duplicate poses using centroid-aligned silhouette IoU `>= 0.78`.
+- **Why:** Raw cell bounding boxes jitter vertically by up to 25 px; centroid registration aligns corresponding poses across columns so `Frame k` vs `Frame k+4` similarity is measured accurately (`94.7%` mean IoU).
+- **Related Spec Section:** `docs/FDS.md#obj-extracted-frame`, `docs/FDS.md#feat-analyze`
+- **Practical Impact:** Automatically identifies that every 8-frame row in the reference sheet contains exactly 4 unique poses (`unique-01.png`..`unique-04.png`) repeated twice.
+
+## `ADD-006` — Five-Factor Biomechanical Flaw Diagnosis
+- **What was decided:** Codify and verify five distinct flaws in `src/pipeline/flaw-analyzer.ts` and `docs/SPRITE_ANIMATION_FLAW_ANALYSIS.md`: (`FLAW-01`) Half-cycle duplication (`F1–F4 == F5–F8`), (`FLAW-02`) Unilateral lead-leg lock (no alternating gait), (`FLAW-03`) Zero leg crossover (`minFootSeparationPx = 147 px`), (`FLAW-04`) Scale and baseline jitter (`20 px` height delta, `25 px` baseline shift), and (`FLAW-05`) Two-tone `#FF00FF`/`#FD49FD` magenta grid with JPEG chroma spill.
+- **Why:** Deliverable 4 requires a rigorous assessment of what is flawed in the extracted running animation.
+- **Related Spec Section:** `docs/FDS.md#feat-analyze`
+- **Practical Impact:** Both the markdown report and the web app's Diagnostics view surface exact quantitative metrics computed from the real sprite sheet.
+
+## `ADD-007` — 15-Part Hierarchical Articulated Rig & Painter's Depth Shading
+- **What was decided:** Model the algorithmic runner as 15 articulated parts (`farUpperArm`, `farForearm`, `farHand`, `farThigh`, `farShin`, `farFoot`, `pelvis`, `torso`, `head`, `nearThigh`, `nearShin`, `nearFoot`, `nearUpperArm`, `nearForearm`, `nearHand`) rendered back-to-front with two-pass (`silhouette outline → interior fill`) capsule rendering and darkened far-side shading (`skinFar`, `jerseyShadow`, `shortsShadow`, `sockShadow`).
+- **Why:** Deliverable 5 requires generating the sprite body, torso, limbs, legs, and articulating parts algorithmically. Separate shading between near (right) and far (left) limbs makes left/right stride alternation visually unmistakable.
+- **Related Spec Section:** `docs/FDS.md#obj-articulated-pose`, `docs/FDS.md#feat-algorithmic-runner`
+- **Practical Impact:** Exports both full-body animation frames and 15 standalone body-part cutouts under `/public/sprites/algorithmic/parts/`.
+
+## `ADD-008` — Analytical Law-of-Cosines Two-Bone IK + Contralateral Gait Phase Solver
+- **What was decided:** Drive the near leg at phase $\phi$ and the far leg at $(\phi + 0.5) \bmod 1$ using a smooth periodic 8-knot ankle trajectory solved via analytical Law-of-Cosines two-bone IK (`bendDirection: 'knee-forward'`), paired with counter-rotating arm swing and double-frequency (`4πφ`) pelvis vertical oscillation.
+- **Why:** Ensures exact contralateral symmetry (`Frame k+4` mirrors left/right limb roles of `Frame k`), enforces foot ground clamping during stance, and produces two true leg crossovers (`Pass` at $\phi = 0.25, 0.75$) and two airborne `Flight` phases ($\phi = 0.375, 0.875$) per cycle.
+- **Related Spec Section:** `docs/FDS.md#feat-algorithmic-runner`
+- **Practical Impact:** Completely eliminates the peg-leg hop, frame duplication, and scale jitter of the reference sheet.
+
+## `ADD-009` — Hook/Component Split & Presentation-Only JSX Interior
+- **What was decided:** Place all animation loop timers, state transitions, manifest fetching, and formatted derivations inside `src/app/hooks/useRunnerStudio.ts`, leaving all components in `src/app/components/*.tsx` with pure presentation JSX interiors.
+- **Why:** Enforces `GREENFIELD.md §7.5` ("A component renders, a hook decides" and presentation-only JSX interior).
+- **Related Spec Section:** `docs/FDS.md#surface-inventory`
+- **Practical Impact:** Verified by automated static discipline checks in `src/discipline/greenfield-gate.test.ts`.
+
+## `ADD-010` — Sandbox Container & Inert SHIP-HATS Pipeline Inclusion
+- **What was decided:** Commit contextualised `Dockerfile`, `Dockerfile.dev`, `Dockerfile.cloudflared`, `.dockerignore`, and inert `*.shiphats` pipeline files with Bash 3.2-compatible `activate-shiphats.sh` and `dev.sh`.
+- **Why:** Required by `GREENFIELD.md §10` and `§11` items 10, 12, and 13.
+- **Related Spec Section:** `docs/FDS.md#nfr`
+- **Practical Impact:** Container contract (`0.0.0.0:3000`, numeric UID `1001`) and `activate-shiphats.sh` are continuously verified in `src/discipline/greenfield-gate.test.ts`.
+
+## `ADD-011` — Articulated Cervical Neck & Horizon-Stabilised Head
+- **What was decided:** Separate the upper spine into an articulated cervical neck segment (`collar → neck`, `neckAngleRad`) and an independent head pivot (`neck → headCenter`, `headAngleRad`) with counter-phase stabilization so the torso and head are never a single immovable block.
+- **Why:** In natural human running, the cervical spine absorbs vertical impact and counter-rotates against thoracic surge so the runner's gaze remains stabilized on the horizon.
+- **Related Spec Section:** `docs/FDS.md#uc-005`
+- **Practical Impact:** Added `'neck'` and `'hairAccessory'` to `BodyPartId` (17 articulated parts total) and `neckAngleRad`, `headAngleRad`, `hairAngleRad`, `neck`, `hairAnchor`, and `hairTip` to `ArticulatedPose`.
+
+## `ADD-012` — Two-Segment Plantar Foot Roll (Midfoot Strike → Ball Roll → Toe-Off)
+- **What was decided:** Replace single-segment vertical foot placement with a 2-segment rolling foot model (`heelPoint → ballPoint → tipPoint`, `src/runner/foot-roll.ts`) that lands on the midfoot (`midfoot-strike`), rolls flat across the plantar sole (`sole-roll`), hinges at the metatarsophalangeal (MTP) ball joint as the heel peels upward (`heel-off-roll`), and drives off the toes (`toe-off`).
+- **Why:** Real runners do not stamp the foot straight down and lift it straight up; plantar rolling transfers momentum smoothly forward across the sole toward the toes.
+- **Related Spec Section:** `docs/FDS.md#uc-005`
+- **Practical Impact:** Added `FootContactPhase`, `heelPoint`, `ballPoint`, `tipPoint`, `toeAngleRad`, `heelLiftPx`, and `contactPhase` to `LimbKinematics` and `solveRollingFootGeometry` in `src/runner/foot-roll.ts`.
+
+## `ADD-013` — Forward-Leading ("Falling Forward") Running Posture
+- **What was decided:** Set the default thoracic forward lean to `+22°` (`DEFAULT_GAIT_CONFIG.forwardLeanDeg = 22`) with continuous positive `fallForwardComLeadPx` so the runner's center of mass leads ahead of the pelvis and stance foot across the entire cycle.
+- **Why:** Sprinters and distance runners maintain a continuous forward-falling gravity vector that drives propulsion at toe-off.
+- **Related Spec Section:** `docs/FDS.md#uc-005`
+- **Practical Impact:** `solveArticulatedPose` computes `fallForwardComLeadPx > 0` for all phases `u ∈ [0, 1)`.
+
+## `ADD-014` — Skinnable Sprite Hooks & Dual Singapore Chinese Male / Female Personas
+- **What was decided:** Implement a pluggable skinning registry (`src/runner/skin-registry.ts` with `RunnerSkinDefinition`, `SkinPartRenderHook`, `registerCustomSkin`, and `attachSkinPartHook`) and generate full 48-cell sheets and 17-part articulated cutouts for both **Singapore Chinese Male** (`sg-chinese-male`) and **Singapore Chinese Female** (`sg-chinese-female`) runners, with a live persona toggle in the web app.
+- **Why:** Enables customizable character skins without modifying the IK/gait solver and provides full articulated sprite sets for both Singapore Chinese male and female runners.
+- **Related Spec Section:** `docs/FDS.md#uc-005`, `docs/FDS.md#uc-006`
+- **Practical Impact:** Generated `/public/sprites/algorithmic/sg-chinese-male/`, `/public/sprites/algorithmic/sg-chinese-female/`, `/public/sprites/algorithmic/parts/sg-chinese-male/`, `/public/sprites/algorithmic/parts/sg-chinese-female/`, and added the Persona Selector in `RunnerControls.tsx`.
+
+## `ADD-015` — Photorealistic Singaporean Chinese Female Articulated Rig (`photo-sg-chinese-female`)
+- **What was decided:** Generate 10 studio photographic assets (`src/images/photoreal-female/01-master-lateral-profile-reference.png` through `10-far-left-leg-medial-inside-shoe.png`) capturing both **lateral (outside/near)** and **medial (inside/far)** anatomical views of a Singaporean Chinese female sprinter, chroma-key and segment them into 17 standardized photographic cutouts (`src/pipeline/photoreal-extractor.ts`), and animate them via inverse-mapped bilinear bone warping and 2-segment MTP foot rolling (`src/runner/photoreal-warp.ts`, `src/runner/photoreal-rig.ts`) as an additional persona option (`photo-sg-chinese-female`) above and beyond the existing procedural sprite personas.
+- **Why:** A single side profile cannot provide the medial (inside) view of the far leg/shoe or the medial (inside) view of the far arm/palm; dedicated lateral vs. medial studio assets ensure anatomical fidelity for both near and far limbs during photorealistic skeletal animation.
+- **Related Spec Section:** `docs/FDS.md#uc-005`, `docs/FDS.md#uc-006`
+- **Practical Impact:** Added `photo-sg-chinese-female` to `RunnerPersonaId`, generated `src/images/spritesheets/runner-8frame-6color-photoreal-female-sheet.png`, `/public/sprites/photoreal/sg-chinese-female/parts/*.png`, and `/public/sprites/algorithmic/photo-sg-chinese-female/`, and wired `usePhotorealRigAssets.ts` into the live web app.
+
+## `ADD-016` — Rounded Joint End Cutter Tool & True 90° Sagittal Profile Asset Regeneration
+- **What was decided:** Regenerate studio component photographs `03` through `10` in `src/images/photoreal-female/` as strict 90° sagittal side profiles facing right (eliminating front-facing camera twist on the cervical neck `04`, torso `05`, pelvis shorts `06`, lateral/medial arms `07`/`08`, and lateral/medial legs `09`/`10`), and build a dedicated **Rounded Joint End Cutter Tool** (`src/pipeline/rounded-joint-cutter.ts` exporting `cutArticulatedLimbWithRoundedEnds` and `applyPivotArcRoundedCut`) paired with isotropic circular pivot cap mapping (`mapLongitudinalWithIsotropicCaps` in `src/runner/photoreal-warp.ts`).
+- **Why:** Articulated elements with flat or oblique ends expose corners and gaps when rotated around a joint axis. Cutting semicircular rounded ends centered on each element's proximal `(80, 36)` and distal `(80, 124)` rotation pivots — and mapping those end caps isotropically onto the shared canvas joint pivot — enables the top-most element in Z-order to superimpose concentrically and cleanly over the rotation axis across all gait angles.
+- **Related Spec Section:** `docs/FDS.md#uc-005`, `docs/FDS.md#uc-006`
+- **Practical Impact:** Added `src/pipeline/rounded-joint-cutter.ts`, updated `src/pipeline/photoreal-extractor.ts`, `src/runner/photoreal-warp.ts`, and `src/runner/photoreal-rig.ts`, and regenerated all 17 cutouts in `public/sprites/photoreal/sg-chinese-female/parts/*.png` and all 48 frames in `src/images/spritesheets/runner-8frame-6color-photoreal-female-sheet.png`.
+
+## `ADD-017` — Far Left Arm `90°` Sagittal L-Bend Chirality Fix (`08-far-left-arm-medial-inside-palm.png`), Horizontal Limb Cutter & `FDS.md` v2.0.0 Prompt-Engineering Specification
+- **What was decided:**
+  1. Regenerate `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png` in a **strict `90°` sagittal running L-bend** (vertical upper arm `12->6 o'clock` with anterior biceps on the right `3 o'clock` and posterior triceps/olecranon on the left `9 o'clock`, bending `90°` forward to the right `3 o'clock` into a horizontal inner medial forearm and left runner's fist with the **inner palm and four curled fingers facing the camera and the thumb resting on top at `12 o'clock`**).
+  2. Add `srcMaxX` bounding and `cutHorizontalLimbWithRoundedEnds` (`90°` clockwise crop rotation + semicircular rounded end cuts) to `src/pipeline/rounded-joint-cutter.ts`, and disable horizontal row-based shadow-groove interpolation on L-bent source images in `src/pipeline/photoreal-extractor.ts`.
+  3. Document the complete conversation-wide thought process for determining the 17 articulated elements and 10 studio source photos, diagnosing failure modes across iterations, preventing camera twist and right-arm chirality illusions, and crafting diffusion prompts in `docs/FDS.md` (`v2.0.0`, `§8`).
+- **Why:** Prompting an image generator for a straight vertical (`180°`) hanging arm with *"inner arm and palm facing the camera"* suffers from collinear cylinder degeneracy and a strong training prior toward front-facing right arms: a vertical hanging hand with the palm facing the viewer and the thumb on the right (`3 o'clock`) is anatomically a **right hand**. Posing the isolated far left arm in a `90°` sagittal L-bend (`forearm pointing right 3 o'clock` + `inner palm facing viewer +Z` + `thumb on top 12 o'clock`) locks 3D handedness ($\vec{v}_{\text{forearm}} \times \vec{n}_{\text{palm}} = +\hat{x} \times +\hat{z} = \text{upward } 12\text{ o'clock}$) so it can **only** be a human left arm viewed from its inner (medial) surface.
+- **Related Spec Section:** `docs/FDS.md#thought-process`, `docs/FDS.md#feat-photoreal-rig`
+- **Practical Impact:** Regenerated `08-far-left-arm-medial-inside-palm.png`, `public/sprites/photoreal/sg-chinese-female/parts/{farUpperArm,farForearm,farHand}.png`, `src/images/spritesheets/runner-8frame-6color-photoreal-female-sheet.png`, and `/public/sprites/algorithmic/photo-sg-chinese-female/**`; expanded `docs/FDS.md` to `v2.0.0`.
+
+## `ADD-018` — Mandatory `generate_image` Prompt & Regeneration Justification Audit Rule (`CLAUDE.md`) and Raster-to-SVG Articulated Vectorizer & Stitcher (`svg-vectorizer.ts`, `svg-rig-stitcher.ts`)
+- **What was decided:**
+  1. Codify in `CLAUDE.md`, `CLAUDE-decisions.md` (`§2`), and `CLAUDE-checklist.md` (`#14`) that every `generate_image` call must log its exact verbatim prompt in `docs/FDS.md` (`#image-prompt-log`), and that any subsequent regeneration of the same `file_path` must preserve all prior prompt entries and append the subsequent prompt plus a detailed **Regeneration Justification**.
+  2. Populate `docs/FDS.md` (`§9`) with the complete chronological log of all 21 historical `generate_image` calls (`Pass 1` Calls `#01`–`#10`, `Pass 2` Calls `#11`–`#18`, `Pass 2b` Calls `#19`–`#20`, and `Pass 3` Call `#21`) and their regeneration justifications.
+  3. Assess and implement a pure-TypeScript **Raster-to-SVG Articulated Element Vectorizer** (`src/pipeline/svg-vectorizer.ts`) and **Hierarchical SVG Rig Stitcher** (`src/runner/svg-rig-stitcher.ts`), documented in `docs/FDS.md` (`§10`, `#svg-vector-assessment`), exporting `/public/sprites/photoreal/sg-chinese-female/svg-parts/*.svg` and `/public/sprites/photoreal/sg-chinese-female/svg-frames/frame-01..08.svg`.
+- **Why:** Maintaining an immutable chronological log of every diffusion prompt and regeneration rationale in `docs/FDS.md` prevents repeat prompt regressions (such as `45°` camera twist or straight-cylinder chirality illusions). Implementing the Raster-to-SVG converter and stitcher alongside the technical assessment demonstrates how rounded-end cutouts (`rounded-joint-cutter.ts`) can be traced into smooth Chaikin quadratic Bézier `<clipPath>` masks and quantized color-band `<path>` vectors and stitched via exact 6-parameter SVG affine matrices (`matrix(a b c d e f)`) and 2-segment hinged rearfoot/forefoot `<g>` groups.
+- **Related Spec Section:** `docs/FDS.md#image-prompt-log`, `docs/FDS.md#svg-vector-assessment`, `docs/FDS.md#feat-svg-vectorizer`
+- **Practical Impact:** Updated `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-checklist.md`, `docs/FDS.md` (`v3.0.0`), `src/pipeline/svg-vectorizer.ts`, `src/runner/svg-rig-stitcher.ts`, `src/pipeline/algorithmic-sheet-builder.ts`, `src/app/hooks/studio-view-model.ts`, and `src/app/components/ArticulatedRigPanel.tsx`.
+
+## `ADD-019` — Optional End-Cap Composite Attachment (`EndCapCompositeSpec` & `attachEndCapComposite`) for Articulated Thigh Shorts Cuffs
+- **What was decided:**
+  1. Add `EndCapCompositeSpec` and `attachEndCapComposite` to `src/pipeline/rounded-joint-cutter.ts` and wire optional `endCapComposite?: EndCapCompositeSpec` into `cutArticulatedLimbWithRoundedEnds`.
+  2. In `src/pipeline/photoreal-extractor.ts` (`cutThighWithShortsCuff`), attach a proximal (`end: 'top'`) sprinter-shorts cuff extracted from the lower leg-hem section of `06-pelvis-sprinter-shorts.png` (`srcTopY: 460, srcBotY: 690`) onto both `nearThigh` (`sideStripeMode: 'with-stripe'`, preserving the vertical white side stripe) and `farThigh` (`sideStripeMode: 'solid-fabric'`, shaded medial charcoal fabric).
+  3. Shape the composite attachment so that its **top (`y = 10..36`) is semicircularly rounded** around the hip pivot `(80, 36)` to gel concentrically with the rounded base of the torso/pelvis, while its **bottom (`dstStraightCutY = 66`) is cut straight across** perpendicular to the thigh axis.
+- **Why:** When the base of the torso/pelvis shorts is rounded for hip articulation and the thigh elements are rendered as bare skin, the shorts appear rounded at the bottom as if the subject has no pants/shorts leg sleeves. Attaching a rounded-top, straight-bottom shorts cuff composite onto the proximal end of each thigh ensures that the hip joint rotates seamlessly while each swinging thigh displays a realistic straight-hemmed sprinter-shorts sleeve.
+- **Related Spec Section:** `docs/FDS.md#thought-process`, `docs/FDS.md#feat-photoreal-rig`, `docs/FDS.md#svg-vector-assessment`
+- **Practical Impact:** Updated `src/pipeline/rounded-joint-cutter.ts`, `src/pipeline/photoreal-extractor.ts`, `src/runner/photoreal-rig.ts`, `src/runner/svg-rig-stitcher.ts`, `src/pipeline/pipeline.test.ts`, and regenerated all PNG cutouts (`nearThigh.png`, `farThigh.png`, `torso.png`), SVG vector parts (`nearThigh.svg`, `farThigh.svg`), stitched SVG frames (`frame-01..08.svg`), and the 48-frame photorealistic sprite sheet.
+
+## `ADD-020` — Full-Cycle Temporary Frame Dumper (`npm run dump-cycle`) & Multimodal Agent Visual Audit Skill (`audit-gait-cycle`)
+- **What was decided:**
+  1. Implement `dumpFullGaitCycleToTempDir` (`src/pipeline/cycle-frame-dumper.ts`) and CLI `scripts/dump-cycle-frames.ts` (`npm run dump-cycle`) to render a high-density 16-frame gait cycle ($\Delta\phi = 22.5^\circ$) into a temporary directory (`/tmp/gait-cycle-audit`), producing raw RGBA frames, 3-panel diagnostic plates (`frames/audit-frame-XX-deg-YYY.png` with neutral grey + ground line, dark-slate anomaly highlight, and joint-pivot crosshairs), a `4 × 4` full-cycle `contact-sheet-16frame.png`, a `2×` magnified `joint-crops-sheet.png`, and `audit-report.json`.
+  2. Codify the reusable **Agent Skill** at `.claude/skills/audit-gait-cycle/SKILL.md` and register it in `CLAUDE-validation.md` (`§9`), `CLAUDE.md`, and `CLAUDE-checklist.md` (`#15`).
+  3. Exercise the skill on `photo-sg-chinese-female`, apply immediate rectifications `RECT-01`..`RECT-03` (eliminating the duplicate crossing white stripe on `pelvis`, pruning all 6 detached 2–3 px islands via `removeSmallOpaqueIslands(canvas, 8)` so `totalDisconnectedIslands = 0`, and calibrating `farForearm`/`farHand` skin luminance to `1.08`), and document the complete 6-defect audit and rectification roadmap (`DEFECT-01`..`DEFECT-06`) in `docs/FDS.md` (`v3.2.0`, `§11`).
+- **Why:** Inspecting only 8 keyframes on a uniform background misses intermediate half-step joint rotation artifacts and tiny detached resampling specks. Dumping a 16-frame cycle with `2×` zoomed joint crops and connected-component telemetry to `/tmp` gives the agent a repeatable multimodal inspection loop.
+- **Related Spec Section:** `docs/FDS.md#gait-cycle-visual-audit`, `.claude/skills/audit-gait-cycle/SKILL.md`
+- **Practical Impact:** Added `src/pipeline/cycle-frame-dumper.ts`, `scripts/dump-cycle-frames.ts`, `.claude/skills/audit-gait-cycle/SKILL.md`, updated `src/pipeline/connected-components.ts`, `src/pipeline/photoreal-extractor.ts`, `src/runner/photoreal-rig.ts`, and `docs/FDS.md` (`v3.2.0`).
+
+## `ADD-021` — Investigative Rectification Plan (`PLAN.md`), Cross-Branch Reference Synthesis (`arena/263385da` @ `b227e2f` & `arena/77ffb088` @ `d0e12b5`), `RECT-04`..`RECT-06`, and Mandatory Continuous Per-Turn Learning Discipline (`#continuous-learning-log`)
+- **What was decided:**
+  1. Document the complete findings from the 16-frame temporary cycle investigative run (`DEFECT-01`..`DEFECT-06`), the six-part rectification roadmap (`RECT-01`..`RECT-06`), and the cross-branch synthesis (`CROSS-01`..`CROSS-04`) in `PLAN.md` (and `docs/RECTIFICATION_PLAN.md`).
+  2. Check out the latest commit on another branch (`origin/arena/263385da-super-duper-funicular` @ `b227e2fe562be341f15f58955f539d325170729e`, `2026-10-17 21:55:19 UTC`) into `/tmp/other-branch-repo` (plus `origin/arena/77ffb088-super-duper-funicular` @ `d0e12b5` into `/tmp/other-branch-77ffb088`) without switching the active session branch, compare their strengths against our implementation, and adopt:
+     - **`CROSS-01` + `RECT-05`:** Internal `6 px` Hermite shaft-shoulder cap blending inside `[dstTopY, dstTopY + 6]` and `[dstBotY - 6, dstBotY]` in `evaluateRoundedEndMask` (`src/pipeline/rounded-joint-cutter.ts`) plus `softenProximalShoulderCap` (`src/pipeline/photoreal-extractor.ts`).
+     - **`CROSS-02` + `CROSS-03`:** Interactive **Articulated Element End-Cutter & 16-Phase Full-Cycle Visual Audit Workbench** (`src/app/components/JointAndCycleAuditPanel.tsx` & `src/app/hooks/useJointAndAuditInspector.ts`) with isolated pivot rotation testing (`-75°..+75°`), rounded+composite vs square-corner overlay comparison, live 16-phase 3-panel (Light / Dark / Joint Overlay + ground-contact support readout) preview, and one-click PNG export.
+     - **`RECT-04` & `RECT-06`:** Rear-swing `farArm` sagittal tuck in `solveArmKinematics` (`src/runner/gait.ts`) eliminating the 3 px rear forearm peek at $\phi = 0.50$ (`180°`), and distal shin ankle-sock collar integration (`srcBotY = 642 / 622` in `src/pipeline/photoreal-extractor.ts`).
+  3. Codify the **Mandatory Continuous Per-Turn Learning Discipline (`#continuous-learning-log`)** in `CLAUDE.md` (Rule 3), `CLAUDE-decisions.md` (`§3`), `CLAUDE-checklist.md` (`#16`), and `src/discipline/greenfield-gate.test.ts`, and populate `docs/FDS.md` (`v3.3.0`, `§12`) with the cross-branch comparison and `TURN-L01`..`TURN-L09` learning register.
+- **Why:** Combining our quantitative pipeline and additive end-cap composite architecture with the interactive joint-end inspector, internal shaft-shoulder cap blend, in-browser 16-phase audit exporter, and turn-by-turn FDS learning register from `arena/263385da` produces a unified, self-auditing engineering workflow.
+- **Related Spec Section:** `docs/FDS.md#gait-cycle-visual-audit`, `docs/FDS.md#continuous-learning-log`, `PLAN.md`
+- **Practical Impact:** Added `PLAN.md`, `docs/RECTIFICATION_PLAN.md`, `src/app/components/JointAndCycleAuditPanel.tsx`, `src/app/hooks/useJointAndAuditInspector.ts`, updated `src/runner/gait.ts`, `src/pipeline/rounded-joint-cutter.ts`, `src/pipeline/photoreal-extractor.ts`, `src/app/App.tsx`, `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-checklist.md`, `src/discipline/greenfield-gate.test.ts`, `docs/FDS.md` (`v3.3.0`), and regenerated all sprite sheets and SVG frames.
+
+## `ADD-022` — Live 3-Way Branch Comparison Ledger (`docs/THREE_WAY_BRANCH_COMPARISON.md`) & Full 3-Way Feature Parity Convergence (`CROSS-05`..`CROSS-09`)
+- **What was decided:**
+  1. Check out the newly advanced commit `c6902014041359b595532a63faf739bbade38c5b` (`2026-10-17 22:36:26 UTC` — *"Record rig quality plan and cross-branch learnings; prototype opt-in end caps"*) on `origin/arena/77ffb088-super-duper-funicular` into `/tmp/branch-77ffb088` alongside `origin/arena/263385da-super-duper-funicular` @ `b227e2fe562be341f15f58955f539d325170729e` in `/tmp/branch-263385da`.
+  2. Establish **`docs/THREE_WAY_BRANCH_COMPARISON.md`** (and root mirror `THREE_WAY_COMPARISON.md`) as a live, continuously updated 3-way branch comparison ledger tracking the latest commit hashes, timestamps, progression history, and a 24-dimension Feature Parity Matrix across all 3 active branches.
+  3. Implement `CROSS-05` through `CROSS-09` to achieve 100% feature parity across all 3 branches:
+     - **`CROSS-05`:** All-or-nothing 17-part photorealistic asset bank readiness (`isCompletePhotorealBank`, `hasPhotorealFemalePartBank`) and `'error'` state reporting in `src/app/hooks/usePhotorealRigAssets.ts` and `src/runner/photoreal-rig.ts`.
+     - **`CROSS-06`:** Multi-mode locomotion profiles (`run`, `walk`, `brisk-walk` via `LocomotionModeId` in `src/shared/types.ts`, `src/runner/foot-roll.ts`, and `src/app/components/RunnerControls.tsx`) supporting zero-flight walking and double-support (`2/2`) stance phases.
+     - **`CROSS-07`:** Material-class matte invariant (`purgeSkinPartFabricSpill`, `countBrightSingletPixels` in `src/pipeline/photoreal-matte-and-qc.ts`) ensuring `0` stray bright singlet fabric pixels on skin-matted arm and neck cutouts.
+     - **`CROSS-08`:** Jacobi harmonic membrane-filled joint ball relaxation (`fillHollowJointBallByJacobiRelaxation` in `src/pipeline/photoreal-matte-and-qc.ts`).
+     - **`CROSS-09`:** Near-vs-far medial limb width-parity gate (`measureNearFarLimbWidthParity` in `src/pipeline/photoreal-matte-and-qc.ts`) enforcing `< 15%` transverse shaft width delta across `upperArm`, `forearm`, `thigh`, and `shin`.
+  4. Codify in `CLAUDE.md` (Rule 3), `CLAUDE-decisions.md` (`§3–§4`), `CLAUDE-checklist.md` (`#16–#17`), and `src/discipline/greenfield-gate.test.ts` that every turn must update both `docs/FDS.md#continuous-learning-log` and `docs/THREE_WAY_BRANCH_COMPARISON.md#three-way-branch-comparison`.
+- **Why:** Maintaining a live 3-way comparison ledger with pinned commit hashes and adopting the complementary strengths of both sibling branches ensures all 3 branches converge toward complete feature parity while preserving our branch's additive end-cap composites, 17-part rig, 2-segment rolling shoe warp, full-colour SVG vectorizer, and 21-call prompt log.
+- **Related Spec Section:** `docs/FDS.md#continuous-learning-log`, `docs/THREE_WAY_BRANCH_COMPARISON.md`
+- **Practical Impact:** Added `docs/THREE_WAY_BRANCH_COMPARISON.md`, `THREE_WAY_COMPARISON.md`, `src/pipeline/photoreal-matte-and-qc.ts`, updated `src/pipeline/photoreal-extractor.ts`, `src/shared/types.ts`, `src/runner/foot-roll.ts`, `src/runner/photoreal-rig.ts`, `src/app/hooks/usePhotorealRigAssets.ts`, `src/app/components/RunnerControls.tsx`, `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-checklist.md`, `docs/FDS.md` (`v3.4.0`), and test suites.
+
+## `ADD-023` — 3-Way FDS & Coding Discipline Comparison and Synchronization (`#fds-three-way-comparison`, `#discipline-three-way-comparison`, `CROSS-10`..`CROSS-12`)
+- **What was decided:**
+  1. Expand `docs/THREE_WAY_BRANCH_COMPARISON.md` (and `THREE_WAY_COMPARISON.md`) with dedicated sections comparing the **Functional Design Specifications (`§5` `#fds-three-way-comparison`)** and **Coding Disciplines (`§6` `#discipline-three-way-comparison`)** across all 3 active branches (`arena/917ef347`, `arena/263385da`, `arena/77ffb088`).
+  2. Synchronize our FDS and `CLAUDE*.md` discipline with the best practices of Branch 2 and Branch 3 (`CROSS-10`..`CROSS-12`):
+     - **`CROSS-10`:** Add dedicated `docs/VALIDATION.md` (tracking executed validation gates and honest environment/2D-rig limits) and codify the 4-way provenance vocabulary (`read source code`, `personally viewed visual output`, `locally executed validation gates`, `other branches' reported results`) in `CLAUDE-validation.md §8.1`.
+     - **`CROSS-11`:** Add a measured **Failed Experiments & Dead Ends Register ("Do Not Retry As-Is")** in `PLAN.md §4` (`docs/RECTIFICATION_PLAN.md §4`), synced with Branch 3's `docs/RIG-QUALITY-PLAN.md §1.3`.
+     - **`CROSS-12`:** Enforce the presence and synchronization of `docs/VALIDATION.md`, `#fds-three-way-comparison`, `#discipline-three-way-comparison`, and `TURN-L11` in `src/discipline/greenfield-gate.test.ts`.
+- **Why:** Keeping not only code features (`CROSS-01`..`CROSS-09`) but also the FDS document ecosystems and Greenfield `CLAUDE*.md` standing disciplines in sync across all 3 branches ensures uniform engineering rigor and zero repeat regressions.
+- **Related Spec Section:** `docs/THREE_WAY_BRANCH_COMPARISON.md#fds-three-way-comparison`, `docs/THREE_WAY_BRANCH_COMPARISON.md#discipline-three-way-comparison`, `docs/FDS.md#continuous-learning-log`
+- **Practical Impact:** Added `docs/VALIDATION.md`, updated `docs/THREE_WAY_BRANCH_COMPARISON.md`, `THREE_WAY_COMPARISON.md`, `PLAN.md`, `docs/RECTIFICATION_PLAN.md`, `CLAUDE-validation.md`, `docs/FDS.md` (`v3.5.0`), and `src/discipline/greenfield-gate.test.ts`.
+
+## `ADD-024` — Harmonised N-Way Greenfield Discipline, `CLAUDE.md`, `docs/FDS.md` (`v4.0.0`), `docs/SPEC.md` & Live N-Way Comparison Ledger (`docs/N_WAY_COMPARISON.md`)
+- **What was decided:**
+  1. Adopt `GREENFIELD.md` (at root `GREENFIELD.md` and `docs/greenfield/GREENFIELD.md` pinned to upstream commit `8ba74027be5fad41e48cadde82cc0120d628b109`) and `FDS_BUILDER.md` v2.0 from `wshyang/greenfield`.
+  2. Synthesize the best standing instructions across all 4 prior branches (`arena/917ef347` @ `e172b0f`, `arena/263385da` @ `b227e2f`, `arena/77ffb088` @ `43352cf`, and `arena/ce6d2a6e` @ `bab689c`) into a harmonised `CLAUDE.md` + 8 focused `CLAUDE-*.md` domain files + `.claude/skills/audit-gait-cycle/SKILL.md`.
+  3. Construct both the comprehensive `docs/FDS.md` (`v4.0.0` following `FDS_BUILDER.md` v2.0 + `TURN-L01`..`TURN-L12` continuous learning register) and the concise canonical functional specification `docs/SPEC.md`.
+  4. Establish `docs/N_WAY_COMPARISON.md` (and root `N_WAY_COMPARISON.md`, plus synced `docs/THREE_WAY_BRANCH_COMPARISON.md` / `THREE_WAY_COMPARISON.md`) tracking all $N = 5$ repository branches across a 28-dimension Feature Parity Matrix, FDS comparison matrix, and Coding Discipline comparison matrix.
+- **Why:** Merging the strongest elements of every branch's `CLAUDE.md` and FDS into a single harmonised specification and live N-way comparison ledger eliminates cross-branch blind spots and establishes a verifiable contract before implementation.
+- **Related Spec Section:** `docs/FDS.md#continuous-learning-log`, `docs/N_WAY_COMPARISON.md#n-way-branch-comparison`, `docs/SPEC.md`
+- **Practical Impact:** Created `docs/N_WAY_COMPARISON.md`, `N_WAY_COMPARISON.md`, `docs/SPEC.md`, `docs/greenfield/GREENFIELD.md`, and updated `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-validation.md`, `CLAUDE-checklist.md`, and `docs/FDS.md` (`v4.0.0`).
+
+## `ADD-025` — Full N-Way Feature Parity Implementation (`CROSS-13`..`CROSS-16`)
+- **What was decided:**
+  1. **`CROSS-13`:** Implement `scripts/compare-branches.ts` (`npm run branches:compare`) to fetch explicit branch heads for all $N = 5$ branches (`arena/e1300d3c`, `arena/917ef347`, `arena/263385da`, `arena/77ffb088`, `arena/ce6d2a6e`), write `docs/BRANCH-TIPS.json` and append-only `docs/BRANCH-HISTORY.json`, and update the `<!-- branch-tips:start -->...<!-- branch-tips:end -->` tables in `docs/N_WAY_COMPARISON.md` and `N_WAY_COMPARISON.md`.
+  2. **`CROSS-14`:** Implement per-locomotion-mode session settings memory (`LOCOMOTION_MODE_DEFAULTS`, `createInitialLocomotionConfigMap`, `resetActiveLocomotionProfile` in `src/runner/body-proportions.ts`) and a `Reset Active Profile Defaults` button (`data-testid="runner-controls__reset-profile"`) in `useRunnerStudio.ts` and `RunnerControls.tsx`.
+  3. **`CROSS-15`:** Implement `usePhotorealRigAssetsWithRetry` and `isPhotorealExportBlocked` in `src/app/hooks/usePhotorealRigAssets.ts`, adding an explicit retry action (`data-testid="joint-audit-panel__retry-assets"`) and gating photoreal audit PNG exports when assets are not `'loaded'`.
+  4. **`CROSS-16`:** Update `writeCatalogFiles` in `src/pipeline/dedupe-catalog.ts` so `npm run dedupe` writes `docs/artwork-inventory.json` with byte SHA-256, RGBA pixel SHA-256, 64-bit dHash, dimensions, and provenance for every filed source image.
+- **Why:** Adopting the remaining standout features from `arena/77ffb088` (`43352cf`) and `arena/263385da` (`b227e2f`) completes 100% feature parity across all $N$ branches on `arena/e1300d3c-super-duper-funicular`.
+- **Related Spec Section:** `docs/SPEC.md`, `docs/N_WAY_COMPARISON.md`, `docs/FDS.md#continuous-learning-log`
+- **Practical Impact:** Added `scripts/compare-branches.ts`, `docs/BRANCH-TIPS.json`, `docs/BRANCH-HISTORY.json`, `docs/artwork-inventory.json`, and updated `src/runner/body-proportions.ts`, `src/pipeline/dedupe-catalog.ts`, `src/app/hooks/usePhotorealRigAssets.ts`, `src/app/hooks/useRunnerStudio.ts`, `src/app/hooks/useJointAndAuditInspector.ts`, `src/app/components/RunnerControls.tsx`, `src/app/components/JointAndCycleAuditPanel.tsx`, `src/app/App.tsx`, `src/discipline/greenfield-gate.test.ts`, and `src/app/hooks/studio-view-model.test.ts`.
+
+## `ADD-026` — Anatomical Upper-Limb Proportion Calibration (`upperArmLength: 21`, `forearmLength: 18`, `handRadius: 4.2`)
+- **What was decided:**
+  1. Recalibrate `DEFAULT_RIG_SPEC` (`src/runner/body-proportions.ts`) from the oversized `upperArmLength: 30, forearmLength: 27, handRadius: 5.5` (where `shoulderOrigin` sits `35 px` above the hip and a `30 px` upper arm placed the elbow `midJoint` within `2–5 px` of the hip, with unbent reach `66.5 px` hanging right above the knee) to anatomical adult human proportions (`upperArmLength: 21`, `forearmLength: 18`, `handRadius: 4.2`).
+  2. Recalibrate the photorealistic arm warp widths in `PHOTOREAL_ASSET_TUNING_DEFAULTS` (`upperArmWidthPx: 17.5` athletic / `19.5` average, `forearmWidthPx: 15.0` athletic / `17.0` average, `handLengthPx: 6.5`, `handWidthPx: 11.0` athletic / `11.5` average) so the elbow sits cleanly at the waist (`> 10 px` above the pelvis) and the relaxed wrist aligns with the hip/proximal thigh.
+- **Why:** Fixes user anatomical feedback that the runner's arms were unusually large, with her elbow ending almost at her hips and her hands hanging close to her knees.
+- **Related Spec Section:** `docs/FDS.md#continuous-learning-log` (`TURN-L13`), `docs/SPEC.md`
+- **Practical Impact:** Updated `src/runner/body-proportions.ts`, `src/runner/photoreal-rig.ts`, `src/runner/runner.test.ts`, and regenerated all sprite sheets and cycle audit sheets.
+
+## `ADD-027` — Body-Positive Photorealistic Persona (`photo-sg-chinese-female-average`) & Per-Asset-Set Tuneable Parameters (`PhotorealAssetTuningSpec`)
+- **What was decided:**
+  1. Generate 10 new studio anatomical plates (`src/images/photoreal-female-average/01..10.png`, logged verbatim in `docs/FDS.md#image-prompt-log` Calls `#22`..`#31`) for an average everyday Singaporean Chinese woman runner (`photo-sg-chinese-female-average`) alongside the athletic sprinter (`photo-sg-chinese-female`).
+  2. Introduce `PhotorealAssetSetId` (`'athletic-female' | 'average-female'`) and `PhotorealAssetTuningSpec` (`PHOTOREAL_ASSET_TUNING_DEFAULTS` in `src/runner/body-proportions.ts`) with tuneable bone-length multipliers (`upperArmLengthScale`, `forearmLengthScale`, `thighLengthScale`, `shinLengthScale`), segment half-widths (`upperArmWidthPx`, `forearmWidthPx`, `thighWidthPx`, `shinWidthPx`, `handLengthPx`, `handWidthPx`), torso/pelvis aspect scales (`torsoLengthScale`, `torsoWidthScale`, `pelvisWidthScale`), and shoulder/hip socket offsets (`shoulderYOffsetPx`, `hipYOffsetPx`), exposed interactively in `RunnerControls.tsx`.
+  3. Extend `photoreal-extractor.ts`, `photoreal-rig.ts`, `algorithmic-sheet-builder.ts`, and `cycle-frame-dumper.ts` to extract, composite, and audit 17-part photorealistic banks per persona (`public/sprites/photoreal-parts/` and `public/sprites/photoreal-parts-average/`), including interior shoulder-socket disk fill (`dist < 72` in `cleanTorsoNeckStubAndSocket`) and `cleanSockAnkleSpot` (`y = 600..668`) verified on `/tmp/gait-cycle-average/joint-crops-sheet.png`.
+- **Why:** Extends the studio in the spirit of body positivity with multiple photorealistic asset sets per gender of different bodily proportions and tuneable rig parameters per asset set.
+- **Related Spec Section:** `docs/FDS.md#image-prompt-log` (Calls `#22`..`#31`), `docs/FDS.md#continuous-learning-log` (`TURN-L13`)
+- **Practical Impact:** Added `src/images/photoreal-female-average/01..10.png`, `public/sprites/photoreal-parts-average/*.png`, `public/sprites/photo-sg-chinese-female-average-*-sheet.{png,json}`, and updated `src/shared/types.ts`, `src/runner/body-proportions.ts`, `src/runner/skin-registry.ts`, `src/runner/photoreal-rig.ts`, `src/pipeline/photoreal-extractor.ts`, `src/pipeline/algorithmic-sheet-builder.ts`, `src/pipeline/cycle-frame-dumper.ts`, `src/app/hooks/usePhotorealRigAssets.ts`, `src/app/hooks/useRunnerStudio.ts`, and `src/app/components/RunnerControls.tsx`.
+
+## `ADD-028` — Tuneable Arm-Swing Carry Mechanics (`ArmSwingStyleId`) & Optional / Swinging Long Flowing Hair (`HairStyleMode`)
+- **What was decided:**
+  1. Parameterize `solveArmKinematics` (`src/runner/gait.ts`) with `armCarryFlexDeg` (`45°–125°` elbow carry angle), `armChestBiasDeg` (`-10°..+28°` shoulder flexion bias toward the chest), and `armSwingScale`, plus 4 quick presets (`ARM_SWING_PRESETS`: `athletic-sprint`, `compact-chest-carry`, `relaxed-jog`, `power-drive`) so different personas can hold hands closer to the chest or drive with large arm swings.
+  2. Add `hairStyleMode` (`'ponytail' | 'long-flowing' | 'none'`) and `hairSwingScale` (`0.0–2.0`) to `RunnerMotionConfig`, making ponytails optional (`'none'` cleanly suppresses hair rendering in both vector and photoreal pipelines) and introducing a 2-tier coupled pendulum (`1×` stride phase lag) + step-impact billow (`2×` stride vertical impulse) cascade for `'long-flowing'` hair across both `photoreal-rig.ts` and `skin-painters.ts`.
+- **Why:** Enables expressive per-persona upper-body carriage and supports runners with no ponytail, classic high ponytails, or long loose hair that swings and billows naturally during the gait cycle.
+- **Related Spec Section:** `docs/FDS.md#continuous-learning-log` (`TURN-L13`), `docs/SPEC.md`
+- **Practical Impact:** Updated `src/shared/types.ts`, `src/runner/body-proportions.ts`, `src/runner/gait.ts`, `src/runner/photoreal-rig.ts`, `src/runner/skin-painters.ts`, `src/app/hooks/useRunnerStudio.ts`, `src/app/components/RunnerControls.tsx`, and unit tests.
+
+## `ADD-029` — Genuine Female Arm Regeneration (`Calls #32, #33, #38, #39`), Natural Arm-to-Leg Anthropometric Ratios (Superseding `ADD-026` T-Rex Scaling), and Algorithmic Side-Profile Arm Extraction (`side-profile-arm-extractor.ts`)
+- **What was decided:**
+  1. Supersede the `ADD-026` short-bone workaround (`upperArmLength: 21, forearmLength: 18`, which created `39 px` stubby "T-rex arms" against `90 px` legs) by fixing both underlying root causes:
+     - **Studio Plate Root Cause:** Regenerate `07-near-right-arm-lateral-outside.png` and `08-far-left-arm-medial-inside-palm.png` for both `photo-sg-chinese-female` (`Calls #32, #33`) and `photo-sg-chinese-female-average` (`Calls #38, #39`) referencing ONLY each persona's `01-master-lateral-profile-reference.png` so the arms are unmistakably feminine East Asian women's arms (`148–203 px` slender sprinter / softer fuller everyday female arms with petite wrists and delicate female hands) rather than `203 px`-wide vascular male bodybuilder arms.
+     - **Skeletal & Torso-Overlap Root Cause:** Restore true human female anthropometric bone ratios in `DEFAULT_RIG_SPEC` (`torsoLength: 43`, `pelvisRestY: 148`, `upperArmLength: 24.5`, `forearmLength: 21.5`, `handRadius: 4.5`, `thighLength: 43`, `shinLength: 43`, giving `armTotal = 46 px` vs `legTotal = 86 px` -> `0.535` ratio, with the elbow `15.5 px` above the hip at `shoulderOrigin.y = 108`), and reduce `pelvisTop` overlap in `src/runner/photoreal-rig.ts` (`pelvisTop.y = pose.pelvis.y - 6.5` instead of `pose.pelvis.y - 9`).
+  2. Implement `extractArmSegmentsFromMasterSideProfile` and `normalizeFingertipMagentaShadow` in `src/pipeline/side-profile-arm-extractor.ts` (re-exported by `src/pipeline/photoreal-extractor.ts`) to algorithmically isolate the arm corridor (`x ∈ [625, 775], y ∈ [145, 448]`) directly from `01-master-lateral-profile-reference.png` by discriminating warm skin + cyan sweatband from crimson singlet (`r - g >= 56`) and dark shorts (`r, g < 70`), and to normalize residual magenta bounce shadow on fingertips.
+- **Why:** Directly resolves user feedback that scaling the arm bones down made them look like tiny T-rex arms and that the original arm plates looked like muscular male arms.
+- **Related Spec Section:** `docs/FDS.md#image-prompt-log` (`Calls #32, #33, #38, #39`), `docs/FDS.md#continuous-learning-log` (`TURN-L14`)
+- **Practical Impact:** Added `src/pipeline/side-profile-arm-extractor.ts`, regenerated `src/images/photoreal-female/{07,08}.png` and `src/images/photoreal-female-average/{07,08}.png`, and updated `src/runner/body-proportions.ts`, `src/runner/photoreal-rig.ts`, and `src/pipeline/photoreal-extractor.ts`.
+
+## `ADD-030` — Fuller Body-Positive Torso (`05`), Cervical Neck (`04`), Master Profile (`01`), Pelvis (`06`), and Leg (`09`) Regeneration & Persona-Aware Cutout Extraction (`photo-sg-chinese-female-average`)
+- **What was decided:**
+  1. Regenerate `01-master-lateral-profile-reference.png` (`Call #34`), `04-cervical-neck-cylinder.png` (`Call #35` -> refined in `Call #41`), `05-torso-racerback-singlet.png` (`Call #36`), `06-pelvis-sprinter-shorts.png` (`Call #37`), and `09-near-right-leg-lateral-outside-shoe.png` (`Call #40`) for `photo-sg-chinese-female-average` so they visibly reflect a fuller, curvier mid-size (`UK 12–14`) Singaporean Chinese woman (`halfW = 140 px` torso with fuller bust and soft rounded stomach/waist, `halfW = 167–227 px` fuller cervical neck, `440 px`-wide fuller hips/shorts, and fuller thighs/calves with a clean solid-white ankle sock).
+  2. Make `extractPhotorealSpriteParts(sources, personaId)` in `src/pipeline/photoreal-extractor.ts` persona-aware (`isAvg = personaId === 'photo-sg-chinese-female-average'`):
+     - Expand `extractNeckCutout` (`srcTopY: 235, srcBotY: 585, dstRadiusTopPx: 35, dstRadiusBotPx: 39`) and scale neck render width in `photoreal-rig.ts` (`dstHalfWidthPx = Math.round(tuning.torsoWidthPx * 0.44)`).
+     - Replace `cleanTorsoNeckStubAndSocket` on `isAvg` with `cleanAverageTorsoNeckStub` (`src/pipeline/side-profile-arm-extractor.ts`) so the top of the shoulder (`y = 148..225`) is never erased and the armhole oval is smoothly unified with `refSkin`, and widen `extractTorsoCutout` (`cropBox: 525..880 × 138..675`, `radiusX: 46`).
+     - Restrict `extractPelvisCutout` (`maxY: 575`, `radiusX: 46`) and `cutThighWithShortsCuff` (`srcBotY: 575`) to the black shorts hem on `06` so bare thigh skin below `y = 580` never leaks into the shorts cuff.
+     - Widen `extractArmCutouts` (`rUpTop: 26, rUpBot: 19, rForeTop: 19, rForeBot: 15`, `srcRightX: 1020`, `farHand: 1010..1245`) and `extractLegCutouts` (`rThighTop: 32, rKnee: 24, rAnkle: 17`) for `isAvg`.
+- **Why:** Directly resolves user feedback that the previous torso and neck assets for the fuller persona were generated from a noticeably slimmer persona/mannequin template and clipped by slim extractor radii.
+- **Related Spec Section:** `docs/FDS.md#image-prompt-log` (`Calls #34`..`#41`), `docs/FDS.md#continuous-learning-log` (`TURN-L14`)
+- **Practical Impact:** Regenerated `src/images/photoreal-female-average/{01,04,05,06,07,08,09}.png`, `public/sprites/photoreal/sg-chinese-female-average/parts/*.png`, and updated `src/pipeline/photoreal-extractor.ts`, `src/pipeline/side-profile-arm-extractor.ts`, `src/runner/body-proportions.ts`, and `src/runner/photoreal-rig.ts`.
+
+## `ADD-031` — Mandatory Post-Generation Asset Visual Examination & Refinement Gate (`CLAUDE.md` Rule 2 & `CLAUDE-validation.md §9.2`)
+- **What was decided:**
+  1. Codify in `CLAUDE.md` (Rule 2), `CLAUDE-decisions.md` (`§2`), `CLAUDE-validation.md` (`§9.2`), and `CLAUDE-checklist.md` (`#19`) the mandatory requirement to visually examine every generated studio plate (`src/images/...`) and extracted part cutout (`public/sprites/photoreal/.../parts/*.png`) via `read_file` immediately after generation/extraction against strict gender, silhouette, and anthropometric standards (no male arms on female personas, no slim mannequin torso/neck on fuller personas, no T-rex arms, no multi-pose turnarounds), and to refine or regenerate any non-conforming asset immediately.
+  2. Enforce this documentation invariant in `src/discipline/greenfield-gate.test.ts`.
+- **Why:** Prevents uninspected image-generation artifacts (such as template-locked slim silhouettes, male limbs on female characters, or cropped facial features on neck plates) from surviving into the sprite rig.
+- **Related Spec Section:** `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-validation.md`, `CLAUDE-checklist.md`, `docs/FDS.md#continuous-learning-log` (`TURN-L14`)
+- **Practical Impact:** Updated `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-validation.md`, `CLAUDE-checklist.md`, and `src/discipline/greenfield-gate.test.ts`.
+
+
+
+
+
+
+
+
+
+
+
+
