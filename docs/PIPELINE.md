@@ -353,8 +353,11 @@ the check would compare a value to itself), and `groundDeltaPx` (subsumed by
 
 ### S6 — Optional atlas completion
 
-If and only if `syntheticFraction` exceeds threshold, the occluded regions can be
-completed by an image model — **once per persona**, not per frame:
+If and only if `mirroredFraction` or `longestInterpolatedRun` exceeds its budget,
+the invented cells can be completed by an image model — **once per persona**, not
+per frame. The repair set is addressable precisely because the atlas counts
+invention by kind: mirrored cells, and columns whose interpolated run broke the
+bound. That is a small enough set for the three-call budget to be credible:
 
 - the prompt receives the atlas as the structure reference and the persona master
   as the identity reference;
