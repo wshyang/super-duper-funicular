@@ -1,0 +1,15 @@
+{
+  "generatedBy": "npm run images:dedupe",
+  "files": [
+    {
+      "path": "src/images/source/runner-8frame-6-colorways-source.jpeg",
+      "byteSha256": "f99114235d61781f76a6b32c637edac16f13af6592a2866fe0e0528504727030",
+      "pixelSha256": "9107179c3bd6a7c9ac24aa402a3dcde454846bb401118f44c2319465a15b1a28",
+      "dHash64": "738c8e16a48e8c84",
+      "width": 2528,
+      "height": 1696,
+      "duplicateOf": null,
+      "status": "active"
+    }
+  ]
+}

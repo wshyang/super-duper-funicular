@@ -1,0 +1,59 @@
+# Inert SHIP-HATS pipeline. Activate with ./activate-shiphats.sh.
+include:
+  - project: innersource/sgts/ship-hats/ship-hats-templates
+    ref: @@SHIPHATS_TEMPLATES_REF@@
+    file: /templates/ci-templates.yml
+
+stages:
+  - .pre
+  - build
+  - test
+  - static-test
+  - sign
+  - runtime-test
+  - deploy
+
+variables:
+  PROJECT_PATH: "@@SHIPHATS_PROJECT_PATH@@"
+  DEFAULT_BRANCH: "@@SHIPHATS_DEFAULT_BRANCH@@"
+  NEXUS_DOCKER: "@@SHIPHATS_NEXUS_DOCKER@@"
+  NEXUS_NPM: "@@SHIPHATS_NEXUS_NPM@@"
+  IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
+
+build-job:
+  stage: build
+  image: node:22.12.0-alpine3.20
+  script:
+    - npm config set registry "$NEXUS_NPM"
+    - npm ci --ignore-scripts
+    - npm run build
+  artifacts:
+    paths: [dist]
+
+typecheck-and-test:
+  stage: test
+  image: node:22.12.0-alpine3.20
+  script:
+    - npm ci --ignore-scripts
+    - npm run format:check
+    - npm run lint
+    - npm run typecheck
+    - npm test
+
+container-image:
+  stage: build
+  extends: .build-and-push-docker-image
+  variables:
+    DOCKERFILE: Dockerfile
+
+container-runtime-smoke:
+  stage: runtime-test
+  image: curlimages/curl:8.10.1
+  script:
+    - curl --fail --retry 10 http://app:3000/healthz
+
+deploy-prod-manual-job:
+  stage: deploy
+  when: manual
+  script:
+    - echo "Promote $IMAGE_TAG through the compliance-gated manual job."

@@ -1,0 +1,16 @@
+.git
+.gitignore
+node_modules
+dist
+coverage
+reports
+test-results
+playwright-report
+.env
+.env.*
+*.local
+docs
+tests
+tools
+*.md
+# platform-supplied directories (viper-agent) are never excluded
