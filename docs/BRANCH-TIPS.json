@@ -1,26 +1,26 @@
 {
-  "observedAt": "2026-10-18T03:02:33.746Z",
+  "observedAt": "2026-10-18T22:03:02.924Z",
   "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
       "branch": "arena/e1300d3c-super-duper-funicular",
       "prStatus": "Active Session Branch",
-      "hash": "8a7fd6faba3b1e3b5901474103261685087c7f1b",
-      "shortHash": "8a7fd6f",
-      "committedAt": "2026-10-18T02:43:05+00:00",
-      "subject": "docs(fds): record calibration evidence and refresh live branch ledger",
-      "commitCountFromMain": 9
+      "hash": "9d448fec18f3973299968430fede46de1084fffb",
+      "shortHash": "9d448fe",
+      "committedAt": "2026-10-18T21:37:30+00:00",
+      "subject": "Explore camera-far forearm pose diversity",
+      "commitCountFromMain": 22
     },
     {
       "role": "Branch 1 (Sprite Motion Lab)",
       "branch": "arena/917ef347-super-duper-funicular",
       "prStatus": "PR #1 Open",
-      "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
-      "shortHash": "e172b0f",
-      "committedAt": "2026-10-17T23:09:40+00:00",
-      "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
-      "commitCountFromMain": 6
+      "hash": "96a284f2d95e3f7d3fec3423b0a53d833682fd71",
+      "shortHash": "96a284f",
+      "committedAt": "2026-10-18T21:27:34+00:00",
+      "subject": "docs(branches): update N-way comparison ledger to latest commit hash",
+      "commitCountFromMain": 22
     },
     {
       "role": "Branch 2 (Stride Lab Workbench)",

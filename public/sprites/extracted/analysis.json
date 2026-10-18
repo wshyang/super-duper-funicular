@@ -3,89 +3,89 @@
   "analyzedSheetPath": "src/images/spritesheets/runner-8frame-6color-flawed-sheet.jpeg",
   "claimedCycleLabel": "8-FRAME COMPLETE RUNNING CYCLE (Alternating Gait)",
   "actualUniquePoseCountPerRow": 4,
-  "meanHalfCycleIoU": 0.947,
+  "meanHalfCycleIoU": 0.9468,
   "minFootSeparationPx": 147,
   "verticalBaselineJitterPx": 25,
   "heightVariationPx": 20,
   "iouMatrixRedRow": [
     [
       1,
-      0.585,
-      0.5039,
-      0.5662,
-      0.9638,
-      0.591,
-      0.5046,
-      0.5701
+      0.5851,
+      0.5037,
+      0.5658,
+      0.9639,
+      0.5912,
+      0.5044,
+      0.5699
     ],
     [
-      0.585,
+      0.5851,
       1,
-      0.6151,
-      0.6882,
+      0.6149,
+      0.6878,
       0.5792,
-      0.9687,
-      0.602,
+      0.9683,
+      0.6018,
       0.6848
     ],
     [
-      0.5039,
-      0.6151,
+      0.5037,
+      0.6149,
       1,
-      0.5078,
-      0.4991,
-      0.6143,
-      0.9068,
-      0.5061
+      0.5074,
+      0.499,
+      0.6139,
+      0.9067,
+      0.506
     ],
     [
-      0.5662,
-      0.6882,
-      0.5078,
+      0.5658,
+      0.6878,
+      0.5074,
       1,
-      0.5619,
-      0.6897,
-      0.4988,
-      0.9485
+      0.5614,
+      0.6891,
+      0.4986,
+      0.9484
     ],
     [
-      0.9638,
+      0.9639,
       0.5792,
-      0.4991,
-      0.5619,
+      0.499,
+      0.5614,
       1,
       0.5853,
       0.4998,
-      0.5669
+      0.5666
     ],
     [
-      0.591,
-      0.9687,
-      0.6143,
-      0.6897,
+      0.5912,
+      0.9683,
+      0.6139,
+      0.6891,
       0.5853,
       1,
-      0.6001,
-      0.6868
+      0.5997,
+      0.6867
     ],
     [
-      0.5046,
-      0.602,
-      0.9068,
-      0.4988,
+      0.5044,
+      0.6018,
+      0.9067,
+      0.4986,
       0.4998,
-      0.6001,
+      0.5997,
       1,
-      0.4965
+      0.4964
     ],
     [
-      0.5701,
+      0.5699,
       0.6848,
-      0.5061,
-      0.9485,
-      0.5669,
-      0.6868,
-      0.4965,
+      0.506,
+      0.9484,
+      0.5666,
+      0.6867,
+      0.4964,
       1
     ]
   ],
@@ -93,28 +93,28 @@
     {
       "frameA": 1,
       "frameB": 5,
-      "silhouetteIoU": 0.9638,
+      "silhouetteIoU": 0.9639,
       "dHashHammingDistance": 1,
       "isHalfCycleDuplicate": true
     },
     {
       "frameA": 2,
       "frameB": 6,
-      "silhouetteIoU": 0.9687,
+      "silhouetteIoU": 0.9683,
       "dHashHammingDistance": 3,
       "isHalfCycleDuplicate": true
     },
     {
       "frameA": 3,
       "frameB": 7,
-      "silhouetteIoU": 0.9068,
+      "silhouetteIoU": 0.9067,
       "dHashHammingDistance": 4,
       "isHalfCycleDuplicate": true
     },
     {
       "frameA": 4,
       "frameB": 8,
-      "silhouetteIoU": 0.9485,
+      "silhouetteIoU": 0.9484,
       "dHashHammingDistance": 1,
       "isHalfCycleDuplicate": true
     }
@@ -218,7 +218,7 @@
       "headTopY": 12,
       "footBottomY": 224,
       "centroidX": 161.8,
-      "centroidY": 116.2,
+      "centroidY": 116.1,
       "frontFootOffsetX": 53.2,
       "rearFootOffsetX": -93.8,
       "footSeparationPx": 147,

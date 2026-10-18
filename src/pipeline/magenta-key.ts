@@ -12,23 +12,26 @@ export function isMagentaBackdropPixel(color: RgbaColor): boolean {
   const rbDiff = Math.abs(color.r - color.b);
   const redOverGreen = color.r - color.g;
   const blueOverGreen = color.b - color.g;
+  // Supports both pure #FF00FF (255,0,255) and the studio dusty magenta ~ (219,71,163) used
+  // in photoreal plates and diffusion candidates. Relaxed from pure-only to cover
+  // actual production backgrounds while still rejecting skin/shoe whites and charcoals.
   return (
-    color.r >= 205 &&
-    color.b >= 198 &&
-    redOverGreen >= 95 &&
-    blueOverGreen >= 90 &&
-    rbDiff <= 45
+    color.r >= 180 &&
+    color.b >= 135 &&
+    redOverGreen >= 75 &&
+    blueOverGreen >= 55 &&
+    rbDiff <= 80
   );
 }
 
 export function isHighConfidenceInteriorMagenta(color: RgbaColor): boolean {
   const rbDiff = Math.abs(color.r - color.b);
   return (
-    color.r >= 218 &&
-    color.b >= 215 &&
-    color.r - color.g >= 112 &&
-    color.b - color.g >= 110 &&
-    rbDiff <= 35
+    color.r >= 190 &&
+    color.b >= 145 &&
+    color.r - color.g >= 85 &&
+    color.b - color.g >= 65 &&
+    rbDiff <= 75
   );
 }
 
@@ -140,6 +143,55 @@ function touchesBackground(bgMask: Uint8Array, width: number, idx: number): bool
     bgMask[idx - width] === 1 ||
     bgMask[idx + width] === 1
   );
+}
+
+export interface ShadowBandCheck {
+  readonly hasShadow: boolean;
+  readonly shadowPixelCount: number;
+  readonly bandPixelCount: number;
+}
+
+export function detectShadowBand(raster: RasterImage, bandHeightPx = 16): ShadowBandCheck {
+  // Inspect a horizontal band centered on the ground line estimate (bottom 15% of image).
+  // Any non-magenta, low-luma-connected patch that touches the ground span is a shadow.
+  const bandY0 = Math.max(0, raster.height - bandHeightPx - Math.round(raster.height * 0.06));
+  const bandY1 = Math.min(raster.height, bandY0 + bandHeightPx);
+  let bandPixels = 0;
+  let shadowPixels = 0;
+  for (let y = bandY0; y < bandY1; y++) {
+    for (let x = 0; x < raster.width; x++) {
+      bandPixels++;
+      const px = readPixel(raster, x, y);
+      if (isMagentaBackdropPixel(px) || px.a === 0) continue;
+      // Shadow casts are slightly desaturated magenta with lower value: not pure magenta
+      // and luma depression vs expected magenta (R~255,G~0,B~255 → luma ~105). Real shadow
+      // is luma 40-120 with residual magenta.
+      const luma = 0.2126 * px.r + 0.7152 * px.g + 0.0722 * px.b;
+      if (luma < 140 && px.r > 80 && px.b > 80) shadowPixels++;
+      // Also catch grey floor smear: low saturation but not skin/shoe white
+      else if (luma < 170 && Math.abs(px.r - px.g) < 18 && Math.abs(px.g - px.b) < 18) shadowPixels++;
+    }
+  }
+  return { hasShadow: shadowPixels > Math.max(50, bandPixels * 0.0015), shadowPixelCount: shadowPixels, bandPixelCount: bandPixels };
+}
+
+export function isCleanMagentaKey(raster: RasterImage): boolean {
+  // Border ring must be > 98% magenta/transparent
+  const ring = 6;
+  let ringTotal = 0;
+  let ringOk = 0;
+  for (let y = 0; y < raster.height; y++) {
+    for (let x = 0; x < raster.width; x++) {
+      const onRing = x < ring || x >= raster.width - ring || y < ring || y >= raster.height - ring;
+      if (!onRing) continue;
+      ringTotal++;
+      const px = readPixel(raster, x, y);
+      if (px.a === 0 || isMagentaBackdropPixel(px)) ringOk++;
+    }
+  }
+  const ratio = ringOk / Math.max(1, ringTotal);
+  const shadow = detectShadowBand(raster);
+  return ratio > 0.985 && !shadow.hasShadow;
 }
 
 function cleanBoundaryPixel(raster: RasterImage, x: number, y: number): void {

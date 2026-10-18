@@ -47,7 +47,7 @@
 | Frame Pair | Centroid-Aligned Silhouette IoU | 64-bit dHash Distance | Half-Cycle Duplicate? |
 |---|---|---|---|
 | Frame 1 vs Frame 5 | 96.4% | 1 / 64 bits | YES (Duplicate Pose) |
-| Frame 2 vs Frame 6 | 96.9% | 3 / 64 bits | YES (Duplicate Pose) |
+| Frame 2 vs Frame 6 | 96.8% | 3 / 64 bits | YES (Duplicate Pose) |
 | Frame 3 vs Frame 7 | 90.7% | 4 / 64 bits | YES (Duplicate Pose) |
 | Frame 4 vs Frame 8 | 94.8% | 1 / 64 bits | YES (Duplicate Pose) |
 

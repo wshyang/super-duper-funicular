@@ -26,6 +26,35 @@ const COLORS = {
  * the dark centerline marks pelvis/torso/head. This avoids using a low-resolution
  * character render as the only pose cue during image regeneration.
  */
+export interface LockedGuideBounds {
+  readonly minX: number;
+  readonly maxX: number;
+  readonly minY: number;
+  readonly maxY: number;
+  readonly scale: number;
+  readonly offsetX: number;
+  readonly offsetY: number;
+}
+
+export function computeLockedGuideBounds(
+  poses: readonly ArticulatedPose[],
+  rig: AnatomicalRigSpec,
+  width = DEFAULT_GUIDE_SIZE.width,
+  height = DEFAULT_GUIDE_SIZE.height,
+  marginX = Math.round(width * 0.08),
+  marginY = Math.round(height * 0.06),
+): LockedGuideBounds {
+  const allPoints = poses.flatMap((pose) => collectGuidePoints(pose, rig));
+  const bounds = boundsOf(allPoints, rig.headRadius + 16);
+  const scale = Math.min(
+    (width - marginX * 2) / Math.max(1, bounds.maxX - bounds.minX),
+    (height - marginY * 2) / Math.max(1, bounds.maxY - bounds.minY),
+  );
+  const offsetX = (width - (bounds.maxX - bounds.minX) * scale) / 2 - bounds.minX * scale;
+  const offsetY = (height - (bounds.maxY - bounds.minY) * scale) / 2 - bounds.minY * scale;
+  return { minX: bounds.minX, maxX: bounds.maxX, minY: bounds.minY, maxY: bounds.maxY, scale, offsetX, offsetY };
+}
+
 export function renderPoseGuideRaster(
   pose: ArticulatedPose,
   rig: AnatomicalRigSpec,
@@ -72,6 +101,66 @@ export function renderPoseGuideRaster(
   drawCircle(raster, map(pose.hairAnchor), Math.max(7, scale * 3), COLORS.hair);
 
   return raster;
+}
+
+export function renderPoseGuideRasterWithLockedBounds(
+  pose: ArticulatedPose,
+  rig: AnatomicalRigSpec,
+  locked: LockedGuideBounds,
+  options: PoseGuideRenderOptions = {},
+): RasterImage {
+  const width = options.width ?? DEFAULT_GUIDE_SIZE.width;
+  const height = options.height ?? DEFAULT_GUIDE_SIZE.height;
+  const raster = createRaster(width, height);
+  fillRaster(raster, options.background ?? COLORS.background);
+  const map = (point: Point2D): Point2D => ({
+    x: point.x * locked.scale + locked.offsetX,
+    y: point.y * locked.scale + locked.offsetY,
+  });
+  const groundY = map({ x: 0, y: rig.groundY }).y;
+  const marginX = options.marginX ?? Math.round(width * 0.08);
+  drawDashedHorizontal(raster, groundY, marginX, width - marginX, COLORS.ground, 2, 20, 14);
+  drawLimb(raster, pose.farLeg, map, COLORS.far, locked.scale);
+  drawLimb(raster, pose.farArm, map, COLORS.far, locked.scale);
+  drawSegment(raster, map(pose.pelvis), map(pose.chest), COLORS.torso, Math.max(10, locked.scale * 7));
+  drawSegment(raster, map(pose.chest), map(pose.collar), COLORS.torso, Math.max(10, locked.scale * 7));
+  drawSegment(raster, map(pose.collar), map(pose.neck), COLORS.torso, Math.max(8, locked.scale * 5));
+  drawCircle(raster, map(pose.headCenter), Math.max(12, rig.headRadius * locked.scale), COLORS.torso);
+  drawJoint(raster, map(pose.pelvis), COLORS.torso, locked.scale);
+  drawJoint(raster, map(pose.chest), COLORS.torso, locked.scale);
+  drawJoint(raster, map(pose.collar), COLORS.torso, locked.scale);
+  drawLimb(raster, pose.nearLeg, map, COLORS.near, locked.scale);
+  drawLimb(raster, pose.nearArm, map, COLORS.near, locked.scale);
+  drawPolyline(raster, [pose.hairAnchor, pose.hairMidWave, pose.hairTip].map(map), COLORS.hair, Math.max(6, locked.scale * 3));
+  drawCircle(raster, map(pose.hairAnchor), Math.max(7, locked.scale * 3), COLORS.hair);
+  return raster;
+}
+
+export function measureGuideLimbTorsoGapRigPx(
+  pose: ArticulatedPose,
+  _rig: AnatomicalRigSpec,
+  limb: 'nearArm' | 'farArm' | 'nearLeg' | 'farLeg',
+): number {
+  // Tight bounding box gap in 220×256 rig space between the limb's four key points
+  // and the torso central segment (pelvis-chest-collar). Negative if overlapping.
+  const limbPointsArr = limbPoints(pose[limb]);
+  const torsoMinX = Math.min(pose.pelvis.x, pose.chest.x, pose.collar.x) - 8;
+  const torsoMaxX = Math.max(pose.pelvis.x, pose.chest.x, pose.collar.x) + 8;
+  const torsoMinY = Math.min(pose.pelvis.y, pose.chest.y, pose.collar.y) - 10;
+  const torsoMaxY = Math.max(pose.pelvis.y, pose.chest.y, pose.collar.y) + 10;
+  const limbMinX = Math.min(...limbPointsArr.map((p) => p.x));
+  const limbMaxX = Math.max(...limbPointsArr.map((p) => p.x));
+  const limbMinY = Math.min(...limbPointsArr.map((p) => p.y));
+  const limbMaxY = Math.max(...limbPointsArr.map((p) => p.y));
+  const dx = limbMinX > torsoMaxX ? limbMinX - torsoMaxX : torsoMinX > limbMaxX ? torsoMinX - limbMaxX : 0;
+  const dy = limbMinY > torsoMaxY ? limbMinY - torsoMaxY : torsoMinY > limbMaxY ? torsoMinY - limbMaxY : 0;
+  if (dx > 0 && dy > 0) return Math.hypot(dx, dy);
+  if (dx > 0) return dx;
+  if (dy > 0) return dy;
+  return -Math.min(
+    torsoMaxX - limbMinX, limbMaxX - torsoMinX,
+    torsoMaxY - limbMinY, limbMaxY - torsoMinY,
+  );
 }
 
 function collectGuidePoints(pose: ArticulatedPose, rig: AnatomicalRigSpec): Point2D[] {
