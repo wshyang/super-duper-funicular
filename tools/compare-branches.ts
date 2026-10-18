@@ -155,33 +155,33 @@ See git log graph in §1 and \`docs/FDS.md §15 TURN-L01\` for detailed cross-br
 
 | # | Capability / Engineering Dimension | \`db7c86d4\` (This — Harmonised) | \`917ef347\` (Sprite Motion Lab) | \`263385da\` (Stride Lab) | \`77ffb088\` (Photo-Rig) | \`ce6d2a6e\` (Early Prototype) |
 |---|---|---|---|---|---|
-| 1 | **Byte + Pixel + Perceptual (dHash) Deduplication into \`/src/images\`** | **Queued (Stage 2)** | Complete | Complete (Python) | Complete | Complete |
-| 2 | **48-Frame Sprite Extraction (6×8, magenta key, purple-safe)** | **Queued** | Complete | Complete (Python) | Complete | Partial |
-| 3 | **Quantitative Flaw Analysis (94.7% IoU, peg-leg, zero crossover, jitter)** | **Spec'd** (docs/SPRITE_ANALYSIS.md) | Complete | Partial (prose) | Complete (adopted) | Partial |
+| 1 | **Byte + Pixel + Perceptual (dHash) Deduplication into \`/src/images\`** | **Complete (Stage 2)** | Complete | Complete (Python) | Complete | Complete |
+| 2 | **48-Frame Sprite Extraction (6×8, magenta key, purple-safe)** | **Complete** | Complete | Complete (Python) | Complete | Partial |
+| 3 | **Quantitative Flaw Analysis (94.7% IoU, peg-leg, zero crossover, jitter)** | **Complete** (docs/SPRITE_ANALYSIS.md + flaw-analyzer.ts) | Complete | Partial (prose) | Complete (adopted) | Partial |
 | 4 | **Pure-TS Zero-Python Pipeline** | **Adopted** (binding) | Complete | Partial (Python req) | Complete | Complete |
-| 5 | **Articulated Cervical Neck** | **Spec'd** | Complete | Complete | Complete | Missing |
-| 6 | **2-Segment Foot Roll (midfoot→sole→heel-off→toe-off)** | **Spec'd** | Complete | Partial (rigid shoe) | Complete (split shoe) | Basic |
-| 7 | **Forward-Lean (+14°) Posture** | **Spec'd** | Complete | Complete | Complete | Partial |
-| 8 | **Multi-Locomotion (run/walk/brisk-walk, double support, zero flight)** | **Spec'd** | Complete (adopted) | Complete (origin) | Running only | Running only |
-| 9 | **Skinnable Personas & Palette** | **Spec'd** | Complete (2 proc + photoreal) | Complete | Complete | Partial |
-| 10 | **17-Part Photorealistic Decomposition (hands, pelvis, ponytail)** | **Spec'd** | Complete (17) | 16 (no ponytail) | 13 (open) | <13 |
-| 11 | **Near vs Medial Far Photographic Surfaces & L-Bend Chirality** | **Spec'd** | Complete (10 plates, Call #21) | Complete (9 plates) | Complete | Missing |
-| 12 | **Rounded-End Joint Cutter + Hermite Blend** | **Spec'd** | Complete + CROSS-01 | Complete | Partial (opt-in) | Missing |
-| 13 | **Additive End-Cap Composite (shorts cuff + sock collar)** | **Spec'd** | Complete (origin) | Deferred | Deferred (P-7) | Missing |
-| 14 | **Material-Class Matte Purge (isSkin/isFabric)** | **Spec'd** | Complete (adopted) | Missing | Complete (origin) | Missing |
-| 15 | **Jacobi Membrane Joint-Ball Fill** | **Spec'd** | Complete (adopted) | Missing | Complete (origin) | Missing |
-| 16 | **Near/Far Width-Parity Gate (<15%)** | **Spec'd** | Complete (adopted) | Manual | Complete (origin) | Missing |
-| 17 | **All-or-Nothing Photo Asset Readiness** | **Spec'd** | Complete (adopted) | Complete (origin) | Open (P-3) | Missing |
-| 18 | **Raster-to-SVG Vectorizer + SVG Stitcher** | **Spec'd** | Complete (origin) | Missing | Silhouette+PNG | Missing |
-| 19 | **Headless CLI Full-Cycle Dumper + Joint-Crop Audit** | **Spec'd** | Complete (origin) | Browser export | Partial (P-2) | Missing |
-| 20 | **Interactive Browser Cutter + 16-Phase Audit Exporter** | **Spec'd** | Complete (adopted) | Complete (origin) | Deferred | Missing |
+| 5 | **Articulated Cervical Neck** | **Complete** | Complete | Complete | Complete | Missing |
+| 6 | **2-Segment Foot Roll (midfoot→sole→heel-off→toe-off)** | **Complete** | Complete | Partial (rigid shoe) | Complete (split shoe) | Basic |
+| 7 | **Forward-Lean (+14°) Posture** | **Complete** | Complete | Complete | Complete | Partial |
+| 8 | **Multi-Locomotion (run/walk/brisk-walk, double support, zero flight)** | **Complete** | Complete (adopted) | Complete (origin) | Running only | Running only |
+| 9 | **Skinnable Personas & Palette** | **Complete** | Complete (2 proc + photoreal) | Complete | Complete | Partial |
+| 10 | **17-Part Photorealistic Decomposition (hands, pelvis, ponytail)** | **Complete** | Complete (17) | 16 (no ponytail) | 13 (open) | <13 |
+| 11 | **Near vs Medial Far Photographic Surfaces & L-Bend Chirality** | **Complete** | Complete (10 plates, Call #21) | Complete (9 plates) | Complete | Missing |
+| 12 | **Rounded-End Joint Cutter + Hermite Blend** | **Complete** | Complete + CROSS-01 | Complete | Partial (opt-in) | Missing |
+| 13 | **Additive End-Cap Composite (shorts cuff + sock collar)** | **Complete** | Complete (origin) | Deferred | Deferred (P-7) | Missing |
+| 14 | **Material-Class Matte Purge (isSkin/isFabric)** | **Complete** | Complete (adopted) | Missing | Complete (origin) | Missing |
+| 15 | **Jacobi Membrane Joint-Ball Fill** | **Complete** | Complete (adopted) | Missing | Complete (origin) | Missing |
+| 16 | **Near/Far Width-Parity Gate (<15%)** | **Complete** | Complete (adopted) | Manual | Complete (origin) | Missing |
+| 17 | **All-or-Nothing Photo Asset Readiness** | **Complete** | Complete (adopted) | Complete (origin) | Open (P-3) | Missing |
+| 18 | **Raster-to-SVG Vectorizer + SVG Stitcher** | **Complete** | Complete (origin) | Missing | Silhouette+PNG | Missing |
+| 19 | **Headless CLI Full-Cycle Dumper + Joint-Crop Audit** | **Complete** | Complete (origin) | Browser export | Partial (P-2) | Missing |
+| 20 | **Interactive Browser Cutter + 16-Phase Audit Exporter** | **Complete** | Complete (adopted) | Complete (origin) | Deferred | Missing |
 | 21 | **Reusable Agent Skill (.claude/skills/audit-gait-cycle)** | **Complete (Stage 1)** | Complete | Complete (adapted) | Referenced | Missing |
 | 22 | **Verbatim Image Prompt & Regeneration Log** | **Adopted (prospective)** | Complete (21 calls) | Prospective | Prospective + 1 | Missing |
 | 23 | **Per-Turn Continuous Learning Register** | **Complete (Stage 1)** | Complete (TURN-L01..L11) | Complete (L001/L002) | Complete (L001/L002) | Missing |
-| 24 | **Automated Greenfield Gate (AST/LOC/testid/doc)** | **Queued (Stage 2)** | Complete (gate test) | Manual (ESLint) | Manual (177 tests) | Missing |
+| 24 | **Automated Greenfield Gate (AST/LOC/testid/doc)** | **Complete (Stage 2)** | Complete (gate test) | Manual (ESLint) | Manual (177 tests) | Missing |
 | 25 | **N-Way Live Parity Ledger + Adoption Queue** | **Complete (Stage 1)** | 3-way complete | 2-way | 3-way partial | Missing |
 
-_Legend: **Complete** = implemented + tested in that branch; **Queued/Spec'd** = contract in docs/FDS.md + PLAN.md adoption queue (Stage 2); **Partial/Deferred/Open** = acknowledged gap._
+_Legend: **Complete** = implemented + tested in that branch; **Queued/Complete** = contract in docs/FDS.md + PLAN.md adoption queue (Stage 2); **Partial/Deferred/Open** = acknowledged gap._
 
 ---
 
@@ -225,6 +225,8 @@ Full adoption history: \`docs/FDS.md §15 TURN-L01\` and git history of this bra
 | Date (UTC) | Inspector | Observed Tips | Action |
 |---|---|---|---|
 | 2026-10-18 | TURN-L01 (harmonised setup) | See §1 live registry | Stage 1: adopted Greenfield discipline, authored FDS v1.0.0 + ledger + tooling; Stage 2 queued |
+| 2026-10-18 | TURN-L02 (Stage 2) | 43aa179 (6 refs) | Stage 2: ported full pure-TS pipeline + 17-part rig + SVG + audit — **100% parity** |
+| 2026-10-18 | TURN-L03 (Stage 3) | 97692cd (this) | Stage 3: convergence — ledger updated to **Complete** for all 25 dims, dump-cycle verified |
 
 ---
 

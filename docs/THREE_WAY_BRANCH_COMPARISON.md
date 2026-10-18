@@ -1,123 +1,124 @@
-# Live 3-Way Branch Comparison & Feature Parity Ledger (`THREE_WAY_BRANCH_COMPARISON.md`)
+# Live N-Way Branch Comparison & Feature Parity Ledger
 
 - **Repository:** `wshyang/super-duper-funicular`
-- **Active Working Branch:** `arena/917ef347-super-duper-funicular` (PR `#1`)
-- **Last Refreshed:** `2026-10-18` (queried via `git ls-remote --heads origin` and inspected via detached temporary checkouts `/tmp/branch-263385da` and `/tmp/branch-77ffb088`)
-- **Standing Mandate (`CLAUDE.md` Rule 3 & `CLAUDE-decisions.md §3–§4`):** This live document is updated on every turn to track the latest commit hashes, commit progression, cross-branch adoptions, and feature-parity convergence across all 3 active branches of `wshyang/super-duper-funicular`.
+- **Active Session Branch:** `arena/db7c86d4-super-duper-funicular` (this branch — Harmonised Greenfield)
+- **Last Refreshed:** `2026-10-18T00:06:34.898Z` via `git ls-remote --heads origin (live)`
+- **Command:** `npm run branches:compare` (`tools/compare-branches.ts`) — queries `git ls-remote --heads origin`, inspects via `git show` / detached `/tmp/branch-*` (never `git switch`), writes live tips + history JSON, refreshes this document.
+- **Standing Mandate (`CLAUDE.md` Core Rules 3 + `CLAUDE-decisions.md §3–§4` + `docs/FDS.md#continuous-learning-log`):** Update on every cross-branch or implementation turn; adopt strengths toward **100% feature parity across all N active branches**.
 
 ---
 
 ## 1. Live Branch Tip & Commit Hash Registry
 
-| Branch Role & Codename | Remote Branch (`refs/heads/*`) | Latest Inspected Commit SHA | Commit Timestamp (UTC) | PR Status | Commit History Progression (`main` -> Tip) | Detached Inspection Path |
-|---|---|---|---|---|---|---|
-| **Branch 1 (This Branch):** *Sprite Motion Lab* | `arena/917ef347-super-duper-funicular` | `9637227aa8e8ac071e89855e0e62b537c88e101a` *(prior to this turn's commit)* | `2026-10-17 23:02:45 +0000` | **PR `#1` Open** | `396ce25` -> `5c48767` -> `a0e65c8` -> `f4c3197` -> `ea3c37c` -> `9637227` -> *(HEAD)* | `/home/user/super-duper-funicular` *(Active Workspace)* |
-| **Branch 2:** *Stride Lab (Motion Workbench)* | `arena/263385da-super-duper-funicular` | `b227e2fe562be341f15f58955f539d325170729e` | `2026-10-17 21:55:19 +0000` | **PR `#2` Open** | `396ce25` -> `b227e2f` (*"Build Stride Lab motion workbench with photographic rig and cycle audits"*) | `/tmp/branch-263385da` |
-| **Branch 3:** *Photo-Rig & Matte Lab* | `arena/77ffb088-super-duper-funicular` | `c6902014041359b595532a63faf739bbade38c5b` *(advanced from `d0e12b5`)* | `2026-10-17 22:36:26 +0000` | Branch Open | `396ce25` -> `df9a644` -> `02486b1` -> `d59cd18` -> `d8fa919` -> `5bafa8e` -> `2a2faa1` -> `a504a87` -> `82076e7` -> `5cc8613` -> `d0e12b5` -> `c690201` (*"Record rig quality plan and cross-branch learnings; prototype opt-in end caps"*) | `/tmp/branch-77ffb088` |
-| *(Historical Prototype)* | `arena/ce6d2a6e-super-duper-funicular` | `bab689cdac3ba730138bfae09dda537978d61e09` | `2026-10-17 06:27:14 +0000` | Superseded | `396ce25` -> `bab689c` (*"Adopt GREENFIELD discipline; extract running sprites; procedural runner app"*) | Inspected via git object store |
+| Branch (Display) | Remote Ref | Latest SHA (short) | Timestamp | PR | Role |
+|---|---|---|---|---|---|
+| arena/db7c86d4-super-duper-funicular | `arena/db7c86d4-super-duper-funicular` | `97692cd` | 2026-10-17 23:59:52 +0000 | — (session) | This Branch — Harmonised Greenfield (Session) |
+| arena/917ef347-super-duper-funicular | `arena/917ef347-super-duper-funicular` | `e172b0f` | 2026-10-17 23:09:40 +0000 | PR #1 OPEN | Sprite Motion Lab — Algorithmic + SVG + Photoreal Pipeline |
+| arena/263385da-super-duper-funicular | `arena/263385da-super-duper-funicular` | `b227e2f` | 2026-10-17 21:55:19 +0000 | PR #2 OPEN | Stride Lab — Motion Workbench + Multi-Locomotion + Calibration |
+| arena/77ffb088-super-duper-funicular | `arena/77ffb088-super-duper-funicular` | `43352cf` | 2026-10-17 23:05:53 +0000 | PR #3 OPEN | Photo-Rig & Matte Lab — Coherent Plates + Matte Invariants |
+| arena/ce6d2a6e-super-duper-funicular | `arena/ce6d2a6e-super-duper-funicular` | `bab689c` | unknown | historic (superseded) | Early Prototype — Foundational (Historic) |
+| main | `main` | `396ce25` | 2026-10-17 13:53:48 +0800 | - | main @ 396ce25 base |
+
+**Session status:** This document cannot embed its own future uncommitted hash; uncommitted delta is tracked separately from last observed remote SHA. Check again after publishing.
+
+**How progression is tracked:** `docs/BRANCH-TIPS.json` (live tips snapshot) + `docs/BRANCH-HISTORY.json` (append-only, capped 100) + this narrative.
 
 ---
 
-## 2. How the 3 Branches Are Progressing in Relation to Each Other
+## 2. How the N Branches Are Progressing in Relation to Each Other
 
-All 3 active branches branched from `main` (`396ce256debcb5bdc2419cc0f3f399730b61ab36` — *"Add files via upload"*) and have been iteratively cross-pollinating architectural breakthroughs:
+All arena branches fork from `main @396ce25` ("Add files via upload" — `incorrect running sprites.jpeg`) and have been iteratively cross-pollinating:
 
-1. **Wave 1 — Core Pipeline, Biomechanics, Photorealistic Cutouts, Rounded Joints & SVG Vectorization:**
-   - **Branch 1 (`arena/917ef347` @ `5c48767` -> `a0e65c8` -> `f4c3197`):** Built the 100% pure-TypeScript deduplication, extraction, and quantitative flaw-analysis pipeline (`94.7%` half-cycle IoU), the 17-part articulated rig with secondary ponytail bounce and 2-segment rolling foot, the 10 sagittal studio plates (`01`..`10` including the 90° L-bent medial left arm `Call #21`), the semicircular `rounded-joint-cutter.ts`, the additive **End-Cap Composite (`attachEndCapComposite`)** for thigh sprinter-shorts cuffs (`ADD-019`), the full-colour **Raster-to-SVG Vectorizer & Stitcher**, and the **16-Frame Full-Cycle Temporary Dumper (`npm run dump-cycle`)** & `.claude/skills/audit-gait-cycle/SKILL.md` (`ADD-020`).
-   - **Branch 2 (`arena/263385da` @ `b227e2f`):** Inspected Branch 1 (`f4c3197`), adopted our 16-phase 3-panel cycle audit concept and `.claude/skills/audit-gait-cycle/SKILL.md` into its browser workbench (`cycle-audit.ts`), adopted our image-prompt logging discipline, and contributed its own **Multi-Mode Locomotion Profiles (`run`, `walk`, `brisk-walk` with double-support and zero-flight walking)**, **Interactive Articulated Element End-Cutter (`EndCutTool.tsx`, `end-cuts.ts`)** with internal shaft-shoulder blending (`capAlpha`), and **All-or-Nothing Photoreal Asset Readiness (`photo/assets.ts`)**.
-   - **Branch 3 (`arena/77ffb088` @ `d0e12b5` -> `c690201`):** Inspected both Branch 1 (`f4c3197` and `ea3c37c`) and Branch 2 (`b227e2f`). Earlier in `d0e12b5`, Branch 3 adopted our armless torso plate concept (`Call #05`/`#14`), rounded neck arc caps, and `PHOTO-PROMPTS.md`. In its latest commit `c690201` (`2026-10-17 22:36:26 UTC`), Branch 3 wrote `docs/RIG-QUALITY-PLAN.md`, updated `docs/BRANCH-COMPARISON.md` and `docs/FDS.md` (`L001`), and ported Branch 2's bone-local `capAlpha` into `src/lib/photo/end-cap.ts` (kept opt-in after observing a plate-space knee crescent gap when combined with its ball sealer). Branch 3's standout contributions are its **Material-Class Matte Invariant (`isSkin` / `isFabric` purge & refill in `matte.ts`)**, **Jacobi Harmonic Membrane-Filled Joint Balls (`round-cut.ts`)**, **Near-vs-Far Medial Limb Width-Parity Gate (`< 15%` delta)**, and **Marching-Squares Vector Silhouette IoU Gate (`trace.ts`)**.
-2. **Wave 2 — Full 3-Way Feature Parity Convergence on Branch 1 (`arena/917ef347`):**
-   - In `ea3c37c` and the current turn (`ADD-021` & `ADD-022`), Branch 1 inspected both `arena/263385da` (`b227e2f`) and `arena/77ffb088` (`d0e12b5` -> `c690201`) and integrated every verified strength from both sibling branches while retaining all 8 of Branch 1's architectural advantages.
+1. **Wave 1 — Historical prototype (`ce6d2a6e` @`bab689c` 2026-10-17 06:27 UTC):** Adopted Greenfield, filed sprite source, pure-TS dedupe/extract, basic procedural runner. Superseded but preserved as baseline for extraction contracts.
 
----
+2. **Wave 2 — Three active specializations:**
+   - `917ef347` (Sprite Motion Lab) builds pure-TS pipeline + quantitative flaw report + 17-part rig + rounded cutter + SVG vectorizer + dump-cycle auditor, culminating at `e172b0f` (2026-10-18) with live 24-dimension comparison + FDS/discipline sync (`ADD-023`).
+   - `263385da` (Stride Lab) builds motion workbench (`b227e2f`) with running/walking/brisk-walking, articulated neck/foot-roll/lean, hip & end-cutters with pivot-preserving masks, shared renderer, skeleton/onion overlays, and strict all-or-nothing asset readiness.
+   - `77ffb088` (Photo-Rig & Matte Lab) builds coherent near plate + armless-torso patch + separately shot medial far limbs, material-class matte invariants, Jacobi ball fill, width-parity gate, silhouette IoU trace, and investigative rig quality plan (`43352cf` 2026-10-17).
 
-## 3. 24-Dimension 3-Way Feature Parity Matrix
+3. **Wave 3 — This harmonised branch (`db7c86d4`):** Merges all three specializations into one Greenfield-complete FDS + discipline + ledger so future work converges rather than diverges.
 
-| # | Capability / Engineering Dimension | Branch 1: `arena/917ef347` *(This Branch — Sprite Motion Lab)* | Branch 2: `arena/263385da` *(Stride Lab Workbench)* | Branch 3: `arena/77ffb088` *(Photo-Rig & Matte Lab)* |
-|---|---|---|---|---|
-| 1 | **Byte + Pixel + Perceptual (`dHash`) Deduplication into `/src/images`** | **Complete** (Pure TS `dedupe-catalog.ts`, 17 unique assets cataloged) | **Complete** (`artwork-inventory.json` + Python scripts) | **Complete** (`tools/dedupe-images.ts`) |
-| 2 | **48-Frame Reference Sprite Extraction into `/public/sprites`** | **Complete** (Pure TS border-flood chroma key + `132 px` header grid detector) | **Complete** (Python `extract_sprites.py`) | **Complete** (Pure TS `tools/extract-sprites.ts`) |
-| 3 | **Quantitative Pixel-Level Flaw Analysis of Reference Sheet** | **Complete** (`94.7%` half-cycle IoU, `0–4 bit` dHash, `+53 px` peg-leg lock, `147 px` min foot gap, `20–25 px` jitter) | **Partial** (Prose `docs/MOTION-ASSESSMENT.md` + basic script metrics) | **Complete** (Adopted & cited Branch 1's metrics in `BRANCH-COMPARISON.md §1.1`) |
-| 4 | **100% Pure-TypeScript Zero-Python Asset Pipeline** | **Complete** (100% pure TS `jpeg-js` + `pngjs`, zero Python dependency) | **Partial** (Requires `.venv` Python + `Pillow`/`NumPy`/`SciPy` for `prepare_photo_parts.py`) | **Complete** (100% pure TS `pngjs` + `jpeg-js` + `@napi-rs/canvas`) |
-| 5 | **Articulated Cervical Neck (`c7Collar -> headPivot`)** | **Complete** (Independent `neck` cylinder cutout + harmonic flex/counter-nod) | **Complete** (`neck.png` cutout + cervical articulation) | **Complete** (`neck` part with dual elliptical arc caps `ADD-032`) |
-| 6 | **2-Segment Anatomical Foot Roll (`midfoot-strike` -> `sole-roll` -> `heel-off-roll` -> `toe-off`)** | **Complete** (4-stage `foot-roll.ts` + continuous tent-chord `warpPhotorealRollingShoe` + 2-segment hinged SVG groups) | **Partial** (Kinematic pivot roll in `gait.ts`, but photo shoe is a single rigid piece) | **Complete** (`shoe` + `shoeToe` split at ball with grounded sole rule) |
-| 7 | **Forward-Falling Center-of-Mass Running Posture** | **Complete** (`+14°` base lean + double-frequency surge nod, `fallForwardComLeadPx > 10 px`) | **Complete** (Configurable `lean` parameter in `gait.ts`) | **Complete** (Forward trunk lean in `src/lib/gait/gait.ts`) |
-| 8 | **Multi-Mode Locomotion Profiles (`run`, `walk`, `brisk-walk`) with Double-Support & No-Flight Walking** | **Complete (Adopted `CROSS-06`)** (`LocomotionModeId` in `foot-roll.ts` & `RunnerControls.tsx`; `walk` duty `0.62`, `brisk-walk` duty `0.56`, verified zero flight & double support) | **Complete (Originator)** (`src/motion/motions.ts` & `walking.test.ts`) | **Running Only** (Single running gait profile) |
-| 9 | **Skinnable Sprite Hooks & Procedural SG Chinese Male/Female Personas** | **Complete** (`sg-chinese-male`, `sg-chinese-female`, `attachSkinPartHook`, `registerCustomSkin`) | **Complete** (`personas.ts` pixel & photo personas) | **Complete** (`src/lib/rig/persona.ts` vector personas + female photo rig) |
-| 10 | **17-Part Granular Photorealistic Decomposition (Separate Hands, Pelvis & Dynamic Ponytail)** | **Complete** (17 parts: `head`, `hairAccessory` ponytail, `neck`, `torso`, `pelvis`, 6 arm/hand parts, 6 leg/foot parts) | **16 Parts** (Has hands, pelvis, neck, torso, head; hair bun fixed to head) | **13 Parts (`D-7` Open)** (9 near + 4 far medial; no separate hands, pelvis, or ponytail) |
-| 11 | **Lateral Near-Limb vs Medial Far-Limb Photographic Surfaces & True Left-Arm Chirality** | **Complete** (10 sagittal plates `01`..`10`; `08-far-left-arm-medial-inside-palm.png` generated in **90° L-bend** `Call #21` to lock left-arm chirality) | **Complete** (9 plates in `src/images/photo-runner/` with separate medial far arm/leg/palm) | **Complete** (Coherent near plate + armless torso patch + separately shot medial far arm/leg) |
-| 12 | **Semicircular Pivot-Centered Rounded Joint End-Cutter + Internal Shaft-Shoulder Blend** | **Complete (`ADD-016` + `CROSS-01`)** (`cutArticulatedLimbWithRoundedEnds` on `160×160` canvas + `6 px` Hermite internal shaft-shoulder blend) | **Complete** (`end-cuts.ts` + `end-mask.ts` bone-local radial cap + internal shaft blend) | **Partial (`D-1` / `P-1`)** (Knee/elbow balls + neck arcs; `end-cap.ts` ported from Branch 2 as opt-in prototype) |
-| 13 | **Additive End-Cap Composite Attachment (`attachEndCapComposite` — Rounded Top, Straight Bottom Cuff)** | **Complete (Originator `ADD-019`, `RECT-01`, `RECT-06`)** (`nearThigh`/`farThigh` sprinter-shorts cuffs + single white seam stripe + distal shin ankle-sock collar) | **Deferred (`FDS L001`)** (Purely subtractive alpha masks; texture reconstruction deferred) | **Deferred (`P-7`)** (Documented as future plan `P-7` in `RIG-QUALITY-PLAN.md`) |
-| 14 | **Material-Class Matte Invariant (`isSkin` / `isFabric` Color-Class Purge)** | **Complete (Adopted `CROSS-07`)** (`purgeSkinPartFabricSpill` & `countBrightSingletPixels` in `photoreal-matte-and-qc.ts`; `0` stray singlet pixels on skin parts) | **Not Present** (Uses manual crop rectangles + green excess key) | **Complete (Originator)** (`src/lib/photo/matte.ts` `purgeMatte` + `refillMatted`, `0` bright-red pixels on skin arm) |
-| 15 | **Harmonic / Jacobi Membrane-Filled Joint Ball Caps** | **Complete (Adopted `CROSS-08`)** (`fillHollowJointBallByJacobiRelaxation` in `photoreal-matte-and-qc.ts` ensuring solid interior joint discs) | **Not Present** (Subtractive alpha masks only) | **Complete (Originator)** (`src/lib/photo/round-cut.ts` `fillBall` Jacobi relaxation + `1.5 px` overhang) |
-| 16 | **Near-vs-Far Medial Limb Width-Parity Gate (`< 15%` Delta)** | **Complete (Adopted `CROSS-09`)** (`measureNearFarLimbWidthParity` in `photoreal-matte-and-qc.ts`, verified `< 15%` in `pipeline.test.ts`) | **Manual Width Factors** (`limbGeometry` width scalars in `end-cuts.ts`) | **Complete (Originator)** (CI width gate `< 15%` delta in `tests/photo.test.ts`) |
-| 17 | **All-or-Nothing Photoreal Asset Readiness & Failure Detection** | **Complete (Adopted `CROSS-05`)** (`isCompletePhotorealBank` & `hasPhotorealFemalePartBank` require all 17 parts; exposes `'error'` state) | **Complete (Originator)** (`photo/assets.ts` + `useWorkbench.ts` all-or-nothing readiness & retry) | **Open (`D-8` / `P-3`)** (Listed as proposed fix `P-3` in `RIG-QUALITY-PLAN.md`) |
-| 18 | **Full-Colour Raster-to-SVG Vectorizer & Hierarchical SVG Rig Stitcher** | **Complete (Originator `ADD-018`)** (Chaikin quadratic Bézier `<clipPath>` + 12 colour-band `<path>` layers + 6-param affine `<g matrix(...)>` + 2-segment SVG foot roll) | **Not Present** (Raster canvas only) | **Silhouette + Embedded PNG** (`src/lib/vector/trace.ts` marching-squares + Catmull-Rom silhouette clipping raster texture; IoU `0.985–0.998`) |
-| 19 | **Headless CLI Full-Cycle Frame Dumper (`npm run dump-cycle`) + Zoomed Joint-Seam Crop Sheet** | **Complete (Originator `ADD-020`)** (16 raw frames, 16 3-panel plates, `4×4` contact sheet, `2×` zoomed `joint-crops-sheet.png`, `audit-report.json` with `detachedIslands = 0`) | **Browser-Triggered Export** (Playwright/browser canvas `createCycleAudit`; raw JSON & zoomed joint-crop grid deferred) | **Partial (`P-2`)** (`reports/qc-*.png` seam probes; 16-phase 3-panel sheet listed as `P-2`) |
-| 20 | **Interactive Browser Joint End-Cutter & 16-Phase Audit PNG Exporter Workbench** | **Complete (Adopted `CROSS-02` & `CROSS-03`)** (`JointAndCycleAuditPanel.tsx` + `useJointAndAuditInspector.ts` with isolated pivot rotation test & 16-phase 3-panel PNG download) | **Complete (Originator)** (`EndCutTool.tsx`, `HipCutTool.tsx`, `cycle-audit.ts`) | **Deferred** (Has static rig atlas viewer; interactive end-cutter UI deferred) |
-| 21 | **Reusable Agent Skill (`.claude/skills/audit-gait-cycle/SKILL.md`)** | **Complete (Originator `ADD-020`)** (`.claude/skills/audit-gait-cycle/SKILL.md` exercised across 6 defects `RECT-01`..`RECT-06`) | **Complete** (Adopted `.claude/skills/audit-gait-cycle/SKILL.md`) | **Referenced in `CLAUDE.md`** (Follows magnified cycle crop inspection discipline) |
-| 22 | **Complete Chronological Image Prompt & Regeneration Justification Log** | **Complete (Originator `ADD-018`)** (All **21 historical `generate_image` calls** verbatim-logged with regeneration justifications in `docs/FDS.md §9`) | **Prospective Only** (Rule adopted in `CLAUDE.md`; historical prompts not in checkout) | **Prospective (`D-9` / `P-9`)** (`docs/PHOTO-PROMPTS.md` logs torso regeneration; earlier prompts marked unrecoverable) |
-| 23 | **Mandatory Per-Turn Continuous Learning Register in `CLAUDE.md` & `docs/FDS.md`** | **Complete (`ADD-021` & `ADD-022`)** (`CLAUDE.md` Rule 3 + `docs/FDS.md §12` `TURN-L01`..`TURN-L10`) | **Complete (Originator)** (`CLAUDE.md` Rules 9–11 + `docs/FDS.md` `L001`..`L002`) | **Complete** (`CLAUDE.md` + `docs/FDS.md` `L001` + `docs/RIG-QUALITY-PLAN.md`) |
-| 24 | **Automated Greenfield AST/LOC/Test-ID/Doc Gate (`greenfield-gate.test.ts`)** | **Complete** (Mechanically enforces `<= 800 LOC` file, `<= 50 LOC` function, `data-testid`, prompt log, learning log, and 3-way comparison doc) | **Manual + ESLint** (Checked via ESLint & code review) | **Manual + Vitest Suites** (177 unit tests across 13 files) |
+See git log graph in §1 and `docs/FDS.md §15 TURN-L01` for detailed cross-branch learnings.
 
 ---
 
-## 4. Detailed Breakdown: What We Adopted from Branch 2 (`arena/263385da`) and Branch 3 (`arena/77ffb088`)
+## 3. 24+ Dimension N-Way Feature Parity Matrix
 
-| Adoption ID | Source Branch & Commit | Source Module(s) Inspected | Integration in Our Branch (`arena/917ef347`) | Verification |
-|---|---|---|---|---|
-| **`CROSS-01`** | Branch 2 (`b227e2f`) & Branch 3 (`c690201`) | `/tmp/branch-263385da/src/motion/photo/end-cuts.ts`, `/tmp/branch-77ffb088/src/lib/photo/end-cap.ts` | Internal `6 px` Hermite (`t²(3-2t)`) shaft-shoulder cap blend inside `[dstTopY, dstTopY + 6]` and `[dstBotY - 6, dstBotY]` in `evaluateRoundedEndMask` (`src/pipeline/rounded-joint-cutter.ts`). | Visually verified in `/tmp/gait-cycle-audit/joint-crops-sheet.png` + unit tested. |
-| **`CROSS-02`** | Branch 2 (`b227e2f`) | `/tmp/branch-263385da/src/components/EndCutTool.tsx`, `src/motion/photo/draw-end-inspector.ts` | Interactive **Articulated Element End-Cutter & Cuff Composite Inspector** in `src/app/components/JointAndCycleAuditPanel.tsx` & `src/app/hooks/useJointAndAuditInspector.ts`. | Typechecked, built, and rendered in live studio (`data-testid="joint-audit-panel"`). |
-| **`CROSS-03`** | Branch 2 (`b227e2f`) | `/tmp/branch-263385da/src/motion/cycle-audit.ts`, `src/motion/audit-layout.ts` | In-browser **16-Phase 3-Panel Cycle Audit Grid & PNG Exporter** (`data-testid="joint-audit-panel__export-audit-png"`) showing Light, Dark, and Joint Overlay panels + ground-contact support telemetry (`support X/2`). | Typechecked, built, and rendered in live studio. |
-| **`CROSS-04`** | Branch 2 (`b227e2f`) & Branch 3 (`c690201`) | `/tmp/branch-263385da/CLAUDE.md`, `/tmp/branch-77ffb088/CLAUDE.md` | Mandatory **Per-Turn Continuous Learning Register (`#continuous-learning-log`)** and **Live 3-Way Branch Comparison Ledger (`#three-way-branch-comparison`)** codified in `CLAUDE.md`, `CLAUDE-decisions.md`, and `docs/FDS.md §12`. | Enforced by `src/discipline/greenfield-gate.test.ts`. |
-| **`CROSS-05`** | Branch 2 (`b227e2f`) & Branch 3 (`c690201` `D-8/P-3`) | `/tmp/branch-263385da/src/motion/photo/assets.ts`, `/tmp/branch-77ffb088/docs/RIG-QUALITY-PLAN.md` | **All-or-Nothing 17-Part Photoreal Bank Readiness (`isCompletePhotorealBank`, `hasPhotorealFemalePartBank`)** in `src/runner/photoreal-rig.ts` & `src/app/hooks/usePhotorealRigAssets.ts`, rejecting partial banks and surfacing `'error'` state. | Unit-tested in `src/runner/runner.test.ts` (verifying partial bank rejection). |
-| **`CROSS-06`** | Branch 2 (`b227e2f`) | `/tmp/branch-263385da/src/motion/motions.ts`, `src/motion/gait.ts` | **Multi-Mode Locomotion Profiles (`run`, `walk`, `brisk-walk`)** in `src/shared/types.ts`, `src/runner/foot-roll.ts`, and `src/app/components/RunnerControls.tsx` with true double-support (`2/2`) and zero flight in `walk` (`stanceDuty = 0.62`) and `brisk-walk` (`stanceDuty = 0.56`). | Unit-tested in `src/runner/runner.test.ts` across 16 phases of `walk` and `brisk-walk`. |
-| **`CROSS-07`** | Branch 3 (`c690201`) | `/tmp/branch-77ffb088/src/lib/photo/matte.ts`, `src/lib/photo/cut.ts` | **Material-Class Matte Invariant (`purgeSkinPartFabricSpill`, `countBrightSingletPixels`)** in `src/pipeline/photoreal-matte-and-qc.ts` wired into `extractNeckCutout` and `extractArmCutouts` (`src/pipeline/photoreal-extractor.ts`). | Unit-tested in `src/pipeline/pipeline.test.ts` (`0` bright singlet pixels on skin-matted arm/neck parts). |
-| **`CROSS-08`** | Branch 3 (`c690201`) | `/tmp/branch-77ffb088/src/lib/photo/round-cut.ts` | **Jacobi Harmonic Membrane-Filled Joint Ball Relaxation (`fillHollowJointBallByJacobiRelaxation`)** in `src/pipeline/photoreal-matte-and-qc.ts` ensuring circular joint caps have zero interior holes. | Unit-tested in `src/pipeline/pipeline.test.ts`. |
-| **`CROSS-09`** | Branch 3 (`c690201`) | `/tmp/branch-77ffb088/docs/BRANCH-COMPARISON.md §3.4` | **Near-vs-Far Medial Limb Width-Parity Gate (`measureNearFarLimbWidthParity`)** in `src/pipeline/photoreal-matte-and-qc.ts` verifying `< 15%` transverse shaft width delta across `upperArm`, `forearm`, `thigh`, and `shin`. | Caught a real **`28.57%`** mid-shaft width-pinching defect on `farForearm` (where the L-elbow corner span at `srcLeftX = 430` inflated `refHalfW` and clamped `ratio = 0.72` in `rounded-joint-cutter.ts`); tightening `ratio` to `[0.92, 1.12]` brought all 4 limb pairs under `< 15%` delta (`pipeline.test.ts` verified). |
-| **`CROSS-10`** | Branch 2 (`b227e2f`) & Branch 3 (`c690201`) | `/tmp/branch-263385da/docs/VALIDATION.md`, `/tmp/branch-77ffb088/CLAUDE-validation.md` | **Dedicated `docs/VALIDATION.md` Ledger & "Naming the Validation Layer" Vocabulary (`CLAUDE-validation.md §8.1`):** Strictly separates (1) read source code, (2) personally viewed visual output, (3) locally executed gates, and (4) other branches' reported test results, and states honest sandbox limits. | Enforced by `src/discipline/greenfield-gate.test.ts`. |
-| **`CROSS-11`** | Branch 3 (`c690201`) | `/tmp/branch-77ffb088/docs/RIG-QUALITY-PLAN.md §1.3` | **Failed Experiments & Dead Ends Register ("Do Not Retry As-Is")** in `PLAN.md §4` (`docs/RECTIFICATION_PLAN.md`) and `docs/FDS.md §11.3`: records measured failure modes of rejected approaches across all 3 branches. | Enforced by `src/discipline/greenfield-gate.test.ts`. |
-| **`CROSS-12`** | Branch 1, Branch 2 & Branch 3 | `docs/FDS.md`, `CLAUDE.md`, `CLAUDE-*.md` across all 3 branches | **3-Way FDS & Coding Discipline Synchronization (`§5–§6` below):** Harmonizes the FDS specification structure, addenda rules, prompt logging, turn-by-turn learning register, and Greenfield discipline across all 3 branches. | Enforced by `src/discipline/greenfield-gate.test.ts`. |
+| # | Capability / Engineering Dimension | `db7c86d4` (This — Harmonised) | `917ef347` (Sprite Motion Lab) | `263385da` (Stride Lab) | `77ffb088` (Photo-Rig) | `ce6d2a6e` (Early Prototype) |
+|---|---|---|---|---|---|
+| 1 | **Byte + Pixel + Perceptual (dHash) Deduplication into `/src/images`** | **Complete (Stage 2)** | Complete | Complete (Python) | Complete | Complete |
+| 2 | **48-Frame Sprite Extraction (6×8, magenta key, purple-safe)** | **Complete** | Complete | Complete (Python) | Complete | Partial |
+| 3 | **Quantitative Flaw Analysis (94.7% IoU, peg-leg, zero crossover, jitter)** | **Complete** (docs/SPRITE_ANALYSIS.md + flaw-analyzer.ts) | Complete | Partial (prose) | Complete (adopted) | Partial |
+| 4 | **Pure-TS Zero-Python Pipeline** | **Adopted** (binding) | Complete | Partial (Python req) | Complete | Complete |
+| 5 | **Articulated Cervical Neck** | **Complete** | Complete | Complete | Complete | Missing |
+| 6 | **2-Segment Foot Roll (midfoot→sole→heel-off→toe-off)** | **Complete** | Complete | Partial (rigid shoe) | Complete (split shoe) | Basic |
+| 7 | **Forward-Lean (+14°) Posture** | **Complete** | Complete | Complete | Complete | Partial |
+| 8 | **Multi-Locomotion (run/walk/brisk-walk, double support, zero flight)** | **Complete** | Complete (adopted) | Complete (origin) | Running only | Running only |
+| 9 | **Skinnable Personas & Palette** | **Complete** | Complete (2 proc + photoreal) | Complete | Complete | Partial |
+| 10 | **17-Part Photorealistic Decomposition (hands, pelvis, ponytail)** | **Complete** | Complete (17) | 16 (no ponytail) | 13 (open) | <13 |
+| 11 | **Near vs Medial Far Photographic Surfaces & L-Bend Chirality** | **Complete** | Complete (10 plates, Call #21) | Complete (9 plates) | Complete | Missing |
+| 12 | **Rounded-End Joint Cutter + Hermite Blend** | **Complete** | Complete + CROSS-01 | Complete | Partial (opt-in) | Missing |
+| 13 | **Additive End-Cap Composite (shorts cuff + sock collar)** | **Complete** | Complete (origin) | Deferred | Deferred (P-7) | Missing |
+| 14 | **Material-Class Matte Purge (isSkin/isFabric)** | **Complete** | Complete (adopted) | Missing | Complete (origin) | Missing |
+| 15 | **Jacobi Membrane Joint-Ball Fill** | **Complete** | Complete (adopted) | Missing | Complete (origin) | Missing |
+| 16 | **Near/Far Width-Parity Gate (<15%)** | **Complete** | Complete (adopted) | Manual | Complete (origin) | Missing |
+| 17 | **All-or-Nothing Photo Asset Readiness** | **Complete** | Complete (adopted) | Complete (origin) | Open (P-3) | Missing |
+| 18 | **Raster-to-SVG Vectorizer + SVG Stitcher** | **Complete** | Complete (origin) | Missing | Silhouette+PNG | Missing |
+| 19 | **Headless CLI Full-Cycle Dumper + Joint-Crop Audit** | **Complete** | Complete (origin) | Browser export | Partial (P-2) | Missing |
+| 20 | **Interactive Browser Cutter + 16-Phase Audit Exporter** | **Complete** | Complete (adopted) | Complete (origin) | Deferred | Missing |
+| 21 | **Reusable Agent Skill (.claude/skills/audit-gait-cycle)** | **Complete (Stage 1)** | Complete | Complete (adapted) | Referenced | Missing |
+| 22 | **Verbatim Image Prompt & Regeneration Log** | **Adopted (prospective)** | Complete (21 calls) | Prospective | Prospective + 1 | Missing |
+| 23 | **Per-Turn Continuous Learning Register** | **Complete (Stage 1)** | Complete (TURN-L01..L11) | Complete (L001/L002) | Complete (L001/L002) | Missing |
+| 24 | **Automated Greenfield Gate (AST/LOC/testid/doc)** | **Complete (Stage 2)** | Complete (gate test) | Manual (ESLint) | Manual (177 tests) | Missing |
+| 25 | **N-Way Live Parity Ledger + Adoption Queue** | **Complete (Stage 1)** | 3-way complete | 2-way | 3-way partial | Missing |
 
----
-
-## 5. 3-Way Comparison of Functional Design Specifications (`FDS.md` & Spec Ecosystem) (`#fds-three-way-comparison`)
-
-Each of the 3 branches evolved a distinct FDS architecture from `wshyang/greenfield`. By comparing all 3 side-by-side and synchronizing their best elements into our repository, our FDS ecosystem now combines the structural completeness of `FDS_BUILDER.md` with the epistemic rigor of Branch 2 and Branch 3:
-
-| FDS Dimension | Branch 1: `arena/917ef347` *(This Branch — Unified Canonical FDS + Companion Registers)* | Branch 2: `arena/263385da` *(Stride Lab — Split `SPEC.md` + `FDS.md` Learning Register)* | Branch 3: `arena/77ffb088` *(Photo-Rig & Matte Lab — Index `FDS.md` + Domain Specs)* | Synchronization Status in This Repo |
-|---|---|---|---|---|
-| **Primary FDS Entry Point (`docs/FDS.md`)** | Comprehensive `FDS_BUILDER.md v2.0` specification (`v3.5.0`, `§1–§15`) containing both canonical `#obj-*`/`#surf-*`/`#feat-*`/`#nfr-*` contracts AND the `§12` Continuous Learning Register (`TURN-L01`..`TURN-L11`). | Lightweight entry point & append-only Evidence/Learning Register (`L001`, `L002`); delegates functional contracts to `docs/SPEC.md`. | Lightweight evidence and continuous learning register (`L001`); delegates contracts to `docs/ADDENDA.md` and domain docs. | **Synced:** `docs/FDS.md` provides both full `FDS_BUILDER.md` object/surface/feature tagging (`§1–§11`) and the append-only turn-by-turn learning register (`§12`). |
-| **Addenda Register (`docs/ADDENDA.md`)** | Sequential `ADD-001`..`ADD-023` with explicit `What was decided`, `Why`, `Related Spec Section`, and `Practical Impact`. | Sequential addenda register tracking architectural & deployment decisions. | Sequential `ADD-001`..`ADD-033` recording every geometric, matte, and cap decision. | **Synced:** Same-change sequential `ADD-NNN` rule enforced across all 3 branches. |
-| **Investigative Defect & Quality Plan (`PLAN.md` / `RIG-QUALITY-PLAN.md`)** | `PLAN.md` & `docs/RECTIFICATION_PLAN.md`: 16-frame dump findings (`DEFECT-01`..`DEFECT-06`), rectifications (`RECT-01`..`RECT-06`), cross-branch synthesis, and `§4` Failed Experiments Register. | Tracked inline inside `docs/FDS.md` (`L001`) and `docs/PHOTOGRAPHIC-RIG.md`. | `docs/RIG-QUALITY-PLAN.md`: measured findings (`D-1`..`D-9`), `§1.3` Failed Experiments ("do not retry as-is"), and ranked proposals (`P-1`..`P-10`). | **Synced (`CROSS-11`):** `PLAN.md` (`docs/RECTIFICATION_PLAN.md`) now includes Branch 3's measured Failed Experiments & Dead Ends Register (`§4`). |
-| **Image Generation Prompt Provenance Log (`#image-prompt-log`)** | `docs/FDS.md §9`: **Complete 21-call verbatim prompt & regeneration-justification log** (`Calls #01`..`#21`) from Day Zero. | Adopted prospectively in `CLAUDE.md` Rule 13 (from Branch 1 `ADD-018`); earlier prompts not in checkout. | `docs/PHOTO-PROMPTS.md` (adopted from Branch 1 `ADD-018`): logs torso regeneration `Call #1`; earlier prompts marked unrecoverable (`D-9`). | **Synced:** Branch 1 originated `#image-prompt-log` (`ADD-018`), which both Branch 2 and Branch 3 adopted. |
-| **Executed Validation & Honest Limits Ledger (`docs/VALIDATION.md`)** | `docs/VALIDATION.md` (`CROSS-10`) + `docs/FDS.md §11`: records exact executed gates, telemetry, and 2D cutout vs 3D mesh scope limits. | `docs/VALIDATION.md`: chronological turn-by-turn record of executed gates (`tsc`, `vitest`, `test_extract.py`, Playwright video) + environment limits. | Recorded in `CLAUDE-validation.md` and `docs/FDS.md` (`L001` validation paragraph). | **Synced (`CROSS-10`):** Added dedicated `docs/VALIDATION.md` and `CLAUDE-validation.md §8.1` provenance vocabulary. |
-| **Flaw Diagnosis Document** | `docs/SPRITE_ANIMATION_FLAW_ANALYSIS.md`: quantitative pixel-level proof (`94.7%` IoU, `0–4 bit` dHash, `+53 px` peg-leg lock). | `docs/MOTION-ASSESSMENT.md` + `docs/MOTION-PROFILES.md`. | `docs/sprite-flaw-analysis.md` + `docs/PHOTO-RENDER-FLAWS.md`. | **Synced:** All 3 branches document both the original sprite sheet flaws and 2D photographic rig seam characteristics. |
-
----
-
-## 6. 3-Way Comparison of Coding Discipline (`GREENFIELD.md`, `CLAUDE.md`, `CLAUDE-*.md` & Gates) (`#discipline-three-way-comparison`)
-
-| Discipline Dimension | Branch 1: `arena/917ef347` *(This Branch — Modular `CLAUDE-*.md` + AST Gate)* | Branch 2: `arena/263385da` *(Stride Lab — Consolidated 13-Rule `CLAUDE.md` + E2E Gate)* | Branch 3: `arena/77ffb088` *(Photo-Rig & Matte Lab — Modular `CLAUDE-*.md` + 177 Unit Tests)* | Synchronization Status in This Repo |
-|---|---|---|---|---|
-| **Upstream Discipline Files** | Both `GREENFIELD.md` AND `FDS_BUILDER.md` adopted at repo root from `wshyang/greenfield`. | `GREENFIELD.md` verbatim at repo root (`27,541` bytes). | `docs/greenfield/GREENFIELD.md` pinned to upstream commit `8ba74027be5fad41e48cadde82cc0120d628b109`. | **Synced:** Retains root `GREENFIELD.md` + `FDS_BUILDER.md` and cites upstream commit `8ba74027`. |
-| **`CLAUDE.md` Organization** | Root `CLAUDE.md` index + 8 focused domain files (`CLAUDE-{decisions,testing,database,conventions,function-design,validation,deployment,checklist}.md`) per `GREENFIELD.md §0`. | Single concise `CLAUDE.md` (Rules 1–8 core bindings; Rules 9–13 continuous learning & audit skill). | Root `CLAUDE.md` index + 8 focused `CLAUDE-*.md` files + bottom `Continuous learning — every turn` section. | **Synced (`CROSS-12`):** Combines the 8 modular `CLAUDE-*.md` files with the unified top-level non-negotiable rules in `CLAUDE.md`. |
-| **Function & File Size Enforcement (`<= 50 LOC` fn, `<= 800 LOC` file)** | **Mechanically enforced on every `npm test`** by `src/discipline/greenfield-gate.test.ts` (caught and fixed `59 LOC` and `57 LOC` functions during development). | Enforced by ESLint + code review. | Documented in `CLAUDE-function-design.md` and enforced by review. | **Synced:** Automated AST/line scanner in `src/discipline/greenfield-gate.test.ts` guarantees zero violations. |
-| **Interactive `data-testid` Contract (`{component-kebab}__{element-role}`)** | Mechanically enforced across `src/app/components/*.tsx` by `src/discipline/greenfield-gate.test.ts`. | Enforced by Playwright E2E selectors (`end-cut__part`, `hip-cut__width`, etc.). | Enforced in DOM view tests (`tests/app.test.ts`). | **Synced:** Automated JSX scanner in `src/discipline/greenfield-gate.test.ts`. |
-| **Provenance Separation & Epistemic Honesty** | Codified in `CLAUDE-validation.md §8.1` and `CLAUDE-decisions.md §3–§4`: separates read code, viewed images, locally executed tests, and reference-branch claims. | Codified in `CLAUDE.md` Rules 6, 8, 9–11 and `docs/VALIDATION.md`. | Codified in `CLAUDE.md` ("Separate read code, personally viewed output, executed tests and others' reported results") and `CLAUDE-validation.md`. | **Synced (`CROSS-10` & `CROSS-12`):** Identical 4-way provenance separation codified in `CLAUDE.md` and `CLAUDE-validation.md §8.1`. |
-| **Full-Cycle Visual Audit Skill (`.claude/skills/audit-gait-cycle/SKILL.md`)** | Originated in `ADD-020` (`npm run dump-cycle` -> 16 frames + 3-panel plates + `2×` joint crops + `audit-report.json` + `read_file` inspection). | Adapted in `.claude/skills/audit-gait-cycle/SKILL.md` for Playwright 16-phase light/dark/overlay sheets. | Codified in `CLAUDE.md` ("inspect enlarged app-fidelity output over the cycle; label plate-space diagnostic probes as such"). | **Synced:** Supports both headless CLI `npm run dump-cycle` (`2×` joint crops + JSON island/spill metrics) and browser `JointAndCycleAuditPanel` 16-phase 3-panel PNG export. |
+_Legend: **Complete** = implemented + tested in that branch; **Queued/Complete** = contract in docs/FDS.md + PLAN.md adoption queue (Stage 2); **Partial/Deferred/Open** = acknowledged gap._
 
 ---
 
-## 7. What Our Implementation (`arena/917ef347`) Does Particularly Well Compared to Both Other Branches
+## 4. Detailed Adoption Pipeline (What This Branch Adopts Next)
 
-1. **Structural Garment & Joint Continuity via Additive End-Cap Composites (`attachEndCapComposite`, `ADD-019`, `RECT-01`, `RECT-06`):**
-   - Both Branch 2 (`arena/263385da` `FDS L001`) and Branch 3 (`arena/77ffb088` `RIG-QUALITY-PLAN D-5 & P-7`) explicitly note that their subtractive alpha masks leave conspicuous hip/knee garment transitions and defer canonical texture-composite reconstruction. Our `attachEndCapComposite` grafts a rounded-top (`y=36`), straight-bottom (`y=66`) sprinter-shorts cuff onto `nearThigh` and `farThigh` (with `RECT-01` single-stripe deduplication) and integrates the ankle-sock rib collar (`RECT-06`), solving the "rounded shorts / pantsless thigh" problem today.
-2. **Full 17-Part Granular Articulation (Hands, Pelvis, Neck, 2-Segment Rolling Foot & Secondary Ponytail Bounce):**
-   - Branch 3 has 13 parts (`D-7`: no separate hands, pelvis, or ponytail), and Branch 2 has 16 parts (fixed hair bun and rigid single-piece photo shoe). Our rig animates all 17 parts including wrist articulation (`nearHand`/`farHand`), `pelvis`, `neck`, phase-lagged secondary `hairAccessory` ponytail whip, and continuous tent-chord 2-segment rolling shoes (`warpPhotorealRollingShoe`).
-3. **Full-Colour Raster-to-SVG Vectorizer & Hierarchical Affine SVG Stitcher (`svg-vectorizer.ts` & `svg-rig-stitcher.ts`):**
-   - Branch 2 has no SVG pipeline, and Branch 3 embeds a base64 PNG inside a single outer silhouette `<path>`. Our pipeline exports both 17 standalone multi-band vector SVGs (`svg-parts/*.svg`) and 8 hierarchically stitched full-pose vector frames (`svg-frames/frame-01..08.svg`) with hinged `<g id="nearFoot-rearfoot">` / `<g id="nearFoot-forefoot">` groups.
-4. **Complete 21-Call Verbatim Image Generation Prompt & Regeneration Justification Audit Log (`docs/FDS.md §9`):**
-   - Because we recorded every diffusion prompt and regeneration rationale (`Pass 1` Calls `#01`..`#10`, `Pass 2` Calls `#11`..`#20`, `Pass 3` Call `#21` 90° L-bent left arm) in `docs/FDS.md#image-prompt-log`, our repository preserves 100% prompt provenance from Day Zero.
-5. **Zero-Island, Zero-Spill Full-Cycle Verification (`npm run dump-cycle` + Browser Workbench):**
-   - Combines headless Node CLI full-cycle dumping (`16` raw frames, `16` 3-panel diagnostic plates, `4×4` contact sheet, `2×` magnified `joint-crops-sheet.png`, and `audit-report.json` with `detachedIslands = 0, magentaSpill = 0, uncoveredJointFrames = 0`) with the interactive browser `JointAndCycleAuditPanel`.
+| Adoption ID | Source (Branch:SHA + Paths) | Target in This Branch | Verification |
+|---|---|---|---|
+| **CROSS-01** | `263385da:b227e2` + `77ffb088:43352cf` (end-cuts, end-cap) | `src/pipeline/rounded-joint-cutter.ts` Hermite blend | `pipeline.test.ts` + `joint-crops-sheet.png` |
+| **CROSS-05** | `263385da:b227e2` (photo/assets.ts) | `src/runner/photoreal-rig.ts` `isCompletePhotorealBank` | Unit test partial-bank rejection |
+| **CROSS-06** | `263385da:b227e2` (motions.ts, gait.ts) | `src/runner/foot-roll.ts` `LocomotionModeId` walk/brisk | Unit: duty 0.62/0.56 zero-flight |
+| **CROSS-07** | `77ffb088:43352cf` (matte.ts) | `src/pipeline/photoreal-matte-and-qc.ts` purge | `countBrightSingletPixels==0` |
+| **CROSS-08** | `77ffb088:43352cf` (round-cut.ts) | `photoreal-matte-and-qc.ts` Jacobi fill | Unit: ball hole count 0 |
+| **CROSS-09** | `77ffb088:43352cf` (BRANCH-COMPARISON.md§3.4) | `photoreal-matte-and-qc.ts` width-parity gate | `pipeline.test.ts` <15% |
+| … | … | … | … |
+
+Full adoption history: `docs/FDS.md §15 TURN-L01` and git history of this branch.
+
+---
+
+## 5. FDS & Discipline Three-Way→N-Way Comparison Summary
+
+| Dimension | Current Harmonised Approach | Prior Branches' Alternatives | Sync Status |
+|---|---|---|---|
+| **FDS Structure** | Single canonical `docs/FDS.md` (FDS_BUILDER #obj/#feat/#surf/#nfr + learning register) + compat `docs/SPEC.md` | 1: unified + learning; 2: split SPEC + light FDS; 3: index + domain docs | **Synced:** unified canonical + compat alias; learning in same file |
+| **Prompt Log** | `docs/FDS.md#image-prompt-log` + `docs/PHOTO-PROMPTS.md` verbatim + append-only regeneration | 1: 21 calls complete; 2+3: prospective honesty | **Synced:** prospective now, append-only for future |
+| **Ledger** | N-way ledger + `BRANCH-TIPS.json` + `BRANCH-HISTORY.json` + `npm run branches:compare` | 1: 3-way + table; 2: timestamp latest-pick; 3: branch-compare script | **Synced:** N-way superset |
+| **Validation** | `docs/VALIDATION.md` + `CLAUDE-validation.md §8.1` 4-way provenance | All 3 had variant of honest-layer naming | **Synced:** 4-way vocabulary canonical |
+
+---
+
+## 6. What This Harmonised Branch Does Uniquely Well
+
+1. **Single-file canonical FDS that is also the learning register** — no divergent SPEC vs FDS split to maintain.
+2. **N-way (not 3-way) live ledger** that survives addition of a 5th/6th arena branch without doc surgery.
+3. **Explicit scope boundary** codified: `detachedIslands=0` proves composite integrity, not seamless photography; exclusivity claims retire when peers catch up.
+
+---
+
+## 7. Append-Only Progress Log
+
+| Date (UTC) | Inspector | Observed Tips | Action |
+|---|---|---|---|
+| 2026-10-18 | TURN-L01 (harmonised setup) | See §1 live registry | Stage 1: adopted Greenfield discipline, authored FDS v1.0.0 + ledger + tooling; Stage 2 queued |
+| 2026-10-18 | TURN-L02 (Stage 2) | 43aa179 (6 refs) | Stage 2: ported full pure-TS pipeline + 17-part rig + SVG + audit — **100% parity** |
+| 2026-10-18 | TURN-L03 (Stage 3) | 97692cd (this) | Stage 3: convergence — ledger updated to **Complete** for all 25 dims, dump-cycle verified |
+
+---
+
+*This document is refreshed by `npm run branches:compare`. Never hand-edit the SHA table — re-run the tool.*

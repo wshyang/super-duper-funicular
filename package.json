@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Harmonised Greenfield Sprite Motion Lab — deduplication, magenta-key extraction, quantitative flaw analysis, 17-part algorithmic + photorealistic + SVG articulated running engine, multi-locomotion workbench, full-cycle audits, and live N-way branch parity ledger",
+  "description": "Harmonised Greenfield Sprite Motion Lab \u2014 deduplication, magenta-key extraction, quantitative flaw analysis, 17-part algorithmic + photorealistic + SVG articulated running engine, multi-locomotion workbench, full-cycle audits, and live N-way branch parity ledger",
   "engines": {
     "node": ">=22"
   },
@@ -25,7 +25,7 @@
     "analyze": "tsx scripts/analyze-sprites.ts",
     "generate-sheets": "tsx scripts/generate-algorithmic-sprites.ts",
     "pipeline": "npm run dedupe && npm run extract && npm run analyse && npm run generate-sheets",
-    "dump-cycle": "tsx tools/dump-cycle.ts",
+    "dump-cycle": "tsx scripts/dump-cycle-frames.ts",
     "sprites:extract": "tsx scripts/extract-sprites.ts",
     "sprites:analyse": "tsx tools/analyze-source.ts",
     "images:dedupe": "tsx tools/dedupe-images.ts",

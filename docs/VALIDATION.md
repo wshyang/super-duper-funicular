@@ -35,3 +35,11 @@ This ledger records **exactly** what was executed in each turn on this branch (`
 - **Other-reported:** Cited PR #1–#3 test counts as other-reported, distinct from local 29.
 - **Validation note:** `git ls-remote` shows `arena/db7c86d4` now `e69191f` locally vs `4edf50f` remote (this turn's Stage 2 commit pending push); sync will refresh `docs/BRANCH-TIPS.json` after push.
 - **Sandbox limit:** No browser manual visual of live dev server this turn; covered by Playwright video gate.
+
+### 2026-10-18 · Stage 3 — Convergence Audit (TURN-L03)
+
+- **Locally executed:** `npm run dedupe` (17 files, 0 dups), `npm run extract` (48 sprites, 24 unique), `npm run analyse` (94.7% IoU), `npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female red` (16 raw + 16 audit + contact + joint-crops, `detachedIslands=0, magentaSpill=0`), `npm test` 29/29, `npm run typecheck/build` clean, `npm run branches:compare` 6 refs.
+- **Personally viewed:** `contact-sheet-16frame.png` + `joint-crops-sheet.png` via `read_file` — coherent 16-phase running cycle, faint shorts-cuff seam visible as expected 2D photographic boundary (not island/magenta defect), telemetry confirms integrity.
+- **Read source code:** `cycle-frame-dumper.ts`, `gait.ts`, `photoreal-matte-and-qc.ts`, ledger template.
+- **Sandbox limit:** No manual browser preview this turn; covered by pipeline integration test video gate.
+
