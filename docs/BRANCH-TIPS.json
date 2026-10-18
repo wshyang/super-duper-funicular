@@ -1,16 +1,16 @@
 {
-  "observedAt": "2026-10-18T01:17:16.842Z",
+  "observedAt": "2026-10-18T01:39:37.140Z",
   "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
       "branch": "arena/e1300d3c-super-duper-funicular",
       "prStatus": "Active Session Branch",
-      "hash": "bf2bf66734b3d4183b93e78462130765f4cfa6e0",
-      "shortHash": "bf2bf66",
-      "committedAt": "2026-10-18T01:17:07+00:00",
-      "subject": "feat(persona): add slim petite Singaporean Chinese female photorealistic persona (Wave 6)",
-      "commitCountFromMain": 3
+      "hash": "2c7f0145338257b2f06965257bef34fb9379753d",
+      "shortHash": "2c7f014",
+      "committedAt": "2026-10-18T01:39:33+00:00",
+      "subject": "fix(photoreal): uncrop anterior neck, add medial shoulder stump on far arm, and remove overlapping second shoe on far leg (Wave 7)",
+      "commitCountFromMain": 5
     },
     {
       "role": "Branch 1 (Sprite Motion Lab)",
