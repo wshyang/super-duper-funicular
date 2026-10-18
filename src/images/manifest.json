@@ -11,6 +11,34 @@
       "sha256": "f99114235d61781f76a6b32c637edac16f13af6592a2866fe0e0528504727030",
       "filedIn": "ADD-002",
       "provenance": "Repository root at main commit 396ce256debcb5bdc2419cc0f3f399730b61ab36; git-moved, bytes unchanged."
+    },
+    {
+      "path": "src/images/photoreal-female-masters/01-master-lateral-profile-reference.png",
+      "sha256": "4037d4e51c82c8a070e6c4b25ebc8655130ef7aedf7099a888a58adc8a27c1af",
+      "role": "persona-master",
+      "filedIn": "ADD-007",
+      "provenance": "generate_image 2026-10-18 persona photo-sg-chinese-female-masters"
+    },
+    {
+      "path": "src/images/photoreal-female-masters/02-atlas-A1-contact-right.png",
+      "sha256": "da945b9fb00ff850fc8f7b5a3e29a2381476125fca20df211dbbeb3de2195517",
+      "role": "persona-atlas-A1",
+      "filedIn": "ADD-007",
+      "provenance": "generate_image 2026-10-18 persona photo-sg-chinese-female-masters"
+    },
+    {
+      "path": "src/images/photoreal-female-masters/03-atlas-A2-flight-pass.png",
+      "sha256": "e12c0cae9ea2ab18cd19fa5f49a5883443111f2dd050bca0ed9c685e9caf4f6e",
+      "role": "persona-atlas-A2",
+      "filedIn": "ADD-007",
+      "provenance": "generate_image 2026-10-18 persona photo-sg-chinese-female-masters"
+    },
+    {
+      "path": "src/images/photoreal-female-masters/04-atlas-A3-recovery-high.png",
+      "sha256": "fa5675ad5c58278684f509b288cdaf7d24afa91718b032ea3f4d743dcc142f67",
+      "role": "persona-atlas-A3",
+      "filedIn": "ADD-007",
+      "provenance": "generate_image 2026-10-18 persona photo-sg-chinese-female-masters"
     }
   ]
 }

@@ -1,0 +1,88 @@
+{
+  "poseId": "A1",
+  "plate": "src/images/photoreal-female-masters/02-atlas-A1-contact-right.png",
+  "schemaVersion": 1,
+  "placedBy": "arena-agent multimodal estimate v2 after overlay review (2026-10-18)",
+  "landmarks": {
+    "hipNear": [
+      757,
+      455
+    ],
+    "kneeNear": [
+      752,
+      612
+    ],
+    "ankleNear": [
+      742,
+      780
+    ],
+    "ballNear": [
+      762,
+      808
+    ],
+    "toeNear": [
+      820,
+      812
+    ],
+    "hipFar": [
+      790,
+      470
+    ],
+    "kneeFar": [
+      845,
+      600
+    ],
+    "ankleFar": [
+      882,
+      748
+    ],
+    "ballFar": [
+      915,
+      778
+    ],
+    "toeFar": [
+      962,
+      768
+    ],
+    "shoulderNear": [
+      762,
+      202
+    ],
+    "elbowNear": [
+      838,
+      296
+    ],
+    "wristNear": [
+      903,
+      262
+    ],
+    "handTipNear": [
+      940,
+      250
+    ],
+    "shoulderFar": [
+      742,
+      202
+    ],
+    "elbowFar": [
+      692,
+      306
+    ],
+    "wristFar": [
+      676,
+      398
+    ],
+    "handTipFar": [
+      672,
+      428
+    ],
+    "neckBase": [
+      744,
+      176
+    ],
+    "waist": [
+      752,
+      430
+    ]
+  }
+}

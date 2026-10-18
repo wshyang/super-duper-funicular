@@ -1,0 +1,885 @@
+{
+  "personaId": "photo-sg-chinese-female-masters",
+  "runId": "masters-cycle-01",
+  "scale": 0.2519,
+  "lengths": {
+    "torso": 66,
+    "neck": 6,
+    "head": 25,
+    "thigh": 38,
+    "shin": 41,
+    "foot": 16,
+    "upperArm": 31,
+    "forearm": 29,
+    "hand": 10
+  },
+  "plates": [
+    {
+      "poseId": "master",
+      "src": "/repo-assets/src-images/photoreal-female-masters/01-master-lateral-profile-reference.png",
+      "landmarks": {
+        "skullTop": [
+          768,
+          52
+        ],
+        "neckBase": [
+          742,
+          172
+        ],
+        "collar": [
+          744,
+          168
+        ],
+        "shoulderNear": [
+          748,
+          198
+        ],
+        "elbowNear": [
+          752,
+          322
+        ],
+        "wristNear": [
+          776,
+          434
+        ],
+        "handTipNear": [
+          782,
+          472
+        ],
+        "waist": [
+          750,
+          428
+        ],
+        "hip": [
+          748,
+          458
+        ],
+        "knee": [
+          752,
+          610
+        ],
+        "ankle": [
+          748,
+          774
+        ],
+        "ball": [
+          772,
+          806
+        ],
+        "heel": [
+          718,
+          800
+        ],
+        "toe": [
+          830,
+          812
+        ],
+        "sole": [
+          770,
+          826
+        ],
+        "skullBase": [
+          744,
+          148
+        ],
+        "hairPivot": [
+          726,
+          104
+        ],
+        "hairTip": [
+          690,
+          164
+        ],
+        "femoralCut": [
+          748.88,
+          491.44
+        ]
+      },
+      "landmarksV1": {
+        "skullTop": [
+          768,
+          52
+        ],
+        "neckBase": [
+          742,
+          172
+        ],
+        "collar": [
+          744,
+          168
+        ],
+        "shoulderNear": [
+          748,
+          198
+        ],
+        "elbowNear": [
+          752,
+          322
+        ],
+        "wristNear": [
+          776,
+          434
+        ],
+        "handTipNear": [
+          782,
+          472
+        ],
+        "waist": [
+          750,
+          428
+        ],
+        "hip": [
+          748,
+          458
+        ],
+        "knee": [
+          752,
+          610
+        ],
+        "ankle": [
+          748,
+          774
+        ],
+        "ball": [
+          772,
+          806
+        ],
+        "heel": [
+          718,
+          800
+        ],
+        "toe": [
+          830,
+          812
+        ],
+        "sole": [
+          770,
+          826
+        ]
+      }
+    },
+    {
+      "poseId": "A1",
+      "src": "/repo-assets/src-images/photoreal-female-masters/02-atlas-A1-contact-right.png",
+      "landmarks": {
+        "hipNear": [
+          743,
+          489
+        ],
+        "kneeNear": [
+          787,
+          631
+        ],
+        "ankleNear": [
+          690,
+          714
+        ],
+        "ballNear": [
+          725,
+          729
+        ],
+        "toeNear": [
+          820,
+          812
+        ],
+        "hipFar": [
+          751,
+          506
+        ],
+        "kneeFar": [
+          772,
+          592
+        ],
+        "ankleFar": [
+          820,
+          689
+        ],
+        "ballFar": [
+          915,
+          778
+        ],
+        "toeFar": [
+          962,
+          768
+        ],
+        "shoulderNear": [
+          746,
+          269
+        ],
+        "elbowNear": [
+          809,
+          274
+        ],
+        "wristNear": [
+          903,
+          262
+        ],
+        "handTipNear": [
+          940,
+          250
+        ],
+        "shoulderFar": [
+          724,
+          220
+        ],
+        "elbowFar": [
+          701,
+          309
+        ],
+        "wristFar": [
+          682,
+          386
+        ],
+        "handTipFar": [
+          676,
+          417
+        ],
+        "neckBase": [
+          719,
+          231
+        ],
+        "waist": [
+          713,
+          377
+        ]
+      },
+      "landmarksV1": {
+        "hipNear": [
+          757,
+          455
+        ],
+        "kneeNear": [
+          752,
+          612
+        ],
+        "ankleNear": [
+          742,
+          780
+        ],
+        "ballNear": [
+          762,
+          808
+        ],
+        "toeNear": [
+          820,
+          812
+        ],
+        "hipFar": [
+          790,
+          470
+        ],
+        "kneeFar": [
+          845,
+          600
+        ],
+        "ankleFar": [
+          882,
+          748
+        ],
+        "ballFar": [
+          915,
+          778
+        ],
+        "toeFar": [
+          962,
+          768
+        ],
+        "shoulderNear": [
+          762,
+          202
+        ],
+        "elbowNear": [
+          838,
+          296
+        ],
+        "wristNear": [
+          903,
+          262
+        ],
+        "handTipNear": [
+          940,
+          250
+        ],
+        "shoulderFar": [
+          742,
+          202
+        ],
+        "elbowFar": [
+          692,
+          306
+        ],
+        "wristFar": [
+          676,
+          398
+        ],
+        "handTipFar": [
+          672,
+          428
+        ],
+        "neckBase": [
+          744,
+          176
+        ],
+        "waist": [
+          752,
+          430
+        ]
+      }
+    },
+    {
+      "poseId": "A2",
+      "src": "/repo-assets/src-images/photoreal-female-masters/03-atlas-A2-flight-pass.png",
+      "landmarks": {
+        "hipNear": [
+          795,
+          448
+        ],
+        "kneeNear": [
+          787,
+          547
+        ],
+        "ankleNear": [
+          783,
+          648
+        ],
+        "ballNear": [
+          882,
+          714
+        ],
+        "toeNear": [
+          922,
+          728
+        ],
+        "hipFar": [
+          692,
+          441
+        ],
+        "kneeFar": [
+          625,
+          549
+        ],
+        "ankleFar": [
+          543,
+          662
+        ],
+        "ballFar": [
+          547,
+          715
+        ],
+        "toeFar": [
+          560,
+          768
+        ],
+        "shoulderNear": [
+          751,
+          265
+        ],
+        "elbowNear": [
+          810,
+          274
+        ],
+        "wristNear": [
+          902,
+          252
+        ],
+        "handTipNear": [
+          934,
+          240
+        ],
+        "neckBase": [
+          722,
+          234
+        ],
+        "waist": [
+          704,
+          378
+        ]
+      },
+      "landmarksV1": {
+        "hipNear": [
+          762,
+          442
+        ],
+        "kneeNear": [
+          862,
+          520
+        ],
+        "ankleNear": [
+          852,
+          678
+        ],
+        "ballNear": [
+          882,
+          714
+        ],
+        "toeNear": [
+          922,
+          728
+        ],
+        "hipFar": [
+          752,
+          446
+        ],
+        "kneeFar": [
+          682,
+          590
+        ],
+        "ankleFar": [
+          598,
+          700
+        ],
+        "ballFar": [
+          576,
+          730
+        ],
+        "toeFar": [
+          560,
+          768
+        ],
+        "shoulderNear": [
+          762,
+          206
+        ],
+        "elbowNear": [
+          832,
+          282
+        ],
+        "wristNear": [
+          902,
+          252
+        ],
+        "handTipNear": [
+          934,
+          240
+        ],
+        "neckBase": [
+          748,
+          180
+        ],
+        "waist": [
+          756,
+          432
+        ]
+      }
+    },
+    {
+      "poseId": "A3",
+      "src": "/repo-assets/src-images/photoreal-female-masters/04-atlas-A3-recovery-high.png",
+      "landmarks": {
+        "shoulderNear": [
+          728,
+          223
+        ],
+        "elbowNear": [
+          687,
+          320
+        ],
+        "wristNear": [
+          685,
+          345
+        ],
+        "handTipNear": [
+          586,
+          432
+        ],
+        "hipNear": [
+          818,
+          477
+        ],
+        "kneeNear": [
+          817,
+          472
+        ],
+        "ankleNear": [
+          795,
+          574
+        ],
+        "ballNear": [
+          884,
+          640
+        ],
+        "hipFar": [
+          707,
+          471
+        ],
+        "kneeFar": [
+          675,
+          530
+        ],
+        "ankleFar": [
+          614,
+          501
+        ],
+        "ballFar": [
+          587,
+          489
+        ],
+        "toeFar": [
+          526,
+          510
+        ],
+        "neckBase": [
+          714,
+          234
+        ],
+        "waist": [
+          726,
+          383
+        ]
+      },
+      "landmarksV1": {
+        "shoulderNear": [
+          752,
+          202
+        ],
+        "elbowNear": [
+          656,
+          318
+        ],
+        "wristNear": [
+          602,
+          408
+        ],
+        "handTipNear": [
+          586,
+          432
+        ],
+        "hipNear": [
+          762,
+          442
+        ],
+        "kneeNear": [
+          882,
+          452
+        ],
+        "ankleNear": [
+          872,
+          610
+        ],
+        "ballNear": [
+          884,
+          640
+        ],
+        "hipFar": [
+          752,
+          446
+        ],
+        "kneeFar": [
+          742,
+          612
+        ],
+        "ankleFar": [
+          602,
+          546
+        ],
+        "ballFar": [
+          566,
+          526
+        ],
+        "toeFar": [
+          526,
+          510
+        ],
+        "neckBase": [
+          748,
+          178
+        ],
+        "waist": [
+          756,
+          434
+        ]
+      }
+    }
+  ],
+  "parts": [
+    {
+      "partId": "head",
+      "sourcePose": "master",
+      "keptRatio": 0.091,
+      "relightScale": 1.031,
+      "restLength": 25,
+      "halfWidth": 13,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/head.png"
+    },
+    {
+      "partId": "neck",
+      "sourcePose": "master",
+      "keptRatio": 0.065,
+      "relightScale": 0.938,
+      "restLength": 6,
+      "halfWidth": 9,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/neck.png"
+    },
+    {
+      "partId": "hairAccessory",
+      "sourcePose": "master",
+      "keptRatio": 0.26,
+      "relightScale": 1.034,
+      "restLength": 18,
+      "halfWidth": 10,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/hairAccessory.png"
+    },
+    {
+      "partId": "torso",
+      "sourcePose": "master",
+      "keptRatio": 0.128,
+      "relightScale": 1.075,
+      "restLength": 66,
+      "halfWidth": 30,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/torso.png"
+    },
+    {
+      "partId": "pelvis",
+      "sourcePose": "master",
+      "keptRatio": 0.072,
+      "relightScale": 0.85,
+      "restLength": 16,
+      "halfWidth": 10,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/pelvis.png"
+    },
+    {
+      "partId": "nearThigh",
+      "sourcePose": "A2",
+      "keptRatio": 0.285,
+      "relightScale": 1.004,
+      "restLength": 25,
+      "halfWidth": 12,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/nearThigh.png"
+    },
+    {
+      "partId": "nearShin",
+      "sourcePose": "A2",
+      "keptRatio": 0.265,
+      "relightScale": 1.15,
+      "restLength": 25,
+      "halfWidth": 11,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/nearShin.png"
+    },
+    {
+      "partId": "nearFoot",
+      "sourcePose": "A2",
+      "keptRatio": 0.029,
+      "relightScale": 1,
+      "restLength": 30,
+      "halfWidth": 9,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/nearFoot.png"
+    },
+    {
+      "partId": "farThigh",
+      "sourcePose": "A1",
+      "keptRatio": 0.102,
+      "relightScale": 1.15,
+      "restLength": 22,
+      "halfWidth": 9,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/farThigh.png"
+    },
+    {
+      "partId": "farShin",
+      "sourcePose": "A1",
+      "keptRatio": 0.197,
+      "relightScale": 1.15,
+      "restLength": 27,
+      "halfWidth": 12,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/farShin.png"
+    },
+    {
+      "partId": "farFoot",
+      "sourcePose": "A1",
+      "keptRatio": 0.142,
+      "relightScale": 1,
+      "restLength": 33,
+      "halfWidth": 15,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/farFoot.png"
+    },
+    {
+      "partId": "nearUpperArm",
+      "sourcePose": "A3",
+      "keptRatio": 0.224,
+      "relightScale": 1.15,
+      "restLength": 27,
+      "halfWidth": 10,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/nearUpperArm.png"
+    },
+    {
+      "partId": "nearForearm",
+      "sourcePose": "A1",
+      "keptRatio": 0.118,
+      "relightScale": 1.098,
+      "restLength": 24,
+      "halfWidth": 10,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/nearForearm.png"
+    },
+    {
+      "partId": "nearHand",
+      "sourcePose": "A1",
+      "keptRatio": 0,
+      "relightScale": 1,
+      "restLength": 10,
+      "halfWidth": 4,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/nearHand.png"
+    },
+    {
+      "partId": "farUpperArm",
+      "sourcePose": "A1",
+      "keptRatio": 0.218,
+      "relightScale": 1.15,
+      "restLength": 23,
+      "halfWidth": 10,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/farUpperArm.png"
+    },
+    {
+      "partId": "farForearm",
+      "sourcePose": "A1",
+      "keptRatio": 0.269,
+      "relightScale": 1.15,
+      "restLength": 20,
+      "halfWidth": 9,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/farForearm.png"
+    },
+    {
+      "partId": "farHand",
+      "sourcePose": "A1",
+      "keptRatio": 0.251,
+      "relightScale": 1,
+      "restLength": 8,
+      "halfWidth": 9,
+      "src": "/sprites/photoreal/photo-sg-chinese-female-masters/parts/farHand.png"
+    }
+  ],
+  "cycle": {
+    "frames": [
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-01.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-02.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-03.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-04.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-05.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-06.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-07.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-08.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-09.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-10.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-11.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-12.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-13.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-14.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-15.png",
+      "/sprites/photoreal/photo-sg-chinese-female-masters/cycle/frame-16.png"
+    ],
+    "contact": "/repo-assets/evidence/masters-cycle-01/contact-16frame.png",
+    "audit": [
+      {
+        "frame": 1,
+        "phase": 0,
+        "opaqueComponents": 1,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 2,
+        "phase": 0.0625,
+        "opaqueComponents": 1,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 3,
+        "phase": 0.125,
+        "opaqueComponents": 2,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 4,
+        "phase": 0.1875,
+        "opaqueComponents": 2,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 5,
+        "phase": 0.25,
+        "opaqueComponents": 3,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 6,
+        "phase": 0.3125,
+        "opaqueComponents": 3,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 7,
+        "phase": 0.375,
+        "opaqueComponents": 3,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 8,
+        "phase": 0.4375,
+        "opaqueComponents": 1,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 9,
+        "phase": 0.5,
+        "opaqueComponents": 1,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 10,
+        "phase": 0.5625,
+        "opaqueComponents": 1,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 11,
+        "phase": 0.625,
+        "opaqueComponents": 2,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 12,
+        "phase": 0.6875,
+        "opaqueComponents": 2,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 13,
+        "phase": 0.75,
+        "opaqueComponents": 2,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 14,
+        "phase": 0.8125,
+        "opaqueComponents": 2,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 15,
+        "phase": 0.875,
+        "opaqueComponents": 2,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      },
+      {
+        "frame": 16,
+        "phase": 0.9375,
+        "opaqueComponents": 1,
+        "lowestFootY": 234,
+        "groundLineDeltaPx": 0
+      }
+    ]
+  },
+  "learningsUrl": "/repo-assets/evidence/masters-cycle-01/stage-learnings.json"
+}

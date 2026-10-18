@@ -1,0 +1,138 @@
+[
+  {
+    "partId": "head",
+    "sourcePose": "master",
+    "keptRatio": 0.091,
+    "relightScale": 1.031,
+    "restLength": 25,
+    "halfWidth": 13
+  },
+  {
+    "partId": "neck",
+    "sourcePose": "master",
+    "keptRatio": 0.065,
+    "relightScale": 0.938,
+    "restLength": 6,
+    "halfWidth": 9
+  },
+  {
+    "partId": "hairAccessory",
+    "sourcePose": "master",
+    "keptRatio": 0.26,
+    "relightScale": 1.034,
+    "restLength": 18,
+    "halfWidth": 10
+  },
+  {
+    "partId": "torso",
+    "sourcePose": "master",
+    "keptRatio": 0.128,
+    "relightScale": 1.075,
+    "restLength": 66,
+    "halfWidth": 30
+  },
+  {
+    "partId": "pelvis",
+    "sourcePose": "master",
+    "keptRatio": 0.072,
+    "relightScale": 0.85,
+    "restLength": 16,
+    "halfWidth": 10
+  },
+  {
+    "partId": "nearThigh",
+    "sourcePose": "A2",
+    "keptRatio": 0.285,
+    "relightScale": 1.004,
+    "restLength": 25,
+    "halfWidth": 12
+  },
+  {
+    "partId": "nearShin",
+    "sourcePose": "A2",
+    "keptRatio": 0.265,
+    "relightScale": 1.15,
+    "restLength": 25,
+    "halfWidth": 11
+  },
+  {
+    "partId": "nearFoot",
+    "sourcePose": "A2",
+    "keptRatio": 0.029,
+    "relightScale": 1,
+    "restLength": 30,
+    "halfWidth": 9
+  },
+  {
+    "partId": "farThigh",
+    "sourcePose": "A1",
+    "keptRatio": 0.102,
+    "relightScale": 1.15,
+    "restLength": 22,
+    "halfWidth": 9
+  },
+  {
+    "partId": "farShin",
+    "sourcePose": "A1",
+    "keptRatio": 0.197,
+    "relightScale": 1.15,
+    "restLength": 27,
+    "halfWidth": 12
+  },
+  {
+    "partId": "farFoot",
+    "sourcePose": "A1",
+    "keptRatio": 0.142,
+    "relightScale": 1,
+    "restLength": 33,
+    "halfWidth": 15
+  },
+  {
+    "partId": "nearUpperArm",
+    "sourcePose": "A3",
+    "keptRatio": 0.224,
+    "relightScale": 1.15,
+    "restLength": 27,
+    "halfWidth": 10
+  },
+  {
+    "partId": "nearForearm",
+    "sourcePose": "A1",
+    "keptRatio": 0.118,
+    "relightScale": 1.098,
+    "restLength": 24,
+    "halfWidth": 10
+  },
+  {
+    "partId": "nearHand",
+    "sourcePose": "A1",
+    "keptRatio": 0,
+    "relightScale": 1,
+    "restLength": 10,
+    "halfWidth": 4
+  },
+  {
+    "partId": "farUpperArm",
+    "sourcePose": "A1",
+    "keptRatio": 0.218,
+    "relightScale": 1.15,
+    "restLength": 23,
+    "halfWidth": 10
+  },
+  {
+    "partId": "farForearm",
+    "sourcePose": "A1",
+    "keptRatio": 0.269,
+    "relightScale": 1.15,
+    "restLength": 20,
+    "halfWidth": 9
+  },
+  {
+    "partId": "farHand",
+    "sourcePose": "A1",
+    "keptRatio": 0.251,
+    "relightScale": 1,
+    "restLength": 8,
+    "halfWidth": 9
+  }
+]

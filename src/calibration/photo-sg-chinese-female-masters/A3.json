@@ -1,0 +1,12 @@
+{
+  "poseId": "A3",
+  "plate": "src/images/photoreal-female-masters/04-atlas-A3-recovery-high.png",
+  "schemaVersion": 1,
+  "placedBy": "arena-agent multimodal estimate v1 (2026-10-18); correct via workbench skeleton overlay",
+  "landmarks": {
+    "shoulderNear": [752, 202], "elbowNear": [656, 318], "wristNear": [602, 408], "handTipNear": [586, 432],
+    "hipNear": [762, 442], "kneeNear": [882, 452], "ankleNear": [872, 610], "ballNear": [884, 640],
+    "hipFar": [752, 446], "kneeFar": [742, 612], "ankleFar": [602, 546], "ballFar": [566, 526], "toeFar": [526, 510],
+    "neckBase": [748, 178], "waist": [756, 434]
+  }
+}

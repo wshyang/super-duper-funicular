@@ -1,0 +1,12 @@
+{
+  "poseId": "master",
+  "plate": "src/images/photoreal-female-masters/01-master-lateral-profile-reference.png",
+  "schemaVersion": 1,
+  "placedBy": "arena-agent multimodal estimate v1 (2026-10-18); correct via workbench skeleton overlay",
+  "landmarks": {
+    "skullTop": [768, 52], "neckBase": [742, 172], "collar": [744, 168],
+    "shoulderNear": [748, 198], "elbowNear": [752, 322], "wristNear": [776, 434], "handTipNear": [782, 472],
+    "waist": [750, 428], "hip": [748, 458], "knee": [752, 610], "ankle": [748, 774],
+    "ball": [772, 806], "heel": [718, 800], "toe": [830, 812], "sole": [770, 826]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "run": "masters-cycle-01",
+  "personaId": "photo-sg-chinese-female-masters",
+  "scale": 0.2519,
+  "lengths": {
+    "torso": 66,
+    "neck": 6,
+    "head": 25,
+    "thigh": 38,
+    "shin": 41,
+    "foot": 16,
+    "upperArm": 31,
+    "forearm": 29,
+    "hand": 10
+  },
+  "frames": [
+    {
+      "frame": 1,
+      "phase": 0,
+      "opaqueComponents": 1,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 2,
+      "phase": 0.0625,
+      "opaqueComponents": 1,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 3,
+      "phase": 0.125,
+      "opaqueComponents": 2,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 4,
+      "phase": 0.1875,
+      "opaqueComponents": 2,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 5,
+      "phase": 0.25,
+      "opaqueComponents": 3,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 6,
+      "phase": 0.3125,
+      "opaqueComponents": 3,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 7,
+      "phase": 0.375,
+      "opaqueComponents": 3,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 8,
+      "phase": 0.4375,
+      "opaqueComponents": 1,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 9,
+      "phase": 0.5,
+      "opaqueComponents": 1,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 10,
+      "phase": 0.5625,
+      "opaqueComponents": 1,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 11,
+      "phase": 0.625,
+      "opaqueComponents": 2,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 12,
+      "phase": 0.6875,
+      "opaqueComponents": 2,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 13,
+      "phase": 0.75,
+      "opaqueComponents": 2,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 14,
+      "phase": 0.8125,
+      "opaqueComponents": 2,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 15,
+      "phase": 0.875,
+      "opaqueComponents": 2,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    },
+    {
+      "frame": 16,
+      "phase": 0.9375,
+      "opaqueComponents": 1,
+      "lowestFootY": 234,
+      "groundLineDeltaPx": 0
+    }
+  ]
+}

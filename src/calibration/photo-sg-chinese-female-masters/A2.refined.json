@@ -1,0 +1,72 @@
+{
+  "poseId": "A2",
+  "plate": "src/images/photoreal-female-masters/03-atlas-A2-flight-pass.png",
+  "schemaVersion": 1,
+  "placedBy": "arena-agent multimodal estimate v1 (2026-10-18); correct via workbench skeleton overlay | refinedBy: run-based slice regression v1",
+  "landmarks": {
+    "hipNear": [
+      795,
+      448
+    ],
+    "kneeNear": [
+      787,
+      547
+    ],
+    "ankleNear": [
+      783,
+      648
+    ],
+    "ballNear": [
+      882,
+      714
+    ],
+    "toeNear": [
+      922,
+      728
+    ],
+    "hipFar": [
+      692,
+      441
+    ],
+    "kneeFar": [
+      625,
+      549
+    ],
+    "ankleFar": [
+      543,
+      662
+    ],
+    "ballFar": [
+      547,
+      715
+    ],
+    "toeFar": [
+      560,
+      768
+    ],
+    "shoulderNear": [
+      751,
+      265
+    ],
+    "elbowNear": [
+      810,
+      274
+    ],
+    "wristNear": [
+      902,
+      252
+    ],
+    "handTipNear": [
+      934,
+      240
+    ],
+    "neckBase": [
+      722,
+      234
+    ],
+    "waist": [
+      704,
+      378
+    ]
+  }
+}

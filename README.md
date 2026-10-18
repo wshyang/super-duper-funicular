@@ -17,7 +17,19 @@
 - `src/discipline/` — mechanical GREENFIELD gate (`npm test`).
 - `src/calibration/` — (Sprint 1) per-persona/per-pose landmark & material-ownership datasets.
 - `src/render/` — pure-TS orthographic skinned software renderer (Route B PoC, evidence in `docs/evidence/poc-software-render/`).
-- `src/pipeline/`, `src/runner/`, `src/app/` — (Sprints 1–4) decomposition, rig/render, workbench.
+- `src/pipeline/`, `src/runner/`, `src/app/` — decomposition, rig/render, workbench.
+
+## Persona Pipeline Workbench (live preview)
+
+```bash
+npm run persona:run   # execute Stages 0-7 for a persona (default: photo-sg-chinese-female-masters)
+npm run dev           # workbench at http://localhost:3000 (binds 0.0.0.0:3000)
+```
+
+The workbench is a read-only, manifest-driven review surface (`#surf-workbench`, `ADD-007`): atlas plates with the
+calibration skeleton (v1 vs refined), the 17-part provenance sheet, the 16-frame gait cycle with live gate metrics,
+and the per-stage learnings/defect ledger of the run. Plates and evidence are served straight from `src/images/`
+and `docs/evidence/` via the `/repo-assets/*` dev middleware - nothing is duplicated into `public/`.
 - `docs/evidence/` — committed downscaled audit evidence packs.
 - `/home/user/workdirs/pr1|pr8` — read-only inspection copies of the reference branches (outside the repo; `PROVENANCE.md` inside each).
 

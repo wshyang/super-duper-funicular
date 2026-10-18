@@ -16,7 +16,7 @@
       ],
       "opaquePixels": 3940,
       "opaqueComponents": 1,
-      "renderMs": 19.73,
+      "renderMs": 16.58,
       "frameSha256": "67d65d05c33ac10195b86f7ddba0d6b0ea6315bb751d248361da972650a71f6f"
     },
     {
@@ -27,7 +27,7 @@
       ],
       "opaquePixels": 3763,
       "opaqueComponents": 1,
-      "renderMs": 2.74,
+      "renderMs": 2.27,
       "frameSha256": "0c1b13051c3755c4bb2bb874c4d49d29c946ef92c8091ab9ec330abe4ed03ed3"
     },
     {
@@ -38,7 +38,7 @@
       ],
       "opaquePixels": 3717,
       "opaqueComponents": 1,
-      "renderMs": 3.27,
+      "renderMs": 4.94,
       "frameSha256": "89a73cd9d8a90d2fab54b4d0067f8b866151d75f4be0de40e31ba852973c2a64"
     },
     {
@@ -49,7 +49,7 @@
       ],
       "opaquePixels": 3597,
       "opaqueComponents": 1,
-      "renderMs": 1.98,
+      "renderMs": 6.09,
       "frameSha256": "e6f19e4443ad775ffc0f43ec072a0504e9559744b0b48110ff830dfa33c63ff6"
     },
     {
@@ -60,7 +60,7 @@
       ],
       "opaquePixels": 3400,
       "opaqueComponents": 1,
-      "renderMs": 1.55,
+      "renderMs": 2.38,
       "frameSha256": "2bb8aa2e463bf9e0619524a5321a9198890a989f178078c49c421996c96d9153"
     },
     {
@@ -71,7 +71,7 @@
       ],
       "opaquePixels": 2957,
       "opaqueComponents": 1,
-      "renderMs": 1.26,
+      "renderMs": 0.86,
       "frameSha256": "11ffe9bdfc70ff29adceb2f3e288565d039a85e19631582c7c74c00d6ec81b5c"
     },
     {
@@ -82,7 +82,7 @@
       ],
       "opaquePixels": 3776,
       "opaqueComponents": 1,
-      "renderMs": 1.66,
+      "renderMs": 1.58,
       "frameSha256": "70f37b49e50aa9ad68fa1ea25cfa01afd04465dded7022fc633453133b7c1e75"
     },
     {

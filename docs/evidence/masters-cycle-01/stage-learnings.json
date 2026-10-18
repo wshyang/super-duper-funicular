@@ -1,0 +1,124 @@
+{
+  "runId": "masters-cycle-01",
+  "personaId": "photo-sg-chinese-female-masters",
+  "recordedAt": "2026-10-18",
+  "recordedBy": "arena-agent (self-review while executing the pipeline stage by stage)",
+  "learnings": [
+    {
+      "id": "L-S0-1",
+      "stage": 0,
+      "kind": "failure-mode",
+      "summary": "Master gate clause 'near arm abducted ~15 deg with magenta visible between arm and torso' was NOT honored by the generator (arm rests on torso).",
+      "action": "Accepted plate anyway: Stage 3 nearest-bone-axis ownership resolves internal overlap. Next persona prompt strengthens the gap clause; ownership fallback stays mandatory."
+    },
+    {
+      "id": "L-S1-1",
+      "stage": 1,
+      "kind": "win",
+      "summary": "All three atlas poses accepted on first generation (4/8 image-call budget used vs PR #1's 72 full-body calls).",
+      "action": "None - validates PIPE-REV P-R2 (atlas-first, pose-local prompts)."
+    },
+    {
+      "id": "L-S1-2",
+      "stage": 1,
+      "kind": "failure-mode",
+      "summary": "A3 rendered OPEN FLAT hands despite 'closed loose fists' clause (new register candidate IMG-ERR-17).",
+      "action": "Both hands re-sourced from A1's closed fists; A3 used only for nearUpperArm + far-leg fold. Prompt register updated in PROPOSAL §7."
+    },
+    {
+      "id": "L-S1-3",
+      "stage": 1,
+      "kind": "design-decision",
+      "summary": "A1 support leg sits slightly behind the hip and A2's trailing knee is more bent than prescribed; both tolerated as texture sources.",
+      "action": "None - deviations logged, plates accepted (texture provenance matters more than pose exactness at MVP)."
+    },
+    {
+      "id": "L-S2-1",
+      "stage": 2,
+      "kind": "design-decision",
+      "summary": "Eyeballed v1 landmarks were off 20-40 px on several chains (empty nearHand/farThigh windows). Added Stage 2.5 deterministic refiner (run-based slice centroids + PCA axis refit): frame components dropped 3-4 -> 1-2.",
+      "action": "Refiner v1 shipped; workbench overlay is the correction UI for residual error."
+    },
+    {
+      "id": "L-S2-2",
+      "stage": 2,
+      "kind": "defect",
+      "summary": "Refiner v1 unstable on the master plate: collar/ankle snapped to silhouette contours, foot restLength inflated 16 -> 46 (> shin 29) which broke shoe blitting. Trust-region rejection was tried and also failed (it discards good snaps).",
+      "action": "Master keeps visually-verified v1 landmarks; refiner applies to atlas poses only. Follow-up #feat-calib-select: outcome-based bone selection (keep whichever of v1/refined extracts better) + run-selection rewrite, Sprint 1."
+    },
+    {
+      "id": "L-S3-1",
+      "stage": 3,
+      "kind": "design-decision",
+      "summary": "Half-width derived from bone length mismatched pivot caps (pelvis too narrow, limbs too wide). Now measured from the owned pixels' transverse spread per part.",
+      "action": "None - kept ratios rose across the board (pelvis 0.07 -> 0.32)."
+    },
+    {
+      "id": "L-S3-2",
+      "stage": 3,
+      "kind": "failure-mode",
+      "summary": "Hands/feet without compete axes against pelvis/thigh absorbed garment pixels (black capri blob at the rear fist).",
+      "action": "Added compete axes [waist,hip],[hip,knee] for hands and [knee,ankle] for feet; residual edge texels remain as DEF-M-01."
+    },
+    {
+      "id": "L-S4-1",
+      "stage": 4,
+      "kind": "design-decision",
+      "summary": "Global master-mean relight target is dragged down by the dark capri tights, pinning every skin part at the 0.85 clamp.",
+      "action": "Relight target changed to the matching master region's mean luma per part. Per-material histogram matching deferred to Sprint 2."
+    },
+    {
+      "id": "L-S5-1",
+      "stage": 5,
+      "kind": "defect",
+      "summary": "No vertical registration in the first rig pass: figure floated 32-44 px above the ground line on every frame.",
+      "action": "MVP shiftToGround per frame (lower sole on ground line). Ballistic flight phase deferred to Stage 6 polish."
+    },
+    {
+      "id": "L-S5-2",
+      "stage": 5,
+      "kind": "defect",
+      "summary": "Rendered cycle quality is below PR #1's hand-tuned sprites: empty nearHand, crumpled/detached shoes on swing frames (components 2-3 on 9/16), coarse head-neck seam, shoulder pivot at mid-chest. The architecture executed end-to-end; calibration + ownership refinement is the identified remaining work.",
+      "action": "Defects DEF-M-01..05 filed below; adoption decision deferred to the PROPOSAL §11.6 A/B gate (Route B vertical slice vs PR #1 sprites, same rubric)."
+    },
+    {
+      "id": "L-S7-1",
+      "stage": 7,
+      "kind": "win",
+      "summary": "Evidence pack filed with the run (contact sheet, per-frame audit, SHA256SUMS, calibration overlays) and surfaced read-only in the workbench.",
+      "action": "None - this is the review surface future personas reuse."
+    }
+  ],
+  "defects": [
+    {
+      "id": "DEF-M-01",
+      "summary": "Rear-fist part retains dark shorts edge texels despite compete axes.",
+      "severity": "cosmetic",
+      "followUp": "#feat-calib-select + hand mask cleanup (Sprint 1)"
+    },
+    {
+      "id": "DEF-M-02",
+      "summary": "nearHand part extracts empty (ownership/landmark failure at A1 front fist) - near arm renders handless.",
+      "severity": "structural",
+      "followUp": "calibration correction via workbench overlay; outcome-based bone selection"
+    },
+    {
+      "id": "DEF-M-03",
+      "summary": "Shoes crumple or detach on swing frames (opaqueComponents 2-3 on 9/16 frames).",
+      "severity": "structural",
+      "followUp": "foot canonical orientation + wider ankle pivot cap, Stage 6 polish"
+    },
+    {
+      "id": "DEF-M-04",
+      "summary": "Head/neck seam visible on some frames.",
+      "severity": "cosmetic",
+      "followUp": "neck part width + skullBase registration tweak"
+    },
+    {
+      "id": "DEF-M-05",
+      "summary": "Shoulder pivot sits at mid-chest (collar + 6 px offset), arm swing arc too low.",
+      "severity": "cosmetic",
+      "followUp": "per-persona shoulder offset calibration in Stage 2"
+    }
+  ]
+}
