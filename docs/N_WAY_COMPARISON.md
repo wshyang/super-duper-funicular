@@ -53,7 +53,7 @@ described in §6. After publishing, re-run the command and the row updates itsel
 | Stride Lab                  | `b227e2fe562be341f15f58955f539d325170729e` | `CLAUDE.md`, `docs/{SPEC,FDS,ADDENDA,VALIDATION,MOTION-*,PHOTOGRAPHIC-RIG}.md`, `package.json`, `playwright.config.ts`, `.claude/skills/**`                              | **read**                                     |
 | Funicular                   | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | `CLAUDE.md`, `CLAUDE-*.md`, `docs/{FDS,ADDENDA,THREE-WAY-COMPARISON,BRANCH-COMPARISON,BRANCH-TIPS,BRANCH-HISTORY,RIG-QUALITY-PLAN}.json/md`, `tools/compare-branches.ts` | **read**                                     |
 | Procedural Runner           | `bab689cdac3ba730138bfae09dda537978d61e09` | `CLAUDE.md`, `CLAUDE-*.md`, `docs/{ADDENDA,greenfield/README}.md`                                                                                                        | **read**                                     |
-| Funicular Motion Lab (ours) | `213608b86a71e4c86fd9c9a1b0dd6d2c1b9f9f8f` | whole tree — `src/**`, `tests/**`, `docs/**`, `CLAUDE*.md`, container and SHIP-HATS files                                                                                | **executed + viewed**                        |
+| Funicular Motion Lab (ours) | `213608b86a7100abe7dfcdc7dfeb19e54f004601` | whole tree — `src/**`, `tests/**`, `docs/**`, `CLAUDE*.md`, container and SHIP-HATS files                                                                                | **executed + viewed**                        |
 
 Legend for the matrix: **Yes** = implemented in the reviewed source, with acceptance evidence
 available; **Partial** = narrower scope, prototype, or unproven acceptance; **Gap** = not found in
