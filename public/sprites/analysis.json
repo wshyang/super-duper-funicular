@@ -1,0 +1,1170 @@
+{
+  "sourceSha256": "f99114235d61781f76a6b32c637edac16f13af6592a2866fe0e0528504727030",
+  "frameCount": 48,
+  "paletteCount": 6,
+  "nearDuplicateThreshold": 0.78,
+  "exactDuplicateCount": 0,
+  "magentaSpillPixels": 0,
+  "frames": [
+    {
+      "id": "runner-red-01",
+      "palette": "red",
+      "column": 0,
+      "silhouettePixels": 14797,
+      "bounds": [
+        59,
+        21,
+        235,
+        251
+      ],
+      "centroid": {
+        "x": 156.47,
+        "y": 129.75
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-red-02",
+      "palette": "red",
+      "column": 1,
+      "silhouettePixels": 14082,
+      "bounds": [
+        67,
+        38,
+        223,
+        251
+      ],
+      "centroid": {
+        "x": 159.52,
+        "y": 147.91
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 93.5
+    },
+    {
+      "id": "runner-red-03",
+      "palette": "red",
+      "column": 2,
+      "silhouettePixels": 14898,
+      "bounds": [
+        50,
+        32,
+        251,
+        242
+      ],
+      "centroid": {
+        "x": 169.94,
+        "y": 135.08
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 161
+    },
+    {
+      "id": "runner-red-04",
+      "palette": "red",
+      "column": 3,
+      "silhouettePixels": 14127,
+      "bounds": [
+        70,
+        13,
+        248,
+        225
+      ],
+      "centroid": {
+        "x": 164.43,
+        "y": 117.22
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 77
+    },
+    {
+      "id": "runner-red-05",
+      "palette": "red",
+      "column": 4,
+      "silhouettePixels": 14764,
+      "bounds": [
+        61,
+        21,
+        237,
+        251
+      ],
+      "centroid": {
+        "x": 158.88,
+        "y": 129.72
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-red-06",
+      "palette": "red",
+      "column": 5,
+      "silhouettePixels": 14129,
+      "bounds": [
+        75,
+        38,
+        230,
+        251
+      ],
+      "centroid": {
+        "x": 167.06,
+        "y": 147.45
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 92.5
+    },
+    {
+      "id": "runner-red-07",
+      "palette": "red",
+      "column": 6,
+      "silhouettePixels": 15258,
+      "bounds": [
+        48,
+        26,
+        258,
+        239
+      ],
+      "centroid": {
+        "x": 174.87,
+        "y": 130.63
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 172
+    },
+    {
+      "id": "runner-red-08",
+      "palette": "red",
+      "column": 7,
+      "silhouettePixels": 14090,
+      "bounds": [
+        76,
+        15,
+        253,
+        226
+      ],
+      "centroid": {
+        "x": 169.89,
+        "y": 118.92
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 77
+    },
+    {
+      "id": "runner-blue-01",
+      "palette": "blue",
+      "column": 0,
+      "silhouettePixels": 14658,
+      "bounds": [
+        59,
+        26,
+        234,
+        255
+      ],
+      "centroid": {
+        "x": 156.29,
+        "y": 134.05
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-blue-02",
+      "palette": "blue",
+      "column": 1,
+      "silhouettePixels": 14104,
+      "bounds": [
+        67,
+        42,
+        223,
+        254
+      ],
+      "centroid": {
+        "x": 159.35,
+        "y": 151.5
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 93.5
+    },
+    {
+      "id": "runner-blue-03",
+      "palette": "blue",
+      "column": 2,
+      "silhouettePixels": 14811,
+      "bounds": [
+        51,
+        35,
+        251,
+        243
+      ],
+      "centroid": {
+        "x": 169.48,
+        "y": 138.54
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 133.5
+    },
+    {
+      "id": "runner-blue-04",
+      "palette": "blue",
+      "column": 3,
+      "silhouettePixels": 14051,
+      "bounds": [
+        70,
+        18,
+        247,
+        229
+      ],
+      "centroid": {
+        "x": 164.41,
+        "y": 121.86
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 76.5
+    },
+    {
+      "id": "runner-blue-05",
+      "palette": "blue",
+      "column": 4,
+      "silhouettePixels": 14724,
+      "bounds": [
+        61,
+        25,
+        236,
+        254
+      ],
+      "centroid": {
+        "x": 158.67,
+        "y": 133.59
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-blue-06",
+      "palette": "blue",
+      "column": 5,
+      "silhouettePixels": 14121,
+      "bounds": [
+        75,
+        42,
+        231,
+        254
+      ],
+      "centroid": {
+        "x": 167.09,
+        "y": 151.17
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 93
+    },
+    {
+      "id": "runner-blue-07",
+      "palette": "blue",
+      "column": 6,
+      "silhouettePixels": 15229,
+      "bounds": [
+        48,
+        30,
+        258,
+        243
+      ],
+      "centroid": {
+        "x": 174.83,
+        "y": 134.76
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 171.5
+    },
+    {
+      "id": "runner-blue-08",
+      "palette": "blue",
+      "column": 7,
+      "silhouettePixels": 13961,
+      "bounds": [
+        76,
+        21,
+        252,
+        231
+      ],
+      "centroid": {
+        "x": 169.87,
+        "y": 124.05
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 76.5
+    },
+    {
+      "id": "runner-green-01",
+      "palette": "green",
+      "column": 0,
+      "silhouettePixels": 14704,
+      "bounds": [
+        58,
+        28,
+        233,
+        257
+      ],
+      "centroid": {
+        "x": 155.97,
+        "y": 136.16
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-green-02",
+      "palette": "green",
+      "column": 1,
+      "silhouettePixels": 14031,
+      "bounds": [
+        66,
+        44,
+        223,
+        256
+      ],
+      "centroid": {
+        "x": 159.07,
+        "y": 153.41
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 94.5
+    },
+    {
+      "id": "runner-green-03",
+      "palette": "green",
+      "column": 2,
+      "silhouettePixels": 14741,
+      "bounds": [
+        51,
+        38,
+        250,
+        245
+      ],
+      "centroid": {
+        "x": 169.59,
+        "y": 141.07
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 132
+    },
+    {
+      "id": "runner-green-04",
+      "palette": "green",
+      "column": 3,
+      "silhouettePixels": 13901,
+      "bounds": [
+        70,
+        23,
+        247,
+        232
+      ],
+      "centroid": {
+        "x": 164.48,
+        "y": 124.62
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 76
+    },
+    {
+      "id": "runner-green-05",
+      "palette": "green",
+      "column": 4,
+      "silhouettePixels": 14669,
+      "bounds": [
+        61,
+        28,
+        236,
+        257
+      ],
+      "centroid": {
+        "x": 158.93,
+        "y": 135.86
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-green-06",
+      "palette": "green",
+      "column": 5,
+      "silhouettePixels": 14099,
+      "bounds": [
+        74,
+        43,
+        231,
+        256
+      ],
+      "centroid": {
+        "x": 166.96,
+        "y": 152.78
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 95
+    },
+    {
+      "id": "runner-green-07",
+      "palette": "green",
+      "column": 6,
+      "silhouettePixels": 15165,
+      "bounds": [
+        48,
+        33,
+        257,
+        246
+      ],
+      "centroid": {
+        "x": 174.95,
+        "y": 137.67
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 171
+    },
+    {
+      "id": "runner-green-08",
+      "palette": "green",
+      "column": 7,
+      "silhouettePixels": 13953,
+      "bounds": [
+        77,
+        24,
+        253,
+        234
+      ],
+      "centroid": {
+        "x": 170.2,
+        "y": 126.73
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 76
+    },
+    {
+      "id": "runner-yellow-01",
+      "palette": "yellow",
+      "column": 0,
+      "silhouettePixels": 14605,
+      "bounds": [
+        60,
+        28,
+        233,
+        257
+      ],
+      "centroid": {
+        "x": 155.54,
+        "y": 136.07
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-yellow-02",
+      "palette": "yellow",
+      "column": 1,
+      "silhouettePixels": 14109,
+      "bounds": [
+        66,
+        44,
+        224,
+        256
+      ],
+      "centroid": {
+        "x": 158.72,
+        "y": 153.16
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 95.5
+    },
+    {
+      "id": "runner-yellow-03",
+      "palette": "yellow",
+      "column": 2,
+      "silhouettePixels": 14708,
+      "bounds": [
+        51,
+        36,
+        249,
+        244
+      ],
+      "centroid": {
+        "x": 169.64,
+        "y": 139.16
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 131.5
+    },
+    {
+      "id": "runner-yellow-04",
+      "palette": "yellow",
+      "column": 3,
+      "silhouettePixels": 13790,
+      "bounds": [
+        70,
+        24,
+        247,
+        231
+      ],
+      "centroid": {
+        "x": 164.12,
+        "y": 124.76
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 75.5
+    },
+    {
+      "id": "runner-yellow-05",
+      "palette": "yellow",
+      "column": 4,
+      "silhouettePixels": 14612,
+      "bounds": [
+        63,
+        28,
+        236,
+        257
+      ],
+      "centroid": {
+        "x": 158.89,
+        "y": 135.72
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-yellow-06",
+      "palette": "yellow",
+      "column": 5,
+      "silhouettePixels": 14186,
+      "bounds": [
+        74,
+        43,
+        231,
+        256
+      ],
+      "centroid": {
+        "x": 166.74,
+        "y": 152.58
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 95.5
+    },
+    {
+      "id": "runner-yellow-07",
+      "palette": "yellow",
+      "column": 6,
+      "silhouettePixels": 15147,
+      "bounds": [
+        50,
+        33,
+        257,
+        246
+      ],
+      "centroid": {
+        "x": 175.47,
+        "y": 137.25
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 170
+    },
+    {
+      "id": "runner-yellow-08",
+      "palette": "yellow",
+      "column": 7,
+      "silhouettePixels": 13824,
+      "bounds": [
+        77,
+        26,
+        253,
+        234
+      ],
+      "centroid": {
+        "x": 170.22,
+        "y": 127.24
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 76.5
+    },
+    {
+      "id": "runner-purple-01",
+      "palette": "purple",
+      "column": 0,
+      "silhouettePixels": 14579,
+      "bounds": [
+        58,
+        26,
+        232,
+        255
+      ],
+      "centroid": {
+        "x": 154.66,
+        "y": 133.36
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-purple-02",
+      "palette": "purple",
+      "column": 1,
+      "silhouettePixels": 14138,
+      "bounds": [
+        66,
+        41,
+        223,
+        253
+      ],
+      "centroid": {
+        "x": 158.9,
+        "y": 150.21
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 95
+    },
+    {
+      "id": "runner-purple-03",
+      "palette": "purple",
+      "column": 2,
+      "silhouettePixels": 14802,
+      "bounds": [
+        52,
+        34,
+        249,
+        242
+      ],
+      "centroid": {
+        "x": 169.69,
+        "y": 136.65
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 131
+    },
+    {
+      "id": "runner-purple-04",
+      "palette": "purple",
+      "column": 3,
+      "silhouettePixels": 13826,
+      "bounds": [
+        70,
+        24,
+        247,
+        230
+      ],
+      "centroid": {
+        "x": 163.54,
+        "y": 123.66
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 74
+    },
+    {
+      "id": "runner-purple-05",
+      "palette": "purple",
+      "column": 4,
+      "silhouettePixels": 14475,
+      "bounds": [
+        62,
+        26,
+        236,
+        255
+      ],
+      "centroid": {
+        "x": 158.73,
+        "y": 133.4
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-purple-06",
+      "palette": "purple",
+      "column": 5,
+      "silhouettePixels": 14319,
+      "bounds": [
+        74,
+        39,
+        231,
+        253
+      ],
+      "centroid": {
+        "x": 166.53,
+        "y": 149.51
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 95.5
+    },
+    {
+      "id": "runner-purple-07",
+      "palette": "purple",
+      "column": 6,
+      "silhouettePixels": 15107,
+      "bounds": [
+        50,
+        31,
+        256,
+        244
+      ],
+      "centroid": {
+        "x": 175.13,
+        "y": 135.29
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 168
+    },
+    {
+      "id": "runner-purple-08",
+      "palette": "purple",
+      "column": 7,
+      "silhouettePixels": 13941,
+      "bounds": [
+        78,
+        25,
+        253,
+        232
+      ],
+      "centroid": {
+        "x": 169.88,
+        "y": 125.97
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 73.5
+    },
+    {
+      "id": "runner-orange-01",
+      "palette": "orange",
+      "column": 0,
+      "silhouettePixels": 14631,
+      "bounds": [
+        58,
+        22,
+        233,
+        251
+      ],
+      "centroid": {
+        "x": 154.96,
+        "y": 129.69
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-orange-02",
+      "palette": "orange",
+      "column": 1,
+      "silhouettePixels": 14225,
+      "bounds": [
+        66,
+        36,
+        225,
+        249
+      ],
+      "centroid": {
+        "x": 158.9,
+        "y": 145.9
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 96.5
+    },
+    {
+      "id": "runner-orange-03",
+      "palette": "orange",
+      "column": 2,
+      "silhouettePixels": 14859,
+      "bounds": [
+        52,
+        30,
+        249,
+        239
+      ],
+      "centroid": {
+        "x": 169.48,
+        "y": 132.5
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 131.5
+    },
+    {
+      "id": "runner-orange-04",
+      "palette": "orange",
+      "column": 3,
+      "silhouettePixels": 13730,
+      "bounds": [
+        70,
+        22,
+        247,
+        227
+      ],
+      "centroid": {
+        "x": 163.29,
+        "y": 120.64
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 76
+    },
+    {
+      "id": "runner-orange-05",
+      "palette": "orange",
+      "column": 4,
+      "silhouettePixels": 14655,
+      "bounds": [
+        62,
+        22,
+        237,
+        251
+      ],
+      "centroid": {
+        "x": 158.65,
+        "y": 129.67
+      },
+      "lowerBandClusterCount": 1,
+      "lowerBandSeparationPx": 0
+    },
+    {
+      "id": "runner-orange-06",
+      "palette": "orange",
+      "column": 5,
+      "silhouettePixels": 14316,
+      "bounds": [
+        73,
+        36,
+        232,
+        249
+      ],
+      "centroid": {
+        "x": 166.07,
+        "y": 145.55
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 97
+    },
+    {
+      "id": "runner-orange-07",
+      "palette": "orange",
+      "column": 6,
+      "silhouettePixels": 15093,
+      "bounds": [
+        50,
+        28,
+        256,
+        240
+      ],
+      "centroid": {
+        "x": 175,
+        "y": 131.98
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 168
+    },
+    {
+      "id": "runner-orange-08",
+      "palette": "orange",
+      "column": 7,
+      "silhouettePixels": 13938,
+      "bounds": [
+        77,
+        23,
+        253,
+        228
+      ],
+      "centroid": {
+        "x": 169.6,
+        "y": 123.1
+      },
+      "lowerBandClusterCount": 2,
+      "lowerBandSeparationPx": 75
+    }
+  ],
+  "rows": [
+    {
+      "palette": "red",
+      "frameHeightRangePx": 20,
+      "baselineRangePx": 26,
+      "nearDuplicatePairs": [
+        {
+          "first": "runner-red-01",
+          "second": "runner-red-05",
+          "centroidAlignedIoU": 0.9633
+        },
+        {
+          "first": "runner-red-02",
+          "second": "runner-red-06",
+          "centroidAlignedIoU": 0.9713
+        },
+        {
+          "first": "runner-red-03",
+          "second": "runner-red-07",
+          "centroidAlignedIoU": 0.8858
+        },
+        {
+          "first": "runner-red-04",
+          "second": "runner-red-08",
+          "centroidAlignedIoU": 0.9507
+        }
+      ],
+      "quarterCyclePairs": [
+        {
+          "first": "runner-red-01",
+          "second": "runner-red-05",
+          "centroidAlignedIoU": 0.9633
+        },
+        {
+          "first": "runner-red-02",
+          "second": "runner-red-06",
+          "centroidAlignedIoU": 0.9713
+        },
+        {
+          "first": "runner-red-03",
+          "second": "runner-red-07",
+          "centroidAlignedIoU": 0.8858
+        },
+        {
+          "first": "runner-red-04",
+          "second": "runner-red-08",
+          "centroidAlignedIoU": 0.9507
+        }
+      ]
+    },
+    {
+      "palette": "blue",
+      "frameHeightRangePx": 21,
+      "baselineRangePx": 26,
+      "nearDuplicatePairs": [
+        {
+          "first": "runner-blue-01",
+          "second": "runner-blue-05",
+          "centroidAlignedIoU": 0.9606
+        },
+        {
+          "first": "runner-blue-02",
+          "second": "runner-blue-06",
+          "centroidAlignedIoU": 0.9718
+        },
+        {
+          "first": "runner-blue-03",
+          "second": "runner-blue-07",
+          "centroidAlignedIoU": 0.8719
+        },
+        {
+          "first": "runner-blue-04",
+          "second": "runner-blue-08",
+          "centroidAlignedIoU": 0.9545
+        }
+      ],
+      "quarterCyclePairs": [
+        {
+          "first": "runner-blue-01",
+          "second": "runner-blue-05",
+          "centroidAlignedIoU": 0.9606
+        },
+        {
+          "first": "runner-blue-02",
+          "second": "runner-blue-06",
+          "centroidAlignedIoU": 0.9718
+        },
+        {
+          "first": "runner-blue-03",
+          "second": "runner-blue-07",
+          "centroidAlignedIoU": 0.8719
+        },
+        {
+          "first": "runner-blue-04",
+          "second": "runner-blue-08",
+          "centroidAlignedIoU": 0.9545
+        }
+      ]
+    },
+    {
+      "palette": "green",
+      "frameHeightRangePx": 22,
+      "baselineRangePx": 25,
+      "nearDuplicatePairs": [
+        {
+          "first": "runner-green-01",
+          "second": "runner-green-05",
+          "centroidAlignedIoU": 0.9709
+        },
+        {
+          "first": "runner-green-02",
+          "second": "runner-green-06",
+          "centroidAlignedIoU": 0.9618
+        },
+        {
+          "first": "runner-green-03",
+          "second": "runner-green-07",
+          "centroidAlignedIoU": 0.8466
+        },
+        {
+          "first": "runner-green-04",
+          "second": "runner-green-08",
+          "centroidAlignedIoU": 0.956
+        }
+      ],
+      "quarterCyclePairs": [
+        {
+          "first": "runner-green-01",
+          "second": "runner-green-05",
+          "centroidAlignedIoU": 0.9709
+        },
+        {
+          "first": "runner-green-02",
+          "second": "runner-green-06",
+          "centroidAlignedIoU": 0.9618
+        },
+        {
+          "first": "runner-green-03",
+          "second": "runner-green-07",
+          "centroidAlignedIoU": 0.8466
+        },
+        {
+          "first": "runner-green-04",
+          "second": "runner-green-08",
+          "centroidAlignedIoU": 0.956
+        }
+      ]
+    },
+    {
+      "palette": "yellow",
+      "frameHeightRangePx": 22,
+      "baselineRangePx": 26,
+      "nearDuplicatePairs": [
+        {
+          "first": "runner-yellow-01",
+          "second": "runner-yellow-05",
+          "centroidAlignedIoU": 0.964
+        },
+        {
+          "first": "runner-yellow-02",
+          "second": "runner-yellow-06",
+          "centroidAlignedIoU": 0.9584
+        },
+        {
+          "first": "runner-yellow-03",
+          "second": "runner-yellow-07",
+          "centroidAlignedIoU": 0.8644
+        },
+        {
+          "first": "runner-yellow-04",
+          "second": "runner-yellow-08",
+          "centroidAlignedIoU": 0.94
+        }
+      ],
+      "quarterCyclePairs": [
+        {
+          "first": "runner-yellow-01",
+          "second": "runner-yellow-05",
+          "centroidAlignedIoU": 0.964
+        },
+        {
+          "first": "runner-yellow-02",
+          "second": "runner-yellow-06",
+          "centroidAlignedIoU": 0.9584
+        },
+        {
+          "first": "runner-yellow-03",
+          "second": "runner-yellow-07",
+          "centroidAlignedIoU": 0.8644
+        },
+        {
+          "first": "runner-yellow-04",
+          "second": "runner-yellow-08",
+          "centroidAlignedIoU": 0.94
+        }
+      ]
+    },
+    {
+      "palette": "purple",
+      "frameHeightRangePx": 23,
+      "baselineRangePx": 25,
+      "nearDuplicatePairs": [
+        {
+          "first": "runner-purple-01",
+          "second": "runner-purple-05",
+          "centroidAlignedIoU": 0.9739
+        },
+        {
+          "first": "runner-purple-02",
+          "second": "runner-purple-06",
+          "centroidAlignedIoU": 0.9558
+        },
+        {
+          "first": "runner-purple-03",
+          "second": "runner-purple-07",
+          "centroidAlignedIoU": 0.8539
+        },
+        {
+          "first": "runner-purple-04",
+          "second": "runner-purple-08",
+          "centroidAlignedIoU": 0.9233
+        }
+      ],
+      "quarterCyclePairs": [
+        {
+          "first": "runner-purple-01",
+          "second": "runner-purple-05",
+          "centroidAlignedIoU": 0.9739
+        },
+        {
+          "first": "runner-purple-02",
+          "second": "runner-purple-06",
+          "centroidAlignedIoU": 0.9558
+        },
+        {
+          "first": "runner-purple-03",
+          "second": "runner-purple-07",
+          "centroidAlignedIoU": 0.8539
+        },
+        {
+          "first": "runner-purple-04",
+          "second": "runner-purple-08",
+          "centroidAlignedIoU": 0.9233
+        }
+      ]
+    },
+    {
+      "palette": "orange",
+      "frameHeightRangePx": 24,
+      "baselineRangePx": 24,
+      "nearDuplicatePairs": [
+        {
+          "first": "runner-orange-01",
+          "second": "runner-orange-05",
+          "centroidAlignedIoU": 0.9709
+        },
+        {
+          "first": "runner-orange-02",
+          "second": "runner-orange-06",
+          "centroidAlignedIoU": 0.957
+        },
+        {
+          "first": "runner-orange-03",
+          "second": "runner-orange-07",
+          "centroidAlignedIoU": 0.8872
+        },
+        {
+          "first": "runner-orange-04",
+          "second": "runner-orange-08",
+          "centroidAlignedIoU": 0.9255
+        }
+      ],
+      "quarterCyclePairs": [
+        {
+          "first": "runner-orange-01",
+          "second": "runner-orange-05",
+          "centroidAlignedIoU": 0.9709
+        },
+        {
+          "first": "runner-orange-02",
+          "second": "runner-orange-06",
+          "centroidAlignedIoU": 0.957
+        },
+        {
+          "first": "runner-orange-03",
+          "second": "runner-orange-07",
+          "centroidAlignedIoU": 0.8872
+        },
+        {
+          "first": "runner-orange-04",
+          "second": "runner-orange-08",
+          "centroidAlignedIoU": 0.9255
+        }
+      ]
+    }
+  ]
+}
