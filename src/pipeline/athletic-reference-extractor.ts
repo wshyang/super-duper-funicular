@@ -14,6 +14,27 @@ interface SimilarityExtractSpec {
   readonly shadeScale: number;
 }
 
+export function raiseAthleticBustLandmark(src: RasterImage): RasterImage {
+  const out = createRaster(src.width, src.height);
+  const topY = 24;
+  const oldBustY = 67;
+  const raisedBustY = 57;
+  const bottomY = 122;
+  for (let y = 0; y < src.height; y++) {
+    for (let x = 0; x < src.width; x++) {
+      let sourceY = y;
+      if (y >= topY && y <= raisedBustY) {
+        sourceY = topY + ((y - topY) * (oldBustY - topY)) / (raisedBustY - topY);
+      } else if (y > raisedBustY && y <= bottomY) {
+        sourceY = oldBustY + ((y - raisedBustY) * (bottomY - oldBustY)) / (bottomY - raisedBustY);
+      }
+      const p = sampleBilinearRgba(src, x, sourceY);
+      if (p.a > 0) writePixel(out, { x, y }, p);
+    }
+  }
+  return out;
+}
+
 export function extractAthleticNeck(src: RasterImage): RasterImage {
   const neckSource = createRaster(src.width, src.height);
   for (let y = 350; y <= 420; y++) {

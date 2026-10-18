@@ -27,10 +27,19 @@ import {
   cutHorizontalLimbWithRoundedEnds,
 } from './rounded-joint-cutter.js';
 import { extractArmSegmentsFromMasterSideProfile } from './side-profile-arm-extractor.js';
+import { raiseAthleticBustLandmark } from './athletic-reference-extractor.js';
 import { vectorizeRasterCutoutToSvg } from './svg-vectorizer.js';
 import type { ExtractedSheetManifest, SpriteFlawAnalysisReport } from '../shared/types.js';
 
 describe('Magenta chroma-key and raster primitives', () => {
+  it('raises the athletic torso bust landmark while preserving the waist anchor', () => {
+    const torso = createRaster(160, 160);
+    writePixel(torso, { x: 80, y: 67 }, { r: 220, g: 40, b: 50, a: 255 });
+    writePixel(torso, { x: 80, y: 122 }, { r: 30, g: 40, b: 220, a: 255 });
+    const corrected = raiseAthleticBustLandmark(torso);
+    expect(readPixel(corrected, 80, 57)).toEqual({ r: 220, g: 40, b: 50, a: 255 });
+    expect(readPixel(corrected, 80, 122)).toEqual({ r: 30, g: 40, b: 220, a: 255 });
+  });
   it('identifies pure #FF00FF dividers and pink cell backdrops while preserving purple jersey pixels', () => {
     expect(isPureMagentaDivider({ r: 253, g: 0, b: 252, a: 255 })).toBe(true);
     expect(isPureMagentaDivider({ r: 253, g: 74, b: 253, a: 255 })).toBe(false);

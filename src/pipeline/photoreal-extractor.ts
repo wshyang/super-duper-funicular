@@ -19,7 +19,7 @@ import {
   purgeSkinPartFabricSpill,
 } from './photoreal-matte-and-qc.js';
 import { createRaster, readPixel, writePixel } from './raster.js';
-import { extractAthleticFarArmParts, extractAthleticNeck } from './athletic-reference-extractor.js';
+import { extractAthleticFarArmParts, extractAthleticNeck, raiseAthleticBustLandmark } from './athletic-reference-extractor.js';
 import {
   applyPivotArcRoundedCut,
   cutArticulatedLimbWithRoundedEnds,
@@ -346,18 +346,19 @@ function extractTorsoCutout(
     tier === 'athletic'
       ? src
       : cleanAverageTorsoNeckStub(src);
-  const raw = extractSimilarityAlignedPart(cleaned, {
+  const aligned = extractSimilarityAlignedPart(cleaned, {
     srcStart: isAvg ? { x: 682, y: 182 } : isPetite ? { x: 668, y: 145 } : { x: 663, y: 165 },
-    srcEnd: isAvg ? { x: 712, y: 585 } : isPetite ? { x: 704, y: 615 } : { x: 706, y: 605 },
+    srcEnd: isAvg ? { x: 712, y: 585 } : isPetite ? { x: 704, y: 615 } : { x: 706, y: 735 },
     dstStart: isAvg ? { x: 74, y: 22 } : { x: 74, y: 24 },
     dstEnd: isAvg ? { x: 80, y: 124 } : isPetite ? { x: 80, y: 118 } : { x: 80, y: 122 },
     cropBox: isAvg
       ? { minX: 525, minY: 138, maxX: 880, maxY: 665 }
       : isPetite
         ? { minX: 550, minY: 128, maxX: 855, maxY: 622 }
-        : { minX: 534, minY: 142, maxX: 874, maxY: 612 },
+        : { minX: 534, minY: 142, maxX: 874, maxY: 760 },
     shadeScale: 1.0,
   });
+  const raw = tier === 'athletic' ? raiseAthleticBustLandmark(aligned) : aligned;
   return applyPivotArcRoundedCut(raw, {
     pivot: { x: 80, y: isAvg ? 114 : isPetite ? 105 : 108 },
     radiusX: isAvg ? 46 : isPetite ? 26 : 31,
@@ -795,5 +796,4 @@ export function writePhotorealPartCutouts(
   }
   return paths;
 }
-
 
