@@ -1,0 +1,18 @@
+{
+  "personaId": "photo-sg-chinese-female",
+  "masterSha256": "5fabff33d1e832379d41686961a520a1a1e8e5ca5166043c6b9adf02a3af6d46",
+  "recordRevision": 6,
+  "parts": {
+    "hairAccessory": "7d4434eae07226b8ab248ffd24435879ee66f69e23d0cf6a9dd21be9af9fa45e",
+    "head": "9f484a8f703e8de4af41d35fd664afc7b32b9726669fe5259b389b5902f10dab",
+    "nearFoot": "a197181d7a2c12796bfa12e0607b0e41577492949aec59046a84b17e1021902b",
+    "nearForearm": "28aafc0f01f5b18c97435289cbd07cd589614b1196f5a37e296651ff2ce893b7",
+    "nearHand": "bff180a529b1c6d6c4bb93aab285450f2bffea34ff000430a69b73eb9cd9f32f",
+    "nearShin": "ac4f8e56e55fbcf9a20241c77bb83ab0b63fd4f571dcad4e7747b028d4076737",
+    "nearThigh": "33dda323834b387ef4218f4220f0ced1b2b00517b5a36da490a92a3d69e698eb",
+    "nearUpperArm": "7849edbab08c2c559207da2ccc9ff4cb8c915b0d2c3f12eccd7ba5c4fd233dab",
+    "neck": "6609c6f53fa554990546a8395698578dd03af1c7d6f710de9cb6219193044397",
+    "pelvis": "1566ab88e6b756800c38b13adfbb1626f94aed74b0a01ec92cb52f02b17196e9",
+    "torso": "34fa252ec54bbee5003ea50429fd8b224f2d277a7c57bed06039873ef9dbe026"
+  }
+}

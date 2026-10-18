@@ -19,6 +19,9 @@
 | PR `#8` strict typecheck | `npm run typecheck` in `/home/user/review-pr8` | exit 0 (`tsc --noEmit`) | Locally executed validation gate |
 | This branch discipline gate | `npm test` in `/home/user/super-duper-funicular` | exit 0 — greenfield documentation/code-invariant gate green (`src/discipline/greenfield-gate.test.ts`) | Locally executed validation gate |
 | This branch typecheck | `npm run typecheck` in `/home/user/super-duper-funicular` | exit 0 | Locally executed validation gate |
+| This branch full suite (P1–P2, `ADD-007`) | `npm test` in `/home/user/super-duper-funicular` | exit 0 — **27/27** (part-contract negatives 11, real-asset decomposer 5 incl. PC-12 byte-determinism + golden-manifest equality, calibration schema 5, discipline gate 6) | Locally executed validation gate |
+| Rev-2 bake gate | `npm run decompose` (`tsx scripts/decompose-and-bake.ts photo-sg-chinese-female`) | exit 0 — 11 parts, 0 Part-Contract failures; goldens written to `docs/audit-golden/photo-sg-chinese-female/` | Locally executed validation gate |
+| Post-bake visual examination (`CLAUDE.md` Rule 2) | `read_file` on `docs/audit-golden/photo-sg-chinese-female/contact-sheet.png` (two iterations) | Defects found & rectified via record revisions 1→6 (occluder contamination, cap over-trim, canvas overflow, stripe theft); residual specks/fringe logged as `K-3`/`K-4` | Personally viewed visual output |
 
 ## 2. Provenance Separation (4-Way, `CLAUDE-validation.md §8.1`)
 

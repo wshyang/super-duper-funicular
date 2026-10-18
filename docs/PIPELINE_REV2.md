@@ -1,7 +1,7 @@
 # Pipeline Rev-2 — Revised Photographic Sprite Pipeline for Running Animation (Ideation & Design)
 
 - **Repository / Branch:** `wshyang/super-duper-funicular` · `arena/5ae6f17a-super-duper-funicular`
-- **Status:** `[DESIGN — ideation complete, awaiting user decision gate]` per `FDS_BUILDER.md` D1
+- **Status:** `[DECIDED & PARTIAL IMPLEMENTATION]` — user decision gate resolved 2026-10-18: **Q1=A, Q2=A, Q3=A, Q4=B** (`ADD-007`). P1–P2 implemented on this branch: Part Contract `PC-01..PC-12` (+negative fixtures), `persona-calibration.v1` record (rev 6) for `photo-sg-chinese-female`, single-master deterministic decomposer with occluder-subtraction layers and material-class purges, committed goldens (`docs/audit-golden/photo-sg-chinese-female/`), `npm run decompose` gate green. P3 (medial synthesis) and P4 (sheet baker + FLAW self-tests) remain designed-only. Contract recalibrations and prototype limitations `K-1..K-4` recorded in `ADD-007`.
 - **Inputs:** PR `#1` @ `936f37c` and PR `#8` @ `04d5caf` (inspected in `/home/user/review-pr1`, `/home/user/review-pr8`); their FDS corpora (`docs/FDS.md` §8–§12), `docs/SPRITE_ANIMATION_FLAW_ANALYSIS.md`, `docs/RECTIFICATION_PLAN.md`, `docs/VALIDATION.md`, `.claude/skills/audit-gait-cycle/SKILL.md`; the flawed reference sheet `incorrect running sprites.jpeg` (SHA-256 `f9911423…`).
 - **Related:** `docs/BRANCH_ASSESSMENT.md` (evidence base), `docs/ADDENDA.md` (`ADD-003`), `docs/FDS.md` (`#feat-rev2-*`).
 

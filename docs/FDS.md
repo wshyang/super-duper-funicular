@@ -21,8 +21,8 @@ The flawed reference artifact `incorrect running sprites.jpeg` (SHA-256 `f991142
 | Phase | Scope on this branch | Status |
 |---|---|---|
 | `P0-Docs` | Discipline adoption, branch assessment, Rev-2 design, docs-level mechanical gate | **Complete (this turn)** |
-| `P1-Core` | Part Contract suite, calibration record schema/loader, single-master decomposer prototype | Designed (`docs/PIPELINE_REV2.md` §3–§5), not implemented |
-| `P2-Core` | Medial synthesis transfer model, regression/golden audit, sheet baker with FLAW self-tests | Designed, not implemented |
+| `P1-Core` | Part Contract suite, calibration record schema/loader, single-master decomposer prototype | **Implemented for `photo-sg-chinese-female` (this turn, `ADD-007`)**: `PC-01..PC-12` + negatives, `persona-calibration.v1` rev 6, decomposer + committed goldens |
+| `P2-Core` | Medial synthesis transfer model, regression/golden audit, sheet baker with FLAW self-tests | Golden-manifest regression baseline committed; medial synthesis & sheet baker designed, not implemented |
 
 ## 3. Core Objects (`#obj-*`) {#core-objects}
 
@@ -102,6 +102,13 @@ Per `CLAUDE.md` Rule 2 and `CLAUDE-decisions.md §2`: every `generate_image` cal
 - **Decisions:** `Adopted` — pose Q1 (medial synthesis strategy), Q2 (master pose), Q3 (primary deliverable format), Q4 (implementation scope on this branch) as numbered chat questions with options A/B(/C) and a stated recommendation each. `Deferred` — P1–P4 implementation and any new addendum until the user answers; answers will be recorded as an addendum (`ADD-007`) in the same change that starts implementation.
 - **Executed Validation & Next Actions:** `npm test` (6/6 gate green) and `npm run typecheck` (exit 0) re-executed after appending this entry; committed and pushed to `arena/5ae6f17a-super-duper-funicular`. Next: await user answers, then open `ADD-007` and begin the chosen phase.
 
+### TURN-L03 — 2026-10-18 · Decision gate resolved (Q1A/Q2A/Q3A/Q4B); P1–P2 implemented: Part Contract, calibration record, single-master decomposer, committed goldens
+- **Context & Trigger:** User accepted all four recommendations ("I'll follow your recommendations, proceed"), opening `ADD-007`: implement P1–P2 on this branch.
+- **Evidence & Provenance:** Master filed verbatim from PR `#1` (`/home/user/review-pr1/src/images/photoreal-female/01-master-lateral-profile.png`, SHA-256 `5fabff33…`, zero new generations); landmarks backfilled from a telemetry scan (row spans; stripe rows 226–345; sock 669–739; wristband 370–403; shorts 364–452) plus multimodal `read_file` of the master and of two baked contact sheets (Rule 2 gate). Bring-up failures caught by the gate and fixed: point-sampling blit gaps at scale≠1 (inverse sampling now); bidirectional occluder contamination (occluder-subtraction layers + material-class purges); head cap over-trim (capRadius 70); ponytail canvas overflow (scale 0.95); stripe theft by rectangular arm masks (silhouette masks via material classes); pelvis occluder split (PC-01 stage split); designed vs socket holes (PC-11 designed-overlap rule). Record revisions 1→6 all landed as data-only changes.
+- **Learnings & Comparative Analysis:** (1) Reject-at-the-door works: every defect above surfaced as a failing `PC-*` with measured values before any asset was filed. (2) Single-master agreement is free for lateral parts (lighting/stripe continuity by construction) — the residual cost moved to occlusion handling, which is deterministic and data-driven. (3) Rectangular windows are never silhouettes: material-class separation is what makes occluder masks usable (generalises PR `#3`/`#1` `CROSS-07`). (4) PC thresholds must be stage-aware (plate vs cutout) or they punish designed transparency. (5) Rev-1's end-cap cuff graft remains the production answer for same-garment chains (`K-2`); prototype records the limitation instead of re-implementing it.
+- **Decisions:** `Adopted` — occluder-subtraction layered decomposition; material-class purges; stage-split PC-01/PC-04 and socket-scale PC-11 with designed-overlap exclusion; committed goldens as regression baseline (`#feat-rev2-regression-audit` seed). `Deferred` — P3 medial synthesis (Q1 fallback path), P4 sheet baker with FLAW self-tests, cuff graft (`K-2`), per-part rotation (`K-1`). `Rejected` — none new.
+- **Executed Validation & Next Actions:** `npm test` 27/27 (11 contract negative-fixture tests, 5 real-asset decomposer tests incl. PC-12 byte-determinism + golden-manifest equality, 5 calibration schema tests, 6 discipline gate); `npm run typecheck` exit 0; `npm run decompose` exit 0 (11 parts, 0 contract failures); contact sheet visually examined twice. Next: P3 (medial transfer model) or handoff per user direction; recalibrate record to an A-stance master when generated (Q2).
+
 ## 11. Non-Functional Requirements (`#nfr-*`) {#nfr}
 
 - `#nfr-determinism`: decomposition and baking are pure functions of (master bytes, calibration record, rig spec); identical inputs ⇒ identical part hashes (PC-12).
@@ -114,3 +121,4 @@ Per `CLAUDE.md` Rule 2 and `CLAUDE-decisions.md §2`: every `generate_image` cal
 | Version | Date | Change |
 |---|---|---|
 | `1.0.0` | 2026-10-18 | Initial FDS for this branch: objects/relationships/surfaces/features for Pipeline Rev-2; inherited catalogs by reference; prompt log opened empty; TURN-L01 recorded. |
+| `1.1.0` | 2026-10-18 | P1–P2 implemented (`ADD-007`): Part Contract, calibration record, single-master decomposer, committed goldens; TURN-L02/L03 recorded; PC-01/PC-04/PC-11 stage recalibrations. |

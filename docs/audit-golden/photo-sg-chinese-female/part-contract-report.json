@@ -1,0 +1,1036 @@
+{
+  "nearHand": {
+    "passed": true,
+    "medianL": 118.2,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 1 (sizes 2682,158,1)",
+        "threshold": "exactly 1",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=26px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=118.2",
+        "threshold": "[109, 125]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": false,
+        "passed": false,
+        "measured": "lowestRow=109",
+        "threshold": "record ground convention",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  },
+  "nearForearm": {
+    "passed": true,
+    "medianL": 118.6,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 1 (sizes 2492,15,6)",
+        "threshold": "<=2 (occluder split allowed)",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=24px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=118.6",
+        "threshold": "[104, 120]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": false,
+        "passed": false,
+        "measured": "lowestRow=112",
+        "threshold": "record ground convention",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  },
+  "nearUpperArm": {
+    "passed": true,
+    "medianL": 145.6,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 1 (sizes 2594,1)",
+        "threshold": "<=2 (occluder split allowed)",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=27px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=145.6",
+        "threshold": "[140, 156]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": false,
+        "passed": false,
+        "measured": "lowestRow=131",
+        "threshold": "record ground convention",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  },
+  "nearFoot": {
+    "passed": true,
+    "medianL": 181.1,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 1 (sizes 5029,1,1)",
+        "threshold": "exactly 1",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=9px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=181.1",
+        "threshold": "[173, 189]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": true,
+        "passed": true,
+        "measured": "lowestRow=103",
+        "threshold": "103 +/-1",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  },
+  "nearShin": {
+    "passed": true,
+    "medianL": 99.4,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 1 (sizes 3061)",
+        "threshold": "<=2 (occluder split allowed)",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=27px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=99.4",
+        "threshold": "[91, 107]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": false,
+        "passed": false,
+        "measured": "lowestRow=115",
+        "threshold": "record ground convention",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  },
+  "nearThigh": {
+    "passed": true,
+    "medianL": 86.4,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 1 (sizes 3986,11,8)",
+        "threshold": "<=2 (occluder split allowed)",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=21px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=86.4",
+        "threshold": "[78, 94]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": false,
+        "passed": false,
+        "measured": "lowestRow=125",
+        "threshold": "record ground convention",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  },
+  "head": {
+    "passed": true,
+    "medianL": 59,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 1 (sizes 2876,48)",
+        "threshold": "exactly 1",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=35px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=59.0",
+        "threshold": "[51, 67]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": false,
+        "passed": false,
+        "measured": "lowestRow=124",
+        "threshold": "record ground convention",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  },
+  "torso": {
+    "passed": true,
+    "medianL": 61,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 1 (sizes 1721,238,114)",
+        "threshold": "<=2 (occluder split allowed)",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": true,
+        "passed": true,
+        "measured": "front=4728 back=1180",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=33px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=61.0",
+        "threshold": "[52, 68]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": false,
+        "passed": false,
+        "measured": "lowestRow=125",
+        "threshold": "record ground convention",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  },
+  "hairAccessory": {
+    "passed": true,
+    "medianL": 23.1,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 1 (sizes 2955,267,11)",
+        "threshold": "<=2 (occluder split allowed)",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=5px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=23.1",
+        "threshold": "[15, 31]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": false,
+        "passed": false,
+        "measured": "lowestRow=154",
+        "threshold": "record ground convention",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  },
+  "neck": {
+    "passed": true,
+    "medianL": 160.8,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 1 (sizes 2304)",
+        "threshold": "<=2 (occluder split allowed)",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=24px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=160.8",
+        "threshold": "[149, 165]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": false,
+        "passed": false,
+        "measured": "lowestRow=84",
+        "threshold": "record ground convention",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  },
+  "pelvis": {
+    "passed": true,
+    "medianL": 26.2,
+    "checks": [
+      {
+        "pcId": "PC-01",
+        "applicable": true,
+        "passed": true,
+        "measured": "components>=500px: 2 (sizes 5204,1716,13)",
+        "threshold": "<=2 (occluder split allowed)",
+        "note": "single subject (plate) / deterministic occluder split only (cutout, ADD-007)"
+      },
+      {
+        "pcId": "PC-02",
+        "applicable": true,
+        "passed": true,
+        "measured": "spill=0, nonZeroAlphaOutsideBBox=0",
+        "threshold": "spill=0; cutout alpha=0 outside bbox",
+        "note": "backdrop purity / no chroma spill"
+      },
+      {
+        "pcId": "PC-03",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "front > back",
+        "note": "anterior mass on +x per record probe"
+      },
+      {
+        "pcId": "PC-04",
+        "applicable": true,
+        "passed": true,
+        "measured": "inset=12px",
+        "threshold": ">=2px (cutout)",
+        "note": "framing margin, no contour crop"
+      },
+      {
+        "pcId": "PC-05",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a (medial synthesis lands in P3), delta=0.0%",
+        "threshold": "<15% contralateral shaft width delta",
+        "note": "medial vs lateral width parity"
+      },
+      {
+        "pcId": "PC-06",
+        "applicable": true,
+        "passed": true,
+        "measured": "medianL=26.2",
+        "threshold": "[18, 34]",
+        "note": "luminance continuity with master"
+      },
+      {
+        "pcId": "PC-07",
+        "applicable": false,
+        "passed": true,
+        "measured": "n/a",
+        "threshold": "palm/thumb probes on medial L-bend plates",
+        "note": "applies to medial plates only (P3)"
+      },
+      {
+        "pcId": "PC-08",
+        "applicable": true,
+        "passed": true,
+        "measured": "torso:213 pelvis:0 nearThigh:0",
+        "threshold": "stripe owner 'torso'; others < 20 px",
+        "note": "garment stripe singularity"
+      },
+      {
+        "pcId": "PC-09",
+        "applicable": false,
+        "passed": false,
+        "measured": "lowestRow=127",
+        "threshold": "record ground convention",
+        "note": "ground/pivot registration"
+      },
+      {
+        "pcId": "PC-10",
+        "applicable": false,
+        "passed": false,
+        "measured": "n/a",
+        "threshold": "body-plan table +/-10%",
+        "note": "anthropometric ratio class"
+      },
+      {
+        "pcId": "PC-11",
+        "applicable": true,
+        "passed": true,
+        "measured": "socketScaleHoles=0 (sizes none)",
+        "threshold": "0 enclosed holes > 60px",
+        "note": "no mannequin socket topology; small photographic gaps and designed occluder holes tolerated (ADD-007)"
+      }
+    ]
+  }
+}

@@ -20,5 +20,6 @@ Companion to `docs/FDS.md` (canonical). This file is the short contract; on conf
 ## 4. Discipline contracts
 - Addenda in same change (`ADD-NNN`); verbatim image prompt log; per-turn `TURN-L*` learning entry; 4-way provenance in reports; function ≤ 50 LOC / ≤ 3 params / no flag args; files ≤ 800 LOC; `data-testid` on interactive elements; real-asset tests, zero mocks; watched-branch inspection only outside the checkout.
 
-## 5. Surfaces (this branch, P0)
-`npm test` (gate), `docs/*` records. P1+ adds `#surf-calibration-review`, `#surf-decompose-run`, `#surf-part-rejections`, `#surf-sheet-bake`, `#surf-regression-diff` (inherited: `#surf-cycle-dump`).
+## 5. Surfaces (this branch)
+- Implemented (P1–P2, `ADD-007`): `npm test` (contract + decomposer + calibration + discipline gates), `npm run decompose` (`#surf-decompose-run`; writes parts, contact sheet, golden manifest, `part-contract-report.json` = `#surf-part-rejections` seed), committed goldens (`#surf-regression-diff` baseline).
+- Designed, not implemented: `#surf-calibration-review` CLI (record edits are manual JSON + schema gate today), `#surf-sheet-bake`, inherited `#surf-cycle-dump`.

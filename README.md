@@ -18,14 +18,17 @@ Branch `arena/5ae6f17a-super-duper-funicular` is the **design & harmonisation br
 | `src/discipline/greenfield-gate.test.ts` | Mechanical documentation/code-invariant gate (`npm test`) |
 | `review-pr1/`, `review-pr8/` | Gitignored review worktrees of the watched PR heads (`936f37c`, `04d5caf`) — scratch, not deliverables |
 
+## Status & next gate
+
+- **P0** complete: discipline adoption, PR `#1`/`#8` assessment, Rev-2 design.
+- **P1–P2** complete (`ADD-007`, decision gate Q1A/Q2A/Q3A/Q4B): Part Contract `PC-01..PC-12` with negative fixtures, `persona-calibration.v1` record for `photo-sg-chinese-female` (rev 6), single-master deterministic decomposer (occluder-subtraction layers + material-class purges), committed goldens; `npm test` 27/27, `npm run decompose` green, contact sheets visually examined.
+- **Next:** P3 medial synthesis transfer model (Q1 fallback path) and P4 sheet baker with `FLAW-01..04` self-tests, or handoff to PR `#1`/`#8` per user direction; A-stance master regeneration (Q2) when the next persona lands.
+
 ## Commands
 
 ```bash
-npm install     # vitest + typescript only (docs+gate phase)
-npm test        # greenfield discipline gate
+npm install
+npm test                 # 27 tests: contract negatives, real-asset decomposer, calibration schema, discipline gate
 npm run typecheck
+npm run decompose        # master + record -> parts + contact sheet + golden manifest + contract report
 ```
-
-## Status & next gate
-
-P0 (discipline + assessment + Rev-2 design) is complete. Implementation phases P1–P4 (`docs/PIPELINE_REV2.md` §9) await the user decision gate on Q1–Q4 (`docs/PIPELINE_REV2.md` §7).
