@@ -49,7 +49,7 @@ Say **exactly** what ran, and strictly separate **four provenance categories**:
      - Verify clean anatomical surfaces (no recessed plastic mannequin arm-socket holes on `05`, no cropped chin/lips on `04`, no brown skin patches on white socks on `09`/`10`).
   2. **Extracted `160×160` Part Cutout & Skeletal Proportion Inspection (`read_file` on `public/sprites/photoreal/.../parts/*.png` & `contact-sheet-16frame.png`):**
      - Verify that `photoreal-extractor.ts` crop boxes and destination radii (`cutArticulatedLimbWithRoundedEnds`, `applyPivotArcRoundedCut`) preserve each persona's fuller or leaner silhouette without clipping shoulder tops, shorts cuffs, or fingertips.
-     - Verify that skeletal bone lengths (`body-proportions.ts`) never resort to unnatural stubby "T-rex arms" (`armTotal / legTotal` must remain `~0.53–0.57` with the elbow at the natural waist well above the hips).
+     - Verify no unnatural stubby "T-rex arms"; compare each photoreal persona's neutral upright stitched silhouette against its own source master using segment length and width as percentages of total standing height. Preserve the generic rig's ratio unless intentionally changed; photo defaults must be justified by that persona's measured source profile, with visual inspection and tunable length/width values.
   3. **Immediate Refinement / Regeneration Loop:** Any asset or cutout that fails visual inspection must be regenerated (`generate_image` with an updated prompt + logged **Regeneration Justification** in `docs/FDS.md#image-prompt-log`) or refined in `src/pipeline/photoreal-extractor.ts` / `src/pipeline/side-profile-arm-extractor.ts` and re-verified with `read_file` before completion.
 
 ## 10. Reproducible Local Dev & Environment Story

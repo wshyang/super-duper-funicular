@@ -267,16 +267,15 @@ Every architectural, algorithmic, or tooling decision not fixed by a single lite
 - **Related Spec Section:** `docs/FDS.md#image-prompt-log` (`Calls #52`..`#61`), `docs/FDS.md#continuous-learning-log` (`TURN-L16`)
 - **Practical Impact:** Updated `src/images/photoreal-female-petite/{04,08,10}.png`, `src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png`, `src/images/photoreal-female-average/{08,10}.png`, `src/pipeline/photoreal-extractor.ts`, `src/pipeline/side-profile-arm-extractor.ts`, and `src/runner/photoreal-rig.ts`.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+## `ADD-034` — Source-Profile Height Estimates, Normalized Proportion Calibration & Neutral Upright Comparison
+- **What was decided:**
+  1. Maintain clearly labeled fictional-persona height estimates from the established archetypes (`152 cm` petite, `166 cm` athletic, `161 cm` fuller/average). The original prompts do not state exact heights, so never present these estimates as measured subject facts. Record source-master image geometry separately (`692`, `707`, `710` opaque pixels respectively).
+  2. Measure by eye each master-profile's head, neck, torso, pelvis, upper arm, forearm, hand, thigh, shin, shoe, and visible width spans as percentages of full standing height in `src/runner/persona-reference.ts`.
+  3. Add `solveStandingUprightPose` and the in-app **Standing Profile Calibration** panel. It stages the keyed original source profile and the actual assembled 17-part raster on a shared baseline and normalized silhouette height; it displays reference-vs-assembled segment lengths and cross-section spans so mismatches are visible and adjustable.
+  4. Expand `PhotorealAssetTuningSpec` with estimated height and tunable per-persona head, neck, torso, arm, hand, pelvis, thigh, shin, and foot dimensions; initialize lengths from the measured source ratios, preserve width controls, and widen control ranges to include the calibrated values. Keep the generic rig default separate from source-derived photo defaults.
+  5. Correct `usePhotorealAssetTuningState` to directly resolve any `PhotorealPersonaId`, including petite, instead of routing petite to athletic settings.
+  6. Strengthen the mandatory FDS every-turn completion discipline and add a GREENFIELD gate assertion for the latest `TURN-L17` / `ADD-034` evidence.
+- **Why:** Running-phase images obscure static proportion mismatches. A height-normalized upright assembly makes shoulder-to-hand reach, torso/hip dimensions, and leg proportions comparable to the exact side-profile masters, while exposing differences instead of relying on intuition or generic anthropometric ratios.
+- **Source measurements / calibrations:** Petite/athletic/average upper arms are approximately `15.1% / 15.9% / 16.3%` of source height; forearms `13.3% / 13.3% / 13.2%`; hands `7.8% / 6.8% / 7.6%`; torso `28.4% / 28.1% / 29.3%`; thighs `22.1% / 22.4% / 21.7%`; shins `21.0% / 21.2% / 19.7%`. The source-implied arm-bone / leg-bone ratios are approximately `.66 / .67 / .71`. These are approximate, by-eye fictional-art measurements, not clinical anthropometry; the general-purpose `DEFAULT_RIG_SPEC` is unchanged.
+- **Related Spec Section:** `docs/SPEC.md §4.1`, `§4.3`, `docs/FDS.md#continuous-learning-log` (`TURN-L17`)
+- **Practical Impact:** Added `src/runner/standing-pose.ts`, `src/runner/standing-pose.test.ts`, `src/runner/persona-reference.ts`, `src/pipeline/photoreal-reference-profile.ts`, `public/sprites/photoreal/*/reference-profile.png`, and `src/app/components/StandingProfilePanel.tsx`, `standing-profile-panel.css`, `standing-profile-formatters.ts`, and `control-formatters.ts`; updated `src/shared/types.ts`, `src/runner/body-proportions.ts`, `src/runner/photoreal-rig.ts`, `src/app/hooks/useRunnerStudio.ts`, `src/app/components/RunnerControls.tsx`, `scripts/generate-algorithmic-sprites.ts`, `docs/SPEC.md`, `CLAUDE.md`, `CLAUDE-decisions.md`, `CLAUDE-validation.md`, `CLAUDE-checklist.md`, and `src/discipline/greenfield-gate.test.ts`.

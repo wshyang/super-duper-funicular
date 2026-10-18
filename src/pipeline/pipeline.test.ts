@@ -63,6 +63,18 @@ describe('Real reference sprite sheet grid detection and extraction verification
     'src/images/spritesheets/runner-8frame-6color-flawed-sheet.jpeg',
   );
 
+  it('generates cropped alpha-keyed standing reference profiles for all three photoreal personas', () => {
+    const folders = ['sg-chinese-female-petite', 'sg-chinese-female', 'sg-chinese-female-average'];
+    for (const folder of folders) {
+      const profile = readImageFile(path.join(repoRoot, 'public/sprites/photoreal', folder, 'reference-profile.png'));
+      expect(profile.height).toBeGreaterThan(650);
+      expect(profile.width).toBeLessThan(300);
+      expect(profile.width).toBeLessThan(profile.height);
+      const corner = readPixel(profile, 0, 0);
+      expect(corner.a).toBeLessThan(32);
+    }
+  });
+
   it('detects the 132px header and 6 rows x 8 columns grid on the real reference sheet', () => {
     const sheet = readImageFile(sheetPath);
     expect(sheet.width).toBe(2528);

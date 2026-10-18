@@ -233,8 +233,17 @@ export interface AlgorithmicBodyPartEntry {
 export interface PhotorealAssetTuningSpec {
   readonly personaId: PhotorealPersonaId;
   readonly buildLabel: string;
+  /** Approximate fictional persona height inferred from the source-image prompt; not measured subject data. */
+  readonly estimatedHeightCm: number;
+  readonly neckLengthScale: number;
+  readonly torsoLengthScale: number;
+  readonly headScale: number;
   readonly upperArmLengthScale: number;
   readonly forearmLengthScale: number;
+  readonly thighLengthScale: number;
+  readonly shinLengthScale: number;
+  readonly footLengthScale: number;
+  readonly pelvisLengthScale: number;
   readonly upperArmWidthPx: number;
   readonly forearmWidthPx: number;
   readonly handWidthPx: number;
@@ -321,6 +330,7 @@ export interface ArticulatedPose {
   readonly hairAngleRad: number;
   readonly hairLowerWaveAngleRad: number;
   readonly hairStyleMode: HairStyleMode;
+  readonly neutralStanding?: boolean;
   readonly pelvisTiltRad: number;
   readonly fallForwardComLeadPx: number;
   readonly nearLeg: LimbKinematics;

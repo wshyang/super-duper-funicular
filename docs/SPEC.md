@@ -37,7 +37,7 @@ Switching locomotion mode in the studio (`useRunnerStudio.ts`, `RunnerControls.t
 ## 4. Personas, 17-Part Photorealistic Studio Rig, Rounded Joints, Matte Invariants & SVG Vectorizer (`#feat-photoreal-rig`, `#feat-svg-vectorizer`)
 
 ### 4.1 Selectable Personas & Skinnable Hooks
-Provide three selectable adult Singaporean Chinese runner personas (`sg-chinese-male`, `sg-chinese-female`, and photorealistic `photo-sg-chinese-female`) plus a runtime skin registration API (`registerCustomSkin`, `attachSkinPartHook`).
+Provide selectable adult Singaporean Chinese runner personas (`sg-chinese-male`, `sg-chinese-female`, and three body-positive photoreal female profiles: slim petite, athletic sprinter, and fuller everyday build) plus a runtime skin registration API (`registerCustomSkin`, `attachSkinPartHook`). Persona-specific asset width and segment-length defaults are tunable/resettable and are calibrated from the corresponding source master rather than forced to a shared silhouette.
 
 ### 4.2 View-Specific Lateral/Medial Studio Plates, Rounded-End Cutter & Additive End-Cap Composites
 Extract 17 photorealistic cutouts from 10 view-specific `#FF00FF` magenta-backed studio photographs (`src/images/photoreal-female/01..10`), including an isolated medial left arm in a `90°` L-bend (`08-far-left-arm-medial-inside-palm.png`, `Call #21`) to guarantee true left-arm chirality:
@@ -45,7 +45,10 @@ Extract 17 photorealistic cutouts from 10 view-specific `#FF00FF` magenta-backed
 - **Additive End-Cap Composite (`attachEndCapComposite`, `ADD-019`, `RECT-01`, `RECT-06`):** Grafts a semicircularly rounded-top (`y = 36`), straight-bottom (`y = 66`) sprinter-shorts cuff onto `nearThigh` (with single-stripe deduplication) and `farThigh` (solid shaded charcoal fabric), and integrates the distal ankle-sock rib collar onto `nearShin` and `farShin`.
 - **Material-Class Matte Invariant, Jacobi Joint Relaxation & Width-Parity Gate (`src/pipeline/photoreal-matte-and-qc.ts`, `CROSS-07`..`CROSS-09`):** Enforces `0` stray bright singlet pixels on skin cutouts (`purgeSkinPartFabricSpill`), Jacobi harmonic membrane relaxation (`fillHollowJointBallByJacobiRelaxation`), and `< 15%` near-vs-far medial limb width parity (`measureNearFarLimbWidthParity`).
 
-### 4.3 Full-Colour Raster-to-SVG Vectorizer & Hierarchical SVG Stitcher (`#svg-vector-assessment`)
+### 4.3 Persona Height/Proportion Evidence & Neutral Upright Calibration (`ADD-034`)
+For each photoreal persona, store a clearly labeled estimated height, approximate source-master pixel height, and by-eye segment/width measurements normalized to total standing height. These are fictional character estimates, not measured subject metadata. Generate keyed/cropped source-profile images and stage the actual 17-part composite in a neutral upright pose beside that reference on a shared sole baseline and normalized silhouette height. Display reference-versus-assembled segment lengths and horizontal spans; expose resettable persona-specific lengths (head/neck/torso/arm/hand/hip/thigh/shin/foot) and widths. The standing comparison is an inspection surface, not proof of anatomical accuracy; visual review remains mandatory.
+
+### 4.4 Full-Colour Raster-to-SVG Vectorizer & Hierarchical SVG Stitcher (`#svg-vector-assessment`)
 Convert all 17 photorealistic raster cutouts into standalone multi-band vector SVGs (`public/sprites/photoreal/sg-chinese-female/svg-parts/*.svg`) verified by a Marching-Squares silhouette IoU gate (`>= 0.90`), and assemble 8 hierarchically stitched full-pose vector frames (`public/sprites/photoreal/sg-chinese-female/svg-frames/frame-01..08.svg`).
 
 ## 5. Interactive Workbench, Asset Readiness & 16-Phase Full-Cycle Visual Audit (`#feat-web-studio`, `#gait-cycle-visual-audit`)

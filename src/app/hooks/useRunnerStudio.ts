@@ -262,10 +262,9 @@ function usePhotorealAssetTuningState(personaId: RunnerPersonaId) {
   const [tuningByPersona, setTuningByPersona] = useState<PhotorealAssetTuningMap>(
     createInitialAssetTuningMap,
   );
-  const activePhotorealId: PhotorealPersonaId =
-    personaId === 'photo-sg-chinese-female-average'
-      ? 'photo-sg-chinese-female-average'
-      : 'photo-sg-chinese-female';
+  const activePhotorealId: PhotorealPersonaId = isPhotorealPersona(personaId)
+    ? personaId
+    : 'photo-sg-chinese-female';
   const activeAssetTuning = tuningByPersona[activePhotorealId];
 
   const updateAssetTuning = <K extends keyof PhotorealAssetTuningSpec>(

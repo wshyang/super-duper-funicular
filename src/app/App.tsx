@@ -5,6 +5,8 @@ import { DiagnosticsPanel } from './components/DiagnosticsPanel.js';
 import { GaitFilmstrip } from './components/GaitFilmstrip.js';
 import { JointAndCycleAuditPanel } from './components/JointAndCycleAuditPanel.js';
 import { RunnerControls } from './components/RunnerControls.js';
+import { StandingProfilePanel } from './components/StandingProfilePanel.js';
+import { isPhotorealPersona } from '../runner/skin-registry.js';
 import { WorkspaceHeader } from './components/WorkspaceHeader.js';
 import { useRunnerStudio } from './hooks/useRunnerStudio.js';
 
@@ -106,6 +108,13 @@ function StudioMainContent({
       )}
       {showRig && (
         <>
+          {isPhotorealPersona(studio.personaId) && (
+            <StandingProfilePanel
+              personaId={studio.personaId}
+              tuning={studio.activeAssetTuning}
+              photorealStatus={studio.photorealStatus}
+            />
+          )}
           <JointAndCycleAuditPanel
             input={{
               personaId: studio.personaId,

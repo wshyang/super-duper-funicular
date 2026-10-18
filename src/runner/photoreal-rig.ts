@@ -191,7 +191,7 @@ function renderNearLegAndPelvisShorts(
   };
   const pelvisBottom: Point2D = {
     x: pose.pelvis.x - 1.0,
-    y: pose.pelvis.y + 12.5 + tuning.hipOffsetY,
+    y: pose.pelvis.y + 12.5 * tuning.pelvisLengthScale + tuning.hipOffsetY,
   };
   warpPhotorealSegmentToQuad(canvas, bank.pelvis, {
     dstStart: pelvisTop,
@@ -231,17 +231,19 @@ function renderHeadAndHairDynamics(
   };
   const headCrown: Point2D = {
     x: headPivot.x + 1.0 + Math.sin(pose.neckAngleRad) * 2.0,
-    y: headPivot.y - 26.5,
+    y: headPivot.y - 26.5 * ctx.tuning.headScale,
   };
   if (pose.hairStyleMode === 'long-flowing') {
     renderFlowingLongHairPlume(canvas, pose, headPivot, bank);
+  } else if (pose.hairStyleMode === 'ponytail' && pose.neutralStanding) {
+    renderNeutralPonytail(canvas, headPivot, bank);
   } else if (pose.hairStyleMode === 'ponytail') {
     renderSportyPonytailPlume(canvas, pose, headPivot, { bank, palette });
   }
   warpPhotorealSegmentToQuad(canvas, bank.head, {
     dstStart: headCrown,
     dstEnd: headPivot,
-    dstHalfWidthPx: 23,
+    dstHalfWidthPx: 23 * ctx.tuning.headScale,
     srcStart: { x: 76, y: 12 },
     srcEnd: { x: 76, y: 120 },
   });
@@ -253,9 +255,7 @@ function renderSportyPonytailPlume(
   headPivot: Point2D,
   ctx: { readonly bank: Record<BodyPartId, RasterImage>; readonly palette: RunnerPalette },
 ): void {
-  const ponySprite =
-    partBanksByPersona['photo-sg-chinese-female'].hairAccessory ??
-    ctx.bank.hairAccessory;
+  const ponySprite = ctx.bank.hairAccessory;
   const ponyBounce = Math.sin(pose.phase * Math.PI * 4 - 0.55) * 4.0;
   const ponyRoot: Point2D = {
     x: headPivot.x - 7.5,
@@ -276,15 +276,29 @@ function renderSportyPonytailPlume(
   });
 }
 
+function renderNeutralPonytail(
+  canvas: RasterImage,
+  headPivot: Point2D,
+  bank: Record<BodyPartId, RasterImage>,
+): void {
+  const ponyRoot = { x: headPivot.x - 7.5, y: headPivot.y - 15.5 };
+  const ponyTip = { x: ponyRoot.x - 12, y: ponyRoot.y + 54 };
+  warpPhotorealSegmentToQuad(canvas, bank.hairAccessory, {
+    dstStart: ponyRoot,
+    dstEnd: ponyTip,
+    dstHalfWidthPx: 19,
+    srcStart: { x: 142, y: 82 },
+    srcEnd: { x: 14, y: 86 },
+  });
+}
+
 function renderFlowingLongHairPlume(
   canvas: RasterImage,
   pose: ArticulatedPose,
   headPivot: Point2D,
   bank: Record<BodyPartId, RasterImage>,
 ): void {
-  const flowingSprite =
-    partBanksByPersona['photo-sg-chinese-female-average'].hairAccessory ??
-    bank.hairAccessory;
+  const flowingSprite = bank.hairAccessory;
   const strideSwingX = Math.sin((pose.phase - 0.14) * Math.PI * 2) * 5.2;
   const stepLiftY = Math.sin((pose.phase - 0.22) * Math.PI * 4) * 4.2;
   const lagTipY = Math.sin((pose.phase - 0.38) * Math.PI * 4) * 6.5;
@@ -294,11 +308,11 @@ function renderFlowingLongHairPlume(
   };
   const midCascade: Point2D = {
     x: crownRoot.x - 17.5 + strideSwingX * 0.55,
-    y: crownRoot.y + 16.5 + stepLiftY,
+    y: crownRoot.y + 36.0 + stepLiftY,
   };
   const lowerTip: Point2D = {
     x: crownRoot.x - 24.5 + strideSwingX,
-    y: crownRoot.y + 32.0 + lagTipY,
+    y: crownRoot.y + 72.0 + lagTipY,
   };
   warpPhotorealSegmentToQuad(canvas, flowingSprite, {
     dstStart: crownRoot,

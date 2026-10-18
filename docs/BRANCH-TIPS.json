@@ -1,16 +1,16 @@
 {
-  "observedAt": "2026-10-18T01:39:37.140Z",
+  "observedAt": "2026-10-18T02:42:07.271Z",
   "activeSessionBranch": "arena/e1300d3c-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 0 (Ours — Harmonised N-Way Studio)",
       "branch": "arena/e1300d3c-super-duper-funicular",
       "prStatus": "Active Session Branch",
-      "hash": "2c7f0145338257b2f06965257bef34fb9379753d",
-      "shortHash": "2c7f014",
-      "committedAt": "2026-10-18T01:39:33+00:00",
-      "subject": "fix(photoreal): uncrop anterior neck, add medial shoulder stump on far arm, and remove overlapping second shoe on far leg (Wave 7)",
-      "commitCountFromMain": 5
+      "hash": "591a40cbc5a7653bb4901750204204862b21616c",
+      "shortHash": "591a40c",
+      "committedAt": "2026-10-18T01:39:37+00:00",
+      "subject": "docs(branches): update live branch comparison snapshot for Wave 7",
+      "commitCountFromMain": 6
     },
     {
       "role": "Branch 1 (Sprite Motion Lab)",

@@ -10,6 +10,7 @@ import type {
   RunnerVariantId,
 } from '../../shared/types.js';
 import { ARM_SWING_PRESETS } from '../../runner/body-proportions.js';
+import { formatPixels, formatScale } from './control-formatters.js';
 import type { RunnerSkinDefinition } from '../../runner/skin-registry.js';
 import {
   BACKDROP_OPTIONS,
@@ -244,11 +245,42 @@ function AssetTuningControlsSection({
     <div className="control-card" data-testid="asset-tuning-section">
       <h3 className="control-card-title">Per-Asset-Set Body Proportion Tuning</h3>
       <p className="persona-description">{activeAssetTuning.buildLabel}</p>
+      <p className="persona-description">
+        Profile estimate: about {activeAssetTuning.estimatedHeightCm} cm. Length defaults are
+        normalized from the source side profile; tweak them while viewing the standing calibration.
+      </p>
+      <SliderControl
+        label="Head Scale"
+        displayValue={formatScale(activeAssetTuning.headScale)}
+        min={0.8}
+        max={1.25}
+        step={0.02}
+        value={activeAssetTuning.headScale}
+        onChange={(v) => onUpdateAssetTuning('headScale', v)}
+      />
+      <SliderControl
+        label="Neck Length Scale"
+        displayValue={formatScale(activeAssetTuning.neckLengthScale)}
+        min={0.75}
+        max={1.5}
+        step={0.02}
+        value={activeAssetTuning.neckLengthScale}
+        onChange={(v) => onUpdateAssetTuning('neckLengthScale', v)}
+      />
+      <SliderControl
+        label="Torso Length Scale"
+        displayValue={formatScale(activeAssetTuning.torsoLengthScale)}
+        min={0.75}
+        max={1.6}
+        step={0.02}
+        value={activeAssetTuning.torsoLengthScale}
+        onChange={(v) => onUpdateAssetTuning('torsoLengthScale', v)}
+      />
       <SliderControl
         label="Upper Arm Length Scale"
         displayValue={sliderLabels.upperArmLenLabel}
         min={0.75}
-        max={1.25}
+        max={1.6}
         step={0.02}
         value={activeAssetTuning.upperArmLengthScale}
         onChange={(v) => onUpdateAssetTuning('upperArmLengthScale', v)}
@@ -257,10 +289,46 @@ function AssetTuningControlsSection({
         label="Forearm Length Scale"
         displayValue={sliderLabels.forearmLenLabel}
         min={0.75}
-        max={1.25}
+        max={1.6}
         step={0.02}
         value={activeAssetTuning.forearmLengthScale}
         onChange={(v) => onUpdateAssetTuning('forearmLengthScale', v)}
+      />
+      <SliderControl
+        label="Thigh Length Scale"
+        displayValue={formatScale(activeAssetTuning.thighLengthScale)}
+        min={0.75}
+        max={1.3}
+        step={0.02}
+        value={activeAssetTuning.thighLengthScale}
+        onChange={(v) => onUpdateAssetTuning('thighLengthScale', v)}
+      />
+      <SliderControl
+        label="Shin Length Scale"
+        displayValue={formatScale(activeAssetTuning.shinLengthScale)}
+        min={0.75}
+        max={1.3}
+        step={0.02}
+        value={activeAssetTuning.shinLengthScale}
+        onChange={(v) => onUpdateAssetTuning('shinLengthScale', v)}
+      />
+      <SliderControl
+        label="Foot Length Scale"
+        displayValue={formatScale(activeAssetTuning.footLengthScale)}
+        min={0.75}
+        max={1.3}
+        step={0.02}
+        value={activeAssetTuning.footLengthScale}
+        onChange={(v) => onUpdateAssetTuning('footLengthScale', v)}
+      />
+      <SliderControl
+        label="Hand Length"
+        displayValue={formatPixels(activeAssetTuning.handLengthPx)}
+        min={6}
+        max={18}
+        step={0.5}
+        value={activeAssetTuning.handLengthPx}
+        onChange={(v) => onUpdateAssetTuning('handLengthPx', v)}
       />
       <AssetBodyWidthsSliders
         tuning={activeAssetTuning}
@@ -299,13 +367,22 @@ function AssetBodyWidthsSliders({
         label="Arm Width (Half-Span)"
         displayValue={labels.armWidthLabel}
         min={13}
-        max={24}
+        max={26}
         step={0.5}
         value={tuning.upperArmWidthPx}
         onChange={(v) => {
           onUpdate('upperArmWidthPx', v);
           onUpdate('forearmWidthPx', v - 1.0);
         }}
+      />
+      <SliderControl
+        label="Hand Width"
+        displayValue={formatPixels(tuning.handWidthPx)}
+        min={12}
+        max={24}
+        step={0.5}
+        value={tuning.handWidthPx}
+        onChange={(v) => onUpdate('handWidthPx', v)}
       />
       <SliderControl
         label="Torso / Waist Width"
@@ -317,6 +394,15 @@ function AssetBodyWidthsSliders({
         onChange={(v) => onUpdate('torsoWidthPx', v)}
       />
       <SliderControl
+        label="Pelvis Length Scale"
+        displayValue={formatScale(tuning.pelvisLengthScale)}
+        min={0.75}
+        max={1.4}
+        step={0.02}
+        value={tuning.pelvisLengthScale}
+        onChange={(v) => onUpdate('pelvisLengthScale', v)}
+      />
+      <SliderControl
         label="Pelvis / Hip Width"
         displayValue={labels.pelvisWidthLabel}
         min={24}
@@ -326,16 +412,22 @@ function AssetBodyWidthsSliders({
         onChange={(v) => onUpdate('pelvisWidthPx', v)}
       />
       <SliderControl
-        label="Thigh / Calf Width"
+        label="Thigh Width"
         displayValue={labels.thighWidthLabel}
         min={23}
         max={35}
         step={0.5}
         value={tuning.thighWidthPx}
-        onChange={(v) => {
-          onUpdate('thighWidthPx', v);
-          onUpdate('shinWidthPx', v - 1.5);
-        }}
+        onChange={(v) => onUpdate('thighWidthPx', v)}
+      />
+      <SliderControl
+        label="Shin / Calf Width"
+        displayValue={formatPixels(tuning.shinWidthPx)}
+        min={20}
+        max={34}
+        step={0.5}
+        value={tuning.shinWidthPx}
+        onChange={(v) => onUpdate('shinWidthPx', v)}
       />
     </>
   );
