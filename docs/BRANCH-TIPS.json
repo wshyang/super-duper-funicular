@@ -1,26 +1,26 @@
 {
-  "observedAt": "2026-10-18T13:24:11.011Z",
+  "observedAt": "2026-10-18T21:27:34.034Z",
   "activeSessionBranch": "arena/917ef347-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 1 (Ours — Sprite Motion Lab)",
       "branch": "arena/917ef347-super-duper-funicular",
       "prStatus": "PR #1 Open (Active Session Branch)",
-      "hash": "52866c81a2e9656285f2cc90a3958c2100f5ae1f",
-      "shortHash": "52866c8",
-      "committedAt": "2026-10-18T12:40:58+00:00",
-      "subject": "docs(compare): refresh 5-way branch tips ledger (PR #8 @ 3e6ad93)",
-      "commitCountFromMain": 18
+      "hash": "0481e7e4ca1da8e8de0abe74b2d7d0b72d441097",
+      "shortHash": "0481e7e",
+      "committedAt": "2026-10-18T21:27:20+00:00",
+      "subject": "fix(rig): resolve torso-neck-head attachment regression across all 3 photoreal personas and phase-harvested bank (ADD-045, PIPE-ERR-11..14)",
+      "commitCountFromMain": 21
     },
     {
       "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
       "branch": "arena/e1300d3c-super-duper-funicular",
       "prStatus": "PR #8 Open (Closely Watched)",
-      "hash": "60ca65353e2b5ff9481abed4540c84131cf18e38",
-      "shortHash": "60ca653",
-      "committedAt": "2026-10-18T13:10:19+00:00",
-      "subject": "feat: add pose-bank regeneration pipeline and pilot",
-      "commitCountFromMain": 18
+      "hash": "5330a64d89cd912394a8e4e27c77a941a6f46b2e",
+      "shortHash": "5330a64",
+      "committedAt": "2026-10-18T21:18:17+00:00",
+      "subject": "Fix Athletic head-neck rig attachment",
+      "commitCountFromMain": 21
     },
     {
       "role": "Branch 2 (Stride Lab Workbench)",
