@@ -1,0 +1,9 @@
+{
+  "characterId": "athletic-sg-runner-pose-pilot",
+  "masterImagePath": "src/images/photoreal-female/01-master-lateral-profile-reference.png",
+  "identityLock": "the accepted adult Singaporean Chinese athletic woman in the supplied full-body side-profile master, with the same face, natural athletic proportions, warm skin tone, black hair, and recognizable identity",
+  "wardrobeLock": "fitted crimson-red running singlet with a crisp white vertical side stripe, charcoal-black fitted shorts, sky-blue wristbands, white ankle socks, and white-and-crimson running shoes",
+  "outputDirectory": "src/images/photoreal-female-pose-bank",
+  "guideDirectory": "src/images/photoreal-female-pose-bank/guides/skeleton",
+  "promptDirectory": "src/images/photoreal-female-pose-bank/prompts"
+}

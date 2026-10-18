@@ -1,0 +1,275 @@
+{
+  "schemaVersion": "1.0.0",
+  "analyzedSheetPath": "src/images/spritesheets/runner-8frame-6color-flawed-sheet.jpeg",
+  "claimedCycleLabel": "8-FRAME COMPLETE RUNNING CYCLE (Alternating Gait)",
+  "actualUniquePoseCountPerRow": 4,
+  "meanHalfCycleIoU": 0.947,
+  "minFootSeparationPx": 147,
+  "verticalBaselineJitterPx": 25,
+  "heightVariationPx": 20,
+  "iouMatrixRedRow": [
+    [
+      1,
+      0.585,
+      0.5039,
+      0.5662,
+      0.9638,
+      0.591,
+      0.5046,
+      0.5701
+    ],
+    [
+      0.585,
+      1,
+      0.6151,
+      0.6882,
+      0.5792,
+      0.9687,
+      0.602,
+      0.6848
+    ],
+    [
+      0.5039,
+      0.6151,
+      1,
+      0.5078,
+      0.4991,
+      0.6143,
+      0.9068,
+      0.5061
+    ],
+    [
+      0.5662,
+      0.6882,
+      0.5078,
+      1,
+      0.5619,
+      0.6897,
+      0.4988,
+      0.9485
+    ],
+    [
+      0.9638,
+      0.5792,
+      0.4991,
+      0.5619,
+      1,
+      0.5853,
+      0.4998,
+      0.5669
+    ],
+    [
+      0.591,
+      0.9687,
+      0.6143,
+      0.6897,
+      0.5853,
+      1,
+      0.6001,
+      0.6868
+    ],
+    [
+      0.5046,
+      0.602,
+      0.9068,
+      0.4988,
+      0.4998,
+      0.6001,
+      1,
+      0.4965
+    ],
+    [
+      0.5701,
+      0.6848,
+      0.5061,
+      0.9485,
+      0.5669,
+      0.6868,
+      0.4965,
+      1
+    ]
+  ],
+  "halfCyclePairs": [
+    {
+      "frameA": 1,
+      "frameB": 5,
+      "silhouetteIoU": 0.9638,
+      "dHashHammingDistance": 1,
+      "isHalfCycleDuplicate": true
+    },
+    {
+      "frameA": 2,
+      "frameB": 6,
+      "silhouetteIoU": 0.9687,
+      "dHashHammingDistance": 3,
+      "isHalfCycleDuplicate": true
+    },
+    {
+      "frameA": 3,
+      "frameB": 7,
+      "silhouetteIoU": 0.9068,
+      "dHashHammingDistance": 4,
+      "isHalfCycleDuplicate": true
+    },
+    {
+      "frameA": 4,
+      "frameB": 8,
+      "silhouetteIoU": 0.9485,
+      "dHashHammingDistance": 1,
+      "isHalfCycleDuplicate": true
+    }
+  ],
+  "frameMetrics": [
+    {
+      "frameIndex": 1,
+      "bboxWidth": 178,
+      "bboxHeight": 231,
+      "headTopY": 18,
+      "footBottomY": 249,
+      "centroidX": 154.5,
+      "centroidY": 127.1,
+      "frontFootOffsetX": 78.5,
+      "rearFootOffsetX": -98.5,
+      "footSeparationPx": 177,
+      "leadLegSide": "unilateral-same-leg"
+    },
+    {
+      "frameIndex": 2,
+      "bboxWidth": 158,
+      "bboxHeight": 214,
+      "headTopY": 35,
+      "footBottomY": 249,
+      "centroidX": 156.4,
+      "centroidY": 145.1,
+      "frontFootOffsetX": 63.6,
+      "rearFootOffsetX": -93.4,
+      "footSeparationPx": 157,
+      "leadLegSide": "unilateral-same-leg"
+    },
+    {
+      "frameIndex": 3,
+      "bboxWidth": 202,
+      "bboxHeight": 211,
+      "headTopY": 29,
+      "footBottomY": 240,
+      "centroidX": 166,
+      "centroidY": 132.5,
+      "frontFootOffsetX": 81,
+      "rearFootOffsetX": -120,
+      "footSeparationPx": 201,
+      "leadLegSide": "unilateral-same-leg"
+    },
+    {
+      "frameIndex": 4,
+      "bboxWidth": 179,
+      "bboxHeight": 214,
+      "headTopY": 10,
+      "footBottomY": 224,
+      "centroidX": 158.5,
+      "centroidY": 114.6,
+      "frontFootOffsetX": 53.5,
+      "rearFootOffsetX": -94.5,
+      "footSeparationPx": 148,
+      "leadLegSide": "unilateral-same-leg"
+    },
+    {
+      "frameIndex": 5,
+      "bboxWidth": 177,
+      "bboxHeight": 231,
+      "headTopY": 18,
+      "footBottomY": 249,
+      "centroidX": 152.7,
+      "centroidY": 127.1,
+      "frontFootOffsetX": 78.3,
+      "rearFootOffsetX": -97.7,
+      "footSeparationPx": 176,
+      "leadLegSide": "unilateral-same-leg"
+    },
+    {
+      "frameIndex": 6,
+      "bboxWidth": 158,
+      "bboxHeight": 215,
+      "headTopY": 34,
+      "footBottomY": 249,
+      "centroidX": 160.9,
+      "centroidY": 144.8,
+      "frontFootOffsetX": 64.1,
+      "rearFootOffsetX": -92.9,
+      "footSeparationPx": 157,
+      "leadLegSide": "unilateral-same-leg"
+    },
+    {
+      "frameIndex": 7,
+      "bboxWidth": 211,
+      "bboxHeight": 214,
+      "headTopY": 23,
+      "footBottomY": 237,
+      "centroidX": 166.7,
+      "centroidY": 128,
+      "frontFootOffsetX": 83.3,
+      "rearFootOffsetX": -126.7,
+      "footSeparationPx": 210,
+      "leadLegSide": "unilateral-same-leg"
+    },
+    {
+      "frameIndex": 8,
+      "bboxWidth": 178,
+      "bboxHeight": 212,
+      "headTopY": 12,
+      "footBottomY": 224,
+      "centroidX": 161.8,
+      "centroidY": 116.2,
+      "frontFootOffsetX": 53.2,
+      "rearFootOffsetX": -93.8,
+      "footSeparationPx": 147,
+      "leadLegSide": "unilateral-same-leg"
+    }
+  ],
+  "flaws": [
+    {
+      "id": "FLAW-01",
+      "severity": "critical",
+      "title": "Half-Cycle Frame Duplication (4 Poses Doubled into 8 Columns)",
+      "summary": "Frames 5, 6, 7, and 8 are near-identical copies of Frames 1, 2, 3, and 4 rather than the second half of an 8-frame running stride.",
+      "quantitativeEvidence": "Mean centroid-aligned silhouette IoU between Frame k and Frame k+4 is 94.7% (4 unique poses out of 8 columns per row; 24 unique poses out of 48 total cells).",
+      "biomechanicalImpact": "Halves the effective animation resolution to 4 frames and causes the cycle to repeat twice per loop.",
+      "algorithmicFix": "Evaluate continuous gait phase φ ∈ [0, 1) across 8 distinct 45° phase increments (φ = 0.000, 0.125, ..., 0.875) with zero duplicated poses."
+    },
+    {
+      "id": "FLAW-02",
+      "severity": "critical",
+      "title": "Missing Alternating Gait — Unilateral \"Peg-Leg\" Hop",
+      "summary": "Despite the sheet title claiming \"(Alternating Gait)\", the same leg (far leg) stays permanently extended in front and the near leg stays permanently behind across all 8 frames.",
+      "quantitativeEvidence": "In all 8 frames, frontFootOffsetX > +45 px and rearFootOffsetX < -60 px with identical limb shading order; the left and right legs never swap lead.",
+      "biomechanicalImpact": "A human runner alternates left and right lead legs every half-stride (180° phase offset) with opposite arm counter-rotation. Keeping one leg permanently ahead produces a comical one-legged limp/hop.",
+      "algorithmicFix": "Drive the near (right) leg at phase φ and the far (left) leg at exact anti-phase (φ + 0.5) mod 1, with counter-phased arm swing and distinct near/far depth shading."
+    },
+    {
+      "id": "FLAW-03",
+      "severity": "critical",
+      "title": "Zero Leg Crossover (Missing \"Pass\" / Recovery Phase)",
+      "summary": "Neither leg ever passes beneath the pelvis; the legs remain permanently scissored apart in every frame.",
+      "quantitativeEvidence": "Minimum horizontal foot-to-foot separation across all 8 frames is 147 px (a real run cycle crosses 0 px twice per stride during the Pass phase).",
+      "biomechanicalImpact": "Without a passing pose where the swing knee overtakes the stance leg under the hip, the limbs appear to oscillate statically in place and snap backward instantly between Frame 4 and Frame 5/1.",
+      "algorithmicFix": "Solve closed orbital foot trajectories where the stance foot sweeps backward on the ground via 2-bone IK while the swing knee drives forward past the hip at φ = 0.25 and φ = 0.75."
+    },
+    {
+      "id": "FLAW-04",
+      "severity": "major",
+      "title": "Unregistered Pivot & Counter-Physical Scale/Baseline Jitter",
+      "summary": "Character body height, head volume, and ground contact line fluctuate erratically between adjacent cells.",
+      "quantitativeEvidence": "Bounding-box height varies by 20 px (212 px to 232 px) and the raw cell ground baseline shifts by 25 px without matching ballistic flight phases.",
+      "biomechanicalImpact": "Playing raw cell crops causes vertical popping and horizontal sliding, while the character shrinks during mid-stride.",
+      "algorithmicFix": "Enforce invariant segment bone lengths (femur, tibia, trunk, humerus, forearm) from a single anatomical rig with double-frequency pelvis bob Δy(φ) locked to stance/flight physics."
+    },
+    {
+      "id": "FLAW-05",
+      "severity": "moderate",
+      "title": "Two-Tone Magenta Checkerboard & JPEG Chroma Spill",
+      "summary": "The sheet combines #FF00FF grid lines over #FD49FD pink cell backgrounds with JPEG 8×8 block compression artifacts.",
+      "quantitativeEvidence": "Cell backgrounds average RGB(253, 74, 253) while dividers are RGB(253, 0, 252), with 1–2 px magenta fringe bleed along dark outlines.",
+      "biomechanicalImpact": "Naive single-color chroma keying leaves pink halos around the runner or accidentally erodes purple jersey pixels.",
+      "algorithmicFix": "Use border-seeded flood-fill chroma keying with boundary despill for extraction, and render algorithmic sprites directly into clean RGBA buffers."
+    }
+  ]
+}
