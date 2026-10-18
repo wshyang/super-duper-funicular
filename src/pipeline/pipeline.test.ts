@@ -336,8 +336,26 @@ describe('Real reference sprite sheet grid detection and extraction verification
     expect(report.frameCount).toBe(8);
     expect(report.totalDisconnectedIslands).toBe(0);
     expect(report.totalMagentaSpillPixels).toBe(0);
+    expect(report.resolvedAssetTuning?.personaId).toBe('photo-sg-chinese-female');
+    expect(report.effectiveRigLengths.torsoLength).toBeGreaterThan(0);
+    expect(report.standingProfileAuditPath).not.toBeNull();
     expect(fs.existsSync(report.contactSheetPath)).toBe(true);
     expect(fs.existsSync(report.jointCropsSheetPath)).toBe(true);
+    expect(fs.existsSync(report.standingProfileAuditPath!)).toBe(true);
+    fs.rmSync(tmpAuditDir, { recursive: true, force: true });
+  });
+
+  it('records per-persona tuning overrides in the audit report', () => {
+    const tmpAuditDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cycle-tuning-audit-test-'));
+    const report = dumpFullGaitCycleToTempDir({
+      outDir: tmpAuditDir,
+      frameCount: 4,
+      personaId: 'photo-sg-chinese-female-petite',
+      variant: 'red',
+      assetTuning: { torsoLengthScale: 1.12 },
+    });
+    expect(report.resolvedAssetTuning?.torsoLengthScale).toBe(1.12);
+    expect(report.standingProfileAuditPath).toBe(path.join(tmpAuditDir, 'standing-profile-audit.png'));
     fs.rmSync(tmpAuditDir, { recursive: true, force: true });
   });
 

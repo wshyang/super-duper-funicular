@@ -1,6 +1,6 @@
 # Functional Design Specification — Harmonised N-Way Greenfield Studio & Algorithmic Running Engine
 
-- **Document Version:** 4.9.0
+- **Document Version:** 4.10.0
 - **Date:** 2026-10-18
 - **Status:** Active Canonical Specification (`[INTENT_ALIGNED]`)
 - **Active Session Branch:** `arena/e1300d3c-super-duper-funicular`
@@ -839,13 +839,14 @@ Because both sub-groups anchor `(109, 116)` at the exact same `ballPoint` canvas
 
 Because 8 coarse keyframes on a transparent or magenta background can conceal intermediate joint-rotation steps, detached 2–3 px resampling islands, or garment-stripe collisions at half-step phases ($\phi = 0.0625, 0.1875, \dots$), we implemented a dedicated **Full-Cycle Temporary Frame Dumper** (`src/pipeline/cycle-frame-dumper.ts`, CLI `npm run dump-cycle`) and codified it as a reusable **Agent Skill** at `.claude/skills/audit-gait-cycle/SKILL.md` (`CLAUDE-validation.md §9`).
 
-Running `npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female red` populates `/tmp/gait-cycle-audit/` with:
+Run one persona with `npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female red`, all three photoreal builds with `npm run dump-cycle -- /tmp/gait-all-photoreal 16 all-photoreal red`, or **all five runner personas** with `npm run dump-cycle -- /tmp/gait-all-personas 16 all-personas red`. Batch runs create persona-named subdirectories plus `multi-persona-audit-summary.json`; single and batch runs share the same per-persona audit pipeline. Photoreal tuning can be overridden in a diagnostic run (for example `--torso-length=1.35 --torso-width=45 --head-scale=1.0`) without changing saved defaults. Each persona directory contains:
 1. **16 High-Density Cycle Frames ($\Delta\phi = 22.5^\circ$):**
    - `frames/raw-frame-01-deg-000.png` .. `raw-frame-16-deg-338.png` (`220 × 256` RGBA).
-   - `frames/audit-frame-01-deg-000.png` .. `audit-frame-16-deg-338.png` (`660 × 256` 3-panel diagnostic plates: **Left** = neutral warm-grey `#E2E6EE` + track ground line `y = 212`; **Center** = dark slate `#181C26` with cyan `#00FFFF` chroma-spill highlights; **Right** = kinematic joint-pivot crosshairs).
+   - `frames/audit-frame-01-deg-000.png` .. `audit-frame-16-deg-338.png` (`660 × 256` 3-panel diagnostic plates: **Left** = neutral warm-grey `#E2E6EE` + track ground line `y = 234`; **Center** = dark slate `#181C26` with cyan `#00FFFF` chroma-spill highlights; **Right** = kinematic joint-pivot crosshairs).
 2. **`contact-sheet-16frame.png` (`880 × 1024`):** Full `4 × 4` stride overview grid for single-call multimodal inspection via `read_file`.
-3. **`joint-crops-sheet.png` (`720 × 480`):** `2×` magnified crop grid across $\phi \in \{0.00, 0.25, 0.50, 0.75\}$ and 3 critical articulation zones (**Row 1:** Head/Neck/Shoulder Socket; **Row 2:** Lower Torso/Pelvis/Thigh Shorts-Cuffs; **Row 3:** Ankle Socks & 2-Segment Rolling Shoes).
-4. **`audit-report.json`:** Quantitative per-frame defect scanner measuring `disconnectedIslandsCount` (`listOpaqueComponentSizes`), `detachedIslandPixels`, `magentaSpillPixelsCount`, `semiTransparentFringeCount`, `lowestFootY`, and `uncoveredJointNames`.
+3. **`joint-crops-sheet.png` (`720 × 480`):** Pose-adaptive `2×` crops across $\phi \in \{0.00, 0.25, 0.50, 0.75\}$ and 3 joint-centered zones (**Row 1:** Head/Neck/Shoulder Socket; **Row 2:** Lower Torso/Pelvis/Thigh Shorts-Cuffs; **Row 3:** Ankle Socks/Rolling Shoes/Ground Line).
+4. **`standing-profile-audit.png` (`660 × 256`):** Three-panel neutral upright calibration plate using `solveStandingUprightPose`; included in per-persona audits to expose head-to-sole sizing and waist/shorts continuity independently of gait motion.
+5. **`audit-report.json`:** Per-frame defect metrics (`disconnectedIslandsCount`, `detachedIslandPixels`, `magentaSpillPixelsCount`, `semiTransparentFringeCount`, `lowestFootY`, `groundLineDeltaPx`, `uncoveredJointNames`) plus resolved asset-tuning values and effective rig lengths. A batch root also contains `multi-persona-audit-summary.json` aggregating the per-persona reports.
 
 ---
 
@@ -863,6 +864,30 @@ Executing `npm run dump-cycle` and inspecting `/tmp/gait-cycle-audit/{audit-repo
 | `DEFECT-06` (`RECT-06` Applied) | **Distal Shin-to-Ankle Sock Collar Step at High Dorsiflexion** (`joint-crops-sheet.png` Row 3, Cols 1 & 4): When the ankle dorsiflexed sharply (`phase = 0.00` and `0.75`), the white ankle sock collar on `nearFoot`/`farFoot` projected `2–3 px` anterior to the bare lower shin edge. | `nearShin` terminated near the top of the sock collar so pitching `nearFoot` upward tilted the sock collar ahead of the shin shaft. | **Rectified & Visually Verified:** Extended `nearShin` (`srcBotY = 642`) and `farShin` (`srcBotY = 622`) in `extractLegCutouts` (`src/pipeline/photoreal-extractor.ts`) so the white ankle-sock rib collar is integrated into the rounded distal ankle cap `(80, 124)`, bridging the ankle hinge seamlessly. |
 
 See [`PLAN.md`](../PLAN.md) (`docs/RECTIFICATION_PLAN.md`) for the complete investigative run report, 6-defect rectification plan, and cross-branch synthesis.
+
+### 11.3 PR #1 Pipeline Parity & Five-Persona Audit Results (2026-10-18)
+
+The local workflow now follows the investigative outputs from PR #1 and adds a batch mode covering all five `RunnerPersonaId` values. The audit was executed with:
+
+```bash
+npm run dump-cycle -- /tmp/audit-all-personas 16 all-personas red
+```
+
+The command exited `0` and wrote one directory per persona plus `/tmp/audit-all-personas/multi-persona-audit-summary.json`. For each persona, the contact sheet, pose-adaptive joint-crop sheet, standing-profile plate, and the four prescribed diagnostic plates (`φ = 0.000, 0.250, 0.375, 0.500`) were opened and visually reviewed. All five reports contain 16 frames, zero detached islands, zero magenta-spill pixels, and zero uncovered-joint frames.
+
+| Persona | Effective rig lengths `torso/upper arm/forearm/thigh/shin` (px) | Visual review | Ground-line delta | Semi-transparent fringe samples (16 frames) |
+|---|---:|---|---:|---:|
+| `sg-chinese-male` | `43/24.5/21.5/43/43` | Generic default rig; clean illustrated silhouette through contact, knee-pass, flight, and contralateral contact. Near/far limbs remain readable; no visible pivot holes. | `-5..+1 px` | `0` |
+| `sg-chinese-female` | `43/24.5/21.5/43/43` | Generic default rig; continuous illustrated silhouette and readable crossover; no visible pivot holes. | `-5..+1 px` | `0` |
+| `photo-sg-chinese-female` (athletic) | `53.75/30.38/25.58/43/40.85` | Athletic tuning resolved in report. Shoulder closure remains solid, with no recurrence of the collarbone bulb; articulated parts remain assembled. | `-8..+6 px` | `3,746` |
+| `photo-sg-chinese-female-average` | `58.05/32.34/26.23/43/39.13` | Average-build tuning resolved in report. Torso/shorts continuity and limb assembly remain coherent through knee pass and flight. | `-10..+1 px` | `3,697` |
+| `photo-sg-chinese-female-petite` | `55.04/29.15/25.8/43/40.85` | Petite tuning resolved in report. Slim-petite silhouette remains assembled, with no obvious garment or joint opening. | `-9..0 px` | `3,826` |
+
+All standing plates use the shared ground reference `y = 234`; contact-frame minima are at `y = 234` or `235` for the generic, average, and petite builds. The athletic photo build reaches `y = 240` in early right-support frames and `y = 236` in the later left-support frames, i.e. up to `6 px` of support-foot penetration. The negative deltas in airborne phases are expected flight clearance, not ground-contact failures. This is the one clear next calibration item: adjust the athletic support ankle/shoe baseline without shifting flight poses, then rerun its full cycle and verify `|groundLineDeltaPx| <= 1` on support frames.
+
+Photoreal audit reports also count thousands of partially transparent edge samples over 16 frames. Visual plates show normal photo-cutout antialiasing and no magenta/cyan contamination; treat these counts as a baseline signal rather than a proven visible defect until the fringe metric is calibrated to distinguish expected antialiasing from unwanted matte halos. No other high-confidence `DEFECT-01`..`DEFECT-07` issue was established in the prescribed plates. Profile-view plates cannot conclusively validate medial/lateral hand-surface details, so source-plate chirality remains a separate asset review.
+
+**Audit artifacts:** `/tmp/audit-all-personas/{sg-chinese-male,sg-chinese-female,photo-sg-chinese-female,photo-sg-chinese-female-average,photo-sg-chinese-female-petite}/` (16 raw and 3-panel frames, contact sheet, joint-crops sheet, standing-profile plate, report JSON); batch index: `/tmp/audit-all-personas/multi-persona-audit-summary.json`.
 
 ---
 
@@ -1001,6 +1026,7 @@ See [`docs/THREE_WAY_BRANCH_COMPARISON.md`](./THREE_WAY_BRANCH_COMPARISON.md) (`
 | `4.7.0` | `2026-10-18` | `ADD-036` | Corrected the still-low athletic bust landmark with a locally non-linear vertical torso remap that raises the chest contour while preserving the shoulder and waist anchors; added a regression test and visually checked the neutral source-vs-rig comparison and regenerated gait cycle. Recorded `TURN-L19`. |
 | `4.8.0` | `2026-10-18` | `ADD-037` | Added per-load cache revisions to photoreal part URLs; refined the athletic torso with a 22% local anterior bust-projection reduction and landmark lift, preserving torso top/waist anchors; validated against the neutral source-vs-rig profile and gait cycle. Recorded `TURN-L20`. |
 | `4.9.0` | `2026-10-18` | `ADD-038` | Removed the athletic torso’s collarbone skin/shadow bulb with singlet fill, kept the shoulder closure opaque, tapered the shoulder edge, and visually checked the assembled gait cycle plus telemetry. Recorded `TURN-L21`. |
+| `4.10.0` | `2026-10-18` | `ADD-039` | Matched PR #1’s audit-report metadata, pose-adaptive joint crops, and standing-profile plate; added five-persona batch dumping and documented the completed visual/telemetry audit. Identified athletic support-foot baseline penetration (`+6 px`) for follow-up calibration. |
 
 
 

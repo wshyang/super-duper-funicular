@@ -11,20 +11,28 @@ Use this skill whenever modifying articulated cutouts (`src/pipeline/photoreal-e
 
 ## Step 1 — Dump Full Cycle Screenshots & Telemetry to a Temporary Directory
 
-Execute the CLI dumper to generate a 16-frame ($22.5^\circ$ phase increments across $\phi \in [0, 1)$) diagnostic suite in `/tmp/gait-cycle-audit`:
+Execute the CLI dumper for a single persona, all **3 photoreal builds** (`all-photoreal`), or all **5 runner personas** (`all-personas`: `sg-chinese-male`, `sg-chinese-female`, and the petite/athletic/average photoreal builds). The `all` alias retains `all-photoreal` behavior. Optional sizing overrides apply to photoreal personas only.
 
 ```bash
-npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female red
+# Full audit across all five personas:
+npm run dump-cycle -- /tmp/gait-all-personas 16 all-personas red
+
+# Photoreal-only batch:
+npm run dump-cycle -- /tmp/gait-all-photoreal 16 all-photoreal red
+
+# Single persona with explicit asset-tuning overrides:
+npm run dump-cycle -- /tmp/gait-cycle-audit 16 photo-sg-chinese-female-average red --torso-length=1.35 --torso-width=45 --head-scale=1.0
 ```
 
-This generates:
-1. `/tmp/gait-cycle-audit/audit-report.json`: Per-frame quantitative defect metrics (`disconnectedIslandsCount`, `detachedIslandPixels`, `magentaSpillPixelsCount`, `semiTransparentFringeCount`, `lowestFootY`, `groundLineDeltaPx`, and `uncoveredJointNames`).
-2. `/tmp/gait-cycle-audit/contact-sheet-16frame.png`: A `4 × 4` full-cycle overview grid (`880 × 1024`) over a neutral warm-grey backdrop (`#E2E6EE`) with the track ground line (`y = 212`).
-3. `/tmp/gait-cycle-audit/joint-crops-sheet.png`: A `2×` magnified close-up grid (`720 × 480`) across phases $\phi \in \{0.00, 0.25, 0.50, 0.75\}$ and 3 critical articulation zones:
+A multi-persona run creates one persona-named subdirectory per persona and `multi-persona-audit-summary.json` at the output root. Each per-persona directory contains:
+1. `audit-report.json`: Per-frame quantitative defect metrics (`disconnectedIslandsCount`, `detachedIslandPixels`, `magentaSpillPixelsCount`, `semiTransparentFringeCount`, `lowestFootY`, `groundLineDeltaPx`, `uncoveredJointNames`) plus `resolvedAssetTuning` (`PhotorealAssetTuningSpec`) and `effectiveRigLengths`.
+2. `contact-sheet-16frame.png`: A `4 × 4` full-cycle overview grid (`880 × 1024`) over a neutral warm-grey backdrop (`#E2E6EE`) with the track ground line (`y = 234`).
+3. `joint-crops-sheet.png`: A pose-adaptive `2×` magnified close-up grid (`720 × 480`) across phases $\phi \in \{0.00, 0.25, 0.50, 0.75\}$ and 3 critical articulation zones dynamically centered on the solved joints:
    - **Row 1:** Head + Cervical Neck + Shoulder Socket + Upper Torso
    - **Row 2:** Lower Torso + Pelvis Shorts + Near/Far Thigh Shorts-Cuff & Knee
-   - **Row 3:** Near & Far Ankle Sock + 2-Segment Rolling Shoe
-4. `/tmp/gait-cycle-audit/frames/audit-frame-01-deg-000.png` .. `audit-frame-16-deg-338.png`: 16 three-panel (`660 × 256`) diagnostic screenshots:
+   - **Row 3:** Near & Far Ankle Sock + 2-Segment Rolling Shoe + Ground Line (`y = 234`)
+4. `standing-profile-audit.png`: A 3-panel (`660 × 256`) neutral upright standing calibration plate (`solveStandingUprightPose`) verifying head-to-sole element sizing/scaling and waist-to-shorts continuity.
+5. `frames/audit-frame-01-deg-000.png` .. `audit-frame-16-deg-338.png`: 16 three-panel (`660 × 256`) diagnostic screenshots:
    - **Left panel:** Neutral studio grey (`#E2E6EE`) + ground reference line.
    - **Center panel:** High-contrast dark slate (`#181C26`) with cyan (`#00FFFF`) magenta-spill highlights.
    - **Right panel:** Kinematic joint pivot crosshairs (`headCenter`, `neck`, `collar`, `pelvis`, `nearElbow`, `nearKnee`, `nearAnkle`, `nearBall`).
@@ -33,14 +41,13 @@ This generates:
 
 ## Step 2 — Inspect Generated Screenshots with the `read_file` Vision Tool
 
-Never rely solely on numeric telemetry. You MUST call `read_file` on:
-1. `/tmp/gait-cycle-audit/contact-sheet-16frame.png`
-2. `/tmp/gait-cycle-audit/joint-crops-sheet.png`
-3. At least 4 individual 3-panel plates spanning extreme poses:
-   - `frames/audit-frame-01-deg-000.png` ($\phi = 0.000$, Right Midfoot Strike / Max Contralateral Extension)
-   - `frames/audit-frame-05-deg-090.png` ($\phi = 0.250$, Right Mid-Stance & Left Recovery Knee Pass)
-   - `frames/audit-frame-07-deg-135.png` ($\phi = 0.375$, Airborne Flight Phase)
-   - `frames/audit-frame-09-deg-180.png` ($\phi = 0.500$, Left Midfoot Strike / Near Leg Trailing Extension)
+Never rely solely on numeric telemetry. For an `all-personas` batch, call `read_file` on the contact sheet, joint crops, standing-profile audit, and these four extreme-phase plates **for every persona subdirectory**:
+- `frames/audit-frame-01-deg-000.png` ($\phi = 0.000$, Right Midfoot Strike / Max Contralateral Extension)
+- `frames/audit-frame-05-deg-090.png` ($\phi = 0.250$, Mid-Stance & Recovery Knee Pass)
+- `frames/audit-frame-07-deg-135.png` ($\phi = 0.375$, Airborne Flight Phase)
+- `frames/audit-frame-09-deg-180.png` ($\phi = 0.500$, Contralateral Midfoot Strike / Trailing Extension)
+
+For a single-persona run, inspect the corresponding same four artifacts. Record image-level defects even when aggregate telemetry is zero.
 
 ---
 
