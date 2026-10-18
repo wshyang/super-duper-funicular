@@ -1,26 +1,26 @@
 {
-  "observedAt": "2026-10-18T21:27:34.034Z",
+  "observedAt": "2026-10-18T22:07:20.138Z",
   "activeSessionBranch": "arena/917ef347-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 1 (Ours — Sprite Motion Lab)",
       "branch": "arena/917ef347-super-duper-funicular",
       "prStatus": "PR #1 Open (Active Session Branch)",
-      "hash": "0481e7e4ca1da8e8de0abe74b2d7d0b72d441097",
-      "shortHash": "0481e7e",
-      "committedAt": "2026-10-18T21:27:20+00:00",
-      "subject": "fix(rig): resolve torso-neck-head attachment regression across all 3 photoreal personas and phase-harvested bank (ADD-045, PIPE-ERR-11..14)",
-      "commitCountFromMain": 21
+      "hash": "96a284f2d95e3f7d3fec3423b0a53d833682fd71",
+      "shortHash": "96a284f",
+      "committedAt": "2026-10-18T21:27:34+00:00",
+      "subject": "docs(branches): update N-way comparison ledger to latest commit hash",
+      "commitCountFromMain": 22
     },
     {
       "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
       "branch": "arena/e1300d3c-super-duper-funicular",
       "prStatus": "PR #8 Open (Closely Watched)",
-      "hash": "5330a64d89cd912394a8e4e27c77a941a6f46b2e",
-      "shortHash": "5330a64",
-      "committedAt": "2026-10-18T21:18:17+00:00",
-      "subject": "Fix Athletic head-neck rig attachment",
-      "commitCountFromMain": 21
+      "hash": "9d448fec18f3973299968430fede46de1084fffb",
+      "shortHash": "9d448fe",
+      "committedAt": "2026-10-18T21:37:30+00:00",
+      "subject": "Explore camera-far forearm pose diversity",
+      "commitCountFromMain": 22
     },
     {
       "role": "Branch 2 (Stride Lab Workbench)",

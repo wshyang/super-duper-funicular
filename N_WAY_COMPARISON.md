@@ -18,12 +18,12 @@
 ### 1.1 Automated Live Remote Branch Tips (`npm run branches:compare`)
 
 <!-- branch-tips:start -->
-Observed (UTC): `2026-10-18T21:27:34.034Z` · Active Session Branch: `arena/917ef347-super-duper-funicular`
+Observed (UTC): `2026-10-18T22:07:20.138Z` · Active Session Branch: `arena/917ef347-super-duper-funicular`
 
 | Branch Role & Codename | Branch (`refs/heads/*`) | PR / Lifecycle Status | Full Observed SHA | Commit Timestamp (ISO) | Commits Ahead of `main` | Latest Commit Subject |
 |---|---|---|---|---|---|---|
-| **Branch 1 (Ours — Sprite Motion Lab)** | `arena/917ef347-super-duper-funicular` | PR #1 Open (Active Session Branch) | `0481e7e4ca1da8e8de0abe74b2d7d0b72d441097` | `2026-10-18T21:27:20+00:00` | `+21` | fix(rig): resolve torso-neck-head attachment regression across all 3 photoreal personas and phase-harvested bank (ADD-045, PIPE-ERR-11..14) |
-| **Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)** | `arena/e1300d3c-super-duper-funicular` | PR #8 Open (Closely Watched) | `5330a64d89cd912394a8e4e27c77a941a6f46b2e` | `2026-10-18T21:18:17+00:00` | `+21` | Fix Athletic head-neck rig attachment |
+| **Branch 1 (Ours — Sprite Motion Lab)** | `arena/917ef347-super-duper-funicular` | PR #1 Open (Active Session Branch) | `96a284f2d95e3f7d3fec3423b0a53d833682fd71` | `2026-10-18T21:27:34+00:00` | `+22` | docs(branches): update N-way comparison ledger to latest commit hash |
+| **Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)** | `arena/e1300d3c-super-duper-funicular` | PR #8 Open (Closely Watched) | `9d448fec18f3973299968430fede46de1084fffb` | `2026-10-18T21:37:30+00:00` | `+22` | Explore camera-far forearm pose diversity |
 | **Branch 2 (Stride Lab Workbench)** | `arena/263385da-super-duper-funicular` | PR #2 Open | `b227e2fe562be341f15f58955f539d325170729e` | `2026-10-17T21:55:19+00:00` | `+1` | Build Stride Lab motion workbench with photographic rig and cycle audits |
 | **Branch 3 (Funicular / Photo-Rig & Matte Lab)** | `arena/77ffb088-super-duper-funicular` | PR #3 Open | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | `2026-10-17T23:05:53+00:00` | `+13` | Track live three-way feature parity and adopt multi-background photo audits |
 | **Branch 4 (Initial Greenfield Prototype)** | `arena/ce6d2a6e-super-duper-funicular` | Historical Prototype | `bab689cdac3ba730138bfae09dda537978d61e09` | `2026-10-17T06:27:14+00:00` | `+1` | Adopt GREENFIELD discipline; extract running sprites; procedural runner app |

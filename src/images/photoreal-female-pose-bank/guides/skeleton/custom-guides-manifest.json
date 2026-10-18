@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-10-18T22:02:53.723Z",
+  "description": "Improved v2 compact toe-off guides to counter sprint bias (F-01) and new X07 low-forward forearm",
+  "guides": [
+    {
+      "id": "H03-v2",
+      "path": "src/images/photoreal-female-pose-bank/guides/skeleton/H03-v2-compact-toeoff-guide.png",
+      "phase": 0.25,
+      "overrides": {
+        "cadenceHz": 1.55,
+        "strideLengthScale": 0.62,
+        "kneeDriveScale": 0.68,
+        "armSwingScale": 0.85,
+        "armCarryFlexDeg": 84,
+        "armChestBiasDeg": 4,
+        "hairStyleMode": "ponytail",
+        "hairSwingScale": 1,
+        "forwardLeanDeg": 18,
+        "neckMotionScale": 1,
+        "footRollScale": 1,
+        "bounceAmplitudeScale": 0.5,
+        "pixelScale": 1,
+        "locomotionMode": "run"
+      }
+    },
+    {
+      "id": "H06-v2",
+      "path": "src/images/photoreal-female-pose-bank/guides/skeleton/H06-v2-left-down-guide.png",
+      "phase": 0.625,
+      "overrides": {
+        "cadenceHz": 1.55,
+        "strideLengthScale": 0.75,
+        "kneeDriveScale": 0.85,
+        "armSwingScale": 1,
+        "armCarryFlexDeg": 84,
+        "armChestBiasDeg": 4,
+        "hairStyleMode": "ponytail",
+        "hairSwingScale": 1,
+        "forwardLeanDeg": 20,
+        "neckMotionScale": 1,
+        "footRollScale": 1,
+        "bounceAmplitudeScale": 0.65,
+        "pixelScale": 1,
+        "locomotionMode": "run"
+      }
+    },
+    {
+      "id": "H07-v2",
+      "path": "src/images/photoreal-female-pose-bank/guides/skeleton/H07-v2-compact-toeoff-guide.png",
+      "phase": 0.75,
+      "overrides": {
+        "cadenceHz": 1.55,
+        "strideLengthScale": 0.62,
+        "kneeDriveScale": 0.68,
+        "armSwingScale": 0.85,
+        "armCarryFlexDeg": 84,
+        "armChestBiasDeg": 4,
+        "hairStyleMode": "ponytail",
+        "hairSwingScale": 1,
+        "forwardLeanDeg": 18,
+        "neckMotionScale": 1,
+        "footRollScale": 1,
+        "bounceAmplitudeScale": 0.5,
+        "pixelScale": 1,
+        "locomotionMode": "run"
+      }
+    },
+    {
+      "id": "X07",
+      "path": "src/images/photoreal-female-pose-bank/guides/skeleton/inserts/X07-far-forearm-low-forward-guide.png",
+      "phase": 0.125,
+      "note": "H02 body with far arm +20° low-forward"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "persona": "generic-runner-rig",
+  "generatedAt": "2026-10-18T13:01:03.896Z",
+  "records": [
+    {
+      "key": "H01",
+      "phase": 0,
+      "phaseName": "Right Contact (Midfoot Strike)",
+      "file": "H01-pose-guide.png"
+    },
+    {
+      "key": "H02",
+      "phase": 0.125,
+      "phaseName": "Right Down (Sole Roll & Cushion)",
+      "file": "H02-pose-guide.png"
+    },
+    {
+      "key": "H03",
+      "phase": 0.25,
+      "phaseName": "Right Pass (Heel-Off & Toe Roll)",
+      "file": "H03-pose-guide.png"
+    },
+    {
+      "key": "H04",
+      "phase": 0.375,
+      "phaseName": "Right Flight (Forward Fall Drive)",
+      "file": "H04-pose-guide.png"
+    },
+    {
+      "key": "H05",
+      "phase": 0.5,
+      "phaseName": "Left Contact (Midfoot Strike)",
+      "file": "H05-pose-guide.png"
+    },
+    {
+      "key": "H06",
+      "phase": 0.625,
+      "phaseName": "Left Down (Sole Roll & Cushion)",
+      "file": "H06-pose-guide.png"
+    },
+    {
+      "key": "H07",
+      "phase": 0.75,
+      "phaseName": "Left Pass (Heel-Off & Toe Roll)",
+      "file": "H07-pose-guide.png"
+    },
+    {
+      "key": "H08",
+      "phase": 0.875,
+      "phaseName": "Left Flight (Forward Fall Drive)",
+      "file": "H08-pose-guide.png"
+    }
+  ]
+}
