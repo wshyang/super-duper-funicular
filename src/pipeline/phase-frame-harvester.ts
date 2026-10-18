@@ -16,13 +16,38 @@ import { readImageFile, writePngFile } from './image-io.js';
 import { fillHollowJointBallByJacobiRelaxation, purgeSkinPartFabricSpill } from './photoreal-matte-and-qc.js';
 import { applyPivotArcRoundedCut, attachEndCapComposite } from './rounded-joint-cutter.js';
 import { createRaster, fillRaster, readPixel, writePixel } from './raster.js';
+import {
+  type HarvestedJigVariant,
+  type PhaseFrameComplianceEntry,
+  type PhaseJigVariantId,
+  type PhotorealPhaseVariantBank,
+  PHASE_FRAME_COMPLIANCE_LEDGER,
+  PHASE_FRAME_JIG_SPECS,
+  PHASE_VARIANT_JIG_SPECS,
+  selectPhaseVariantBankForPose,
+} from './phase-variant-specs.js';
+
+export {
+  PHASE_FRAME_COMPLIANCE_LEDGER,
+  PHASE_FRAME_JIG_SPECS,
+  PHASE_VARIANT_JIG_SPECS,
+  selectPhaseVariantBankForPose,
+  type HarvestedJigVariant,
+  type PhaseFrameComplianceEntry,
+  type PhaseJigVariantId,
+  type PhotorealPhaseVariantBank,
+};
 
 export type PhaseFrameId =
   | 'frame-00-neutral'
   | 'phase-01-right-strike'
   | 'phase-02-left-strike'
   | 'phase-03-midstance-knee'
-  | 'phase-04-flight-split';
+  | 'phase-04-flight-split'
+  | 'phase-05-near-arm-forward-rejected'
+  | 'phase-06-high-knee-ponytail-insert'
+  | 'phase-07-near-shoulder-forward-refined'
+  | 'phase-08-loaded-forefoot-roll-refined';
 
 export interface PhaseJigSegmentSpec {
   readonly partId: BodyPartId;
@@ -61,9 +86,15 @@ export interface PhaseHarvestReport {
   readonly referenceHeightPx: number;
   readonly frameHeightsPx: Readonly<Record<PhaseFrameId, number>>;
   readonly partsHarvestedCount: number;
+  readonly variantsHarvestedCount: number;
   readonly averageCoreCoverageRatio: number;
   readonly averageChromaSeparationRatio: number;
+  readonly complianceLedger: readonly PhaseFrameComplianceEntry[];
   readonly partMetrics: readonly PhaseLimbClearanceMetrics[];
+  readonly variantMetrics: readonly (PhaseLimbClearanceMetrics & {
+    readonly variantKey: string;
+    readonly phaseTriggerDescription: string;
+  })[];
 }
 
 export const PHASE_FRAME_FILES: Readonly<Record<PhaseFrameId, string>> = {
@@ -72,250 +103,11 @@ export const PHASE_FRAME_FILES: Readonly<Record<PhaseFrameId, string>> = {
   'phase-02-left-strike': 'src/images/photoreal-female-phases/phase-02-left-strike-right-arm-forward.png',
   'phase-03-midstance-knee': 'src/images/photoreal-female-phases/phase-03-midstance-high-knee-pass.png',
   'phase-04-flight-split': 'src/images/photoreal-female-phases/phase-04-flight-max-split-stride.png',
+  'phase-05-near-arm-forward-rejected': 'src/images/photoreal-female-phases/phase-05-near-arm-forward-drive.png',
+  'phase-06-high-knee-ponytail-insert': 'src/images/photoreal-female-phases/phase-06-toe-off-plantar-roll-insert.png',
+  'phase-07-near-shoulder-forward-refined': 'src/images/photoreal-female-phases/phase-07-near-shoulder-forward-refined.png',
+  'phase-08-loaded-forefoot-roll-refined': 'src/images/photoreal-female-phases/phase-08-loaded-forefoot-roll-refined.png',
 };
-
-export const PHASE_FRAME_JIG_SPECS: readonly PhaseJigSegmentSpec[] = [
-  {
-    partId: 'head',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'frame-00-neutral',
-    anatomicalRationale: 'Sagittal profile head in active gaze with ponytail separated behind occiput.',
-    srcStart: { x: 720, y: 42 },
-    srcEnd: { x: 720, y: 145 },
-    dstStart: { x: 76, y: 12 },
-    dstEnd: { x: 76, y: 120 },
-    srcHalfWidthPx: 48,
-    dstRadiusPx: 38,
-    cropBox: { minX: 673, maxX: 766, minY: 36, maxY: 152 },
-    shadeScale: 1.0,
-  },
-  {
-    partId: 'hairAccessory',
-    selectedFrameId: 'phase-03-midstance-knee',
-    fallbackFrameId: 'phase-01-right-strike',
-    anatomicalRationale: 'Ponytail floats backward into open #FF00FF space during mid-stance recovery.',
-    srcStart: { x: 668, y: 74 },
-    srcEnd: { x: 600, y: 185 },
-    dstStart: { x: 142, y: 82 },
-    dstEnd: { x: 14, y: 86 },
-    srcHalfWidthPx: 34,
-    dstRadiusPx: 24,
-    cropBox: { minX: 582, maxX: 674, minY: 62, maxY: 202 },
-    shadeScale: 1.0,
-  },
-  {
-    partId: 'neck',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'frame-00-neutral',
-    anatomicalRationale: 'Continuous cervical skin column between jawline and collar with zero mannequin cut.',
-    srcStart: { x: 714, y: 142 },
-    srcEnd: { x: 712, y: 184 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 22,
-    dstRadiusPx: 28,
-    cropBox: { minX: 688, maxX: 740, minY: 136, maxY: 188 },
-    shadeScale: 0.99,
-  },
-  {
-    partId: 'torso',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-03-midstance-knee',
-    anatomicalRationale: 'Near right arm swings behind back (-38 deg) and far left arm swings forward (+45 deg), leaving 100% of crimson singlet and white side stripe unobstructed.',
-    srcStart: { x: 714, y: 192 },
-    srcEnd: { x: 710, y: 362 },
-    dstStart: { x: 74, y: 24 },
-    dstEnd: { x: 80, y: 122 },
-    srcHalfWidthPx: 48,
-    dstRadiusPx: 38,
-    cropBox: { minX: 664, maxX: 764, minY: 186, maxY: 368 },
-    shadeScale: 1.0,
-  },
-  {
-    partId: 'pelvis',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-03-midstance-knee',
-    anatomicalRationale: 'Near hand is 65 px behind the hip in back-swing, exposing the entire sprinter-shorts waistband and hip saddle without arm/hand occlusion.',
-    srcStart: { x: 704, y: 360 },
-    srcEnd: { x: 706, y: 425 },
-    dstStart: { x: 82, y: 28 },
-    dstEnd: { x: 78, y: 126 },
-    srcHalfWidthPx: 48,
-    dstRadiusPx: 36,
-    cropBox: { minX: 652, maxX: 758, minY: 354, maxY: 432 },
-    shadeScale: 1.0,
-  },
-  {
-    partId: 'nearUpperArm',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-04-flight-split',
-    anatomicalRationale: 'Near right upper arm extends posteriorly into open #FF00FF space behind the torso.',
-    srcStart: { x: 676, y: 206 },
-    srcEnd: { x: 594, y: 256 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 22,
-    dstRadiusPx: 26,
-    cropBox: { minX: 575, maxX: 694, minY: 190, maxY: 268 },
-    shadeScale: 1.0,
-  },
-  {
-    partId: 'nearForearm',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-04-flight-split',
-    anatomicalRationale: 'Near right forearm and cyan wristband hang in clear #FF00FF space 65 px behind the torso.',
-    srcStart: { x: 592, y: 256 },
-    srcEnd: { x: 568, y: 365 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 18,
-    dstRadiusPx: 22,
-    cropBox: { minX: 546, maxX: 616, minY: 246, maxY: 372 },
-    shadeScale: 1.0,
-  },
-  {
-    partId: 'nearHand',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'frame-00-neutral',
-    anatomicalRationale: 'Near right hand/fist is completely isolated in #FF00FF magenta behind the hip at y=362..404.',
-    srcStart: { x: 568, y: 362 },
-    srcEnd: { x: 568, y: 400 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 20,
-    dstRadiusPx: 22,
-    cropBox: { minX: 544, maxX: 592, minY: 354, maxY: 408 },
-    shadeScale: 1.0,
-  },
-  {
-    partId: 'farUpperArm',
-    selectedFrameId: 'phase-04-flight-split',
-    fallbackFrameId: 'phase-01-right-strike',
-    anatomicalRationale: 'Far left upper arm swings forward in front of the chest, exposing the medial inner bicep.',
-    srcStart: { x: 754, y: 205 },
-    srcEnd: { x: 806, y: 242 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 20,
-    dstRadiusPx: 25,
-    cropBox: { minX: 744, maxX: 822, minY: 188, maxY: 258 },
-    shadeScale: 0.95,
-  },
-  {
-    partId: 'farForearm',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-02-left-strike',
-    anatomicalRationale: 'Far left forearm + cyan wristband swing forward in a 90-deg L-bend into open #FF00FF space in front of the chest.',
-    srcStart: { x: 792, y: 266 },
-    srcEnd: { x: 856, y: 196 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 19,
-    dstRadiusPx: 22,
-    cropBox: { minX: 772, maxX: 874, minY: 186, maxY: 280 },
-    shadeScale: 0.98,
-  },
-  {
-    partId: 'farHand',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-04-flight-split',
-    anatomicalRationale: 'Far left hand is attached to the forward left forearm in 3D space, naturally locking medial inner-palm chirality with thumb pointing up.',
-    srcStart: { x: 852, y: 202 },
-    srcEnd: { x: 868, y: 172 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 20,
-    dstRadiusPx: 20,
-    cropBox: { minX: 838, maxX: 890, minY: 166, maxY: 210 },
-    shadeScale: 1.0,
-  },
-  {
-    partId: 'nearThigh',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-04-flight-split',
-    anatomicalRationale: 'Right (near) thigh strides forward (+32 deg) completely separated from the trailing left thigh.',
-    srcStart: { x: 734, y: 416 },
-    srcEnd: { x: 822, y: 526 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 32,
-    dstRadiusPx: 30,
-    cropBox: { minX: 702, maxX: 854, minY: 402, maxY: 538 },
-    shadeScale: 1.0,
-    attachShortsCuff: 'with-stripe',
-  },
-  {
-    partId: 'nearShin',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-03-midstance-knee',
-    anatomicalRationale: 'Right (near) calf/shin and white ankle sock extend downward in clear #FF00FF space.',
-    srcStart: { x: 823, y: 526 },
-    srcEnd: { x: 840, y: 646 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 25,
-    dstRadiusPx: 25,
-    cropBox: { minX: 794, maxX: 866, minY: 516, maxY: 656 },
-    shadeScale: 1.0,
-  },
-  {
-    partId: 'nearFoot',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-03-midstance-knee',
-    anatomicalRationale: 'Right (near) running shoe is 300+ px ahead of the left shoe, guaranteeing a single lateral shoe with zero ghost-shoe overlap.',
-    srcStart: { x: 826, y: 678 },
-    srcEnd: { x: 920, y: 684 },
-    dstStart: { x: 38, y: 112 },
-    dstEnd: { x: 136, y: 118 },
-    srcHalfWidthPx: 36,
-    dstRadiusPx: 36,
-    cropBox: { minX: 814, maxX: 932, minY: 642, maxY: 702 },
-    shadeScale: 1.0,
-  },
-  {
-    partId: 'farThigh',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-02-left-strike',
-    anatomicalRationale: 'Left (far) thigh extends backward (-28 deg) behind the hip, exposing the medial inner thigh separated from nearThigh by #FF00FF background.',
-    srcStart: { x: 682, y: 432 },
-    srcEnd: { x: 626, y: 538 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 32,
-    dstRadiusPx: 29,
-    cropBox: { minX: 586, maxX: 718, minY: 420, maxY: 548 },
-    shadeScale: 0.90,
-    attachShortsCuff: 'solid-fabric',
-  },
-  {
-    partId: 'farShin',
-    selectedFrameId: 'phase-01-right-strike',
-    fallbackFrameId: 'phase-02-left-strike',
-    anatomicalRationale: 'Left (far) calf/shin and white ankle sock extend diagonally backward in open #FF00FF space.',
-    srcStart: { x: 624, y: 538 },
-    srcEnd: { x: 518, y: 608 },
-    dstStart: { x: 80, y: 36 },
-    dstEnd: { x: 80, y: 124 },
-    srcHalfWidthPx: 24,
-    dstRadiusPx: 24,
-    cropBox: { minX: 496, maxX: 662, minY: 526, maxY: 622 },
-    shadeScale: 0.90,
-  },
-  {
-    partId: 'farFoot',
-    selectedFrameId: 'phase-03-midstance-knee',
-    fallbackFrameId: 'phase-01-right-strike',
-    anatomicalRationale: 'Elevated high-knee swing shoe in phase-03 (or push-off shoe in phase-01) is completely isolated in #FF00FF space with zero double-shoe overlap.',
-    srcStart: { x: 768, y: 544 },
-    srcEnd: { x: 860, y: 574 },
-    dstStart: { x: 38, y: 112 },
-    dstEnd: { x: 136, y: 118 },
-    srcHalfWidthPx: 36,
-    dstRadiusPx: 36,
-    cropBox: { minX: 758, maxX: 868, minY: 506, maxY: 584 },
-    shadeScale: 0.90,
-  },
-];
 
 export function loadKeyedPhaseFrames(
   repoRoot: string,
@@ -501,7 +293,7 @@ function sampleCrossSectionNormalizedLimb(
             ? healNeckSingletPixel(p)
             : spec.partId === 'torso'
               ? healTorsoShoulderSkinPixel(p, x, y)
-              : p;
+              : healArmSkinContaminants(spec.partId, p);
         writePixel(out, { x, y }, shadeRgba(cleaned, spec.shadeScale));
       }
     }
@@ -545,9 +337,26 @@ function healNeckSingletPixel(p: RgbaColor): RgbaColor {
 
 function healTorsoShoulderSkinPixel(p: RgbaColor, x: number, y: number): RgbaColor {
   const isWhiteStripe = p.r > 180 && p.g > 170 && p.b > 170;
-  const isSinglet = p.r > p.g * 1.35 && p.g < 115 && p.b < 130;
-  if (!isWhiteStripe && !isSinglet && y < 76 && x < 92) {
-    return { r: 158, g: 26, b: 42, a: p.a };
+  const isSinglet = p.r > p.g * 1.45 && p.g < 95 && p.b < 110;
+  if (!isWhiteStripe && !isSinglet && y < 96 && x < 104) {
+    return { r: 154, g: 26, b: 42, a: p.a };
+  }
+  return p;
+}
+
+function healArmSkinContaminants(partId: BodyPartId, p: RgbaColor): RgbaColor {
+  if (partId === 'nearUpperArm' || partId === 'farUpperArm') {
+    const isWhiteStripe = p.r > 175 && p.g > 170 && p.b > 170 && Math.abs(p.r - p.b) < 28;
+    const isSinglet = p.r >= 115 && p.r - p.g >= 82 && p.g < 58;
+    if (isWhiteStripe || isSinglet) {
+      return { r: 192, g: 135, b: 100, a: p.a };
+    }
+  }
+  if (partId === 'farForearm' || partId === 'nearHand' || partId === 'farHand') {
+    const isCyanWristband = p.b > 125 && p.g > 100 && p.b - p.r > 24;
+    if (isCyanWristband) {
+      return { r: 190, g: 134, b: 98, a: p.a };
+    }
   }
   return p;
 }
@@ -618,7 +427,11 @@ function shadeRgba(p: RgbaColor, scale: number): RgbaColor {
 export function harvestArticulatedJigsFromPhaseFrames(
   repoRoot: string,
   outputDir?: string,
-): { readonly bank: PhotorealPartBank; readonly report: PhaseHarvestReport } {
+): {
+  readonly bank: PhotorealPartBank;
+  readonly variantBank: PhotorealPhaseVariantBank;
+  readonly report: PhaseHarvestReport;
+} {
   const frames = loadKeyedPhaseFrames(repoRoot);
   const frameHeightsPx = {} as Record<PhaseFrameId, number>;
   for (const [id, img] of Object.entries(frames) as [PhaseFrameId, RasterImage][]) {
@@ -636,27 +449,78 @@ export function harvestArticulatedJigsFromPhaseFrames(
     bank[spec.partId] = cutout;
     partMetrics.push(measurePhaseLimbClearance(srcFrame, spec, cutout, refHeight));
   }
-  const report = summarizePhaseHarvestReport(refHeight, frameHeightsPx, partMetrics);
+  const { variantBank, variantList, variantMetrics } = harvestPhaseJigVariants(frames, rawPelvisJig, refHeight);
+  const report = summarizePhaseHarvestReport(refHeight, frameHeightsPx, partMetrics, variantMetrics);
   if (outputDir) {
-    writePhaseHarvestArtifacts(outputDir, frames, bank, report);
+    writePhaseHarvestArtifacts(outputDir, frames, bank, variantBank, variantList, report);
   }
-  return { bank, report };
+  return { bank, variantBank, report };
+}
+
+function harvestPhaseJigVariants(
+  frames: Readonly<Record<PhaseFrameId, RasterImage>>,
+  rawPelvisJig: RasterImage,
+  refHeight: number,
+): {
+  readonly variantBank: PhotorealPhaseVariantBank;
+  readonly variantList: readonly HarvestedJigVariant[];
+  readonly variantMetrics: readonly (PhaseLimbClearanceMetrics & {
+    readonly variantKey: string;
+    readonly phaseTriggerDescription: string;
+  })[];
+} {
+  const mutableBank: Record<string, Record<string, HarvestedJigVariant>> = {};
+  const variantList: HarvestedJigVariant[] = [];
+  const variantMetrics: (PhaseLimbClearanceMetrics & {
+    readonly variantKey: string;
+    readonly phaseTriggerDescription: string;
+  })[] = [];
+  for (const vSpec of PHASE_VARIANT_JIG_SPECS) {
+    const srcFrame = frames[vSpec.selectedFrameId];
+    const cutout = extractSingleJigFromPhaseFrame(srcFrame, vSpec, rawPelvisJig);
+    const metrics = measurePhaseLimbClearance(srcFrame, vSpec, cutout, refHeight);
+    const entry: HarvestedJigVariant = {
+      partId: vSpec.partId,
+      variantId: vSpec.variantId,
+      variantKey: vSpec.variantKey,
+      sourceFrameId: vSpec.selectedFrameId,
+      phaseTriggerDescription: vSpec.phaseTriggerDescription,
+      image: cutout,
+      metrics,
+    };
+    (mutableBank[vSpec.partId] ??= {})[vSpec.variantId] = entry;
+    variantList.push(entry);
+    variantMetrics.push({
+      ...metrics,
+      variantKey: vSpec.variantKey,
+      phaseTriggerDescription: vSpec.phaseTriggerDescription,
+    });
+  }
+  return { variantBank: mutableBank as PhotorealPhaseVariantBank, variantList, variantMetrics };
 }
 
 function summarizePhaseHarvestReport(
   referenceHeightPx: number,
   frameHeightsPx: Readonly<Record<PhaseFrameId, number>>,
   partMetrics: readonly PhaseLimbClearanceMetrics[],
+  variantMetrics: readonly (PhaseLimbClearanceMetrics & {
+    readonly variantKey: string;
+    readonly phaseTriggerDescription: string;
+  })[],
 ): PhaseHarvestReport {
-  const covSum = partMetrics.reduce((acc, m) => acc + m.coreCoverageRatio, 0);
-  const sepSum = partMetrics.reduce((acc, m) => acc + m.chromaBoundarySeparationRatio, 0);
+  const all = [...partMetrics, ...variantMetrics];
+  const covSum = all.reduce((acc, m) => acc + m.coreCoverageRatio, 0);
+  const sepSum = all.reduce((acc, m) => acc + m.chromaBoundarySeparationRatio, 0);
   return {
     referenceHeightPx,
     frameHeightsPx,
     partsHarvestedCount: partMetrics.length,
-    averageCoreCoverageRatio: Number((covSum / partMetrics.length).toFixed(3)),
-    averageChromaSeparationRatio: Number((sepSum / partMetrics.length).toFixed(3)),
+    variantsHarvestedCount: variantMetrics.length,
+    averageCoreCoverageRatio: Number((covSum / all.length).toFixed(3)),
+    averageChromaSeparationRatio: Number((sepSum / all.length).toFixed(3)),
+    complianceLedger: PHASE_FRAME_COMPLIANCE_LEDGER,
     partMetrics,
+    variantMetrics,
   };
 }
 
@@ -664,50 +528,57 @@ function writePhaseHarvestArtifacts(
   outputDir: string,
   frames: Readonly<Record<PhaseFrameId, RasterImage>>,
   bank: PhotorealPartBank,
+  variantBank: PhotorealPhaseVariantBank,
+  variantList: readonly HarvestedJigVariant[],
   report: PhaseHarvestReport,
 ): void {
   const partsDir = path.join(outputDir, 'parts');
-  fs.mkdirSync(partsDir, { recursive: true });
+  const variantsDir = path.join(partsDir, 'variants');
+  fs.mkdirSync(variantsDir, { recursive: true });
   for (const [partId, img] of Object.entries(bank) as [BodyPartId, RasterImage][]) {
     writePngFile(path.join(partsDir, `${partId}.png`), img);
   }
+  for (const v of variantList) {
+    writePngFile(path.join(variantsDir, `${v.variantKey}.png`), v.image);
+  }
   fs.writeFileSync(path.join(outputDir, 'phase-harvest-report.json'), JSON.stringify(report, null, 2));
-  const sheet = renderPhaseHarvestDiagnosticSheet(frames, bank);
+  const sheet = renderPhaseHarvestDiagnosticSheet(frames, bank, variantBank, variantList);
   writePngFile(path.join(outputDir, 'phase-harvest-diagnostic-sheet.png'), sheet);
 }
 
 function renderPhaseHarvestDiagnosticSheet(
   frames: Readonly<Record<PhaseFrameId, RasterImage>>,
   bank: PhotorealPartBank,
+  variantBank: PhotorealPhaseVariantBank,
+  variantList: readonly HarvestedJigVariant[],
 ): RasterImage {
-  const sheet = createRaster(1100, 760);
+  const sheet = createRaster(1160, 880);
   fillRaster(sheet, { r: 24, g: 28, b: 38, a: 255 });
-  const frameIds: readonly PhaseFrameId[] = [
-    'frame-00-neutral', 'phase-01-right-strike', 'phase-02-left-strike',
-    'phase-03-midstance-knee', 'phase-04-flight-split',
-  ];
+  const frameIds = Object.keys(PHASE_FRAME_FILES) as PhaseFrameId[];
   frameIds.forEach((fid, idx) => {
-    blitScaledSourceFrameWithBoxes(sheet, frames[fid], fid, idx * 220 + 8, 8);
+    blitScaledSourceFrameWithBoxes(sheet, frames[fid], fid, idx * 126 + 12, 8);
   });
-  PHASE_FRAME_JIG_SPECS.forEach((spec, idx) => {
-    const col = idx % 9;
-    const row = Math.floor(idx / 9);
-    const tile = bank[spec.partId];
-    if (tile) {
-      blitHarvestedJigTile(sheet, tile, col * 120 + 14, 240 + row * 120);
-    }
+  const allTiles: RasterImage[] = [
+    ...PHASE_FRAME_JIG_SPECS.map((s) => bank[s.partId]!),
+    ...variantList.map((v) => v.image),
+  ];
+  allTiles.forEach((tile, idx) => {
+    const col = idx % 10;
+    const row = Math.floor(idx / 10);
+    blitHarvestedJigTile(sheet, tile, col * 114 + 14, 232 + row * 124);
   });
   const tuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female'];
   const tunedRig = applyAssetTuningToRigSpec(DEFAULT_RIG_SPEC, tuning);
   [0, 0.25, 0.5, 0.75].forEach((phase, idx) => {
     const pose = solveArticulatedPose(phase, DEFAULT_GAIT_CONFIG, tunedRig);
+    const activeBank = selectPhaseVariantBankForPose(pose, bank, variantBank);
     const rendered = createRaster(220, 256);
     renderPhotorealFemalePoseOntoCanvas(rendered, pose, RUNNER_PALETTES.red, {
       personaId: 'photo-sg-chinese-female',
       tuning,
-      bankOverride: bank,
+      bankOverride: activeBank,
     });
-    blitCompositeFrame(sheet, rendered, idx * 260 + 36, 488);
+    blitCompositeFrame(sheet, rendered, idx * 276 + 38, 612);
   });
   return sheet;
 }
@@ -719,8 +590,12 @@ function blitScaledSourceFrameWithBoxes(
   ox: number,
   oy: number,
 ): void {
-  const w = 204;
-  const h = 216;
+  const w = 120;
+  const h = 212;
+  const entry = PHASE_FRAME_COMPLIANCE_LEDGER.find((e) => e.frameId === frameId);
+  const borderColor = entry?.complianceStatus === 'accepted'
+    ? { r: 40, g: 220, b: 140, a: 255 }
+    : { r: 245, g: 170, b: 40, a: 255 };
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
       const sx = Math.round(420 + (x / w) * 560);
@@ -730,7 +605,8 @@ function blitScaledSourceFrameWithBoxes(
       writePixel(dst, { x: ox + x, y: oy + y }, p.a > 64 ? p : bg);
     }
   }
-  for (const spec of PHASE_FRAME_JIG_SPECS) {
+  drawRectOutline(dst, ox, oy, ox + w - 1, oy + h - 1, borderColor);
+  for (const spec of [...PHASE_FRAME_JIG_SPECS, ...PHASE_VARIANT_JIG_SPECS]) {
     if (spec.selectedFrameId !== frameId) continue;
     const x0 = ox + Math.max(0, Math.min(w - 1, Math.round(((spec.cropBox.minX - 420) / 560) * w)));
     const x1 = ox + Math.max(0, Math.min(w - 1, Math.round(((spec.cropBox.maxX - 420) / 560) * w)));

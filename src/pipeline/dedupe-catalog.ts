@@ -272,6 +272,30 @@ const KNOWN_FILE_MAPPINGS: readonly CandidateMapping[] = [
     description: 'Full-body running phase keyframe (Phase 4 — Airborne Maximum Split Stride with Extended Rear Near Arm & High Medial Far Arm) on #FF00FF magenta.',
   },
   {
+    sourceRelPath: 'src/images/photoreal-female-phases/phase-05-near-arm-forward-drive.png',
+    targetRelPath: 'src/images/photoreal-female-phases/phase-05-near-arm-forward-drive.png',
+    category: 'spritesheet-reference',
+    description: 'Full-body running phase keyframe (Phase 5 / X01-Attempt-1 — Rejected for Near-Shoulder-Forward due to IMG-ERR-18 Wristband-Transfer Swap; Retained for Straight Rear Arm & Kick Shoe) on #FF00FF magenta.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-phases/phase-06-toe-off-plantar-roll-insert.png',
+    targetRelPath: 'src/images/photoreal-female-phases/phase-06-toe-off-plantar-roll-insert.png',
+    category: 'spritesheet-reference',
+    description: 'Full-body running phase keyframe (Phase 6 / X04+X06 — Rejected for Grounded Forefoot Bend due to IMG-ERR-19 Airborne Toe-Point; Accepted for 90-Degree Horizontal High-Knee Swing Thigh/Shin & Horizontal Ponytail Whip) on #FF00FF magenta.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-phases/phase-07-near-shoulder-forward-refined.png',
+    targetRelPath: 'src/images/photoreal-female-phases/phase-07-near-shoulder-forward-refined.png',
+    category: 'spritesheet-reference',
+    description: 'Full-body running phase keyframe (Phase 7 / X01+X03-Refined — Accepted for Near-Shoulder Forward Arm Drive across Chest & Rear-Swung Far Medial Arm behind Back) on #FF00FF magenta.',
+  },
+  {
+    sourceRelPath: 'src/images/photoreal-female-phases/phase-08-loaded-forefoot-roll-refined.png',
+    targetRelPath: 'src/images/photoreal-female-phases/phase-08-loaded-forefoot-roll-refined.png',
+    category: 'spritesheet-reference',
+    description: 'Full-body running phase keyframe (Phase 8 / X05-Refined — Accepted for Ground-Loaded Forefoot Metatarsal Toe-Off Roll Shoe & +25-Degree Dorsiflexed Heel-Strike Front Shoe) on #FF00FF magenta.',
+  },
+  {
     sourceRelPath: 'src/images/backdrops/stadium-track-day.png',
     targetRelPath: 'src/images/backdrops/stadium-track-day.png',
     category: 'backdrop',

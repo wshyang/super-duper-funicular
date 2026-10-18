@@ -31,7 +31,12 @@ import {
   raiseAthleticBustLandmark,
   sealAthleticTorsoShoulderBulge,
 } from './athletic-reference-extractor.js';
-import { harvestArticulatedJigsFromPhaseFrames } from './phase-frame-harvester.js';
+import {
+  harvestArticulatedJigsFromPhaseFrames,
+  selectPhaseVariantBankForPose,
+} from './phase-frame-harvester.js';
+import { solveArticulatedPose } from '../runner/gait.js';
+import { DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC } from '../runner/body-proportions.js';
 import { vectorizeRasterCutoutToSvg } from './svg-vectorizer.js';
 import type { ExtractedSheetManifest, SpriteFlawAnalysisReport } from '../shared/types.js';
 
@@ -449,17 +454,33 @@ describe('Real reference sprite sheet grid detection and extraction verification
     fs.rmSync(tmpAuditDir, { recursive: true, force: true });
   });
 
-  it('harvests all 17 articulated jigs from multi-frame running phase keyframes with high coverage and chroma separation', () => {
+  it('harvests all 17 canonical jigs plus 12 phase-variant copies across 9 compliance-audited frames and selects variants by phase', () => {
     const tmpHarvestDir = fs.mkdtempSync(path.join(os.tmpdir(), 'phase-harvest-test-'));
-    const { bank, report } = harvestArticulatedJigsFromPhaseFrames(process.cwd(), tmpHarvestDir);
+    const { bank, variantBank, report } = harvestArticulatedJigsFromPhaseFrames(process.cwd(), tmpHarvestDir);
     expect(report.partsHarvestedCount).toBe(17);
+    expect(report.variantsHarvestedCount).toBe(12);
+    expect(report.complianceLedger).toHaveLength(9);
     expect(report.referenceHeightPx).toBeGreaterThanOrEqual(700);
     expect(report.averageCoreCoverageRatio).toBeGreaterThanOrEqual(0.95);
     expect(report.averageChromaSeparationRatio).toBeGreaterThanOrEqual(0.75);
+    const rejectedCodes = report.complianceLedger
+      .map((entry) => entry.rejectionDefectCode)
+      .filter(Boolean);
+    expect(rejectedCodes).toEqual(['IMG-ERR-17', 'IMG-ERR-18', 'IMG-ERR-19']);
     for (const metric of report.partMetrics) {
       expect(metric.opaquePixelsCount, `${metric.partId} opaque pixels`).toBeGreaterThan(2500);
       expect(Boolean(bank[metric.partId])).toBe(true);
     }
+    for (const vMetric of report.variantMetrics) {
+      expect(vMetric.opaquePixelsCount, `${vMetric.variantKey} opaque pixels`).toBeGreaterThan(2500);
+      expect(fs.existsSync(path.join(tmpHarvestDir, 'parts', 'variants', `${vMetric.variantKey}.png`))).toBe(true);
+    }
+    const poseRightStrike = solveArticulatedPose(0.0, DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC);
+    const poseLeftStrike = solveArticulatedPose(0.5, DEFAULT_GAIT_CONFIG, DEFAULT_RIG_SPEC);
+    const bankAt0 = selectPhaseVariantBankForPose(poseRightStrike, bank, variantBank);
+    const bankAtHalf = selectPhaseVariantBankForPose(poseLeftStrike, bank, variantBank);
+    expect(bankAt0.nearUpperArm).not.toBe(bankAtHalf.nearUpperArm);
+    expect(bankAt0.nearForearm).not.toBe(bankAtHalf.nearForearm);
     expect(fs.existsSync(path.join(tmpHarvestDir, 'phase-harvest-diagnostic-sheet.png'))).toBe(true);
     expect(fs.existsSync(path.join(tmpHarvestDir, 'phase-harvest-report.json'))).toBe(true);
     fs.rmSync(tmpHarvestDir, { recursive: true, force: true });

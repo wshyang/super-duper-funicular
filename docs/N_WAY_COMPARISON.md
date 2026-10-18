@@ -18,12 +18,12 @@
 ### 1.1 Automated Live Remote Branch Tips (`npm run branches:compare`)
 
 <!-- branch-tips:start -->
-Observed (UTC): `2026-10-18T09:34:48.063Z` · Active Session Branch: `arena/917ef347-super-duper-funicular`
+Observed (UTC): `2026-10-18T12:39:44.199Z` · Active Session Branch: `arena/917ef347-super-duper-funicular`
 
 | Branch Role & Codename | Branch (`refs/heads/*`) | PR / Lifecycle Status | Full Observed SHA | Commit Timestamp (ISO) | Commits Ahead of `main` | Latest Commit Subject |
 |---|---|---|---|---|---|---|
-| **Branch 1 (Ours — Sprite Motion Lab)** | `arena/917ef347-super-duper-funicular` | PR #1 Open (Active Session Branch) | `936f37ce07f18e38fc4f5b3880c80029ec9f55cf` | `2026-10-18T06:47:04+00:00` | `+14` | docs(compare): refresh 5-way branch tips ledger (PR #8 @ 04d5caf) |
-| **Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)** | `arena/e1300d3c-super-duper-funicular` | PR #8 Open (Closely Watched) | `195fd47231fc94edc23f54ffb7f20bd7fbfc3803` | `2026-10-18T07:11:20+00:00` | `+16` | fix: refine athletic upright rig assembly |
+| **Branch 1 (Ours — Sprite Motion Lab)** | `arena/917ef347-super-duper-funicular` | PR #1 Open (Active Session Branch) | `571515b2a0cb0c9f71c77f9be7bff7ef8701ebe0` | `2026-10-18T09:34:48+00:00` | `+16` | docs(compare): refresh 5-way branch tips ledger (PR #8 @ 195fd47) |
+| **Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)** | `arena/e1300d3c-super-duper-funicular` | PR #8 Open (Closely Watched) | `3e6ad932f470a8a81cc045ada3c8a82ae28d4521` | `2026-10-18T12:18:19+00:00` | `+17` | docs: plan pose-bank harvesting strategy |
 | **Branch 2 (Stride Lab Workbench)** | `arena/263385da-super-duper-funicular` | PR #2 Open | `b227e2fe562be341f15f58955f539d325170729e` | `2026-10-17T21:55:19+00:00` | `+1` | Build Stride Lab motion workbench with photographic rig and cycle audits |
 | **Branch 3 (Funicular / Photo-Rig & Matte Lab)** | `arena/77ffb088-super-duper-funicular` | PR #3 Open | `43352cf3fe8cb6c486aa79a59954d5972a5e13ac` | `2026-10-17T23:05:53+00:00` | `+13` | Track live three-way feature parity and adopt multi-background photo audits |
 | **Branch 4 (Initial Greenfield Prototype)** | `arena/ce6d2a6e-super-duper-funicular` | Historical Prototype | `bab689cdac3ba730138bfae09dda537978d61e09` | `2026-10-17T06:27:14+00:00` | `+1` | Adopt GREENFIELD discipline; extract running sprites; procedural runner app |
