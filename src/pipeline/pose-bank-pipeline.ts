@@ -202,3 +202,51 @@ export function assertJigPoseVariant(variant: JigPoseVariant): void {
   if (!Number.isFinite(variant.scale) || variant.scale <= 0) throw new Error('A pose variant scale must be finite and positive.');
   if (!Number.isFinite(variant.pivot.x) || !Number.isFinite(variant.pivot.y)) throw new Error('A pose variant requires a finite pivot.');
 }
+
+/**
+ * SC-AC Track-2 verdicts (`docs/SPRITE_CAPTURE_ACCEPTANCE_CRITERIA.md`).
+ * POSE and CROP verdicts are independent: a correct-phase candidate with a
+ * dirty background is POSE-pass + CROP-not-harvestable, never "conditional".
+ */
+export type PoseVerdict = 'pass' | 'deviated' | 'rejected';
+export type CropVerdict = 'harvestable-side-specific' | 'harvestable-shape-only' | 'not-harvestable';
+export type ChiralityTier = 'A' | 'B' | 'C';
+
+export interface HarvestEligibilityInput {
+  /** SC-AC-04 per-part visibility (0..3); harvest requires >= 2. */
+  readonly visibility: VisibilityScore;
+  /** SC-AC-05 key gate outcome for the candidate + frame type. */
+  readonly keyGatePassed: boolean;
+  /** SC-AC-06 depth-evidence tier. */
+  readonly chiralityTier: ChiralityTier;
+  /** SC-AC-01 checks 2..4 (wardrobe) clean. */
+  readonly costumeClean: boolean;
+  /** Frame status must already be `accepted`; anything else blocks harvest. */
+  readonly frameStatus: PoseCandidateStatus;
+}
+
+export interface HarvestEligibility {
+  readonly verdict: CropVerdict;
+  readonly reasons: readonly string[];
+}
+
+export function evaluateHarvestEligibility(input: HarvestEligibilityInput): HarvestEligibility {
+  const blockers: string[] = [];
+  if (input.frameStatus !== 'accepted') blockers.push(`frame status is ${input.frameStatus}, not accepted`);
+  if (input.visibility < 2) blockers.push(`visibility ${input.visibility} < 2 (occluded)`);
+  if (!input.keyGatePassed) blockers.push('key gate failed (key-shadow/key-edge/key-bg)');
+  if (!input.costumeClean) blockers.push('costume drift (costume-drift)');
+  if (blockers.length > 0) return { verdict: 'not-harvestable', reasons: blockers };
+  if (input.chiralityTier === 'C') {
+    return { verdict: 'harvestable-shape-only', reasons: ['chirality tier C: contour reference only'] };
+  }
+  return { verdict: 'harvestable-side-specific', reasons: [`chirality tier ${input.chiralityTier}`] };
+}
+
+/** Read a per-part visibility score from a manifest frame (legacy aggregate keys ignored). */
+export function partVisibilityOf(
+  frame: Pick<PoseBankPlanFrame, 'visibility'>,
+  partId: string,
+): VisibilityScore {
+  return frame.visibility[partId] ?? 0;
+}

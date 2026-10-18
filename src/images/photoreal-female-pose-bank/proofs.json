@@ -1,0 +1,9 @@
+[
+  {
+    "proofId": "proof-01",
+    "sourceCandidate": "H01-100",
+    "part": "farFoot",
+    "gatesPass": true,
+    "visualSeamCheck": "pass-1x-clean-edges-full-shoe-sock-stub"
+  }
+]

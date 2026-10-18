@@ -1,0 +1,35 @@
+{
+  "proofId": "proof-01",
+  "criterion": "SC-AC-09",
+  "sourceCandidate": "H01-100",
+  "sourcePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact-v3-guide-retry3.png",
+  "sourceSha256": "74f4193ff5c2b3f66b154fd2997519f598a7e601e5a971247bb72e641b93a66b",
+  "part": "farFoot",
+  "shoeBox": {
+    "x0": 509,
+    "y0": 482,
+    "x1": 541,
+    "y1": 512
+  },
+  "cutoutBox": {
+    "x0": 485,
+    "y0": 408,
+    "x1": 565,
+    "y1": 536
+  },
+  "pivotInCutout": {
+    "x": 34,
+    "y": 74
+  },
+  "pivotNotes": "ankle estimate: 30% across the shoe bbox from the heel side, top edge; refine at rig time.",
+  "telemetry": {
+    "magentaSpill": 0,
+    "detachedIslands": 0,
+    "uncoveredJoints": "deferred-rig-stage"
+  },
+  "gatesPass": true,
+  "cleanupNotes": "keyStudioMagenta + color-flood shoe extent (white/crimson; stops at skin) + removeSmallOpaqueIslands(8) for keyer specks/micro-dots + 24px pad + 50px shin stub; no manual cleanup. COMPACT-ADJACENCY: box harvester valid only for isolated parts; H07-96 nearFoot needs mask-aware cutout. Reviewer 1x: full shoe + sock + stub, no clipping, no pink fringe; micro-dots removed at threshold 8.",
+  "visualSeamCheck": "pass-1x-clean-edges-full-shoe-sock-stub",
+  "cutoutPath": "src/images/photoreal-female-pose-bank/proofs/proof01-H01-100-farFoot.png",
+  "cutoutSha256": "92861f2b8fb9c00de3e971ac49781e7e9dd53e5d9dbff27dc1f684c38a67fab4"
+}

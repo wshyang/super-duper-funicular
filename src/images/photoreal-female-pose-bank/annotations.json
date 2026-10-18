@@ -1,0 +1,1004 @@
+[
+  {
+    "candidateId": "H00-00",
+    "frameKey": "H00",
+    "callId": "#00",
+    "candidatePath": "src/images/photoreal-female/01-master-lateral-profile-reference.png",
+    "targetOverride": {
+      "nearKneeDeg": 175,
+      "farKneeDeg": 175,
+      "nearThighSwingDeg": 0,
+      "farThighSwingDeg": 0,
+      "nearElbowDeg": 170,
+      "farElbowDeg": 170,
+      "nearShoulderSwingDeg": 5,
+      "farShoulderSwingDeg": 5,
+      "nearFootState": "contact",
+      "farFootState": "contact"
+    },
+    "observed": {
+      "nearKneeDeg": 175,
+      "farKneeDeg": 175,
+      "nearThighSwingDeg": 0,
+      "farThighSwingDeg": 0,
+      "nearElbowDeg": 170,
+      "farElbowDeg": 170,
+      "nearShoulderSwingDeg": 5,
+      "farShoulderSwingDeg": 5,
+      "nearFootState": "contact",
+      "farFootState": "contact"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "hairAccessory": 3,
+      "neck": 2,
+      "torso": 2,
+      "pelvis": 2,
+      "nearUpperArm": 2,
+      "nearForearm": 2,
+      "nearHand": 2,
+      "nearThigh": 2,
+      "nearShin": 2,
+      "nearFoot": 2
+    },
+    "notes": "Identity master: neutral standing, far side fully occluded (no far-side entries). Supplies extended-bin knee/elbow sources + the contact/contact anchor."
+  },
+  {
+    "candidateId": "H01-73",
+    "frameKey": "H01",
+    "callId": "#73",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact.png",
+    "observed": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 85,
+      "nearThighSwingDeg": 15,
+      "farThighSwingDeg": -15,
+      "nearElbowDeg": 100,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -30,
+      "farShoulderSwingDeg": 30,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 3,
+      "nearThigh": 2,
+      "nearShin": 2,
+      "nearFoot": 2,
+      "farThigh": 2,
+      "farShin": 2,
+      "farFoot": 2
+    },
+    "notes": "POSE-HARVEST-LOG #73/#74: pose/identity pass, conspicuous floor shadow. Angles by-eye from the #74 sibling framing."
+  },
+  {
+    "candidateId": "H01-74",
+    "frameKey": "H01",
+    "callId": "#74",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact-refined.png",
+    "observed": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 85,
+      "nearThighSwingDeg": 15,
+      "farThighSwingDeg": -15,
+      "nearElbowDeg": 100,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -30,
+      "farShoulderSwingDeg": 30,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 3,
+      "nearThigh": 2,
+      "nearShin": 2,
+      "nearFoot": 2,
+      "farThigh": 2,
+      "farShin": 2,
+      "farFoot": 2
+    },
+    "notes": "Refinement of #73. Near elbow more flexed than the H01 guide (130 deg open carry); otherwise H01 family."
+  },
+  {
+    "candidateId": "H02-75",
+    "frameKey": "H02",
+    "callId": "#75",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H02-right-down.png",
+    "observed": {
+      "nearKneeDeg": 130,
+      "farKneeDeg": 70,
+      "nearThighSwingDeg": 10,
+      "farThighSwingDeg": -20,
+      "nearElbowDeg": 100,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -25,
+      "farShoulderSwingDeg": 28,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 3,
+      "nearThigh": 2,
+      "nearShin": 2,
+      "nearFoot": 2,
+      "farThigh": 2,
+      "farShin": 2
+    },
+    "notes": "Log: subtly (not dramatically) lower than H01; recovery leg trails rearward instead of the guide fold-under. Canonical deviated case."
+  },
+  {
+    "candidateId": "H03-76",
+    "frameKey": "H03",
+    "callId": "#76",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass.png",
+    "observed": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 70,
+      "nearThighSwingDeg": -35,
+      "farThighSwingDeg": 70,
+      "nearElbowDeg": 95,
+      "farElbowDeg": 90,
+      "nearShoulderSwingDeg": -25,
+      "farShoulderSwingDeg": 35,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 2,
+      "nearThigh": 2,
+      "farThigh": 2,
+      "farShin": 2
+    },
+    "notes": "Log: generic exaggerated sprint + 3/4 torso turn. Support leg stretched back instead of under hip; arms in full counter-swing vs guide mid-swing."
+  },
+  {
+    "candidateId": "H03-82",
+    "frameKey": "H03",
+    "callId": "#82",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-refined.png",
+    "observed": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 70,
+      "nearThighSwingDeg": -35,
+      "farThighSwingDeg": 70,
+      "nearElbowDeg": 95,
+      "farElbowDeg": 90,
+      "nearShoulderSwingDeg": -25,
+      "farShoulderSwingDeg": 35,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 2,
+      "nearThigh": 2,
+      "farThigh": 2,
+      "farShin": 2
+    },
+    "notes": "Visually inspected: same high-knee sprint collapse as #76 despite the hi-res skeleton guide. Forward knee far above guide; support contact unclear."
+  },
+  {
+    "candidateId": "H04-77",
+    "frameKey": "H04",
+    "callId": "#77",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H04-right-flight.png",
+    "observed": {
+      "nearKneeDeg": 160,
+      "farKneeDeg": 130,
+      "nearThighSwingDeg": -40,
+      "farThighSwingDeg": 40,
+      "nearElbowDeg": 95,
+      "farElbowDeg": 105,
+      "nearShoulderSwingDeg": 30,
+      "farShoulderSwingDeg": -5,
+      "nearFootState": "airborne",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 3,
+      "nearThigh": 2,
+      "nearShin": 3,
+      "nearFoot": 3,
+      "farThigh": 2,
+      "farShin": 3,
+      "farFoot": 3,
+      "nearForearm": 2,
+      "farForearm": 2,
+      "neck": 2,
+      "pelvis": 2,
+      "hairAccessory": 3
+    },
+    "notes": "Log: airborne coverage, stride broader than guide. Foot-region key FAIL (hard shadow touching low shoes); upper-region parts key-clean."
+  },
+  {
+    "candidateId": "H05-78",
+    "frameKey": "H05",
+    "callId": "#78",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H05-left-contact.png",
+    "observed": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 85,
+      "nearThighSwingDeg": 15,
+      "farThighSwingDeg": -15,
+      "nearElbowDeg": 100,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -30,
+      "farShoulderSwingDeg": 30,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 3
+    },
+    "notes": "Log: visually H01-like; far-support assignment unverifiable. Contact state is INVERTED vs H05 target (near contact instead of far) => wrong-phase + duplicate of H01."
+  },
+  {
+    "candidateId": "H06-79",
+    "frameKey": "H06",
+    "callId": "#79",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H06-left-down.png",
+    "observed": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 160,
+      "nearThighSwingDeg": -10,
+      "farThighSwingDeg": 10,
+      "nearElbowDeg": 100,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -25,
+      "farShoulderSwingDeg": 30,
+      "nearFootState": "airborne",
+      "farFootState": "contact"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 3
+    },
+    "notes": "Visually inspected: generic straight-knee contact; no loaded cushion (far knee ~160 vs 120.6 target); near recovery leg extended, not folded (150 vs 43.4)."
+  },
+  {
+    "candidateId": "H07-80",
+    "frameKey": "H07",
+    "callId": "#80",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H07-left-pass.png",
+    "observed": {
+      "nearKneeDeg": 120,
+      "farKneeDeg": 150,
+      "nearThighSwingDeg": 40,
+      "farThighSwingDeg": -25,
+      "nearElbowDeg": 100,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -20,
+      "farShoulderSwingDeg": 30,
+      "nearFootState": "airborne",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 3
+    },
+    "notes": "Log: rendered airborne instead of far-side toe-off contact => contact-state mismatch => rejected. High-knee sprint drift."
+  },
+  {
+    "candidateId": "H08-81",
+    "frameKey": "H08",
+    "callId": "#81",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H08-left-flight.png",
+    "observed": {
+      "nearKneeDeg": 130,
+      "farKneeDeg": 160,
+      "nearThighSwingDeg": 40,
+      "farThighSwingDeg": -40,
+      "nearElbowDeg": 115,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -20,
+      "farShoulderSwingDeg": 30,
+      "nearFootState": "airborne",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 3,
+      "nearThigh": 2,
+      "nearShin": 3,
+      "nearFoot": 3,
+      "farThigh": 2,
+      "farShin": 3,
+      "farFoot": 3,
+      "nearForearm": 2,
+      "farForearm": 2,
+      "neck": 2,
+      "pelvis": 2,
+      "hairAccessory": 3
+    },
+    "notes": "Log: airborne coverage, broader than guide. Foot-region key FAIL (hard shadow touching low shoes); upper-region parts key-clean."
+  },
+  {
+    "candidateId": "X01-83",
+    "frameKey": "X01",
+    "callId": "#83",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/X01-near-arm-forward.png",
+    "targetOverride": {
+      "nearKneeDeg": 145,
+      "farKneeDeg": 95,
+      "nearThighSwingDeg": 12,
+      "farThighSwingDeg": -15,
+      "nearElbowDeg": 90,
+      "farElbowDeg": 90,
+      "nearShoulderSwingDeg": 25,
+      "farShoulderSwingDeg": -20,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "observed": {
+      "nearKneeDeg": 145,
+      "farKneeDeg": 95,
+      "nearThighSwingDeg": 12,
+      "farThighSwingDeg": -15,
+      "nearElbowDeg": 90,
+      "farElbowDeg": 90,
+      "nearShoulderSwingDeg": 25,
+      "farShoulderSwingDeg": -20,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "nearUpperArm": 2,
+      "nearForearm": 3,
+      "nearHand": 3,
+      "farUpperArm": 2,
+      "farForearm": 2,
+      "farHand": 2,
+      "head": 3,
+      "torso": 2,
+      "neck": 2,
+      "pelvis": 2,
+      "hairAccessory": 2
+    },
+    "notes": "Log: near arm forward w/ right-angle elbow, fist ahead of sternum; far arm opposite behind waist. First fully-compliant insert."
+  },
+  {
+    "candidateId": "X02-84",
+    "frameKey": "X02",
+    "callId": "#84",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/X02-near-arm-rear.png",
+    "targetOverride": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 110,
+      "nearThighSwingDeg": 5,
+      "farThighSwingDeg": -10,
+      "nearElbowDeg": 90,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -20,
+      "farShoulderSwingDeg": 25,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "observed": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 110,
+      "nearThighSwingDeg": 5,
+      "farThighSwingDeg": -10,
+      "nearElbowDeg": 90,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -20,
+      "farShoulderSwingDeg": 25,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": false,
+    "visibility": {
+      "nearUpperArm": 2,
+      "nearForearm": 3,
+      "farForearm": 2,
+      "head": 3,
+      "torso": 2
+    },
+    "notes": "Log: opposite arm angle achieved BUT rear wristband rendered black => costume-drift blocks CROP. POSE geometry passes."
+  },
+  {
+    "candidateId": "X04-85",
+    "frameKey": "X04",
+    "callId": "#85",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/X04-leg-scissor.png",
+    "targetOverride": {
+      "nearKneeDeg": 145,
+      "farKneeDeg": 115,
+      "nearThighSwingDeg": -20,
+      "farThighSwingDeg": 35,
+      "nearElbowDeg": 95,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": 30,
+      "farShoulderSwingDeg": -20,
+      "nearFootState": "airborne",
+      "farFootState": "airborne"
+    },
+    "observed": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 120,
+      "nearThighSwingDeg": -30,
+      "farThighSwingDeg": 40,
+      "nearElbowDeg": 95,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": 30,
+      "farShoulderSwingDeg": -20,
+      "nearFootState": "airborne",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": false,
+    "visibility": {
+      "head": 3,
+      "torso": 2
+    },
+    "notes": "Log: collapsed onto the familiar elongated airborne sprint (+ rear wristband drift). Leg-targeted insert: legs pass, arms match H04 arrangement. Expected: duplicate of H04-77.",
+    "targetedJoints": [
+      "nearKneeDeg",
+      "farKneeDeg",
+      "nearThighSwingDeg",
+      "farThighSwingDeg"
+    ]
+  },
+  {
+    "candidateId": "X04-86",
+    "frameKey": "X04",
+    "callId": "#86",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/X04-tucked-flight-refinement.png",
+    "targetOverride": {
+      "nearKneeDeg": 80,
+      "farKneeDeg": 95,
+      "nearThighSwingDeg": -15,
+      "farThighSwingDeg": 45,
+      "nearElbowDeg": 95,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -20,
+      "farShoulderSwingDeg": 25,
+      "nearFootState": "airborne",
+      "farFootState": "airborne"
+    },
+    "observed": {
+      "nearKneeDeg": 140,
+      "farKneeDeg": 95,
+      "nearThighSwingDeg": -25,
+      "farThighSwingDeg": 45,
+      "nearElbowDeg": 95,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -20,
+      "farShoulderSwingDeg": 25,
+      "nearFootState": "airborne",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 2,
+      "farThigh": 2,
+      "farShin": 2
+    },
+    "notes": "Log: distinct high-knee/trailing-leg silhouette (diverse) but rear knee not deeply tucked (near knee 140 vs 80 target) => deviated, pose-diversity only."
+  },
+  {
+    "candidateId": "X02-87",
+    "frameKey": "X02",
+    "callId": "#87",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/X02-near-arm-rear-color-refinement.png",
+    "targetOverride": {
+      "nearKneeDeg": 145,
+      "farKneeDeg": 100,
+      "nearThighSwingDeg": 8,
+      "farThighSwingDeg": -12,
+      "nearElbowDeg": 90,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -20,
+      "farShoulderSwingDeg": 25,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "observed": {
+      "nearKneeDeg": 145,
+      "farKneeDeg": 100,
+      "nearThighSwingDeg": 8,
+      "farThighSwingDeg": -12,
+      "nearElbowDeg": 85,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -18,
+      "farShoulderSwingDeg": 25,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "nearUpperArm": 2,
+      "nearForearm": 2,
+      "nearHand": 1,
+      "farForearm": 2,
+      "head": 3,
+      "torso": 2,
+      "neck": 2,
+      "pelvis": 2,
+      "hairAccessory": 2
+    },
+    "notes": "Log: bands fixed; rear hand touches hip => nearHand visibility 1 (touching) blocks hand harvest; forearm harvestable shape-only."
+  },
+  {
+    "candidateId": "X04-88",
+    "frameKey": "X04",
+    "callId": "#88",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/X04-opposed-leg-custom-guide.png",
+    "targetOverride": {
+      "nearKneeDeg": 60,
+      "farKneeDeg": 95,
+      "nearThighSwingDeg": -25,
+      "farThighSwingDeg": 40,
+      "nearElbowDeg": 95,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -20,
+      "farShoulderSwingDeg": 25,
+      "nearFootState": "airborne",
+      "farFootState": "airborne"
+    },
+    "observed": {
+      "nearKneeDeg": 60,
+      "farKneeDeg": 95,
+      "nearThighSwingDeg": -25,
+      "farThighSwingDeg": 40,
+      "nearElbowDeg": 95,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -20,
+      "farShoulderSwingDeg": 25,
+      "nearFootState": "airborne",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 2,
+      "nearThigh": 2,
+      "nearShin": 3,
+      "nearFoot": 3,
+      "farThigh": 3,
+      "farShin": 3,
+      "farFoot": 3,
+      "neck": 2,
+      "pelvis": 2,
+      "hairAccessory": 3
+    },
+    "notes": "Visually inspected: custom guide worked; sharply folded trailing leg + raised forward knee, both shoes separated/airborne. Cleanest key in bank (0 shadow px)."
+  },
+  {
+    "candidateId": "X05-89",
+    "frameKey": "X05",
+    "callId": "#89",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/X05-far-forearm-forward-up.png",
+    "targetOverride": {
+      "nearKneeDeg": 130,
+      "farKneeDeg": 70,
+      "nearThighSwingDeg": 10,
+      "farThighSwingDeg": -20,
+      "nearElbowDeg": 124.6,
+      "farElbowDeg": 167,
+      "nearShoulderSwingDeg": -25.8,
+      "farShoulderSwingDeg": 119,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "targetedJoints": [
+      "farElbowDeg",
+      "farShoulderSwingDeg",
+      "nearElbowDeg",
+      "nearShoulderSwingDeg"
+    ],
+    "observed": {
+      "nearKneeDeg": 155,
+      "farKneeDeg": 75,
+      "nearThighSwingDeg": 5,
+      "farThighSwingDeg": -15,
+      "nearElbowDeg": 110,
+      "farElbowDeg": 150,
+      "nearShoulderSwingDeg": -15,
+      "farShoulderSwingDeg": 110,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "farForearm": 3,
+      "farHand": 2,
+      "nearForearm": 2,
+      "head": 3,
+      "torso": 2,
+      "neck": 2,
+      "pelvis": 2,
+      "hairAccessory": 2
+    },
+    "notes": "Visually inspected: raised forearm+cuff+hand beyond front torso contour (target achieved, model added natural elbow bend 167->150); open palm (not fist); support leg straighter than H02 (legs informational only for this insert)."
+  },
+  {
+    "candidateId": "X06-90",
+    "frameKey": "X06",
+    "callId": "#90",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/X06-far-forearm-back-down.png",
+    "targetOverride": {
+      "nearKneeDeg": 130,
+      "farKneeDeg": 70,
+      "nearThighSwingDeg": 10,
+      "farThighSwingDeg": -20,
+      "nearElbowDeg": 124.6,
+      "farElbowDeg": 130,
+      "nearShoulderSwingDeg": -25.8,
+      "farShoulderSwingDeg": -109,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "targetedJoints": [
+      "farElbowDeg",
+      "farShoulderSwingDeg",
+      "nearElbowDeg",
+      "nearShoulderSwingDeg"
+    ],
+    "observed": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 75,
+      "nearThighSwingDeg": 5,
+      "farThighSwingDeg": -15,
+      "nearElbowDeg": 110,
+      "farElbowDeg": 125,
+      "nearShoulderSwingDeg": -15,
+      "farShoulderSwingDeg": -105,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "farForearm": 3,
+      "farHand": 3,
+      "nearForearm": 2,
+      "head": 3,
+      "torso": 2,
+      "neck": 2,
+      "pelvis": 2,
+      "hairAccessory": 2
+    },
+    "notes": "Visually inspected: rear/down forearm+cuff+hand separated from rear torso/hip contour with clear gap; best far-arm evidence in bank."
+  },
+  {
+    "candidateId": "H03-91",
+    "frameKey": "H03",
+    "callId": "#91",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-v2-guide.png",
+    "observed": {
+      "nearKneeDeg": 140,
+      "farKneeDeg": 75,
+      "nearThighSwingDeg": -5,
+      "farThighSwingDeg": 55,
+      "nearElbowDeg": 100,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -10,
+      "farShoulderSwingDeg": 15,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "artifact": "guide-glyph-copied",
+    "visibility": {
+      "head": 3,
+      "neck": 2,
+      "torso": 2,
+      "pelvis": 2,
+      "hairAccessory": 2,
+      "nearThigh": 2,
+      "nearShin": 2,
+      "nearFoot": 1,
+      "farThigh": 2,
+      "farShin": 3,
+      "farFoot": 3,
+      "nearForearm": 2,
+      "farForearm": 2
+    },
+    "notes": "V2 fill-frame capsules achieved the first compact H03 toe-off in 4 attempts, but foot glyphs were copied as scene objects (green disc on support shoe). nearFoot visibility 1 (glyph occlusion)."
+  },
+  {
+    "candidateId": "H06-92",
+    "frameKey": "H06",
+    "callId": "#92",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H06-left-down-v2-guide.png",
+    "observed": {
+      "nearKneeDeg": 150,
+      "farKneeDeg": 155,
+      "nearThighSwingDeg": -10,
+      "farThighSwingDeg": 10,
+      "nearElbowDeg": 100,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -25,
+      "farShoulderSwingDeg": 30,
+      "nearFootState": "airborne",
+      "farFootState": "contact"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "artifact": "guide-glyph-copied",
+    "visibility": {
+      "head": 3,
+      "torso": 2
+    },
+    "notes": "Third H06 collapse: trail-back recovery instead of fold-under (near knee 150 vs 43.4). Depth discriminators not drawn. Glyph contamination as in #91."
+  },
+  {
+    "candidateId": "H03-93",
+    "frameKey": "H03",
+    "callId": "#93",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-v3-guide.png",
+    "observed": {
+      "nearKneeDeg": 165,
+      "farKneeDeg": 150,
+      "nearThighSwingDeg": 8,
+      "farThighSwingDeg": -35,
+      "nearElbowDeg": 95,
+      "farElbowDeg": 95,
+      "nearShoulderSwingDeg": -20,
+      "farShoulderSwingDeg": 25,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "artifact": "faint-ground-shadow",
+    "visibility": {
+      "head": 3,
+      "torso": 2
+    },
+    "notes": "V3 no-glyph retry regressed: flat-foot generic contact (front leg straight, rear toe-down), phase-mushed. Supports TOE-OFF-ANCHOR: #91's toe-off needed the glyph anchor; binary foot placement vs ground line does not transmit contact STYLE. Fix: V4 anatomical foot."
+  },
+  {
+    "candidateId": "H06-94",
+    "frameKey": "H06",
+    "callId": "#94",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H06-left-down-v3-guide.png",
+    "observed": {
+      "nearKneeDeg": 48,
+      "farKneeDeg": 165,
+      "nearThighSwingDeg": -25,
+      "farThighSwingDeg": 16,
+      "nearElbowDeg": 90,
+      "farElbowDeg": 155,
+      "nearShoulderSwingDeg": 55,
+      "farShoulderSwingDeg": -18,
+      "nearFootState": "airborne",
+      "farFootState": "contact"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 2,
+      "nearThigh": 2,
+      "nearShin": 2,
+      "nearFoot": 2,
+      "farThigh": 2,
+      "farShin": 3,
+      "farFoot": 3,
+      "nearForearm": 2,
+      "farForearm": 2
+    },
+    "notes": "ROLE-MATCH assignment: forward bent arm->near (guide near-arm role), hanging straight arm->far. First achieved fold-under (near knee 48 vs 43.4) but recovery phase-lag (near thigh behind vs forward target) + static straight support leg (165 vs 120.6 solver target, matching ~150-165 biomechanics: STANCE-KNEE-BIAS) + near arm overswung forward + far arm straight vs bent. Best H06 in 4 attempts."
+  },
+  {
+    "candidateId": "H05-95",
+    "frameKey": "H05",
+    "callId": "#95",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H05-left-contact-v3-guide.png",
+    "observed": {
+      "nearKneeDeg": 55,
+      "farKneeDeg": 155,
+      "nearThighSwingDeg": -10,
+      "farThighSwingDeg": 25,
+      "nearElbowDeg": 90,
+      "farElbowDeg": 105,
+      "nearShoulderSwingDeg": 40,
+      "farShoulderSwingDeg": -10,
+      "nearFootState": "airborne",
+      "farFootState": "contact"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "neck": 2,
+      "torso": 2,
+      "pelvis": 2,
+      "hairAccessory": 2,
+      "nearThigh": 2,
+      "nearShin": 2,
+      "nearFoot": 2,
+      "farThigh": 2,
+      "farShin": 3,
+      "farFoot": 3,
+      "nearForearm": 2,
+      "farForearm": 2
+    },
+    "notes": "Clean strike-ahead + tucked-trail. farKnee 155 vs 138.8 borderline (\u039416) \u2014 straight-strike prior; all else well inside."
+  },
+  {
+    "candidateId": "H07-96",
+    "frameKey": "H07",
+    "callId": "#96",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H07-left-pass-v3-guide.png",
+    "observed": {
+      "nearKneeDeg": 75,
+      "farKneeDeg": 140,
+      "nearThighSwingDeg": 50,
+      "farThighSwingDeg": -5,
+      "nearElbowDeg": 110,
+      "farElbowDeg": 110,
+      "nearShoulderSwingDeg": 0,
+      "farShoulderSwingDeg": 0,
+      "nearFootState": "airborne",
+      "farFootState": "contact"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "neck": 2,
+      "torso": 2,
+      "pelvis": 2,
+      "hairAccessory": 2,
+      "nearThigh": 2,
+      "nearShin": 3,
+      "nearFoot": 3,
+      "farThigh": 2,
+      "farShin": 3,
+      "farFoot": 3,
+      "nearForearm": 2,
+      "farForearm": 2
+    },
+    "notes": "H03-mirror toe-off HELD without glyphs: forefoot contact + raised heel, compact swing. TOE-OFF-ANCHOR resolved: #93 was sampling noise, V3 + anatomical prompt transmits contact style."
+  },
+  {
+    "candidateId": "H01-97",
+    "frameKey": "H01",
+    "callId": "#97",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact-v3-guide.png",
+    "observed": {
+      "nearKneeDeg": 90,
+      "farKneeDeg": 155,
+      "nearThighSwingDeg": 55,
+      "farThighSwingDeg": -5,
+      "nearElbowDeg": 150,
+      "farElbowDeg": 90,
+      "nearShoulderSwingDeg": -35,
+      "farShoulderSwingDeg": 40,
+      "nearFootState": "airborne",
+      "farFootState": "contact"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 2
+    },
+    "notes": "LEG-SWAP: model grounded the trailing leg and raised the striking leg (contact inverted, drew H07-family instead). Arms are perfect (all 4 within tolerance \u2014 the surgical elbow fix worked). Retry H01 with legs emphasized."
+  },
+  {
+    "candidateId": "H01-98",
+    "frameKey": "H01",
+    "callId": "#98",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact-v3-guide-retry.png",
+    "observed": {
+      "nearKneeDeg": 152,
+      "farKneeDeg": 94,
+      "nearThighSwingDeg": 25,
+      "farThighSwingDeg": -30,
+      "nearElbowDeg": 135,
+      "farElbowDeg": 90,
+      "nearShoulderSwingDeg": -35,
+      "farShoulderSwingDeg": 40,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 2
+    },
+    "notes": "Deictic fix worked: legs correct (forward landed, backward tucked). BUTT-KICK overshoot: trailing thigh rotated back (-30 vs -3) with knee at 94 vs 68 \u2014 same shoe height via wrong joint config. 2 outs -> deviated. Fix: compact fold, shoe behind knee."
+  },
+  {
+    "candidateId": "H01-99",
+    "frameKey": "H01",
+    "callId": "#99",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact-v3-guide-retry2.png",
+    "observed": {
+      "nearKneeDeg": 152,
+      "farKneeDeg": 115,
+      "nearThighSwingDeg": 20,
+      "farThighSwingDeg": 10,
+      "nearElbowDeg": 135,
+      "farElbowDeg": 90,
+      "nearShoulderSwingDeg": -35,
+      "farShoulderSwingDeg": 40,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "torso": 2
+    },
+    "notes": "NEGATION BACKFIRE: the compact-fold/NOT-butt-kick sentence unfolded the trail leg into a loose trail (knee 115 vs 68). Everything else in. Fix for #100: transplant #95's verbatim winning trail wording."
+  },
+  {
+    "candidateId": "H01-100",
+    "frameKey": "H01",
+    "callId": "#100",
+    "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact-v3-guide-retry3.png",
+    "observed": {
+      "nearKneeDeg": 153,
+      "farKneeDeg": 72,
+      "nearThighSwingDeg": 23,
+      "farThighSwingDeg": -14,
+      "nearElbowDeg": 135,
+      "farElbowDeg": 90,
+      "nearShoulderSwingDeg": -37,
+      "farShoulderSwingDeg": 40,
+      "nearFootState": "contact",
+      "farFootState": "airborne"
+    },
+    "chiralityTier": "C",
+    "costumeClean": true,
+    "visibility": {
+      "head": 3,
+      "neck": 2,
+      "torso": 2,
+      "pelvis": 2,
+      "hairAccessory": 2,
+      "nearThigh": 2,
+      "nearShin": 3,
+      "nearFoot": 3,
+      "farThigh": 2,
+      "farShin": 2,
+      "farFoot": 2,
+      "nearForearm": 2,
+      "farForearm": 2
+    },
+    "notes": "#95 wording transplant worked: compact trail fold (thigh -14, knee 72) + flat landing + straight back arm. H01 spine filled on 4th attempt."
+  }
+]

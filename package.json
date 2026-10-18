@@ -21,7 +21,8 @@
     "pose-bank:init": "tsx scripts/init-pose-bank.ts",
     "branches:compare": "tsx scripts/compare-branches.ts",
     "pipeline": "npm run dedupe && npm run extract && npm run analyze && npm run generate-sheets",
-    "validate": "npm run branches:compare && npm run typecheck && npm test && npm run build"
+    "validate": "npm run branches:compare && npm run typecheck && npm test && npm run build",
+    "score-pose-bank": "tsx scripts/score-pose-bank.ts"
   },
   "dependencies": {
     "jpeg-js": "^0.4.4",
