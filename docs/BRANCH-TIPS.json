@@ -1,16 +1,16 @@
 {
-  "observedAt": "2026-10-18T03:58:37.240Z",
+  "observedAt": "2026-10-18T04:00:03.838Z",
   "activeSessionBranch": "arena/917ef347-super-duper-funicular",
   "tips": [
     {
       "role": "Branch 1 (Ours — Sprite Motion Lab)",
       "branch": "arena/917ef347-super-duper-funicular",
       "prStatus": "PR #1 Open (Active Session Branch)",
-      "hash": "e172b0f1f8d9b640b65a4ba420f71965693adb23",
-      "shortHash": "e172b0f",
-      "committedAt": "2026-10-17T23:09:40+00:00",
-      "subject": "docs(three-way-comparison): compare and sync FDS & coding discipline across all 3 branches (CROSS-10..12, ADD-023)",
-      "commitCountFromMain": 6
+      "hash": "fd796157ca645472d8a3059323f4b376e60a1b52",
+      "shortHash": "fd79615",
+      "committedAt": "2026-10-18T04:00:00+00:00",
+      "subject": "feat(pr8-parity): add PR #8 to watchlist, pull e1300d3c (5203a69) to /tmp/pr8-e1300d3c & reach full parity (ADD-024..038, TURN-L12..L21)",
+      "commitCountFromMain": 7
     },
     {
       "role": "Branch 8 (Closely Watched Reference — Photoreal & Calibration Studio)",
