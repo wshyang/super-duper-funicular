@@ -254,8 +254,6 @@ function main(): void {
   const targets = [
     'docs/N_WAY_BRANCH_COMPARISON.md',
     'N_WAY_COMPARISON.md',
-    'docs/THREE_WAY_BRANCH_COMPARISON.md',
-    'THREE_WAY_BRANCH_COMPARISON.md',
     'docs/N_WAY_COMPARISON.md',
   ];
   for (const t of targets) {
