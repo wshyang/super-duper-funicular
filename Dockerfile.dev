@@ -1,0 +1,15 @@
+# Cloud development through the platform's VIPER agent (GREENFIELD §10.1).
+# Keeps the agent contract: COPY viper-agent/, its entrypoint, PORT=3000 and
+# VIPER_APP_PORT=3001; the Vite dev server already binds 0.0.0.0:3000 with
+# allowedHosts enabled for forwarded preview hosts.
+FROM node:22.22.3-bookworm-slim
+ENV HOST=0.0.0.0 \
+    PORT=3000 \
+    VIPER_APP_PORT=3001
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --ignore-scripts --no-audit --no-fund
+COPY . .
+COPY viper-agent/ /viper-agent/
+EXPOSE 3000 3001
+CMD ["node", "/viper-agent/index.js"]

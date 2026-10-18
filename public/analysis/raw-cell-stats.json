@@ -1,0 +1,578 @@
+[
+  {
+    "palette": "crimson",
+    "frame": 1,
+    "rawBounds": {
+      "w": 178,
+      "h": 233
+    },
+    "rawCentroidX": 154.53,
+    "rawGroundY": 249,
+    "naiveResidue": 61012,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "crimson",
+    "frame": 2,
+    "rawBounds": {
+      "w": 158,
+      "h": 214
+    },
+    "rawCentroidX": 156.3,
+    "rawGroundY": 248,
+    "naiveResidue": 61894,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "crimson",
+    "frame": 3,
+    "rawBounds": {
+      "w": 202,
+      "h": 212
+    },
+    "rawCentroidX": 165.96,
+    "rawGroundY": 239,
+    "naiveResidue": 61069,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "crimson",
+    "frame": 4,
+    "rawBounds": {
+      "w": 179,
+      "h": 214
+    },
+    "rawCentroidX": 158.46,
+    "rawGroundY": 223,
+    "naiveResidue": 61423,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "crimson",
+    "frame": 5,
+    "rawBounds": {
+      "w": 178,
+      "h": 231
+    },
+    "rawCentroidX": 152.74,
+    "rawGroundY": 248,
+    "naiveResidue": 60842,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "crimson",
+    "frame": 6,
+    "rawBounds": {
+      "w": 158,
+      "h": 215
+    },
+    "rawCentroidX": 160.89,
+    "rawGroundY": 248,
+    "naiveResidue": 62052,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "crimson",
+    "frame": 7,
+    "rawBounds": {
+      "w": 212,
+      "h": 215
+    },
+    "rawCentroidX": 166.67,
+    "rawGroundY": 237,
+    "naiveResidue": 60551,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "crimson",
+    "frame": 8,
+    "rawBounds": {
+      "w": 178,
+      "h": 212
+    },
+    "rawCentroidX": 161.76,
+    "rawGroundY": 223,
+    "naiveResidue": 61826,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "cobalt",
+    "frame": 1,
+    "rawBounds": {
+      "w": 178,
+      "h": 231
+    },
+    "rawCentroidX": 154.24,
+    "rawGroundY": 247,
+    "naiveResidue": 59860,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "cobalt",
+    "frame": 2,
+    "rawBounds": {
+      "w": 158,
+      "h": 214
+    },
+    "rawCentroidX": 156.39,
+    "rawGroundY": 247,
+    "naiveResidue": 60678,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "cobalt",
+    "frame": 3,
+    "rawBounds": {
+      "w": 202,
+      "h": 209
+    },
+    "rawCentroidX": 165.3,
+    "rawGroundY": 235,
+    "naiveResidue": 60047,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "cobalt",
+    "frame": 4,
+    "rawBounds": {
+      "w": 178,
+      "h": 212
+    },
+    "rawCentroidX": 158.54,
+    "rawGroundY": 221,
+    "naiveResidue": 60258,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "cobalt",
+    "frame": 5,
+    "rawBounds": {
+      "w": 177,
+      "h": 231
+    },
+    "rawCentroidX": 152.71,
+    "rawGroundY": 247,
+    "naiveResidue": 59707,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "cobalt",
+    "frame": 6,
+    "rawBounds": {
+      "w": 158,
+      "h": 215
+    },
+    "rawCentroidX": 160.9,
+    "rawGroundY": 247,
+    "naiveResidue": 60839,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "cobalt",
+    "frame": 7,
+    "rawBounds": {
+      "w": 211,
+      "h": 214
+    },
+    "rawCentroidX": 166.6,
+    "rawGroundY": 235,
+    "naiveResidue": 59261,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "cobalt",
+    "frame": 8,
+    "rawBounds": {
+      "w": 178,
+      "h": 213
+    },
+    "rawCentroidX": 161.87,
+    "rawGroundY": 224,
+    "naiveResidue": 60626,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "leaf",
+    "frame": 1,
+    "rawBounds": {
+      "w": 177,
+      "h": 232
+    },
+    "rawCentroidX": 154.18,
+    "rawGroundY": 246,
+    "naiveResidue": 59550,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "leaf",
+    "frame": 2,
+    "rawBounds": {
+      "w": 159,
+      "h": 214
+    },
+    "rawCentroidX": 156.03,
+    "rawGroundY": 244,
+    "naiveResidue": 60321,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "leaf",
+    "frame": 3,
+    "rawBounds": {
+      "w": 202,
+      "h": 209
+    },
+    "rawCentroidX": 165.14,
+    "rawGroundY": 234,
+    "naiveResidue": 59755,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "leaf",
+    "frame": 4,
+    "rawBounds": {
+      "w": 178,
+      "h": 210
+    },
+    "rawCentroidX": 158.54,
+    "rawGroundY": 220,
+    "naiveResidue": 60171,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "leaf",
+    "frame": 5,
+    "rawBounds": {
+      "w": 177,
+      "h": 232
+    },
+    "rawCentroidX": 152.83,
+    "rawGroundY": 246,
+    "naiveResidue": 59313,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "leaf",
+    "frame": 6,
+    "rawBounds": {
+      "w": 158,
+      "h": 214
+    },
+    "rawCentroidX": 160.85,
+    "rawGroundY": 244,
+    "naiveResidue": 60664,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "leaf",
+    "frame": 7,
+    "rawBounds": {
+      "w": 211,
+      "h": 215
+    },
+    "rawCentroidX": 166.96,
+    "rawGroundY": 234,
+    "naiveResidue": 59057,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "leaf",
+    "frame": 8,
+    "rawBounds": {
+      "w": 178,
+      "h": 211
+    },
+    "rawCentroidX": 162.22,
+    "rawGroundY": 222,
+    "naiveResidue": 60427,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "sunshine",
+    "frame": 1,
+    "rawBounds": {
+      "w": 175,
+      "h": 230
+    },
+    "rawCentroidX": 153.61,
+    "rawGroundY": 244,
+    "naiveResidue": 59086,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "sunshine",
+    "frame": 2,
+    "rawBounds": {
+      "w": 160,
+      "h": 214
+    },
+    "rawCentroidX": 155.88,
+    "rawGroundY": 243,
+    "naiveResidue": 59645,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "sunshine",
+    "frame": 3,
+    "rawBounds": {
+      "w": 199,
+      "h": 210
+    },
+    "rawCentroidX": 165.48,
+    "rawGroundY": 232,
+    "naiveResidue": 59178,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "sunshine",
+    "frame": 4,
+    "rawBounds": {
+      "w": 178,
+      "h": 209
+    },
+    "rawCentroidX": 158.12,
+    "rawGroundY": 218,
+    "naiveResidue": 59715,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "sunshine",
+    "frame": 5,
+    "rawBounds": {
+      "w": 176,
+      "h": 231
+    },
+    "rawCentroidX": 152.91,
+    "rawGroundY": 244,
+    "naiveResidue": 58792,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "sunshine",
+    "frame": 6,
+    "rawBounds": {
+      "w": 158,
+      "h": 215
+    },
+    "rawCentroidX": 160.71,
+    "rawGroundY": 243,
+    "naiveResidue": 59874,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "sunshine",
+    "frame": 7,
+    "rawBounds": {
+      "w": 209,
+      "h": 215
+    },
+    "rawCentroidX": 167.59,
+    "rawGroundY": 233,
+    "naiveResidue": 58432,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "sunshine",
+    "frame": 8,
+    "rawBounds": {
+      "w": 177,
+      "h": 209
+    },
+    "rawCentroidX": 162.03,
+    "rawGroundY": 221,
+    "naiveResidue": 59869,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "violet",
+    "frame": 1,
+    "rawBounds": {
+      "w": 175,
+      "h": 232
+    },
+    "rawCentroidX": 152.72,
+    "rawGroundY": 243,
+    "naiveResidue": 58184,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "violet",
+    "frame": 2,
+    "rawBounds": {
+      "w": 160,
+      "h": 214
+    },
+    "rawCentroidX": 155.73,
+    "rawGroundY": 241,
+    "naiveResidue": 58783,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "violet",
+    "frame": 3,
+    "rawBounds": {
+      "w": 198,
+      "h": 210
+    },
+    "rawCentroidX": 165.46,
+    "rawGroundY": 229,
+    "naiveResidue": 58215,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "violet",
+    "frame": 4,
+    "rawBounds": {
+      "w": 178,
+      "h": 208
+    },
+    "rawCentroidX": 157.6,
+    "rawGroundY": 217,
+    "naiveResidue": 58773,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "violet",
+    "frame": 5,
+    "rawBounds": {
+      "w": 176,
+      "h": 232
+    },
+    "rawCentroidX": 152.71,
+    "rawGroundY": 243,
+    "naiveResidue": 58130,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "violet",
+    "frame": 6,
+    "rawBounds": {
+      "w": 160,
+      "h": 216
+    },
+    "rawCentroidX": 160.6,
+    "rawGroundY": 241,
+    "naiveResidue": 58858,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "violet",
+    "frame": 7,
+    "rawBounds": {
+      "w": 209,
+      "h": 215
+    },
+    "rawCentroidX": 167.01,
+    "rawGroundY": 231,
+    "naiveResidue": 57646,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "violet",
+    "frame": 8,
+    "rawBounds": {
+      "w": 177,
+      "h": 208
+    },
+    "rawCentroidX": 161.66,
+    "rawGroundY": 219,
+    "naiveResidue": 58826,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "tangerine",
+    "frame": 1,
+    "rawBounds": {
+      "w": 176,
+      "h": 231
+    },
+    "rawCentroidX": 152.61,
+    "rawGroundY": 242,
+    "naiveResidue": 58151,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "tangerine",
+    "frame": 2,
+    "rawBounds": {
+      "w": 160,
+      "h": 215
+    },
+    "rawCentroidX": 156.13,
+    "rawGroundY": 240,
+    "naiveResidue": 58678,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "tangerine",
+    "frame": 3,
+    "rawBounds": {
+      "w": 198,
+      "h": 211
+    },
+    "rawCentroidX": 165.39,
+    "rawGroundY": 229,
+    "naiveResidue": 58180,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "tangerine",
+    "frame": 4,
+    "rawBounds": {
+      "w": 178,
+      "h": 206
+    },
+    "rawCentroidX": 157.11,
+    "rawGroundY": 217,
+    "naiveResidue": 58844,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "tangerine",
+    "frame": 5,
+    "rawBounds": {
+      "w": 176,
+      "h": 231
+    },
+    "rawCentroidX": 152.72,
+    "rawGroundY": 242,
+    "naiveResidue": 57873,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "tangerine",
+    "frame": 6,
+    "rawBounds": {
+      "w": 161,
+      "h": 216
+    },
+    "rawCentroidX": 160.34,
+    "rawGroundY": 240,
+    "naiveResidue": 58832,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "tangerine",
+    "frame": 7,
+    "rawBounds": {
+      "w": 208,
+      "h": 214
+    },
+    "rawCentroidX": 166.8,
+    "rawGroundY": 231,
+    "naiveResidue": 57608,
+    "keyedResidue": 0
+  },
+  {
+    "palette": "tangerine",
+    "frame": 8,
+    "rawBounds": {
+      "w": 178,
+      "h": 208
+    },
+    "rawCentroidX": 161.44,
+    "rawGroundY": 219,
+    "naiveResidue": 58719,
+    "keyedResidue": 0
+  }
+]

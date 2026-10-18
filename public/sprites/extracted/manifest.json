@@ -1,0 +1,854 @@
+{
+  "version": 1,
+  "generatedBy": "stride-harmonised-lab sprites:extract v1",
+  "sheet": {
+    "sourceSha256": "f99114235d61781f76a6b32c637edac16f13af6592a2866fe0e0528504727030",
+    "sourceSize": {
+      "width": 2528,
+      "height": 1696
+    },
+    "headerHeight": 132,
+    "rowTops": [
+      132,
+      398,
+      663,
+      925,
+      1186,
+      1444
+    ],
+    "columnLefts": [
+      2,
+      319,
+      636,
+      954,
+      1270,
+      1586,
+      1904,
+      2220
+    ],
+    "rows": 6,
+    "columns": 8
+  },
+  "canvas": {
+    "width": 236,
+    "height": 257
+  },
+  "frames": [
+    {
+      "id": "crimson-01",
+      "palette": "crimson",
+      "frame": 1,
+      "url": "/sprites/extracted/crimson-01.png",
+      "sha256": "3ac3f3c54fcf0d9a7f7fb597afaae1b495b43a1503d9212abb6a1756a3392538",
+      "dHash64": "06060f2f0c161603",
+      "bounds": {
+        "width": 178,
+        "height": 233
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "crimson-02",
+      "palette": "crimson",
+      "frame": 2,
+      "url": "/sprites/extracted/crimson-02.png",
+      "sha256": "3fa8267f6456105d5a01270d1fcca2f94b871be343e536ede95896a77a5470d1",
+      "dHash64": "0006060e0e061646",
+      "bounds": {
+        "width": 158,
+        "height": 214
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "crimson-03",
+      "palette": "crimson",
+      "frame": 3,
+      "url": "/sprites/extracted/crimson-03.png",
+      "sha256": "c2209e0ffb9ac34a3db654c3eba742eeacff27808212020e547155b7cebd9d72",
+      "dHash64": "000212270b063683",
+      "bounds": {
+        "width": 202,
+        "height": 212
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "crimson-04",
+      "palette": "crimson",
+      "frame": 4,
+      "url": "/sprites/extracted/crimson-04.png",
+      "sha256": "86cece0b73e3dab9c0bf6c6138e10ac4c07b4af8bbe216fce1d22bf2776e61b5",
+      "dHash64": "0006172f0e061644",
+      "bounds": {
+        "width": 179,
+        "height": 214
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "crimson-05",
+      "palette": "crimson",
+      "frame": 5,
+      "url": "/sprites/extracted/crimson-05.png",
+      "sha256": "2400c9654c80bca5a5c64d09095fd0eb49531b5409ef1f3dc62cfbf2a4af41ce",
+      "dHash64": "06060f2f0c161603",
+      "bounds": {
+        "width": 178,
+        "height": 231
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "crimson-06",
+      "palette": "crimson",
+      "frame": 6,
+      "url": "/sprites/extracted/crimson-06.png",
+      "sha256": "313137dc0b9a4777fee24691115ce24eb4f1a8b69e91120b42764c58df70b422",
+      "dHash64": "0006060e0e061646",
+      "bounds": {
+        "width": 158,
+        "height": 215
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "crimson-07",
+      "palette": "crimson",
+      "frame": 7,
+      "url": "/sprites/extracted/crimson-07.png",
+      "sha256": "a3f026110015acc745e54505af51c59e9b2a0842e881f7b511e677bacfe6f0dc",
+      "dHash64": "000216270f26b203",
+      "bounds": {
+        "width": 212,
+        "height": 215
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "crimson-08",
+      "palette": "crimson",
+      "frame": 8,
+      "url": "/sprites/extracted/crimson-08.png",
+      "sha256": "81ee07fc8bcd366691b65d58ff2ca2214a28dcbd8c56eb759805e3f1965cf603",
+      "dHash64": "0006172f0e061646",
+      "bounds": {
+        "width": 178,
+        "height": 212
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "cobalt-01",
+      "palette": "cobalt",
+      "frame": 1,
+      "url": "/sprites/extracted/cobalt-01.png",
+      "sha256": "321432b544497ae6c6ae2c3dfe6630b539d7411371f8e71a1ef84368d2a73a04",
+      "dHash64": "06060d2f0c161603",
+      "bounds": {
+        "width": 178,
+        "height": 231
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "cobalt-02",
+      "palette": "cobalt",
+      "frame": 2,
+      "url": "/sprites/extracted/cobalt-02.png",
+      "sha256": "403dfb7a3486fa7aa491a8e7412973c2c82b302abf0461311a88ef0d643765ed",
+      "dHash64": "0006060e0e061646",
+      "bounds": {
+        "width": 158,
+        "height": 214
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "cobalt-03",
+      "palette": "cobalt",
+      "frame": 3,
+      "url": "/sprites/extracted/cobalt-03.png",
+      "sha256": "3aff05875b394fbd81d96aede3c72c321a60e3f620510a3d726eb98c9b74b8de",
+      "dHash64": "000202250b063283",
+      "bounds": {
+        "width": 202,
+        "height": 209
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "cobalt-04",
+      "palette": "cobalt",
+      "frame": 4,
+      "url": "/sprites/extracted/cobalt-04.png",
+      "sha256": "d8f42c641565a9c08f75fb51238562700e599efe49f46229809a9180b8545a5c",
+      "dHash64": "0006172f0e061644",
+      "bounds": {
+        "width": 178,
+        "height": 212
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "cobalt-05",
+      "palette": "cobalt",
+      "frame": 5,
+      "url": "/sprites/extracted/cobalt-05.png",
+      "sha256": "5d27c0fe706b1dff5a2d5b60803fa5482b1a8fe6c692a525b780b3e645f04c06",
+      "dHash64": "06060f2f0c161603",
+      "bounds": {
+        "width": 177,
+        "height": 231
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "cobalt-06",
+      "palette": "cobalt",
+      "frame": 6,
+      "url": "/sprites/extracted/cobalt-06.png",
+      "sha256": "12e79a1ecb6889d326f02c58ade8c41acee6a073e409aa2ccdd82afe0bcb98a2",
+      "dHash64": "0006060e0e061646",
+      "bounds": {
+        "width": 158,
+        "height": 215
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "cobalt-07",
+      "palette": "cobalt",
+      "frame": 7,
+      "url": "/sprites/extracted/cobalt-07.png",
+      "sha256": "f02c52a7cf89c1499459ec9fad8978e7bea1f25a750b6b8d1623cca49d67d787",
+      "dHash64": "000206270b26b283",
+      "bounds": {
+        "width": 211,
+        "height": 214
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "cobalt-08",
+      "palette": "cobalt",
+      "frame": 8,
+      "url": "/sprites/extracted/cobalt-08.png",
+      "sha256": "77f8a0792417bca29e36f9477e7bc80c61e90a9c220a0e8f2c30ebdf80816c76",
+      "dHash64": "0006172f0e061644",
+      "bounds": {
+        "width": 178,
+        "height": 213
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "leaf-01",
+      "palette": "leaf",
+      "frame": 1,
+      "url": "/sprites/extracted/leaf-01.png",
+      "sha256": "a1ad0d64e1c3ac2c251164c39e9c914cc3bf67dff581840126ef75077da6c4e6",
+      "dHash64": "06060d2f0c161603",
+      "bounds": {
+        "width": 177,
+        "height": 232
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "leaf-02",
+      "palette": "leaf",
+      "frame": 2,
+      "url": "/sprites/extracted/leaf-02.png",
+      "sha256": "fc62ee91eee0913b0fe0a53f11e9424d9d41f4a189cf81e9e475b9d669345dd4",
+      "dHash64": "0006060e0e061647",
+      "bounds": {
+        "width": 159,
+        "height": 214
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "leaf-03",
+      "palette": "leaf",
+      "frame": 3,
+      "url": "/sprites/extracted/leaf-03.png",
+      "sha256": "3b298a03a2bf336c6767ae98aa313547a6438c5e8b0fcc84ec131924c1403159",
+      "dHash64": "000202250b063283",
+      "bounds": {
+        "width": 202,
+        "height": 209
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "leaf-04",
+      "palette": "leaf",
+      "frame": 4,
+      "url": "/sprites/extracted/leaf-04.png",
+      "sha256": "053dcfb4f7557623c065efda70effaaa6a1920c200ae34741be6919bd99a2e39",
+      "dHash64": "0006072f0e063644",
+      "bounds": {
+        "width": 178,
+        "height": 210
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "leaf-05",
+      "palette": "leaf",
+      "frame": 5,
+      "url": "/sprites/extracted/leaf-05.png",
+      "sha256": "5259cec3e26fb0c1a61bdb7e2e886c7e2731e81551b2f831ec52a0b0017f6909",
+      "dHash64": "06060d2f0c161603",
+      "bounds": {
+        "width": 177,
+        "height": 232
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "leaf-06",
+      "palette": "leaf",
+      "frame": 6,
+      "url": "/sprites/extracted/leaf-06.png",
+      "sha256": "496963943aa4174a6c986ed83e29037466297d6f64f2511c5a2be14d66b7ad5a",
+      "dHash64": "0006060e0e061646",
+      "bounds": {
+        "width": 158,
+        "height": 214
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "leaf-07",
+      "palette": "leaf",
+      "frame": 7,
+      "url": "/sprites/extracted/leaf-07.png",
+      "sha256": "4d036f899522dd85ad3ac0c79ea969011460e7b9b95c441cfca93eb1b07be16d",
+      "dHash64": "000206270b06b283",
+      "bounds": {
+        "width": 211,
+        "height": 215
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "leaf-08",
+      "palette": "leaf",
+      "frame": 8,
+      "url": "/sprites/extracted/leaf-08.png",
+      "sha256": "41971a07949ab1e8c3b79063291a2acb1d3064fa46b37d7796212423a402d732",
+      "dHash64": "0006172f0e063644",
+      "bounds": {
+        "width": 178,
+        "height": 211
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "sunshine-01",
+      "palette": "sunshine",
+      "frame": 1,
+      "url": "/sprites/extracted/sunshine-01.png",
+      "sha256": "0c508e6b9719cd6930b022d811ed86e459b3de61193edd732a6e98b3d3e7715f",
+      "dHash64": "06060d2f0c341603",
+      "bounds": {
+        "width": 175,
+        "height": 230
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "sunshine-02",
+      "palette": "sunshine",
+      "frame": 2,
+      "url": "/sprites/extracted/sunshine-02.png",
+      "sha256": "a419b198004a4dad7a187b04e21cc32161ecb52008f886b4bb7824f0604e9411",
+      "dHash64": "00060e0e0e063647",
+      "bounds": {
+        "width": 160,
+        "height": 214
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "sunshine-03",
+      "palette": "sunshine",
+      "frame": 3,
+      "url": "/sprites/extracted/sunshine-03.png",
+      "sha256": "e75c72c4d82a924ab8a4d2dfb387bbc5fcc9a17aa3bd9110936bb890d77985e9",
+      "dHash64": "00020e070b067683",
+      "bounds": {
+        "width": 199,
+        "height": 210
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "sunshine-04",
+      "palette": "sunshine",
+      "frame": 4,
+      "url": "/sprites/extracted/sunshine-04.png",
+      "sha256": "a6cfb01d4e3745b78c1f47f22b59825a1cd639b05c1df00cafc779e20d048a25",
+      "dHash64": "0006072f0e063644",
+      "bounds": {
+        "width": 178,
+        "height": 209
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "sunshine-05",
+      "palette": "sunshine",
+      "frame": 5,
+      "url": "/sprites/extracted/sunshine-05.png",
+      "sha256": "bb24532c919baf369bb5a0700b50f721c5d6af5df56abf6bed2897faa842dcfb",
+      "dHash64": "06060d2f0c341603",
+      "bounds": {
+        "width": 176,
+        "height": 231
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "sunshine-06",
+      "palette": "sunshine",
+      "frame": 6,
+      "url": "/sprites/extracted/sunshine-06.png",
+      "sha256": "a48c43db8b0155881178834c4fb8a79063ce203e8400cd7cedf8a1d8fa508c14",
+      "dHash64": "00060e0e0e063646",
+      "bounds": {
+        "width": 158,
+        "height": 215
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "sunshine-07",
+      "palette": "sunshine",
+      "frame": 7,
+      "url": "/sprites/extracted/sunshine-07.png",
+      "sha256": "09a75250bb60357af301dfd2b02c62f82b978993b5b108a8b221a26ed8ca71ba",
+      "dHash64": "00020e0f0f667683",
+      "bounds": {
+        "width": 209,
+        "height": 215
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "sunshine-08",
+      "palette": "sunshine",
+      "frame": 8,
+      "url": "/sprites/extracted/sunshine-08.png",
+      "sha256": "15b912d129c9db8493bebbf00a1948588c91e2d17ff466c3c2424dbdc362ee00",
+      "dHash64": "0006072f0e063644",
+      "bounds": {
+        "width": 177,
+        "height": 209
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "violet-01",
+      "palette": "violet",
+      "frame": 1,
+      "url": "/sprites/extracted/violet-01.png",
+      "sha256": "ee83e6c6d5435ad1beab76bd8c49453857d32e961b17f5208ac3478168dd5aa0",
+      "dHash64": "06060f2b0c161603",
+      "bounds": {
+        "width": 175,
+        "height": 232
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "violet-02",
+      "palette": "violet",
+      "frame": 2,
+      "url": "/sprites/extracted/violet-02.png",
+      "sha256": "639f3e022f727abc702d4da24f5a97e0dc9632d91f352eb9bdfce258a1311781",
+      "dHash64": "0006060e0e061643",
+      "bounds": {
+        "width": 160,
+        "height": 214
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "violet-03",
+      "palette": "violet",
+      "frame": 3,
+      "url": "/sprites/extracted/violet-03.png",
+      "sha256": "6e94eb211483b85f50175b9594b06d810d564b4c7f1f7a343177e2f814897b2e",
+      "dHash64": "000212270b063683",
+      "bounds": {
+        "width": 198,
+        "height": 210
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "violet-04",
+      "palette": "violet",
+      "frame": 4,
+      "url": "/sprites/extracted/violet-04.png",
+      "sha256": "70d007ef1a661b5f1205e310903022caa64f8d2b24aa985bfa73cc37922e56e8",
+      "dHash64": "0006162f0e061644",
+      "bounds": {
+        "width": 178,
+        "height": 208
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "violet-05",
+      "palette": "violet",
+      "frame": 5,
+      "url": "/sprites/extracted/violet-05.png",
+      "sha256": "8f775a125b83aab805b27dbe70f16aef86ba9e233e7722aae622e790d2e3a7f6",
+      "dHash64": "06060f2f4c161603",
+      "bounds": {
+        "width": 176,
+        "height": 232
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "violet-06",
+      "palette": "violet",
+      "frame": 6,
+      "url": "/sprites/extracted/violet-06.png",
+      "sha256": "7d41a42744579d387fd363b3e33ec876b3360e6204c9186b04883f26777a7b4b",
+      "dHash64": "0006060e0e061643",
+      "bounds": {
+        "width": 160,
+        "height": 216
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "violet-07",
+      "palette": "violet",
+      "frame": 7,
+      "url": "/sprites/extracted/violet-07.png",
+      "sha256": "d7806e4ab2f6d717c3303334522b7a199c0b6b296e1aebfab160094425a0e652",
+      "dHash64": "000216270f26b283",
+      "bounds": {
+        "width": 209,
+        "height": 215
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "violet-08",
+      "palette": "violet",
+      "frame": 8,
+      "url": "/sprites/extracted/violet-08.png",
+      "sha256": "72a44b0c9b919be74c9600c38f8ab1d1915c933abc47b57558ffd98ae0ae57c8",
+      "dHash64": "0006162f0e061644",
+      "bounds": {
+        "width": 177,
+        "height": 208
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "tangerine-01",
+      "palette": "tangerine",
+      "frame": 1,
+      "url": "/sprites/extracted/tangerine-01.png",
+      "sha256": "3e4e763c8060a0e3b4b318a642bd1147cd9f17a0549a1da3f45c911cc129c323",
+      "dHash64": "06060f2f4c361603",
+      "bounds": {
+        "width": 176,
+        "height": 231
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "tangerine-02",
+      "palette": "tangerine",
+      "frame": 2,
+      "url": "/sprites/extracted/tangerine-02.png",
+      "sha256": "0e2a0c4025c5c91a764698135e610b69567eda1ca132dc1780b5082c2190b1fb",
+      "dHash64": "0006060e0e063647",
+      "bounds": {
+        "width": 160,
+        "height": 215
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "tangerine-03",
+      "palette": "tangerine",
+      "frame": 3,
+      "url": "/sprites/extracted/tangerine-03.png",
+      "sha256": "53c42da3407f40289b985ecf353e33817e216b68975df5c382e6422bd0bc5389",
+      "dHash64": "00020e270b067683",
+      "bounds": {
+        "width": 198,
+        "height": 211
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "tangerine-04",
+      "palette": "tangerine",
+      "frame": 4,
+      "url": "/sprites/extracted/tangerine-04.png",
+      "sha256": "773e077f273635b2732d8913d200693c8dd6f72a9492379806a21cd4481e8f10",
+      "dHash64": "0006062f0e063644",
+      "bounds": {
+        "width": 178,
+        "height": 206
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "tangerine-05",
+      "palette": "tangerine",
+      "frame": 5,
+      "url": "/sprites/extracted/tangerine-05.png",
+      "sha256": "51f0b1f650567e6dc0e876c6a86b50d0f24ed3c0b1c570b1957ce00e0eb1d8e8",
+      "dHash64": "04040f2f0c361603",
+      "bounds": {
+        "width": 176,
+        "height": 231
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "tangerine-06",
+      "palette": "tangerine",
+      "frame": 6,
+      "url": "/sprites/extracted/tangerine-06.png",
+      "sha256": "2a672fb80bb0509eb9c1698232f7ef01dc1e76b580e4a70d2d44e9c65bad5f3e",
+      "dHash64": "0006060e0e063647",
+      "bounds": {
+        "width": 161,
+        "height": 216
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "tangerine-07",
+      "palette": "tangerine",
+      "frame": 7,
+      "url": "/sprites/extracted/tangerine-07.png",
+      "sha256": "3abbe7fd37fa496fd45dd30328fffd042907f0181bd8974fb9fa6ebf87b3d0b4",
+      "dHash64": "0002060f0f267283",
+      "bounds": {
+        "width": 208,
+        "height": 214
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    },
+    {
+      "id": "tangerine-08",
+      "palette": "tangerine",
+      "frame": 8,
+      "url": "/sprites/extracted/tangerine-08.png",
+      "sha256": "eda0bfb8bbde1eecd430652d03cb0daf3c38ebe36c9f697443f775ccb2720a4d",
+      "dHash64": "0006072f0e063644",
+      "bounds": {
+        "width": 178,
+        "height": 208
+      },
+      "pivot": {
+        "x": 118,
+        "y": 251
+      },
+      "groundY": 251
+    }
+  ]
+}

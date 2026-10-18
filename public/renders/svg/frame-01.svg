@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+<g transform="translate(100 170)">
+  <g data-part="far-upper-arm" transform="matrix(1 0 0 1 11.63 -95.03)"><line x1="0" y1="0" x2="0" y2="22" stroke="#c98f68" stroke-width="8" stroke-linecap="round"/></g>
+  <g data-part="far-forearm" transform="matrix(0.208 -0.978 0.978 0.208 11.63 -73.03)"><line x1="0" y1="0" x2="0" y2="19" stroke="#c98f68" stroke-width="8" stroke-linecap="round"/></g>
+  <g data-part="far-hand" transform="matrix(1 0 0 1 30.22 -69.08)"><circle cx="0" cy="0" r="4" fill="#c98f68"/></g>
+  <g data-part="far-thigh" transform="matrix(0.894 -0.449 0.449 0.894 6.25 -64.5)"><line x1="0" y1="0" x2="0" y2="36" stroke="#2b373e" stroke-width="12" stroke-linecap="round"/></g>
+  <g data-part="far-shin" transform="matrix(0.407 0.914 -0.914 0.407 22.42 -32.33)"><line x1="0" y1="0" x2="0" y2="34" stroke="#2b373e" stroke-width="9" stroke-linecap="round"/></g>
+  <g data-part="far-foot" transform="matrix(0.994 0.113 -0.113 0.994 -8.64 -18.5)"><polygon points="-8,-2 8,-2 8,6 -8,6" fill="#b0bec5"/></g>
+  <g data-part="pelvis" transform="matrix(1 0 0 1 6.25 -64.5)"><circle cx="0" cy="0" r="7" fill="#37474f"/></g>
+  <g data-part="torso" transform="matrix(-0.985 -0.174 0.174 -0.985 6.25 -64.5)"><line x1="0" y1="0" x2="0" y2="31" stroke="#d8433c" stroke-width="16" stroke-linecap="round"/></g>
+  <g data-part="neck" transform="matrix(-0.995 -0.105 0.105 -0.995 11.98 -97)"><line x1="0" y1="0" x2="0" y2="8" stroke="#e8b088" stroke-width="6" stroke-linecap="round"/></g>
+  <g data-part="head" transform="matrix(1 0 0 1 12.82 -104.95)"><circle cx="0" cy="0" r="9" fill="#e8b088"/></g>
+  <g data-part="hair" transform="matrix(1 0 0 1 8.77 -109)"><circle cx="0" cy="0" r="6.75" fill="#20242b"/></g>
+  <g data-part="near-thigh" transform="matrix(0.744 -0.668 0.668 0.744 6.25 -64.5)"><line x1="0" y1="0" x2="0" y2="36" stroke="#37474f" stroke-width="12" stroke-linecap="round"/></g>
+  <g data-part="near-shin" transform="matrix(0.932 0.361 -0.361 0.932 30.29 -37.7)"><line x1="0" y1="0" x2="0" y2="34" stroke="#37474f" stroke-width="9" stroke-linecap="round"/></g>
+  <g data-part="near-foot" transform="matrix(1 0 0 1 18 -6)"><polygon points="-8,-2 8,-2 8,6 -8,6" fill="#eceff1"/></g>
+  <g data-part="near-upper-arm" transform="matrix(1 0 0 1 11.63 -95.03)"><line x1="0" y1="0" x2="0" y2="22" stroke="#e8b088" stroke-width="8" stroke-linecap="round"/></g>
+  <g data-part="near-forearm" transform="matrix(0.208 -0.978 0.978 0.208 11.63 -73.03)"><line x1="0" y1="0" x2="0" y2="19" stroke="#e8b088" stroke-width="8" stroke-linecap="round"/></g>
+  <g data-part="near-hand" transform="matrix(1 0 0 1 30.22 -69.08)"><circle cx="0" cy="0" r="4" fill="#e8b088"/></g>
+</g>
+</svg>

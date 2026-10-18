@@ -1,0 +1,2080 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "file": "cobalt-01.png",
+      "byteSha256": "321432b544497ae6c6ae2c3dfe6630b539d7411371f8e71a1ef84368d2a73a04",
+      "rgbaSha256": "84d89c54c2454870e7fa3d51326e4d5339c31c6cc11103e19e546e3e4b8053e9",
+      "dHash64": "06060d2f0c161603"
+    },
+    {
+      "file": "cobalt-02.png",
+      "byteSha256": "403dfb7a3486fa7aa491a8e7412973c2c82b302abf0461311a88ef0d643765ed",
+      "rgbaSha256": "7b995cf805ef813c82041b816a36f903410147f742c577bb57628d510b32f4e3",
+      "dHash64": "0006060e0e061646"
+    },
+    {
+      "file": "cobalt-03.png",
+      "byteSha256": "3aff05875b394fbd81d96aede3c72c321a60e3f620510a3d726eb98c9b74b8de",
+      "rgbaSha256": "edfd4a65d499575af92bd85148010847271da2e248acf7bc7dc97c580c78adda",
+      "dHash64": "000202250b063283"
+    },
+    {
+      "file": "cobalt-04.png",
+      "byteSha256": "d8f42c641565a9c08f75fb51238562700e599efe49f46229809a9180b8545a5c",
+      "rgbaSha256": "041a3548924496d5ec59d18cd440095ff201d722d37d0e42dc22f23fb05d7df3",
+      "dHash64": "0006172f0e061644"
+    },
+    {
+      "file": "cobalt-05.png",
+      "byteSha256": "5d27c0fe706b1dff5a2d5b60803fa5482b1a8fe6c692a525b780b3e645f04c06",
+      "rgbaSha256": "6e3edfb4a3575906ca22ca58d9862b402c7aec7c55750a585a5c6134f5c6faba",
+      "dHash64": "06060f2f0c161603"
+    },
+    {
+      "file": "cobalt-06.png",
+      "byteSha256": "12e79a1ecb6889d326f02c58ade8c41acee6a073e409aa2ccdd82afe0bcb98a2",
+      "rgbaSha256": "235431c227495dc7c63f8d1d202deac091afdf1ba7914e0e08a21687f75c5ee5",
+      "dHash64": "0006060e0e061646"
+    },
+    {
+      "file": "cobalt-07.png",
+      "byteSha256": "f02c52a7cf89c1499459ec9fad8978e7bea1f25a750b6b8d1623cca49d67d787",
+      "rgbaSha256": "45cd90d8eb3e67f18133776ca657cb4036de6bdc17359dccec7fde306bf4e822",
+      "dHash64": "000206270b26b283"
+    },
+    {
+      "file": "cobalt-08.png",
+      "byteSha256": "77f8a0792417bca29e36f9477e7bc80c61e90a9c220a0e8f2c30ebdf80816c76",
+      "rgbaSha256": "06263079b07c14cac5de957e3da69d99f49d2f8a14dd4c7de68e9102eea51c69",
+      "dHash64": "0006172f0e061644"
+    },
+    {
+      "file": "crimson-01.png",
+      "byteSha256": "3ac3f3c54fcf0d9a7f7fb597afaae1b495b43a1503d9212abb6a1756a3392538",
+      "rgbaSha256": "7a48fc6f421cd93add4d99028561c51c36af004b3dd10552ecaa1ca340298350",
+      "dHash64": "06060f2f0c161603"
+    },
+    {
+      "file": "crimson-02.png",
+      "byteSha256": "3fa8267f6456105d5a01270d1fcca2f94b871be343e536ede95896a77a5470d1",
+      "rgbaSha256": "38dfd3cf81d8ee4fea7752a5270d19a5e4f66b45714fe572a523d4ccd386a1f9",
+      "dHash64": "0006060e0e061646"
+    },
+    {
+      "file": "crimson-03.png",
+      "byteSha256": "c2209e0ffb9ac34a3db654c3eba742eeacff27808212020e547155b7cebd9d72",
+      "rgbaSha256": "78cc90c733f5016b3ebca10708fcd2b3c8c2397f79c304e10c28eaf97d68793b",
+      "dHash64": "000212270b063683"
+    },
+    {
+      "file": "crimson-04.png",
+      "byteSha256": "86cece0b73e3dab9c0bf6c6138e10ac4c07b4af8bbe216fce1d22bf2776e61b5",
+      "rgbaSha256": "8ed65148745459c6ffab6e69efa20b7f2e08a73057c0265a9bb9812ac65b2cbc",
+      "dHash64": "0006172f0e061644"
+    },
+    {
+      "file": "crimson-05.png",
+      "byteSha256": "2400c9654c80bca5a5c64d09095fd0eb49531b5409ef1f3dc62cfbf2a4af41ce",
+      "rgbaSha256": "7b867e19905613840b8fcc9475395efb257e5fe7029ef4e0b6c9da51d79e32e6",
+      "dHash64": "06060f2f0c161603"
+    },
+    {
+      "file": "crimson-06.png",
+      "byteSha256": "313137dc0b9a4777fee24691115ce24eb4f1a8b69e91120b42764c58df70b422",
+      "rgbaSha256": "33250afc5ea8d49058409f033a69100872b9113c9a7377f4941594fbf70562e6",
+      "dHash64": "0006060e0e061646"
+    },
+    {
+      "file": "crimson-07.png",
+      "byteSha256": "a3f026110015acc745e54505af51c59e9b2a0842e881f7b511e677bacfe6f0dc",
+      "rgbaSha256": "722da5eef1ea2ccd1d799ac4570b567114e7d82146bf387efcdf00d780d85973",
+      "dHash64": "000216270f26b203"
+    },
+    {
+      "file": "crimson-08.png",
+      "byteSha256": "81ee07fc8bcd366691b65d58ff2ca2214a28dcbd8c56eb759805e3f1965cf603",
+      "rgbaSha256": "99b28a275ee7b6b72909366977f47d364c2574192b08a479c610a699807e51e8",
+      "dHash64": "0006172f0e061646"
+    },
+    {
+      "file": "leaf-01.png",
+      "byteSha256": "a1ad0d64e1c3ac2c251164c39e9c914cc3bf67dff581840126ef75077da6c4e6",
+      "rgbaSha256": "b995f429c5e6816ea19fc05536635c324884211b0f0fd72da545ed143f6532a5",
+      "dHash64": "06060d2f0c161603"
+    },
+    {
+      "file": "leaf-02.png",
+      "byteSha256": "fc62ee91eee0913b0fe0a53f11e9424d9d41f4a189cf81e9e475b9d669345dd4",
+      "rgbaSha256": "aae5226b01a622c4d70fe2e8d306374de061ae57d7c6c8310b1ab9bcfbabc6de",
+      "dHash64": "0006060e0e061647"
+    },
+    {
+      "file": "leaf-03.png",
+      "byteSha256": "3b298a03a2bf336c6767ae98aa313547a6438c5e8b0fcc84ec131924c1403159",
+      "rgbaSha256": "10861e8ba551dfeaa4e8bb0222acca33ad506100f887208f36577d7dee771795",
+      "dHash64": "000202250b063283"
+    },
+    {
+      "file": "leaf-04.png",
+      "byteSha256": "053dcfb4f7557623c065efda70effaaa6a1920c200ae34741be6919bd99a2e39",
+      "rgbaSha256": "d658d9c7f44c8d043ddeb84d9bc745ecee75f358746c236d4813c0e15d970cee",
+      "dHash64": "0006072f0e063644"
+    },
+    {
+      "file": "leaf-05.png",
+      "byteSha256": "5259cec3e26fb0c1a61bdb7e2e886c7e2731e81551b2f831ec52a0b0017f6909",
+      "rgbaSha256": "4bbd898c8ed7c24646df82f08a506fa79a4ccaa1a7a0ff5af219687bb8533861",
+      "dHash64": "06060d2f0c161603"
+    },
+    {
+      "file": "leaf-06.png",
+      "byteSha256": "496963943aa4174a6c986ed83e29037466297d6f64f2511c5a2be14d66b7ad5a",
+      "rgbaSha256": "224e9835a0b09ec33eac0141370dd14de62bc72bb6453b194da1239da8320545",
+      "dHash64": "0006060e0e061646"
+    },
+    {
+      "file": "leaf-07.png",
+      "byteSha256": "4d036f899522dd85ad3ac0c79ea969011460e7b9b95c441cfca93eb1b07be16d",
+      "rgbaSha256": "b0034e9a33e84e595f72a1425463bfc97cde463472b041e0f264cbb47b7037e5",
+      "dHash64": "000206270b06b283"
+    },
+    {
+      "file": "leaf-08.png",
+      "byteSha256": "41971a07949ab1e8c3b79063291a2acb1d3064fa46b37d7796212423a402d732",
+      "rgbaSha256": "e9ebe906c24cf76276d352dab151aef7a23786d0d532ae2b94a5375de2840bf9",
+      "dHash64": "0006172f0e063644"
+    },
+    {
+      "file": "sunshine-01.png",
+      "byteSha256": "0c508e6b9719cd6930b022d811ed86e459b3de61193edd732a6e98b3d3e7715f",
+      "rgbaSha256": "deb78b1ddfad72abf5405172e525b3d008110ef0a41a3e19ede1d3c9ccb02e6c",
+      "dHash64": "06060d2f0c341603"
+    },
+    {
+      "file": "sunshine-02.png",
+      "byteSha256": "a419b198004a4dad7a187b04e21cc32161ecb52008f886b4bb7824f0604e9411",
+      "rgbaSha256": "3f155f372251ac898db4f78c7570e6ff926d487cad4961077b2ead0bd850972c",
+      "dHash64": "00060e0e0e063647"
+    },
+    {
+      "file": "sunshine-03.png",
+      "byteSha256": "e75c72c4d82a924ab8a4d2dfb387bbc5fcc9a17aa3bd9110936bb890d77985e9",
+      "rgbaSha256": "32afaf7a7b14ee41c2fe8ea0c2512c0abc31db11831107d023b1e17e87166fa6",
+      "dHash64": "00020e070b067683"
+    },
+    {
+      "file": "sunshine-04.png",
+      "byteSha256": "a6cfb01d4e3745b78c1f47f22b59825a1cd639b05c1df00cafc779e20d048a25",
+      "rgbaSha256": "63f0aa0ee2f8f2178aa561fdc0af848a199680e1544acf1deca18a42826201c6",
+      "dHash64": "0006072f0e063644"
+    },
+    {
+      "file": "sunshine-05.png",
+      "byteSha256": "bb24532c919baf369bb5a0700b50f721c5d6af5df56abf6bed2897faa842dcfb",
+      "rgbaSha256": "8439a82e3eceee478b6e05a245be26b6e05dadc210f362dc75a7b4fb7ca23674",
+      "dHash64": "06060d2f0c341603"
+    },
+    {
+      "file": "sunshine-06.png",
+      "byteSha256": "a48c43db8b0155881178834c4fb8a79063ce203e8400cd7cedf8a1d8fa508c14",
+      "rgbaSha256": "78645fa72e26595ed50d4379caca434cecb050c2e7c757d7f9958035eb0f0291",
+      "dHash64": "00060e0e0e063646"
+    },
+    {
+      "file": "sunshine-07.png",
+      "byteSha256": "09a75250bb60357af301dfd2b02c62f82b978993b5b108a8b221a26ed8ca71ba",
+      "rgbaSha256": "b760bf63336da5a3ca348431b881dcee4a6a3200b0eedc15fdc949dccf67daba",
+      "dHash64": "00020e0f0f667683"
+    },
+    {
+      "file": "sunshine-08.png",
+      "byteSha256": "15b912d129c9db8493bebbf00a1948588c91e2d17ff466c3c2424dbdc362ee00",
+      "rgbaSha256": "c7368500077f78d326e3c0b1cff821bef63cc83d304f096f97f941631dcf5f8c",
+      "dHash64": "0006072f0e063644"
+    },
+    {
+      "file": "tangerine-01.png",
+      "byteSha256": "3e4e763c8060a0e3b4b318a642bd1147cd9f17a0549a1da3f45c911cc129c323",
+      "rgbaSha256": "4d6d4852a5e5c363b281cabcdb837cc327f3f141a563c33130cfc006a05cb1e2",
+      "dHash64": "06060f2f4c361603"
+    },
+    {
+      "file": "tangerine-02.png",
+      "byteSha256": "0e2a0c4025c5c91a764698135e610b69567eda1ca132dc1780b5082c2190b1fb",
+      "rgbaSha256": "924d5011d516bb3b0ab05c3f482c9fe1a8a7a7ef328c1f4155bff47c91b10e13",
+      "dHash64": "0006060e0e063647"
+    },
+    {
+      "file": "tangerine-03.png",
+      "byteSha256": "53c42da3407f40289b985ecf353e33817e216b68975df5c382e6422bd0bc5389",
+      "rgbaSha256": "dc2ccd681d3c4482b1f82a3c5590cd0184d66acebcc4df694ad513577c468286",
+      "dHash64": "00020e270b067683"
+    },
+    {
+      "file": "tangerine-04.png",
+      "byteSha256": "773e077f273635b2732d8913d200693c8dd6f72a9492379806a21cd4481e8f10",
+      "rgbaSha256": "2218e261f8aef10fb545124cb774303f6792e655958e374d2a2e90395e4c5636",
+      "dHash64": "0006062f0e063644"
+    },
+    {
+      "file": "tangerine-05.png",
+      "byteSha256": "51f0b1f650567e6dc0e876c6a86b50d0f24ed3c0b1c570b1957ce00e0eb1d8e8",
+      "rgbaSha256": "fb212f70b0ec71d9a010ce6478c11ec98224a9af6abb7364915d526fbef5e5be",
+      "dHash64": "04040f2f0c361603"
+    },
+    {
+      "file": "tangerine-06.png",
+      "byteSha256": "2a672fb80bb0509eb9c1698232f7ef01dc1e76b580e4a70d2d44e9c65bad5f3e",
+      "rgbaSha256": "533c063221722aedf9fe3dea3039cc002bcbb29ae6075253cfc08bca537b7ddc",
+      "dHash64": "0006060e0e063647"
+    },
+    {
+      "file": "tangerine-07.png",
+      "byteSha256": "3abbe7fd37fa496fd45dd30328fffd042907f0181bd8974fb9fa6ebf87b3d0b4",
+      "rgbaSha256": "35909e3515f05fdba06ae00ea7384ae20a448b6c4e1a4b2124934566e88eb7c8",
+      "dHash64": "0002060f0f267283"
+    },
+    {
+      "file": "tangerine-08.png",
+      "byteSha256": "eda0bfb8bbde1eecd430652d03cb0daf3c38ebe36c9f697443f775ccb2720a4d",
+      "rgbaSha256": "c68476f073de07822bab3b0a90febbcf5b860991f43644d1f0d75adefe3b98e4",
+      "dHash64": "0006072f0e063644"
+    },
+    {
+      "file": "violet-01.png",
+      "byteSha256": "ee83e6c6d5435ad1beab76bd8c49453857d32e961b17f5208ac3478168dd5aa0",
+      "rgbaSha256": "3d625e33cbd7b537d4e6c42de37bbcd71b0b64df35fe322e6be5174b3b151d59",
+      "dHash64": "06060f2b0c161603"
+    },
+    {
+      "file": "violet-02.png",
+      "byteSha256": "639f3e022f727abc702d4da24f5a97e0dc9632d91f352eb9bdfce258a1311781",
+      "rgbaSha256": "17d57a10b077deecc40f1af84decd1746dd4272a1136b48c6d0282f3ae24473d",
+      "dHash64": "0006060e0e061643"
+    },
+    {
+      "file": "violet-03.png",
+      "byteSha256": "6e94eb211483b85f50175b9594b06d810d564b4c7f1f7a343177e2f814897b2e",
+      "rgbaSha256": "cd4ff9aa082f03e1c3ebd451e3312248a5542eb4e7a1bb388af0570b4c5d0f6e",
+      "dHash64": "000212270b063683"
+    },
+    {
+      "file": "violet-04.png",
+      "byteSha256": "70d007ef1a661b5f1205e310903022caa64f8d2b24aa985bfa73cc37922e56e8",
+      "rgbaSha256": "e02c20562337aca3c974db90a6946a3237882281206659f4c4e95755c3fa4ef8",
+      "dHash64": "0006162f0e061644"
+    },
+    {
+      "file": "violet-05.png",
+      "byteSha256": "8f775a125b83aab805b27dbe70f16aef86ba9e233e7722aae622e790d2e3a7f6",
+      "rgbaSha256": "d4eac2f29766ae3c63771ce347ec8c6b7c5eaf1d8cfbb3c842b16991974e07f1",
+      "dHash64": "06060f2f4c161603"
+    },
+    {
+      "file": "violet-06.png",
+      "byteSha256": "7d41a42744579d387fd363b3e33ec876b3360e6204c9186b04883f26777a7b4b",
+      "rgbaSha256": "cfd67ed4c2dbd737fabf6b101181a3c6162161bf826b7dee4a91a5a704b6a8c3",
+      "dHash64": "0006060e0e061643"
+    },
+    {
+      "file": "violet-07.png",
+      "byteSha256": "d7806e4ab2f6d717c3303334522b7a199c0b6b296e1aebfab160094425a0e652",
+      "rgbaSha256": "73396cd48d9c110dd79ddd9259624fb6a587cc742626665715177154bcaddf36",
+      "dHash64": "000216270f26b283"
+    },
+    {
+      "file": "violet-08.png",
+      "byteSha256": "72a44b0c9b919be74c9600c38f8ab1d1915c933abc47b57558ffd98ae0ae57c8",
+      "rgbaSha256": "f825bd35194075a9dd3bdf3e0547842b7ab5993824d575d4f7cc68e511709c5f",
+      "dHash64": "0006162f0e061644"
+    }
+  ],
+  "duplicateCandidates": [
+    {
+      "a": "cobalt-01.png",
+      "b": "cobalt-05.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-01.png",
+      "b": "crimson-01.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-01.png",
+      "b": "crimson-05.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-01.png",
+      "b": "leaf-01.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-01.png",
+      "b": "leaf-05.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-01.png",
+      "b": "sunshine-01.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-01.png",
+      "b": "sunshine-05.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-01.png",
+      "b": "tangerine-01.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-01.png",
+      "b": "tangerine-05.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-01.png",
+      "b": "violet-01.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-01.png",
+      "b": "violet-05.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "cobalt-04.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "cobalt-06.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "cobalt-08.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "crimson-02.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "crimson-04.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "crimson-06.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "crimson-08.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "leaf-02.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "leaf-04.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "leaf-06.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "leaf-08.png",
+      "distance": 6
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "sunshine-02.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "sunshine-04.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "sunshine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "sunshine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "tangerine-02.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "tangerine-04.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "tangerine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "tangerine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "violet-02.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "violet-04.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "violet-06.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-02.png",
+      "b": "violet-08.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-03.png",
+      "b": "cobalt-07.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-03.png",
+      "b": "crimson-03.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-03.png",
+      "b": "leaf-03.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-03.png",
+      "b": "leaf-07.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-03.png",
+      "b": "sunshine-03.png",
+      "distance": 6
+    },
+    {
+      "a": "cobalt-03.png",
+      "b": "tangerine-03.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-03.png",
+      "b": "violet-03.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-03.png",
+      "b": "violet-07.png",
+      "distance": 6
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "cobalt-06.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "cobalt-08.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "crimson-02.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "crimson-04.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "crimson-06.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "crimson-08.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "leaf-02.png",
+      "distance": 6
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "leaf-04.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "leaf-06.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "leaf-08.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "sunshine-04.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "sunshine-08.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "tangerine-04.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "tangerine-08.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "violet-04.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-04.png",
+      "b": "violet-08.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-05.png",
+      "b": "crimson-01.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-05.png",
+      "b": "crimson-05.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-05.png",
+      "b": "leaf-01.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-05.png",
+      "b": "leaf-05.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-05.png",
+      "b": "sunshine-01.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-05.png",
+      "b": "sunshine-05.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-05.png",
+      "b": "tangerine-01.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-05.png",
+      "b": "tangerine-05.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-05.png",
+      "b": "violet-01.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-05.png",
+      "b": "violet-05.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "cobalt-08.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "crimson-02.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "crimson-04.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "crimson-06.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "crimson-08.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "leaf-02.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "leaf-04.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "leaf-06.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "leaf-08.png",
+      "distance": 6
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "sunshine-02.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "sunshine-04.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "sunshine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "sunshine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "tangerine-02.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "tangerine-04.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "tangerine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "tangerine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "violet-02.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "violet-04.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "violet-06.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-06.png",
+      "b": "violet-08.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-07.png",
+      "b": "crimson-03.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-07.png",
+      "b": "crimson-07.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-07.png",
+      "b": "leaf-03.png",
+      "distance": 4
+    },
+    {
+      "a": "cobalt-07.png",
+      "b": "leaf-07.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-07.png",
+      "b": "sunshine-03.png",
+      "distance": 6
+    },
+    {
+      "a": "cobalt-07.png",
+      "b": "tangerine-03.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-07.png",
+      "b": "tangerine-07.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-07.png",
+      "b": "violet-03.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-07.png",
+      "b": "violet-07.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "crimson-02.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "crimson-04.png",
+      "distance": 0
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "crimson-06.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "crimson-08.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "leaf-02.png",
+      "distance": 6
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "leaf-04.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "leaf-06.png",
+      "distance": 5
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "leaf-08.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "sunshine-04.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "sunshine-08.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "tangerine-04.png",
+      "distance": 3
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "tangerine-08.png",
+      "distance": 2
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "violet-04.png",
+      "distance": 1
+    },
+    {
+      "a": "cobalt-08.png",
+      "b": "violet-08.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-01.png",
+      "b": "crimson-05.png",
+      "distance": 0
+    },
+    {
+      "a": "crimson-01.png",
+      "b": "leaf-01.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-01.png",
+      "b": "leaf-05.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-01.png",
+      "b": "sunshine-01.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-01.png",
+      "b": "sunshine-05.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-01.png",
+      "b": "tangerine-01.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-01.png",
+      "b": "tangerine-05.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-01.png",
+      "b": "violet-01.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-01.png",
+      "b": "violet-05.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "crimson-04.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "crimson-06.png",
+      "distance": 0
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "crimson-08.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "leaf-02.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "leaf-04.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "leaf-06.png",
+      "distance": 0
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "leaf-08.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "sunshine-02.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "sunshine-04.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "sunshine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "sunshine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "tangerine-02.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "tangerine-04.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "tangerine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "tangerine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "violet-02.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "violet-04.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "violet-06.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-02.png",
+      "b": "violet-08.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-03.png",
+      "b": "crimson-07.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-03.png",
+      "b": "leaf-03.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-03.png",
+      "b": "leaf-07.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-03.png",
+      "b": "sunshine-03.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-03.png",
+      "b": "tangerine-03.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-03.png",
+      "b": "violet-03.png",
+      "distance": 0
+    },
+    {
+      "a": "crimson-03.png",
+      "b": "violet-07.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "crimson-06.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "crimson-08.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "leaf-02.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "leaf-04.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "leaf-06.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "leaf-08.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "sunshine-04.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "sunshine-08.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "tangerine-04.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "tangerine-08.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "violet-04.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-04.png",
+      "b": "violet-08.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-05.png",
+      "b": "leaf-01.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-05.png",
+      "b": "leaf-05.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-05.png",
+      "b": "sunshine-01.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-05.png",
+      "b": "sunshine-05.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-05.png",
+      "b": "tangerine-01.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-05.png",
+      "b": "tangerine-05.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-05.png",
+      "b": "violet-01.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-05.png",
+      "b": "violet-05.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "crimson-08.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "leaf-02.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "leaf-04.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "leaf-06.png",
+      "distance": 0
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "leaf-08.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "sunshine-02.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "sunshine-04.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "sunshine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "sunshine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "tangerine-02.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "tangerine-04.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "tangerine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "tangerine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "violet-02.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "violet-04.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "violet-06.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-06.png",
+      "b": "violet-08.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-07.png",
+      "b": "leaf-07.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-07.png",
+      "b": "tangerine-07.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-07.png",
+      "b": "violet-03.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-07.png",
+      "b": "violet-07.png",
+      "distance": 1
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "leaf-02.png",
+      "distance": 5
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "leaf-04.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "leaf-06.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "leaf-08.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "sunshine-04.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "sunshine-06.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "sunshine-08.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "tangerine-02.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "tangerine-04.png",
+      "distance": 4
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "tangerine-06.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "tangerine-08.png",
+      "distance": 3
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "violet-02.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "violet-04.png",
+      "distance": 2
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "violet-06.png",
+      "distance": 6
+    },
+    {
+      "a": "crimson-08.png",
+      "b": "violet-08.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-01.png",
+      "b": "leaf-05.png",
+      "distance": 0
+    },
+    {
+      "a": "leaf-01.png",
+      "b": "sunshine-01.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-01.png",
+      "b": "sunshine-05.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-01.png",
+      "b": "tangerine-01.png",
+      "distance": 3
+    },
+    {
+      "a": "leaf-01.png",
+      "b": "tangerine-05.png",
+      "distance": 4
+    },
+    {
+      "a": "leaf-01.png",
+      "b": "violet-01.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-01.png",
+      "b": "violet-05.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "leaf-04.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "leaf-06.png",
+      "distance": 1
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "sunshine-02.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "sunshine-04.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "sunshine-06.png",
+      "distance": 3
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "sunshine-08.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "tangerine-02.png",
+      "distance": 1
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "tangerine-04.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "tangerine-06.png",
+      "distance": 1
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "tangerine-08.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "violet-02.png",
+      "distance": 1
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "violet-04.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "violet-06.png",
+      "distance": 1
+    },
+    {
+      "a": "leaf-02.png",
+      "b": "violet-08.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-03.png",
+      "b": "leaf-07.png",
+      "distance": 3
+    },
+    {
+      "a": "leaf-03.png",
+      "b": "sunshine-03.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-03.png",
+      "b": "tangerine-03.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-03.png",
+      "b": "violet-03.png",
+      "distance": 3
+    },
+    {
+      "a": "leaf-03.png",
+      "b": "violet-07.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "leaf-06.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "leaf-08.png",
+      "distance": 1
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "sunshine-02.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "sunshine-04.png",
+      "distance": 0
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "sunshine-06.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "sunshine-08.png",
+      "distance": 0
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "tangerine-02.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "tangerine-04.png",
+      "distance": 1
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "tangerine-06.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "tangerine-08.png",
+      "distance": 0
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "violet-04.png",
+      "distance": 3
+    },
+    {
+      "a": "leaf-04.png",
+      "b": "violet-08.png",
+      "distance": 3
+    },
+    {
+      "a": "leaf-05.png",
+      "b": "sunshine-01.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-05.png",
+      "b": "sunshine-05.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-05.png",
+      "b": "tangerine-01.png",
+      "distance": 3
+    },
+    {
+      "a": "leaf-05.png",
+      "b": "tangerine-05.png",
+      "distance": 4
+    },
+    {
+      "a": "leaf-05.png",
+      "b": "violet-01.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-05.png",
+      "b": "violet-05.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "leaf-08.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "sunshine-02.png",
+      "distance": 3
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "sunshine-04.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "sunshine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "sunshine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "tangerine-02.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "tangerine-04.png",
+      "distance": 4
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "tangerine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "tangerine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "violet-02.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "violet-04.png",
+      "distance": 4
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "violet-06.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-06.png",
+      "b": "violet-08.png",
+      "distance": 4
+    },
+    {
+      "a": "leaf-07.png",
+      "b": "sunshine-03.png",
+      "distance": 5
+    },
+    {
+      "a": "leaf-07.png",
+      "b": "tangerine-03.png",
+      "distance": 4
+    },
+    {
+      "a": "leaf-07.png",
+      "b": "tangerine-07.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-07.png",
+      "b": "violet-03.png",
+      "distance": 4
+    },
+    {
+      "a": "leaf-07.png",
+      "b": "violet-07.png",
+      "distance": 3
+    },
+    {
+      "a": "leaf-08.png",
+      "b": "sunshine-04.png",
+      "distance": 1
+    },
+    {
+      "a": "leaf-08.png",
+      "b": "sunshine-06.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-08.png",
+      "b": "sunshine-08.png",
+      "distance": 1
+    },
+    {
+      "a": "leaf-08.png",
+      "b": "tangerine-02.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-08.png",
+      "b": "tangerine-04.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-08.png",
+      "b": "tangerine-06.png",
+      "distance": 6
+    },
+    {
+      "a": "leaf-08.png",
+      "b": "tangerine-08.png",
+      "distance": 1
+    },
+    {
+      "a": "leaf-08.png",
+      "b": "violet-04.png",
+      "distance": 2
+    },
+    {
+      "a": "leaf-08.png",
+      "b": "violet-08.png",
+      "distance": 2
+    },
+    {
+      "a": "sunshine-01.png",
+      "b": "sunshine-05.png",
+      "distance": 0
+    },
+    {
+      "a": "sunshine-01.png",
+      "b": "tangerine-01.png",
+      "distance": 3
+    },
+    {
+      "a": "sunshine-01.png",
+      "b": "tangerine-05.png",
+      "distance": 4
+    },
+    {
+      "a": "sunshine-01.png",
+      "b": "violet-01.png",
+      "distance": 4
+    },
+    {
+      "a": "sunshine-01.png",
+      "b": "violet-05.png",
+      "distance": 4
+    },
+    {
+      "a": "sunshine-02.png",
+      "b": "sunshine-04.png",
+      "distance": 6
+    },
+    {
+      "a": "sunshine-02.png",
+      "b": "sunshine-06.png",
+      "distance": 1
+    },
+    {
+      "a": "sunshine-02.png",
+      "b": "sunshine-08.png",
+      "distance": 6
+    },
+    {
+      "a": "sunshine-02.png",
+      "b": "tangerine-02.png",
+      "distance": 1
+    },
+    {
+      "a": "sunshine-02.png",
+      "b": "tangerine-04.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-02.png",
+      "b": "tangerine-06.png",
+      "distance": 1
+    },
+    {
+      "a": "sunshine-02.png",
+      "b": "tangerine-08.png",
+      "distance": 6
+    },
+    {
+      "a": "sunshine-02.png",
+      "b": "violet-02.png",
+      "distance": 3
+    },
+    {
+      "a": "sunshine-02.png",
+      "b": "violet-06.png",
+      "distance": 3
+    },
+    {
+      "a": "sunshine-03.png",
+      "b": "sunshine-07.png",
+      "distance": 4
+    },
+    {
+      "a": "sunshine-03.png",
+      "b": "tangerine-03.png",
+      "distance": 1
+    },
+    {
+      "a": "sunshine-03.png",
+      "b": "tangerine-07.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-03.png",
+      "b": "violet-03.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-04.png",
+      "b": "sunshine-06.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-04.png",
+      "b": "sunshine-08.png",
+      "distance": 0
+    },
+    {
+      "a": "sunshine-04.png",
+      "b": "tangerine-02.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-04.png",
+      "b": "tangerine-04.png",
+      "distance": 1
+    },
+    {
+      "a": "sunshine-04.png",
+      "b": "tangerine-06.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-04.png",
+      "b": "tangerine-08.png",
+      "distance": 0
+    },
+    {
+      "a": "sunshine-04.png",
+      "b": "violet-04.png",
+      "distance": 3
+    },
+    {
+      "a": "sunshine-04.png",
+      "b": "violet-08.png",
+      "distance": 3
+    },
+    {
+      "a": "sunshine-05.png",
+      "b": "tangerine-01.png",
+      "distance": 3
+    },
+    {
+      "a": "sunshine-05.png",
+      "b": "tangerine-05.png",
+      "distance": 4
+    },
+    {
+      "a": "sunshine-05.png",
+      "b": "violet-01.png",
+      "distance": 4
+    },
+    {
+      "a": "sunshine-05.png",
+      "b": "violet-05.png",
+      "distance": 4
+    },
+    {
+      "a": "sunshine-06.png",
+      "b": "sunshine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-06.png",
+      "b": "tangerine-02.png",
+      "distance": 2
+    },
+    {
+      "a": "sunshine-06.png",
+      "b": "tangerine-04.png",
+      "distance": 4
+    },
+    {
+      "a": "sunshine-06.png",
+      "b": "tangerine-06.png",
+      "distance": 2
+    },
+    {
+      "a": "sunshine-06.png",
+      "b": "tangerine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-06.png",
+      "b": "violet-02.png",
+      "distance": 4
+    },
+    {
+      "a": "sunshine-06.png",
+      "b": "violet-04.png",
+      "distance": 6
+    },
+    {
+      "a": "sunshine-06.png",
+      "b": "violet-06.png",
+      "distance": 4
+    },
+    {
+      "a": "sunshine-06.png",
+      "b": "violet-08.png",
+      "distance": 6
+    },
+    {
+      "a": "sunshine-07.png",
+      "b": "tangerine-03.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-07.png",
+      "b": "tangerine-07.png",
+      "distance": 3
+    },
+    {
+      "a": "sunshine-08.png",
+      "b": "tangerine-02.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-08.png",
+      "b": "tangerine-04.png",
+      "distance": 1
+    },
+    {
+      "a": "sunshine-08.png",
+      "b": "tangerine-06.png",
+      "distance": 5
+    },
+    {
+      "a": "sunshine-08.png",
+      "b": "tangerine-08.png",
+      "distance": 0
+    },
+    {
+      "a": "sunshine-08.png",
+      "b": "violet-04.png",
+      "distance": 3
+    },
+    {
+      "a": "sunshine-08.png",
+      "b": "violet-08.png",
+      "distance": 3
+    },
+    {
+      "a": "tangerine-01.png",
+      "b": "tangerine-05.png",
+      "distance": 3
+    },
+    {
+      "a": "tangerine-01.png",
+      "b": "violet-01.png",
+      "distance": 3
+    },
+    {
+      "a": "tangerine-01.png",
+      "b": "violet-05.png",
+      "distance": 1
+    },
+    {
+      "a": "tangerine-02.png",
+      "b": "tangerine-04.png",
+      "distance": 4
+    },
+    {
+      "a": "tangerine-02.png",
+      "b": "tangerine-06.png",
+      "distance": 0
+    },
+    {
+      "a": "tangerine-02.png",
+      "b": "tangerine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "tangerine-02.png",
+      "b": "violet-02.png",
+      "distance": 2
+    },
+    {
+      "a": "tangerine-02.png",
+      "b": "violet-04.png",
+      "distance": 6
+    },
+    {
+      "a": "tangerine-02.png",
+      "b": "violet-06.png",
+      "distance": 2
+    },
+    {
+      "a": "tangerine-02.png",
+      "b": "violet-08.png",
+      "distance": 6
+    },
+    {
+      "a": "tangerine-03.png",
+      "b": "tangerine-07.png",
+      "distance": 6
+    },
+    {
+      "a": "tangerine-03.png",
+      "b": "violet-03.png",
+      "distance": 4
+    },
+    {
+      "a": "tangerine-04.png",
+      "b": "tangerine-06.png",
+      "distance": 4
+    },
+    {
+      "a": "tangerine-04.png",
+      "b": "tangerine-08.png",
+      "distance": 1
+    },
+    {
+      "a": "tangerine-04.png",
+      "b": "violet-02.png",
+      "distance": 6
+    },
+    {
+      "a": "tangerine-04.png",
+      "b": "violet-04.png",
+      "distance": 2
+    },
+    {
+      "a": "tangerine-04.png",
+      "b": "violet-06.png",
+      "distance": 6
+    },
+    {
+      "a": "tangerine-04.png",
+      "b": "violet-08.png",
+      "distance": 2
+    },
+    {
+      "a": "tangerine-05.png",
+      "b": "violet-01.png",
+      "distance": 4
+    },
+    {
+      "a": "tangerine-05.png",
+      "b": "violet-05.png",
+      "distance": 4
+    },
+    {
+      "a": "tangerine-06.png",
+      "b": "tangerine-08.png",
+      "distance": 5
+    },
+    {
+      "a": "tangerine-06.png",
+      "b": "violet-02.png",
+      "distance": 2
+    },
+    {
+      "a": "tangerine-06.png",
+      "b": "violet-04.png",
+      "distance": 6
+    },
+    {
+      "a": "tangerine-06.png",
+      "b": "violet-06.png",
+      "distance": 2
+    },
+    {
+      "a": "tangerine-06.png",
+      "b": "violet-08.png",
+      "distance": 6
+    },
+    {
+      "a": "tangerine-07.png",
+      "b": "violet-07.png",
+      "distance": 5
+    },
+    {
+      "a": "tangerine-08.png",
+      "b": "violet-04.png",
+      "distance": 3
+    },
+    {
+      "a": "tangerine-08.png",
+      "b": "violet-08.png",
+      "distance": 3
+    },
+    {
+      "a": "violet-01.png",
+      "b": "violet-05.png",
+      "distance": 2
+    },
+    {
+      "a": "violet-02.png",
+      "b": "violet-04.png",
+      "distance": 6
+    },
+    {
+      "a": "violet-02.png",
+      "b": "violet-06.png",
+      "distance": 0
+    },
+    {
+      "a": "violet-02.png",
+      "b": "violet-08.png",
+      "distance": 6
+    },
+    {
+      "a": "violet-03.png",
+      "b": "violet-07.png",
+      "distance": 5
+    },
+    {
+      "a": "violet-04.png",
+      "b": "violet-06.png",
+      "distance": 6
+    },
+    {
+      "a": "violet-04.png",
+      "b": "violet-08.png",
+      "distance": 0
+    },
+    {
+      "a": "violet-06.png",
+      "b": "violet-08.png",
+      "distance": 6
+    }
+  ]
+}

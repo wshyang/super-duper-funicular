@@ -1,0 +1,6 @@
+# Inert SonarQube project descriptor (activated by activate-shiphats.sh).
+sonar.projectKey=@@SHIPHATS_IMAGE_NAME@@
+sonar.sources=src,tools
+sonar.tests=tests
+sonar.javascript.lcov.reportPaths=coverage/lcov.info
+sonar.host.url=@@SHIPHATS_GITLAB_URL@@
