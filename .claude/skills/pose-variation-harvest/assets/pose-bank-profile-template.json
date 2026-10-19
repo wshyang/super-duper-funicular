@@ -1,0 +1,17 @@
+{
+  "characterId": "athletic-sg-runner-pose-pilot",
+  "masterImagePath": "src/images/photoreal-female/01-master-lateral-profile-reference.png",
+  "identityLock": "adult Singaporean Chinese woman runner, warm SE Asian skin, black high ponytail, crimson singlet with white vertical stripe, charcoal shorts, both sky-blue wristbands, white socks, white-crimson shoes",
+  "wardrobeLock": "crimson-red racerback singlet with crisp white vertical side stripe, charcoal-black fitted shorts, both sky-blue wristbands, white ankle socks, white-and-crimson running shoes",
+  "outputDirectory": "src/images/photoreal-female-pose-bank",
+  "guideDirectory": "src/images/photoreal-female-pose-bank/guides/skeleton",
+  "promptDirectory": "src/images/photoreal-female-pose-bank/prompts",
+  "rigOverrides": {
+    "strideLengthScale": 0.62,
+    "kneeDriveScale": 0.68,
+    "forwardLeanDeg": 18,
+    "bounceAmplitudeScale": 0.5
+  },
+  "acceptanceCriteriaRef": "docs/ACCEPTANCE_CRITERIA.md",
+  "harvestReportRef": "docs/phase-harvest-report.json"
+}

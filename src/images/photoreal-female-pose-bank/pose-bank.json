@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "characterId": "athletic-sg-runner-pose-pilot",
+  "identityAnchor": {
+    "path": "src/images/photoreal-female/01-master-lateral-profile-reference.png",
+    "sha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6"
+  },
+  "frames": [
+    {
+      "key": "H00",
+      "phase": null,
+      "phaseName": "Neutral right-facing profile",
+      "target": "identity, proportions, clothing, baseline pivots",
+      "mustShow": [
+        "full hair-to-sole silhouette",
+        "head and footwear inside frame"
+      ],
+      "poseGuidePath": null,
+      "promptPath": null,
+      "status": "accepted",
+      "attempts": [],
+      "visibility": {}
+    },
+    {
+      "key": "H01",
+      "phase": 0,
+      "phaseName": "Right Contact (Midfoot Strike)",
+      "target": "near-side contact and opposite recovery",
+      "mustShow": [
+        "near support contact",
+        "far recovery limb",
+        "both shoes"
+      ],
+      "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H01-pose-guide.png",
+      "promptPath": "src/images/photoreal-female-pose-bank/prompts/H01.txt",
+      "status": "conditional",
+      "attempts": [
+        {
+          "attemptId": "#73",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact.png",
+          "promptPath": "docs/FDS.md#call-73",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "poseGuideSha256": "4730db8f422a319b606c842356ae8fbbbd78ba62af5011317e1f20a6544f8e98",
+          "status": "rejected",
+          "reviewNote": "Pose/identity pass; rejected as harvest master due conspicuous floor shadow and lower-background contamination.",
+          "candidateSha256": "15f9e3bf561ce688c2dd19ac1b872253930dec5a70b540a48b2f493f2e9233e9",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H01-rig-pose-reference.png"
+        },
+        {
+          "attemptId": "#74",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact-refined.png",
+          "promptPath": "docs/FDS.md#call-74",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "poseGuideSha256": "4730db8f422a319b606c842356ae8fbbbd78ba62af5011317e1f20a6544f8e98",
+          "status": "conditional",
+          "reviewNote": "Accepted for H01 pose coverage; crop-key and contact-shoe edge validation pending.",
+          "candidateSha256": "7c7959c34741ba6dd72170cba6f87ed0fcc088d252e56792924adb978f72ee97",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H01-rig-pose-reference.png"
+        }
+      ],
+      "visibility": {
+        "head": 3,
+        "neck": 2,
+        "torso": 3,
+        "pelvis": 2,
+        "arms": 2,
+        "thighs": 2,
+        "shins": 2,
+        "shoes": 2
+      }
+    },
+    {
+      "key": "H02",
+      "phase": 0.125,
+      "phaseName": "Right Down (Sole Roll & Cushion)",
+      "target": "loaded stance, knee cushion and sole roll",
+      "mustShow": [
+        "loaded support knee",
+        "grounded support shoe",
+        "opposite swing limb"
+      ],
+      "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H02-pose-guide.png",
+      "promptPath": "src/images/photoreal-female-pose-bank/prompts/H02.txt",
+      "status": "conditional",
+      "attempts": [
+        {
+          "attemptId": "#75",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H02-right-down.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-75",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "poseGuideSha256": "c129c6fdf02222ece009863629ee8c92a8dc0cb8b6c3df90137f7540a2e07623",
+          "status": "conditional",
+          "reviewNote": "Accepted for pose coverage; subtly lower stance than H01; contact shadow means shoe extraction remains pending.",
+          "candidateSha256": "4126bff23c16d55757092609681ba0f3852c227ba9cd793d5d22dbed3066c5d7",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H02-rig-pose-reference.png"
+        }
+      ],
+      "visibility": {
+        "head": 3,
+        "neck": 2,
+        "torso": 3,
+        "pelvis": 2,
+        "arms": 2,
+        "thighs": 2,
+        "shins": 2,
+        "shoes": 2
+      }
+    },
+    {
+      "key": "H03",
+      "phase": 0.25,
+      "phaseName": "Right Pass (Heel-Off & Toe Roll)",
+      "target": "toe-off support and forward swing",
+      "mustShow": [
+        "support forefoot contact",
+        "raised support heel",
+        "forward swing knee and shoe"
+      ],
+      "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H03-pose-guide.png",
+      "promptPath": "src/images/photoreal-female-pose-bank/prompts/H03.txt",
+      "status": "needs-regeneration",
+      "attempts": [
+        {
+          "attemptId": "#76",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-76",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "poseGuideSha256": "ed34f665856c631a15cc5be9cb35b882a5fd6b97f538f2525e59ea303ae55d4c",
+          "status": "rejected",
+          "reviewNote": "Generic extended sprint and camera/phase drift; not canonical H03.",
+          "candidateSha256": "ab9831e9205e83ca92e5831d015145c718da837b43333e4a7eb2079ef75ccef4",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H03-rig-pose-reference.png"
+        },
+        {
+          "attemptId": "#82",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-refined.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-82",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "poseGuideSha256": "3a2306eab9a2175583183edc3591846c4edfb19578d2d8aea2504719a4c1d852",
+          "status": "rejected",
+          "reviewNote": "Full-size color-coded skeleton guide did not prevent high-knee generic sprint drift; support contact unclear.",
+          "candidateSha256": "a65c7f52832f5f1ff42d77d88e9f34966409719d79625bb3f204268ba206e7b5",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H03-phase-250.png"
+        }
+      ],
+      "visibility": {}
+    },
+    {
+      "key": "H04",
+      "phase": 0.375,
+      "phaseName": "Right Flight (Forward Fall Drive)",
+      "target": "airborne leg separation",
+      "mustShow": [
+        "both shoes airborne",
+        "negative space around knees and ankles"
+      ],
+      "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H04-pose-guide.png",
+      "promptPath": "src/images/photoreal-female-pose-bank/prompts/H04.txt",
+      "status": "conditional",
+      "attempts": [
+        {
+          "attemptId": "#77",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H04-right-flight.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-77",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "poseGuideSha256": "1ebd033542589a06777bee1c52c3d3367c2e932ab8035186b1d6d9ef5604963f",
+          "status": "conditional",
+          "reviewNote": "Accepted for flight coverage; broader stride than guide, so exact-angle crop use is not approved.",
+          "candidateSha256": "9fbd36b7bd6246eb7e591bd40eecb6f93c1e345c3f5e76c00be036544db308c1",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H04-rig-pose-reference.png"
+        }
+      ],
+      "visibility": {
+        "head": 3,
+        "neck": 2,
+        "torso": 3,
+        "pelvis": 2,
+        "arms": 2,
+        "thighs": 2,
+        "shins": 3,
+        "shoes": 3
+      }
+    },
+    {
+      "key": "H05",
+      "phase": 0.5,
+      "phaseName": "Left Contact (Midfoot Strike)",
+      "target": "opposite support half-cycle",
+      "mustShow": [
+        "far-side contact",
+        "near-side recovery",
+        "same camera-side identity"
+      ],
+      "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H05-pose-guide.png",
+      "promptPath": "src/images/photoreal-female-pose-bank/prompts/H05.txt",
+      "status": "conditional",
+      "attempts": [
+        {
+          "attemptId": "#78",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H05-left-contact.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-78",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "poseGuideSha256": "69328c6dc0817dc797542c9c383f9332a3018fe73a7db782127bf7c400d28739",
+          "status": "conditional",
+          "reviewNote": "Full-body contact pose only; image is too similar to H01 to independently verify camera-far versus camera-near support assignment.",
+          "candidateSha256": "ff4157241b564548a9a35b15d8eede05f928071788fd62b88b33712b48356374",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H05-rig-pose-reference.png"
+        }
+      ],
+      "visibility": {
+        "head": 3,
+        "neck": 2,
+        "torso": 3,
+        "pelvis": 2,
+        "arms": 2,
+        "thighs": 2,
+        "shins": 2,
+        "shoes": 2
+      }
+    },
+    {
+      "key": "H06",
+      "phase": 0.625,
+      "phaseName": "Left Down (Sole Roll & Cushion)",
+      "target": "opposite loaded stance and knee cushion",
+      "mustShow": [
+        "loaded far-side support knee",
+        "sole roll",
+        "near-side swing limb"
+      ],
+      "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H06-pose-guide.png",
+      "promptPath": "src/images/photoreal-female-pose-bank/prompts/H06.txt",
+      "status": "needs-regeneration",
+      "attempts": [
+        {
+          "attemptId": "#79",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H06-left-down.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-79",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "poseGuideSha256": "c6a12f3f14cee29d613f386cea75b810d01c665c29dfd9ec2a5ba2bbab717345",
+          "status": "rejected",
+          "reviewNote": "Near-identical generic contact pose; loaded-knee/sole-roll phase and far/near support could not be verified.",
+          "candidateSha256": "cadf088f65f9426c5826001ad9ce06a11f79547dc2caa256f7be5f33470e5af3",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H06-rig-pose-reference.png"
+        }
+      ],
+      "visibility": {}
+    },
+    {
+      "key": "H07",
+      "phase": 0.75,
+      "phaseName": "Left Pass (Heel-Off & Toe Roll)",
+      "target": "opposite toe-off and forward swing",
+      "mustShow": [
+        "far-side toe-off",
+        "raised heel",
+        "near-side forward swing"
+      ],
+      "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H07-pose-guide.png",
+      "promptPath": "src/images/photoreal-female-pose-bank/prompts/H07.txt",
+      "status": "needs-regeneration",
+      "attempts": [
+        {
+          "attemptId": "#80",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H07-left-pass.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-80",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "poseGuideSha256": "24ad8bbfed86389af9dcef400b22efb1943faa574ec3150cb51f5d29a9ccad41",
+          "status": "rejected",
+          "reviewNote": "Output appears airborne instead of far-side toe-off contact; phase wrong.",
+          "candidateSha256": "5c95bb0fe399c61576ee05a45a414513b15891b17eefbe64da7dad3c3454c58d",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H07-rig-pose-reference.png"
+        }
+      ],
+      "visibility": {}
+    },
+    {
+      "key": "H08",
+      "phase": 0.875,
+      "phaseName": "Left Flight (Forward Fall Drive)",
+      "target": "contralateral airborne leg separation",
+      "mustShow": [
+        "both shoes airborne",
+        "near/far ordering unchanged"
+      ],
+      "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/skeleton/H08-pose-guide.png",
+      "promptPath": "src/images/photoreal-female-pose-bank/prompts/H08.txt",
+      "status": "conditional",
+      "attempts": [
+        {
+          "attemptId": "#81",
+          "candidatePath": "src/images/photoreal-female-pose-bank/candidates/H08-left-flight.png",
+          "promptPath": "docs/POSE_HARVEST_LOG.md#call-81",
+          "masterSha256": "143b4521c2865a9393a5d332be553ed36659fd408402559296df362958458af6",
+          "poseGuideSha256": "f4c4ac92b46376392f3ecba17fcc1e3eb1c372a60f166f6b3ea4f9e5305178ba",
+          "status": "conditional",
+          "reviewNote": "Accepted for airborne phase coverage; stride broader than guide; exact joints and near/far-specific crops pending.",
+          "candidateSha256": "8ae890a5865efaade88d86825285894ce06ba1f947127ce6b621198dd2d51f45",
+          "poseGuidePath": "src/images/photoreal-female-pose-bank/guides/H08-rig-pose-reference.png"
+        }
+      ],
+      "visibility": {
+        "head": 3,
+        "neck": 2,
+        "torso": 3,
+        "pelvis": 2,
+        "arms": 2,
+        "thighs": 2,
+        "shins": 3,
+        "shoes": 3
+      }
+    }
+  ],
+  "canonicalJigSources": [],
+  "poseVariants": [],
+  "poseInstances": []
+}
