@@ -65,3 +65,7 @@ The regeneration loop that finally converged (see `docs/POSE_HARVEST_LOG.md` Cal
 5. **Shadows are recoverable, not fatal.** Key-family shadow/gradient pixels (7–13 k px per candidate) flatten to ≤ 53 px of edge halo in `normalized/`; the old "any soft shadow ⇒ conditional forever" rule is retired.
 
 Result: H01–H08 all hold `accepted-for-pose` (every automated gate passing; caveats recorded per frame in `pose-bank.json`). Crop/per-part approval remains a separate stage-6 gate, and near/far chirality still cannot be proven from pixels alone.
+
+## Repeatable agent skill
+
+The acceptance-gated iteration loop above is packaged as the project agent skill `.claude/skills/iterate-pose-bank/` (SKILL.md + prompt templates + failure signatures S1–S10 + triage/diagnosis/review scripts). Use it for regenerating failed frames, adding insert poses, or bootstrapping a new character's bank; `scripts/audit_pose_bank.py` remains the shared automated gate. The sibling skill `.claude/skills/audit-gait-cycle/` covers the downstream assembled-rig audit (Items G/H of `docs/OBJECTIVE_ROADMAP.md`).
