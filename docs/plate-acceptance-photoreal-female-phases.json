@@ -1,0 +1,481 @@
+{
+  "personaFolder": "photoreal-female-phases",
+  "generatedAtIso": "2026-10-19T01:47:30.023Z",
+  "acceptedCount": 11,
+  "rejectedCount": 0,
+  "results": [
+    {
+      "plateId": "phase-01-right-strike-left-arm-forward.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-01-right-strike-left-arm-forward.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 51.28352561983234
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.6902255639097744
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 2
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 1.8086922791431417
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "phase-02-left-strike-right-arm-forward.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-02-left-strike-right-arm-forward.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 45.98912915026767
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.7192192192192193
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 2
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 2.1732940033539765
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "phase-03-midstance-high-knee-pass.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-03-midstance-high-knee-pass.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 47
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.49929278642149927
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 2.136687784355319
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "phase-04-flight-max-split-stride.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-04-flight-max-split-stride.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 48.14561246884289
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.7631975867269984
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 2
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 1.6423717780203717
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "phase-05-near-arm-forward-drive.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-05-near-arm-forward-drive.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 45.110974274559844
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.6598240469208211
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 2
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 1.8414229551019112
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "phase-06-toe-off-plantar-roll-insert.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-06-toe-off-plantar-roll-insert.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 46.54030511288038
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.5574468085106383
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 2
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 2.0692773765751156
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "phase-07-near-shoulder-forward-refined.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-07-near-shoulder-forward-refined.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 49.10193478876367
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.6604046242774566
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 2
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 2.323257821235805
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "phase-08-loaded-forefoot-roll-refined.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-08-loaded-forefoot-roll-refined.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 47.21228653645151
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.580829756795422
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 2
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 2.001577509987913
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "phase-09-bare-limb-orthogonal-angles-a.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-09-bare-limb-orthogonal-angles-a.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 51.10772935672255
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.7827926657263752
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 2.3206884666249654
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "phase-10-unclothed-opposite-angles-b.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-10-unclothed-opposite-angles-b.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 47.138094997570704
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.5852601156069365
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 2.150545910976952
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "phase-11-bare-limb-opposite-angles-c.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female-phases/phase-11-bare-limb-opposite-angles-c.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 43.69210454990696
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.8461538461538461
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 1.373504736538927
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    }
+  ]
+}

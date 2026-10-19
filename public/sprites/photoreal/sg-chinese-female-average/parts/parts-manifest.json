@@ -1,0 +1,23 @@
+{
+  "personaFolder": "sg-chinese-female-average",
+  "generatedAtIso": "2026-10-19T01:50:34.604Z",
+  "parts": {
+    "farFoot": "b566d587e7a81812",
+    "farForearm": "c6a6f796278ca871",
+    "farHand": "e7351931f27a1db1",
+    "farShin": "fec1d2f962edda58",
+    "farThigh": "ddd605e3757dd64f",
+    "farUpperArm": "23925c838e1a9360",
+    "hairAccessory": "f1bc3dad14ecd3ba",
+    "head": "85b9f02c09e5de19",
+    "nearFoot": "edea200cf5b6997c",
+    "nearForearm": "fc1208e53811da29",
+    "nearHand": "63157529fc043bb7",
+    "nearShin": "ea8e31445fc19b4a",
+    "nearThigh": "818c670dad5c98ac",
+    "nearUpperArm": "16e31503ac0bf2ce",
+    "neck": "65beecc2972a4fa9",
+    "pelvis": "ac0f172dd350578d",
+    "torso": "dc8d501a5b45b76e"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "personaFolder": "sg-chinese-female",
+  "generatedAtIso": "2026-10-19T01:50:34.603Z",
+  "parts": {
+    "farFoot": "d3721b5e5c4c0c7d",
+    "farForearm": "53a6ec00b088f593",
+    "farHand": "2765bff7cac3281c",
+    "farShin": "a5a8b6eafa55e052",
+    "farThigh": "8a0e02867ced23a9",
+    "farUpperArm": "b0f257883391323b",
+    "hairAccessory": "4ec22bbff510c6fb",
+    "head": "61aa88c82cd254df",
+    "nearFoot": "7bd4e47ca9b3fecd",
+    "nearForearm": "22d12b061460f53a",
+    "nearHand": "1ffb80f7b23cdda5",
+    "nearShin": "4352dd697d07b174",
+    "nearThigh": "5647639329d29da9",
+    "nearUpperArm": "b136dbe67d0eef9c",
+    "neck": "cf84776572348b3d",
+    "pelvis": "3615a0085b0e5f94",
+    "torso": "46004b88f51b1cd0"
+  }
+}

@@ -1,0 +1,453 @@
+{
+  "personaFolder": "photoreal-female",
+  "generatedAtIso": "2026-10-19T01:47:21.846Z",
+  "acceptedCount": 4,
+  "rejectedCount": 6,
+  "results": [
+    {
+      "plateId": "01-master-lateral-profile-reference.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female/01-master-lateral-profile-reference.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 57
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.19295774647887323
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 0
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": 1
+        }
+      ]
+    },
+    {
+      "plateId": "02-head-profile-right.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female/02-head-profile-right.png",
+      "overallPass": false,
+      "failedGateIds": [
+        "backdrop-chroma-contract"
+      ],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": false,
+          "score": 95.7653381970742
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 1.8421052631578947
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 11.498192080661394
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "03-ponytail-hair-accessory.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female/03-ponytail-hair-accessory.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 19.519221295943137
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "04-cervical-neck-cylinder.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female/04-cervical-neck-cylinder.png",
+      "overallPass": false,
+      "failedGateIds": [
+        "chroma-background-uniformity",
+        "backdrop-chroma-contract"
+      ],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": false,
+          "score": 0.931107516943931
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": false,
+          "score": 60.315835400000886
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.593103448275862
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 4.016658800301156
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "05-torso-racerback-singlet.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female/05-torso-racerback-singlet.png",
+      "overallPass": false,
+      "failedGateIds": [
+        "chroma-background-uniformity",
+        "backdrop-chroma-contract"
+      ],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": false,
+          "score": 0.8720348120764018
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": false,
+          "score": 66.9925368977769
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.5144356955380578
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 1.5791231545535358
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "06-pelvis-sprinter-shorts.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female/06-pelvis-sprinter-shorts.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 15.588457268119896
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.6935251798561151
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "07-near-right-arm-lateral-outside.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female/07-near-right-arm-lateral-outside.png",
+      "overallPass": false,
+      "failedGateIds": [
+        "backdrop-chroma-contract",
+        "single-subject"
+      ],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": false,
+          "score": 97.72410142846032
+        },
+        {
+          "gateId": "single-subject",
+          "pass": false,
+          "score": 2
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 10.133088222788983
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "08-far-left-arm-medial-inside-palm.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female/08-far-left-arm-medial-inside-palm.png",
+      "overallPass": true,
+      "failedGateIds": [],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 0.9999614910659272
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 40.91454509095757
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": -1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 5.18661437716887
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "09-near-right-leg-lateral-outside-shoe.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female/09-near-right-leg-lateral-outside-shoe.png",
+      "overallPass": false,
+      "failedGateIds": [
+        "skin-tone-consistency"
+      ],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 16.911534525287763
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.3068181818181818
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": false,
+          "score": 12.586250146818573
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    },
+    {
+      "plateId": "10-far-left-leg-medial-inside-shoe.png",
+      "filePath": "/home/user/super-duper-funicular/src/images/photoreal-female/10-far-left-leg-medial-inside-shoe.png",
+      "overallPass": false,
+      "failedGateIds": [
+        "chroma-background-uniformity"
+      ],
+      "gates": [
+        {
+          "gateId": "chroma-background-uniformity",
+          "pass": false,
+          "score": 0.9554066543438078
+        },
+        {
+          "gateId": "backdrop-chroma-contract",
+          "pass": true,
+          "score": 56.43580423808985
+        },
+        {
+          "gateId": "single-subject",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "sagittal-profile-composition",
+          "pass": true,
+          "score": 0.340080971659919
+        },
+        {
+          "gateId": "single-shoe-lower-region",
+          "pass": true,
+          "score": 1
+        },
+        {
+          "gateId": "skin-tone-consistency",
+          "pass": true,
+          "score": 0.992208614276235
+        },
+        {
+          "gateId": "silhouette-identity-lock",
+          "pass": true,
+          "score": -1
+        }
+      ]
+    }
+  ]
+}

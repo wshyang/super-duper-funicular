@@ -1,0 +1,48 @@
+{
+  "name": "super-duper-funicular",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sprite extraction, deduplication, biomechanical flaw analysis, and algorithmic articulated running sprite generator",
+  "scripts": {
+    "acceptance": "tsx scripts/plate-acceptance.ts",
+    "analyze": "tsx scripts/analyze-sprites.ts",
+    "branches:compare": "tsx scripts/compare-branches.ts",
+    "build": "tsc -b && vite build",
+    "dedupe": "tsx scripts/dedupe-images.ts",
+    "dev": "vite --host 0.0.0.0 --port 3000",
+    "dump-cycle": "tsx scripts/dump-cycle-frames.ts",
+    "extract": "tsx scripts/extract-sprites.ts",
+    "generate-sheets": "tsx scripts/generate-algorithmic-sprites.ts",
+    "harvest-phases": "tsx scripts/harvest-phase-jigs.ts",
+    "parts:manifest": "tsx scripts/write-part-manifests.ts",
+    "pipeline": "npm run dedupe && npm run extract && npm run analyze && npm run generate-sheets",
+    "pose-bank:init": "tsx scripts/init-pose-bank.ts",
+    "preview": "vite preview --host 0.0.0.0 --port 3000",
+    "render-pose-guides": "tsx scripts/render-pose-guides.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "validate": "npm run branches:compare && npm run typecheck && npm test && npm run build"
+  },
+  "dependencies": {
+    "jpeg-js": "^0.4.4",
+    "pngjs": "^7.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/node": "^22.10.2",
+    "@types/pngjs": "^6.0.5",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
+  }
+}
