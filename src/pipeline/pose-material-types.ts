@@ -120,8 +120,22 @@ export interface RenderedPartMaterial {
   readonly halfWidthPx: number;
   readonly visibility: VisibilityScore;
   readonly sideProvenance: 'pixel' | 'guide-derived';
+  /** Skin fraction of the source region inside the probe tube (AC appearance gate). */
+  readonly skinFraction: number;
+  /** Round-trip agreement between the cutout and the source tube it came from. */
+  readonly roundTrip: RoundTripRecord;
   readonly cutoutPath: string;
   readonly cutoutSha256: string;
+}
+
+/**
+ * Stored on the material itself so that every acceptance claim is auditable from
+ * the committed bank, without re-running the harvester.
+ */
+export interface RoundTripRecord {
+  readonly alphaIou: number;
+  readonly meanColorDelta: number;
+  readonly passed: boolean;
 }
 
 export interface PoseMaterialBank {

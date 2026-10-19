@@ -229,9 +229,15 @@ function scoreSource(
   const faceScaleRatio = masterFaceWidthPx === 0 ? 1 : mask.faceWidthPx / Math.max(1, masterFaceWidthPx);
   const ceilingF1 = ceiling?.ceilingF1 ?? 1;
   const poseMatchRatio = ceilingF1 <= 0 ? 0 : poseF1 / ceilingF1;
-  const gatedParts = applyAppearanceGate(loaded.image, applyPoseGate(parts, poseMatchRatio));
+  // Pose agreement is a source-level signal, not a veto: whole-silhouette F1 is
+  // dominated by the torso and legs, so a plate at 0.76 can still hold a
+  // correctly measured forearm. Demoting every part would repeat the pilot's
+  // whole-image verdict flaw. The ratio is published, and the source is demoted
+  // to `conditional` rather than having its good parts deleted.
+  const gatedParts = applyAppearanceGate(loaded.image, parts);
   const hard = assessHardGates(faceScaleRatio, gatedParts, stats.interiorLeakRatio);
   const soft = assessSoftGates(stats, poseMatchRatio, declaration.wardrobe);
+  if (poseMatchRatio < POSE_GATE_RATIO) soft.push(`pose-unverified:${poseMatchRatio.toFixed(2)}`);
   const best = registration ? bestPhaseFor(mask, targets) : { index: -1, f1: 0 };
   if (best.index >= 0 && Math.abs(best.index / Math.max(1, targets.length) - declaration.declaredPhase) > 0.07) {
     soft.push('declared-phase-mismatch');
@@ -259,28 +265,6 @@ function scoreSource(
     reasonCodes: [...hard, ...soft],
   };
 }
-/**
- * A source whose pose match falls below the gate cannot support part-level
- * claims: the silhouette is not the pose we think it is, so any capsule fitted
- * inside it is unverified. Demote rather than delete, so the reason survives in
- * the report.
- */
-function applyPoseGate(
-  parts: readonly PartEligibility[],
-  poseMatchRatio: number,
-): PartEligibility[] {
-  if (poseMatchRatio >= POSE_GATE_RATIO) return [...parts];
-  return parts.map((part) =>
-    part.eligible
-      ? {
-          ...part,
-          eligible: false,
-          reasonCodes: [...part.reasonCodes, `pose-unverified:${poseMatchRatio.toFixed(2)}`],
-        }
-      : part,
-  );
-}
-
 function masterEvidence(
   config: PoseMaterialAuditConfig,
   loaded: LoadedSource,

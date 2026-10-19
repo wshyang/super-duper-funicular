@@ -238,14 +238,14 @@ Measured on this repository (1408×768 studio plates, figure height 708 px maste
 
 | Criterion | Measured | Verdict |
 |---|---|---|
-| AC-1 keying | backdrop (221,73,164), fringe < 0.02, interior leak 0 across 30 plates | pass |
+| AC-1 keying | backdrop (221,73,164), fringe < 0.08, interior leak ≤ 0.014 across 30 plates | pass |
 | AC-2 wardrobe | 3 plates tagged `anatomy-study`, refused for clothed production | pass (with tag) |
 | AC-3 static parts | master accepted as identity anchor; studio extractor unchanged | pass |
 | AC-4 scale/identity | figure height 183–195 px, face width 59–70 px; `X04` 579 px flagged | pass |
 | AC-5 pose compliance | poseF1 0.44–0.74 against a renderer ceiling of 0.85–0.91, reported as `poseMatchRatio` | pass (measured, not asserted) |
 | AC-6 side provenance | every material tagged `guide-derived`; no pixel claim made | pass |
 | AC-7 part eligibility | 6 parts eligible across 30 sources; reasons recorded per part | pass |
-| AC-8 bucket coverage | 7 buckets, 106 gaps | **fail** — the pool is too small; this is the generation target |
+| AC-8 bucket coverage | 34 buckets, 74 gaps (after the pose gate became source-level) | **fail** — the pool is too small; this is the generation target |
 | AC-9 assembly | 0 islands, 0 material-induced ground delta, stance sole spread 8 px (rig) | pass for material |
 | AC-10 diversity | 16 frames, mean IoU 0.515, max 0.845, half-cycle 0.819 | pass |
 | AC-11 reproducibility | `npm run pose-material:{audit,harvest,demo}`; hashes in every record | pass |

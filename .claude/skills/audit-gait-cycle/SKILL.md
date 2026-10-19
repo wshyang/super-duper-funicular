@@ -1,6 +1,6 @@
 ---
 name: audit-gait-cycle
-description: Dump a full 16-frame gait cycle with 3-panel diagnostic plates, zoomed joint crops, and quantitative telemetry to a temporary directory, then visually inspect the generated PNGs to diagnose rendering defects and propose rectifications.
+description: Dump a full 16-frame gait cycle with 3-panel diagnostic plates, zoomed joint crops, and quantitative telemetry to a temporary directory, then visually inspect the generated PNGs to diagnose rendering defects and propose rectifications. Use when changing cutouts, joint cutters, warp code or rig compositing, or when a rendered cycle shows seams, gaps, detached islands or foot penetration.
 ---
 
 # Agent Skill: Full-Cycle Gait Frame Dump & Visual Defect Audit (`audit-gait-cycle`)

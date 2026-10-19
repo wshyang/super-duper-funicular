@@ -17,20 +17,24 @@ function parseArgs(argv: readonly string[]): Record<string, string> {
   return args;
 }
 
-function main(): void {
-  const repoRoot = process.cwd();
-  const args = parseArgs(process.argv.slice(2));
-  const pr1Root = args['pr1-root'] ?? '/tmp/pr1';
-  const auditPath = args.audit ?? path.join(repoRoot, 'public/sprites/material/audit.json');
-  const outputDirectory = args.out ?? path.join(repoRoot, 'src/images/pose-material/bank');
-  const audit = fs.existsSync(auditPath)
-    ? (JSON.parse(fs.readFileSync(auditPath, 'utf8')) as { report: { sources: Array<{ sourceId: string; status: string; poseMatchRatio: number }> } })
-    : null;
-  const statusById = new Map((audit?.report.sources ?? []).map((source) => [source.sourceId, source]));
-  const manifest = JSON.parse(fs.readFileSync(path.join(repoRoot, 'src/images/pose-material/sources.json'), 'utf8')) as Manifest;
-  const tuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female'];
-  const sources: MaterialHarvestSource[] = [manifest.master, ...manifest.sources].map((entry) => {
-    const audited = statusById.get(entry.sourceId);
+interface AuditedSource {
+  readonly sourceId: string;
+  readonly status: string;
+  readonly poseMatchRatio: number;
+  readonly wardrobe: 'clothed' | 'anatomy-study';
+  readonly parts: ReadonlyArray<{ readonly partId: string; readonly eligible: boolean }>;
+}
+
+function readAudit(auditPath: string): Map<string, AuditedSource> | null {
+  if (!fs.existsSync(auditPath)) return null;
+  const parsed = JSON.parse(fs.readFileSync(auditPath, 'utf8')) as { report: { sources: ReadonlyArray<AuditedSource> } };
+  return new Map(parsed.report.sources.map((source) => [source.sourceId, source]));
+}
+
+/** Joins the manifest with the audit's per-part verdicts; the audit is optional. */
+function buildSources(manifest: Manifest, audit: Map<string, AuditedSource> | null): MaterialHarvestSource[] {
+  return [manifest.master, ...manifest.sources].map((entry) => {
+    const audited = audit?.get(entry.sourceId);
     return {
       sourceId: entry.sourceId,
       group: entry.group,
@@ -38,8 +42,22 @@ function main(): void {
       declaredPhase: entry.declaredPhase,
       accepted: audited ? audited.status !== 'rejected' : false,
       poseMatchRatio: audited?.poseMatchRatio ?? 0,
+      eligibleParts: audited?.parts.filter((part) => part.eligible).map((part) => part.partId) as never,
+      wardrobe: audited?.wardrobe,
     };
   });
+}
+
+function main(): void {
+  const repoRoot = process.cwd();
+  const args = parseArgs(process.argv.slice(2));
+  const pr1Root = args['pr1-root'] ?? '/tmp/pr1';
+  const auditPath = args.audit ?? path.join(repoRoot, 'public/sprites/material/audit.json');
+  const outputDirectory = args.out ?? path.join(repoRoot, 'src/images/pose-material/bank');
+  const audit = readAudit(auditPath);
+  const manifest = JSON.parse(fs.readFileSync(path.join(repoRoot, 'src/images/pose-material/sources.json'), 'utf8')) as Manifest;
+  const tuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female'];
+  const sources = buildSources(manifest, audit);
   const outcome = harvestMaterial({
     repoRoot,
     rootByGroup: { repo: repoRoot, pr1: pr1Root },

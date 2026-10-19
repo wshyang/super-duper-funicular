@@ -1,6 +1,6 @@
 {
   "report": {
-    "generatedAt": "2026-10-18T22:23:33.915Z",
+    "generatedAt": "2026-10-19T01:56:34.635Z",
     "masterPath": "src/images/photoreal-female/01-master-lateral-profile-reference.png",
     "sources": [
       {
@@ -1544,8 +1544,10 @@
             "bucketDeg": 60
           }
         ],
-        "status": "accepted",
-        "reasonCodes": []
+        "status": "conditional",
+        "reasonCodes": [
+          "pose-unverified:0.79"
+        ]
       },
       {
         "sourceId": "H02-right-down",
@@ -1715,10 +1717,8 @@
               "widthAgreement": 0.940203319282909,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 120
           },
           {
@@ -2062,6 +2062,7 @@
         ],
         "status": "conditional",
         "reasonCodes": [
+          "pose-unverified:0.64",
           "declared-phase-mismatch"
         ]
       },
@@ -2264,10 +2265,8 @@
               "widthAgreement": 0.8462295911732535,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -2294,10 +2293,8 @@
               "widthAgreement": 0.9962235171981778,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -2354,10 +2351,8 @@
               "widthAgreement": 0.8462295911732535,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -2384,10 +2379,8 @@
               "widthAgreement": 0.9962235171981778,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -2577,8 +2570,10 @@
             "bucketDeg": 0
           }
         ],
-        "status": "accepted",
-        "reasonCodes": []
+        "status": "conditional",
+        "reasonCodes": [
+          "pose-unverified:0.76"
+        ]
       },
       {
         "sourceId": "H03-right-pass-refined",
@@ -2779,10 +2774,8 @@
               "widthAgreement": 0.930817403000346,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -2809,10 +2802,8 @@
               "widthAgreement": 0.9186597879407494,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 30
           },
           {
@@ -2869,10 +2860,8 @@
               "widthAgreement": 0.930817403000346,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -2899,10 +2888,8 @@
               "widthAgreement": 0.9186597879407494,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 30
           },
           {
@@ -3096,6 +3083,7 @@
         ],
         "status": "conditional",
         "reasonCodes": [
+          "pose-unverified:0.67",
           "declared-phase-mismatch"
         ]
       },
@@ -3617,6 +3605,7 @@
         "status": "conditional",
         "reasonCodes": [
           "pose-drift",
+          "pose-unverified:0.58",
           "declared-phase-mismatch"
         ]
       },
@@ -3788,10 +3777,8 @@
               "widthAgreement": 0.8765326523119987,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 60
           },
           {
@@ -3880,10 +3867,8 @@
               "widthAgreement": 0.998273298466443,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 105
           },
           {
@@ -4136,8 +4121,10 @@
             "bucketDeg": 0
           }
         ],
-        "status": "accepted",
-        "reasonCodes": []
+        "status": "conditional",
+        "reasonCodes": [
+          "pose-unverified:0.75"
+        ]
       },
       {
         "sourceId": "H06-left-down",
@@ -4399,10 +4386,8 @@
               "widthAgreement": 0.956795142564372,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 120
           },
           {
@@ -4657,6 +4642,7 @@
         ],
         "status": "conditional",
         "reasonCodes": [
+          "pose-unverified:0.61",
           "declared-phase-mismatch"
         ]
       },
@@ -4829,10 +4815,8 @@
               "widthAgreement": 0.9863937976530921,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 135
           },
           {
@@ -4924,10 +4908,8 @@
               "widthAgreement": 0.9863937976530921,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 135
           },
           {
@@ -5187,6 +5169,7 @@
         ],
         "status": "conditional",
         "reasonCodes": [
+          "pose-unverified:0.68",
           "declared-phase-mismatch"
         ]
       },
@@ -5540,10 +5523,8 @@
               "widthAgreement": 0.9928484512130703,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 45
           },
           {
@@ -5706,6 +5687,7 @@
         ],
         "status": "conditional",
         "reasonCodes": [
+          "pose-unverified:0.66",
           "declared-phase-mismatch"
         ]
       },
@@ -5877,10 +5859,8 @@
               "widthAgreement": 0.9926886146471627,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 45
           },
           {
@@ -5970,10 +5950,8 @@
               "widthAgreement": 0.9926886146471627,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 45
           },
           {
@@ -6190,10 +6168,8 @@
               "widthAgreement": 0.9874558282297454,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 120
           },
           {
@@ -6229,6 +6205,7 @@
         ],
         "status": "conditional",
         "reasonCodes": [
+          "pose-unverified:0.65",
           "declared-phase-mismatch"
         ]
       },
@@ -6750,6 +6727,7 @@
         ],
         "status": "conditional",
         "reasonCodes": [
+          "pose-unverified:0.63",
           "declared-phase-mismatch"
         ]
       },
@@ -7196,10 +7174,8 @@
               "widthAgreement": 0.8180956595616298,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -7266,8 +7242,10 @@
             "bucketDeg": 15
           }
         ],
-        "status": "accepted",
-        "reasonCodes": []
+        "status": "conditional",
+        "reasonCodes": [
+          "pose-unverified:0.69"
+        ]
       },
       {
         "sourceId": "X04-leg-scissor",
@@ -7718,10 +7696,8 @@
               "widthAgreement": 0.9992792592921043,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 45
           },
           {
@@ -7789,9 +7765,9 @@
             "bucketDeg": -15
           }
         ],
-        "status": "rejected",
+        "status": "conditional",
         "reasonCodes": [
-          "no-eligible-parts",
+          "pose-unverified:0.61",
           "declared-phase-mismatch"
         ]
       },
@@ -8312,6 +8288,7 @@
         "status": "conditional",
         "reasonCodes": [
           "spill-elevated",
+          "pose-unverified:0.72",
           "declared-phase-mismatch"
         ]
       },
@@ -8840,6 +8817,7 @@
         "reasonCodes": [
           "spill-elevated",
           "pose-drift",
+          "pose-unverified:0.57",
           "declared-phase-mismatch"
         ]
       },
@@ -9011,10 +8989,8 @@
               "widthAgreement": 0.9891486346918781,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 120
           },
           {
@@ -9072,10 +9048,8 @@
               "widthAgreement": 0.959652400052256,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 75
           },
           {
@@ -9360,6 +9334,7 @@
         ],
         "status": "conditional",
         "reasonCodes": [
+          "pose-unverified:0.64",
           "declared-phase-mismatch"
         ]
       },
@@ -9880,6 +9855,7 @@
         ],
         "status": "conditional",
         "reasonCodes": [
+          "pose-unverified:0.68",
           "declared-phase-mismatch"
         ]
       },
@@ -10399,6 +10375,7 @@
         "status": "conditional",
         "reasonCodes": [
           "spill-elevated",
+          "pose-unverified:0.64",
           "declared-phase-mismatch"
         ]
       },
@@ -10753,10 +10730,8 @@
               "widthAgreement": 0.5765269497790744,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 45
           },
           {
@@ -10921,6 +10896,7 @@
         "status": "conditional",
         "reasonCodes": [
           "spill-elevated",
+          "pose-unverified:0.64",
           "declared-phase-mismatch"
         ]
       },
@@ -11156,10 +11132,8 @@
               "widthAgreement": 0.9388916264579498,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 0
           },
           {
@@ -11247,10 +11221,8 @@
               "widthAgreement": 0.9388916264579498,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 0
           },
           {
@@ -11444,10 +11416,10 @@
             "bucketDeg": 15
           }
         ],
-        "status": "rejected",
+        "status": "conditional",
         "reasonCodes": [
-          "no-eligible-parts",
-          "spill-elevated"
+          "spill-elevated",
+          "pose-unverified:0.69"
         ]
       },
       {
@@ -11771,10 +11743,8 @@
               "widthAgreement": 0.9953358294811624,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -11970,6 +11940,7 @@
         "status": "conditional",
         "reasonCodes": [
           "spill-elevated",
+          "pose-unverified:0.66",
           "declared-phase-mismatch"
         ]
       },
@@ -12496,6 +12467,7 @@
         "status": "conditional",
         "reasonCodes": [
           "spill-elevated",
+          "pose-unverified:0.68",
           "declared-phase-mismatch"
         ]
       },
@@ -12728,10 +12700,8 @@
               "widthAgreement": 0.9134327052213144,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -12819,10 +12789,8 @@
               "widthAgreement": 0.9134327052213144,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -13018,6 +12986,7 @@
         "reasonCodes": [
           "matte-impure",
           "spill-elevated",
+          "pose-unverified:0.64",
           "declared-phase-mismatch"
         ]
       },
@@ -13189,10 +13158,8 @@
               "widthAgreement": 0.9788373818550619,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 60
           },
           {
@@ -13283,10 +13250,8 @@
               "widthAgreement": 0.9788373818550619,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 60
           },
           {
@@ -13377,10 +13342,8 @@
               "widthAgreement": 0.7598479956675598,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 45
           },
           {
@@ -13540,6 +13503,7 @@
         "status": "conditional",
         "reasonCodes": [
           "spill-elevated",
+          "pose-unverified:0.71",
           "declared-phase-mismatch"
         ]
       },
@@ -13711,10 +13675,8 @@
               "widthAgreement": 0.9334586756725582,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 120
           },
           {
@@ -13804,10 +13766,8 @@
               "widthAgreement": 0.9101222087807442,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 120
           },
           {
@@ -14059,7 +14019,8 @@
         ],
         "status": "conditional",
         "reasonCodes": [
-          "spill-elevated"
+          "spill-elevated",
+          "pose-unverified:0.64"
         ]
       },
       {
@@ -14231,10 +14192,8 @@
               "widthAgreement": 0.9455534084792218,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 90
           },
           {
@@ -14292,10 +14251,8 @@
               "widthAgreement": 0.9872534189035734,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 75
           },
           {
@@ -14322,10 +14279,8 @@
               "widthAgreement": 0.9455534084792218,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 90
           },
           {
@@ -14577,6 +14532,7 @@
         "status": "conditional",
         "reasonCodes": [
           "anatomy-study",
+          "pose-unverified:0.76",
           "declared-phase-mismatch"
         ]
       },
@@ -14843,10 +14799,8 @@
               "widthAgreement": 0.9950974555232835,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 90
           },
           {
@@ -15106,10 +15060,10 @@
         "status": "rejected",
         "reasonCodes": [
           "matte-impure",
-          "no-eligible-parts",
           "spill-elevated",
           "pose-drift",
           "anatomy-study",
+          "pose-unverified:0.59",
           "declared-phase-mismatch"
         ]
       },
@@ -15282,10 +15236,8 @@
               "widthAgreement": 0.9663501956970554,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 105
           },
           {
@@ -15342,10 +15294,8 @@
               "widthAgreement": 0.9685299329805825,
               "visibility": 3
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 60
           },
           {
@@ -15464,10 +15414,8 @@
               "widthAgreement": 0.976340658246555,
               "visibility": 2
             },
-            "eligible": false,
-            "reasonCodes": [
-              "pose-unverified"
-            ],
+            "eligible": true,
+            "reasonCodes": [],
             "bucketDeg": 15
           },
           {
@@ -15634,16 +15582,119 @@
         "reasonCodes": [
           "pose-drift",
           "anatomy-study",
+          "pose-unverified:0.59",
           "declared-phase-mismatch"
         ]
       }
     ],
     "buckets": [
       {
+        "partId": "farForearm",
+        "bucketDeg": 15,
+        "sources": [
+          "H03-right-pass",
+          "H03-right-pass-refined"
+        ]
+      },
+      {
+        "partId": "farHand",
+        "bucketDeg": 0,
+        "sources": [
+          "PR1-phase-03-midstance"
+        ]
+      },
+      {
+        "partId": "farHand",
+        "bucketDeg": 15,
+        "sources": [
+          "H03-right-pass",
+          "PR1-phase-04-flight-split"
+        ]
+      },
+      {
+        "partId": "farHand",
+        "bucketDeg": 30,
+        "sources": [
+          "H03-right-pass-refined"
+        ]
+      },
+      {
+        "partId": "farShin",
+        "bucketDeg": 120,
+        "sources": [
+          "X01-near-arm-forward"
+        ]
+      },
+      {
+        "partId": "farThigh",
+        "bucketDeg": 15,
+        "sources": [
+          "X02-near-arm-rear-refined"
+        ]
+      },
+      {
+        "partId": "farThigh",
+        "bucketDeg": 45,
+        "sources": [
+          "X04-leg-scissor"
+        ]
+      },
+      {
         "partId": "farThigh",
         "bucketDeg": 60,
         "sources": [
           "H01-right-contact"
+        ]
+      },
+      {
+        "partId": "farUpperArm",
+        "bucketDeg": 45,
+        "sources": [
+          "X01-near-arm-forward"
+        ]
+      },
+      {
+        "partId": "farUpperArm",
+        "bucketDeg": 60,
+        "sources": [
+          "PR1-phase-07-shoulder-fwd"
+        ]
+      },
+      {
+        "partId": "farUpperArm",
+        "bucketDeg": 90,
+        "sources": [
+          "PR1-phase-09-bare-ortho-a"
+        ]
+      },
+      {
+        "partId": "farUpperArm",
+        "bucketDeg": 105,
+        "sources": [
+          "H05-left-contact"
+        ]
+      },
+      {
+        "partId": "farUpperArm",
+        "bucketDeg": 120,
+        "sources": [
+          "H06-left-down",
+          "PR1-phase-08-forefoot-roll"
+        ]
+      },
+      {
+        "partId": "farUpperArm",
+        "bucketDeg": 135,
+        "sources": [
+          "H07-left-pass"
+        ]
+      },
+      {
+        "partId": "nearForearm",
+        "bucketDeg": 15,
+        "sources": [
+          "H03-right-pass",
+          "H03-right-pass-refined"
         ]
       },
       {
@@ -15654,10 +15705,107 @@
         ]
       },
       {
+        "partId": "nearHand",
+        "bucketDeg": 0,
+        "sources": [
+          "PR1-phase-03-midstance"
+        ]
+      },
+      {
+        "partId": "nearHand",
+        "bucketDeg": 15,
+        "sources": [
+          "H03-right-pass"
+        ]
+      },
+      {
+        "partId": "nearHand",
+        "bucketDeg": 30,
+        "sources": [
+          "H03-right-pass-refined"
+        ]
+      },
+      {
+        "partId": "nearHand",
+        "bucketDeg": 60,
+        "sources": [
+          "PR1-phase-11-bare-ortho-c"
+        ]
+      },
+      {
+        "partId": "nearHand",
+        "bucketDeg": 75,
+        "sources": [
+          "X05-far-forearm-forward",
+          "PR1-phase-09-bare-ortho-a"
+        ]
+      },
+      {
+        "partId": "nearThigh",
+        "bucketDeg": 15,
+        "sources": [
+          "PR1-phase-11-bare-ortho-c"
+        ]
+      },
+      {
+        "partId": "nearThigh",
+        "bucketDeg": 45,
+        "sources": [
+          "H08-left-flight",
+          "PR1-phase-02-left-strike",
+          "PR1-phase-07-shoulder-fwd"
+        ]
+      },
+      {
         "partId": "nearThigh",
         "bucketDeg": 60,
         "sources": [
           "H01-right-contact"
+        ]
+      },
+      {
+        "partId": "nearUpperArm",
+        "bucketDeg": 45,
+        "sources": [
+          "X01-near-arm-forward"
+        ]
+      },
+      {
+        "partId": "nearUpperArm",
+        "bucketDeg": 60,
+        "sources": [
+          "H05-left-contact",
+          "PR1-phase-07-shoulder-fwd"
+        ]
+      },
+      {
+        "partId": "nearUpperArm",
+        "bucketDeg": 90,
+        "sources": [
+          "PR1-phase-09-bare-ortho-a"
+        ]
+      },
+      {
+        "partId": "nearUpperArm",
+        "bucketDeg": 105,
+        "sources": [
+          "PR1-phase-11-bare-ortho-c"
+        ]
+      },
+      {
+        "partId": "nearUpperArm",
+        "bucketDeg": 120,
+        "sources": [
+          "H02-right-down",
+          "X05-far-forearm-forward",
+          "PR1-phase-08-forefoot-roll"
+        ]
+      },
+      {
+        "partId": "nearUpperArm",
+        "bucketDeg": 135,
+        "sources": [
+          "H07-left-pass"
         ]
       },
       {
@@ -15730,31 +15878,10 @@
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
-        "partId": "nearUpperArm",
-        "phaseIndex": 0,
-        "targetAngleDeg": 127.2,
-        "targetBucketDeg": 120,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
         "partId": "nearForearm",
         "phaseIndex": 0,
         "targetAngleDeg": 77.8,
         "targetBucketDeg": 75,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "nearHand",
-        "phaseIndex": 0,
-        "targetAngleDeg": 77.8,
-        "targetBucketDeg": 75,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farUpperArm",
-        "phaseIndex": 0,
-        "targetAngleDeg": 49.3,
-        "targetBucketDeg": 45,
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
@@ -15821,31 +15948,10 @@
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
-        "partId": "nearUpperArm",
-        "phaseIndex": 1,
-        "targetAngleDeg": 124.2,
-        "targetBucketDeg": 120,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
         "partId": "nearForearm",
         "phaseIndex": 1,
         "targetAngleDeg": 73.3,
         "targetBucketDeg": 75,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "nearHand",
-        "phaseIndex": 1,
-        "targetAngleDeg": 73.3,
-        "targetBucketDeg": 75,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farUpperArm",
-        "phaseIndex": 1,
-        "targetAngleDeg": 52.2,
-        "targetBucketDeg": 45,
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
@@ -15912,30 +16018,9 @@
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
-        "partId": "nearUpperArm",
-        "phaseIndex": 2,
-        "targetAngleDeg": 115.8,
-        "targetBucketDeg": 120,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
         "partId": "nearForearm",
         "phaseIndex": 2,
         "targetAngleDeg": 60.4,
-        "targetBucketDeg": 60,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "nearHand",
-        "phaseIndex": 2,
-        "targetAngleDeg": 60.4,
-        "targetBucketDeg": 60,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farUpperArm",
-        "phaseIndex": 2,
-        "targetAngleDeg": 60.7,
         "targetBucketDeg": 60,
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
@@ -16003,13 +16088,6 @@
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
-        "partId": "nearUpperArm",
-        "phaseIndex": 3,
-        "targetAngleDeg": 103.1,
-        "targetBucketDeg": 105,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
         "partId": "nearHand",
         "phaseIndex": 3,
         "targetAngleDeg": 41,
@@ -16025,13 +16103,6 @@
       },
       {
         "partId": "farForearm",
-        "phaseIndex": 3,
-        "targetAngleDeg": -4.6,
-        "targetBucketDeg": 0,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farHand",
         "phaseIndex": 3,
         "targetAngleDeg": -4.6,
         "targetBucketDeg": 0,
@@ -16056,13 +16127,6 @@
         "phaseIndex": 3,
         "targetAngleDeg": 19.8,
         "targetBucketDeg": 15,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farThigh",
-        "phaseIndex": 3,
-        "targetAngleDeg": 43.3,
-        "targetBucketDeg": 45,
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
@@ -16094,48 +16158,6 @@
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
-        "partId": "nearUpperArm",
-        "phaseIndex": 4,
-        "targetAngleDeg": 88.2,
-        "targetBucketDeg": 90,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "nearForearm",
-        "phaseIndex": 4,
-        "targetAngleDeg": 18.2,
-        "targetBucketDeg": 15,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "nearHand",
-        "phaseIndex": 4,
-        "targetAngleDeg": 18.2,
-        "targetBucketDeg": 15,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farUpperArm",
-        "phaseIndex": 4,
-        "targetAngleDeg": 88.2,
-        "targetBucketDeg": 90,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farForearm",
-        "phaseIndex": 4,
-        "targetAngleDeg": 18.2,
-        "targetBucketDeg": 15,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farHand",
-        "phaseIndex": 4,
-        "targetAngleDeg": 18.2,
-        "targetBucketDeg": 15,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
         "partId": "nearThigh",
         "phaseIndex": 4,
         "targetAngleDeg": 100.8,
@@ -16153,13 +16175,6 @@
         "partId": "nearFoot",
         "phaseIndex": 4,
         "targetAngleDeg": 34.7,
-        "targetBucketDeg": 30,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farThigh",
-        "phaseIndex": 4,
-        "targetAngleDeg": 35.4,
         "targetBucketDeg": 30,
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
@@ -16206,34 +16221,6 @@
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
-        "partId": "nearHand",
-        "phaseIndex": 5,
-        "targetAngleDeg": -4.6,
-        "targetBucketDeg": 0,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farUpperArm",
-        "phaseIndex": 5,
-        "targetAngleDeg": 91.7,
-        "targetBucketDeg": 90,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farForearm",
-        "phaseIndex": 5,
-        "targetAngleDeg": 20.4,
-        "targetBucketDeg": 15,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farHand",
-        "phaseIndex": 5,
-        "targetAngleDeg": 20.4,
-        "targetBucketDeg": 15,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
         "partId": "nearThigh",
         "phaseIndex": 5,
         "targetAngleDeg": 119.2,
@@ -16252,13 +16239,6 @@
         "phaseIndex": 5,
         "targetAngleDeg": 49.2,
         "targetBucketDeg": 45,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farShin",
-        "phaseIndex": 5,
-        "targetAngleDeg": 116.2,
-        "targetBucketDeg": 120,
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
@@ -16283,13 +16263,6 @@
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
-        "partId": "nearUpperArm",
-        "phaseIndex": 6,
-        "targetAngleDeg": 60.7,
-        "targetBucketDeg": 60,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
         "partId": "nearForearm",
         "phaseIndex": 6,
         "targetAngleDeg": -23.9,
@@ -16301,27 +16274,6 @@
         "phaseIndex": 6,
         "targetAngleDeg": -23.9,
         "targetBucketDeg": -30,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farUpperArm",
-        "phaseIndex": 6,
-        "targetAngleDeg": 94.7,
-        "targetBucketDeg": 90,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farForearm",
-        "phaseIndex": 6,
-        "targetAngleDeg": 22.3,
-        "targetBucketDeg": 15,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farHand",
-        "phaseIndex": 6,
-        "targetAngleDeg": 22.3,
-        "targetBucketDeg": 15,
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
@@ -16374,13 +16326,6 @@
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
-        "partId": "nearUpperArm",
-        "phaseIndex": 7,
-        "targetAngleDeg": 52.2,
-        "targetBucketDeg": 45,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
         "partId": "nearForearm",
         "phaseIndex": 7,
         "targetAngleDeg": -36.8,
@@ -16392,27 +16337,6 @@
         "phaseIndex": 7,
         "targetAngleDeg": -36.8,
         "targetBucketDeg": -30,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farUpperArm",
-        "phaseIndex": 7,
-        "targetAngleDeg": 96.7,
-        "targetBucketDeg": 90,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farForearm",
-        "phaseIndex": 7,
-        "targetAngleDeg": 23.5,
-        "targetBucketDeg": 30,
-        "reason": "no eligible material within 12 degrees of the solved target bone"
-      },
-      {
-        "partId": "farHand",
-        "phaseIndex": 7,
-        "targetAngleDeg": 23.5,
-        "targetBucketDeg": 30,
         "reason": "no eligible material within 12 degrees of the solved target bone"
       },
       {
@@ -16459,25 +16383,25 @@
       }
     ],
     "eligibilityCounts": {
-      "accepted": 6,
-      "conditional": 20,
-      "rejected": 4,
+      "accepted": 2,
+      "conditional": 26,
+      "rejected": 2,
       "material-gap": 0,
       "eligible:head": 0,
       "eligible:neck": 23,
       "eligible:torso": 7,
       "eligible:pelvis": 0,
-      "eligible:nearUpperArm": 0,
-      "eligible:nearForearm": 1,
-      "eligible:nearHand": 0,
-      "eligible:farUpperArm": 0,
-      "eligible:farForearm": 0,
-      "eligible:farHand": 0,
-      "eligible:nearThigh": 1,
+      "eligible:nearUpperArm": 9,
+      "eligible:nearForearm": 3,
+      "eligible:nearHand": 7,
+      "eligible:farUpperArm": 8,
+      "eligible:farForearm": 2,
+      "eligible:farHand": 5,
+      "eligible:nearThigh": 5,
       "eligible:nearShin": 0,
       "eligible:nearFoot": 0,
-      "eligible:farThigh": 1,
-      "eligible:farShin": 0,
+      "eligible:farThigh": 3,
+      "eligible:farShin": 1,
       "eligible:farFoot": 0
     }
   },

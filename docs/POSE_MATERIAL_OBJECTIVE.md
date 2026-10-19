@@ -1,6 +1,8 @@
 # Pose-Material Programme — Objective, Work Items, Criteria, Risks and Remedies
 
-Status: **normative working document**. Companion to
+Status: **normative working document**. Packaged for execution as the
+`harvest-pose-material` agent skill (`.claude/skills/harvest-pose-material/`).
+Companion to
 [`POSE_MATERIAL_ACCEPTANCE.md`](./POSE_MATERIAL_ACCEPTANCE.md) (thresholds) and
 [`POSE_PILOT_FLAW_ANALYSIS.md`](./POSE_PILOT_FLAW_ANALYSIS.md) (evidence).
 

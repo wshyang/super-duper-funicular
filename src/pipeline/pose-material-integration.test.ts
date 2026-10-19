@@ -46,11 +46,14 @@ describe('pose material: real-asset integration', () => {
     expect(upperArm?.reasonCodes.join(' ')).toContain('wrong-material');
   });
 
-  it('refuses to call a drift-heavy plate a phase match', () => {
-    const phase03 = result.report.sources.find((source) => source.sourceId === 'PR1-phase-03-midstance');
-    if (phase03) {
-      expect(phase03.status).toBe('rejected');
-      expect(phase03.reasonCodes).toContain('no-eligible-parts');
+  it('publishes pose drift as a measured source-level reason, not a silent pass', () => {
+    const drift = result.report.sources.filter((source) => source.poseMatchRatio < 0.8 && source.role !== 'master');
+    expect(drift.length).toBeGreaterThan(0);
+    for (const source of drift) {
+      expect(source.reasonCodes.join(' ')).toContain('pose-unverified');
+      // A weak whole-silhouette match demotes the source, it does not delete a
+      // well-measured part: that was the pilot's whole-image verdict flaw.
+      expect(['conditional', 'rejected']).toContain(source.status);
     }
   });
 

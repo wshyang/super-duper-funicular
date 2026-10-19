@@ -55,6 +55,10 @@ export interface MaterialHarvestSource {
   readonly declaredPhase: number;
   readonly accepted: boolean;
   readonly poseMatchRatio: number;
+  /** Part verdicts from the audit; when present, the harvest is a strict subset. */
+  readonly eligibleParts?: readonly BodyPartId[];
+  /** Anatomy-study plates are angle evidence only; they never supply material. */
+  readonly wardrobe?: 'clothed' | 'anatomy-study';
 }
 
 export interface HarvestOutcome {
@@ -178,6 +182,12 @@ function harvestLimb(
       halfWidthPx: Number(halfWidth.toFixed(1)),
       visibility: toVisibility(probe.fill, isolation),
       sideProvenance: 'guide-derived',
+      skinFraction: Number(skin.toFixed(3)),
+      roundTrip: {
+        alphaIou: Number(verification.alphaIou.toFixed(4)),
+        meanColorDelta: Number(verification.meanColorDelta.toFixed(2)),
+        passed: verification.passed,
+      },
       cutoutPath,
       cutoutSha256: '',
     },
@@ -213,12 +223,7 @@ export function harvestMaterial(config: MaterialHarvestConfig): HarvestOutcome {
       rejected.push({ sourceId: source.sourceId, partId: 'torso', reason: 'file-missing' });
       continue;
     }
-    const field = computeGradientField(context.image);
-    // The master is a standing identity plate: its limbs are already provided by
-    // the studio extractor, so it only anchors identity and static anatomy.
-    const limbs = source.accepted && source.sourceId !== config.masterSourceId && source.poseMatchRatio >= 0.75
-      ? LIMB_PARTS.map((partId) => [partId, harvestLimb(config, context, field, partId)] as const)
-      : [];
+    const limbs = harvestSource(config, source, context, computeGradientField(context.image));
     for (const [partId, result] of limbs) {
       if ('material' in result) {
         writeMaterial(config.repoRoot, result.material, result.image, writtenFiles);
@@ -238,6 +243,30 @@ export function harvestMaterial(config: MaterialHarvestConfig): HarvestOutcome {
     rejected,
     writtenFiles,
   };
+}
+
+/**
+ * Harvests one source. Three rules decide what is even attempted: the master is a
+ * standing identity plate (its limbs come from the studio extractor, never here),
+ * anatomy-study plates are angle evidence only, and when the audit supplied
+ * per-part verdicts only those parts are attempted. The last rule is what stops
+ * the audit and the bank drifting apart.
+ */
+function harvestSource(
+  config: MaterialHarvestConfig,
+  source: MaterialHarvestSource,
+  context: SourceContext,
+  field: ReturnType<typeof computeGradientField>,
+): ReadonlyArray<readonly [BodyPartId, LimbHarvest | { readonly reason: string }]> {
+  const allowed = source.eligibleParts
+    ? LIMB_PARTS.filter((partId) => source.eligibleParts?.includes(partId))
+    : LIMB_PARTS;
+  if (source.wardrobe === 'anatomy-study') {
+    return allowed.map((partId) => [partId, { reason: 'wardrobe:anatomy-study' }] as const);
+  }
+  const usable = source.accepted && source.sourceId !== config.masterSourceId && source.poseMatchRatio >= 0.75;
+  if (!usable) return [];
+  return allowed.map((partId) => [partId, harvestLimb(config, context, field, partId)] as const);
 }
 
 function writeMaterial(
