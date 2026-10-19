@@ -1,0 +1,132 @@
+[
+  {
+    "sourceId": "H01-right-contact",
+    "partId": "nearUpperArm",
+    "reason": "wrong-material:skin=0.16"
+  },
+  {
+    "sourceId": "H01-right-contact",
+    "partId": "nearForearm",
+    "reason": "wrong-material:skin=0.26"
+  },
+  {
+    "sourceId": "H01-right-contact",
+    "partId": "farUpperArm",
+    "reason": "wrong-material:skin=0.14"
+  },
+  {
+    "sourceId": "H01-right-contact",
+    "partId": "farForearm",
+    "reason": "low-fill:0.30"
+  },
+  {
+    "sourceId": "H01-right-contact",
+    "partId": "nearShin",
+    "reason": "low-fill:0.47"
+  },
+  {
+    "sourceId": "H01-right-contact",
+    "partId": "farShin",
+    "reason": "low-fill:0.34"
+  },
+  {
+    "sourceId": "H01-right-contact-refined",
+    "partId": "nearUpperArm",
+    "reason": "wrong-material:skin=0.10"
+  },
+  {
+    "sourceId": "H01-right-contact-refined",
+    "partId": "nearForearm",
+    "reason": "wrong-material:skin=0.30"
+  },
+  {
+    "sourceId": "H01-right-contact-refined",
+    "partId": "farUpperArm",
+    "reason": "wrong-material:skin=0.10"
+  },
+  {
+    "sourceId": "H01-right-contact-refined",
+    "partId": "farForearm",
+    "reason": "low-fill:0.29"
+  },
+  {
+    "sourceId": "H01-right-contact-refined",
+    "partId": "nearThigh",
+    "reason": "weak-walls:0.32"
+  },
+  {
+    "sourceId": "H01-right-contact-refined",
+    "partId": "nearShin",
+    "reason": "low-fill:0.43"
+  },
+  {
+    "sourceId": "H01-right-contact-refined",
+    "partId": "farThigh",
+    "reason": "weak-walls:0.34"
+  },
+  {
+    "sourceId": "H01-right-contact-refined",
+    "partId": "farShin",
+    "reason": "low-fill:0.45"
+  },
+  {
+    "sourceId": "H03-right-pass",
+    "partId": "nearUpperArm",
+    "reason": "wrong-material:skin=0.00"
+  },
+  {
+    "sourceId": "H03-right-pass",
+    "partId": "farUpperArm",
+    "reason": "wrong-material:skin=0.00"
+  },
+  {
+    "sourceId": "H03-right-pass",
+    "partId": "nearThigh",
+    "reason": "low-fill:0.44"
+  },
+  {
+    "sourceId": "H03-right-pass",
+    "partId": "nearShin",
+    "reason": "low-fill:0.34"
+  },
+  {
+    "sourceId": "H03-right-pass",
+    "partId": "farThigh",
+    "reason": "weak-walls:0.41"
+  },
+  {
+    "sourceId": "H03-right-pass",
+    "partId": "farShin",
+    "reason": "low-fill:0.33"
+  },
+  {
+    "sourceId": "PR1-phase-09-bare-ortho-a",
+    "partId": "nearForearm",
+    "reason": "low-fill:0.31"
+  },
+  {
+    "sourceId": "PR1-phase-09-bare-ortho-a",
+    "partId": "farForearm",
+    "reason": "low-fill:0.26"
+  },
+  {
+    "sourceId": "PR1-phase-09-bare-ortho-a",
+    "partId": "nearThigh",
+    "reason": "low-fill:0.68"
+  },
+  {
+    "sourceId": "PR1-phase-09-bare-ortho-a",
+    "partId": "nearShin",
+    "reason": "low-fill:0.63"
+  },
+  {
+    "sourceId": "PR1-phase-09-bare-ortho-a",
+    "partId": "farThigh",
+    "reason": "low-fill:0.67"
+  },
+  {
+    "sourceId": "PR1-phase-09-bare-ortho-a",
+    "partId": "farShin",
+    "reason": "low-fill:0.36"
+  }
+]

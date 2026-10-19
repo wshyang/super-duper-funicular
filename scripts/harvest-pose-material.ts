@@ -1,0 +1,63 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { PHOTOREAL_ASSET_TUNING_DEFAULTS, applyAssetTuningToRigSpec, DEFAULT_RIG_SPEC } from '../src/runner/body-proportions.js';
+import { harvestMaterial, type MaterialHarvestSource } from '../src/pipeline/pose-material-bank.js';
+
+interface Manifest {
+  readonly master: { readonly sourceId: string; readonly group: string; readonly relativePath: string; readonly declaredPhase: number };
+  readonly sources: readonly MaterialHarvestSource[];
+}
+
+function parseArgs(argv: readonly string[]): Record<string, string> {
+  const args: Record<string, string> = {};
+  for (const arg of argv) {
+    const match = /^--([^=]+)=(.*)$/.exec(arg);
+    if (match) args[match[1] ?? ''] = match[2] ?? '';
+  }
+  return args;
+}
+
+function main(): void {
+  const repoRoot = process.cwd();
+  const args = parseArgs(process.argv.slice(2));
+  const pr1Root = args['pr1-root'] ?? '/tmp/pr1';
+  const auditPath = args.audit ?? path.join(repoRoot, 'public/sprites/material/audit.json');
+  const outputDirectory = args.out ?? path.join(repoRoot, 'src/images/pose-material/bank');
+  const audit = fs.existsSync(auditPath)
+    ? (JSON.parse(fs.readFileSync(auditPath, 'utf8')) as { report: { sources: Array<{ sourceId: string; status: string; poseMatchRatio: number }> } })
+    : null;
+  const statusById = new Map((audit?.report.sources ?? []).map((source) => [source.sourceId, source]));
+  const manifest = JSON.parse(fs.readFileSync(path.join(repoRoot, 'src/images/pose-material/sources.json'), 'utf8')) as Manifest;
+  const tuning = PHOTOREAL_ASSET_TUNING_DEFAULTS['photo-sg-chinese-female'];
+  const sources: MaterialHarvestSource[] = [manifest.master, ...manifest.sources].map((entry) => {
+    const audited = statusById.get(entry.sourceId);
+    return {
+      sourceId: entry.sourceId,
+      group: entry.group,
+      relativePath: entry.relativePath,
+      declaredPhase: entry.declaredPhase,
+      accepted: audited ? audited.status !== 'rejected' : false,
+      poseMatchRatio: audited?.poseMatchRatio ?? 0,
+    };
+  });
+  const outcome = harvestMaterial({
+    repoRoot,
+    rootByGroup: { repo: repoRoot, pr1: pr1Root },
+    masterSourceId: manifest.master.sourceId,
+    personaId: tuning.personaId,
+    rig: applyAssetTuningToRigSpec(DEFAULT_RIG_SPEC, tuning),
+    tuning,
+    outputDirectory,
+    sources,
+  });
+  const bankPath = path.join(repoRoot, 'src/images/pose-material/bank.json');
+  fs.writeFileSync(bankPath, `${JSON.stringify(outcome.bank, null, 2)}\n`);
+  process.stdout.write(`Wrote ${outcome.bank.materials.length} materials to ${outputDirectory}\n`);
+  process.stdout.write(`Rejected ${outcome.rejected.length} part attempts\n`);
+  const byPart = new Map<string, number>();
+  for (const material of outcome.bank.materials) byPart.set(material.partId, (byPart.get(material.partId) ?? 0) + 1);
+  for (const [part, count] of [...byPart.entries()].sort()) process.stdout.write(`  ${part}: ${count}\n`);
+  fs.writeFileSync(path.join(repoRoot, 'src/images/pose-material/harvest-report.json'), `${JSON.stringify(outcome.rejected, null, 2)}\n`);
+}
+
+main();

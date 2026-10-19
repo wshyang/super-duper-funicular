@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "master": {
+    "sourceId": "H00-master",
+    "group": "repo",
+    "relativePath": "src/images/photoreal-female/01-master-lateral-profile-reference.png",
+    "role": "master",
+    "wardrobe": "clothed",
+    "declaredPhase": 0
+  },
+  "sources": [
+    { "sourceId": "H01-right-contact", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0 },
+    { "sourceId": "H01-right-contact-refined", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact-refined.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0 },
+    { "sourceId": "H02-right-down", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/H02-right-down.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.125 },
+    { "sourceId": "H03-right-pass", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.25 },
+    { "sourceId": "H03-right-pass-refined", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass-refined.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.25 },
+    { "sourceId": "H04-right-flight", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/H04-right-flight.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.375 },
+    { "sourceId": "H05-left-contact", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/H05-left-contact.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.5 },
+    { "sourceId": "H06-left-down", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/H06-left-down.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.625 },
+    { "sourceId": "H07-left-pass", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/H07-left-pass.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.75 },
+    { "sourceId": "H08-left-flight", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/H08-left-flight.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.875 },
+    { "sourceId": "X01-near-arm-forward", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/X01-near-arm-forward.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.25 },
+    { "sourceId": "X02-near-arm-rear", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/X02-near-arm-rear.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.125 },
+    { "sourceId": "X02-near-arm-rear-refined", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/X02-near-arm-rear-color-refinement.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.125 },
+    { "sourceId": "X04-leg-scissor", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/X04-leg-scissor.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.375 },
+    { "sourceId": "X04-opposed-leg-guide", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/X04-opposed-leg-custom-guide.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.375 },
+    { "sourceId": "X04-tucked-flight", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/X04-tucked-flight-refinement.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.375 },
+    { "sourceId": "X05-far-forearm-forward", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/X05-far-forearm-forward-up.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.125 },
+    { "sourceId": "X06-far-forearm-back", "group": "repo", "relativePath": "src/images/photoreal-female-pose-bank/candidates/X06-far-forearm-back-down.png", "role": "pose-bank", "wardrobe": "clothed", "declaredPhase": 0.125 },
+    { "sourceId": "PR1-phase-01-right-strike", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-01-right-strike-left-arm-forward.png", "role": "phase-harvest", "wardrobe": "clothed", "declaredPhase": 0 },
+    { "sourceId": "PR1-phase-02-left-strike", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-02-left-strike-right-arm-forward.png", "role": "phase-harvest", "wardrobe": "clothed", "declaredPhase": 0.5 },
+    { "sourceId": "PR1-phase-03-midstance", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-03-midstance-high-knee-pass.png", "role": "phase-harvest", "wardrobe": "clothed", "declaredPhase": 0.25 },
+    { "sourceId": "PR1-phase-04-flight-split", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-04-flight-max-split-stride.png", "role": "phase-harvest", "wardrobe": "clothed", "declaredPhase": 0.375 },
+    { "sourceId": "PR1-phase-05-near-arm-fwd", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-05-near-arm-forward-drive.png", "role": "phase-harvest", "wardrobe": "clothed", "declaredPhase": 0.25 },
+    { "sourceId": "PR1-phase-06-toe-off", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-06-toe-off-plantar-roll-insert.png", "role": "phase-harvest", "wardrobe": "clothed", "declaredPhase": 0.25 },
+    { "sourceId": "PR1-phase-07-shoulder-fwd", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-07-near-shoulder-forward-refined.png", "role": "phase-harvest", "wardrobe": "clothed", "declaredPhase": 0.25 },
+    { "sourceId": "PR1-phase-08-forefoot-roll", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-08-loaded-forefoot-roll-refined.png", "role": "phase-harvest", "wardrobe": "clothed", "declaredPhase": 0.125 },
+    { "sourceId": "PR1-phase-09-bare-ortho-a", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-09-bare-limb-orthogonal-angles-a.png", "role": "phase-harvest", "wardrobe": "anatomy-study", "declaredPhase": 0 },
+    { "sourceId": "PR1-phase-10-unclothed-b", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-10-unclothed-opposite-angles-b.png", "role": "phase-harvest", "wardrobe": "anatomy-study", "declaredPhase": 0.5 },
+    { "sourceId": "PR1-phase-11-bare-ortho-c", "group": "pr1", "relativePath": "src/images/photoreal-female-phases/phase-11-bare-limb-opposite-angles-c.png", "role": "phase-harvest", "wardrobe": "anatomy-study", "declaredPhase": 0 }
+  ]
+}

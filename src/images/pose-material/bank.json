@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "personaId": "photo-sg-chinese-female",
+  "masterPath": "",
+  "materials": [
+    {
+      "materialId": "H01-right-contact--nearThigh",
+      "partId": "nearThigh",
+      "sourceId": "H01-right-contact",
+      "sourceSha256": "15f9e3bf561ce688c2dd19ac1b872253930dec5a70b540a48b2f493f2e9233e9",
+      "sourcePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact.png",
+      "measuredAngleDeg": 58.3,
+      "bucketDeg": 60,
+      "halfWidthPx": 53.5,
+      "visibility": 2,
+      "sideProvenance": "guide-derived",
+      "cutoutPath": "src/images/pose-material/bank/parts/H01-right-contact--nearThigh.png",
+      "cutoutSha256": "d3b9e1c791482b3fff0d8c379bee5c39d315e5795b6d17cb7e56e8432963c455"
+    },
+    {
+      "materialId": "H01-right-contact--farThigh",
+      "partId": "farThigh",
+      "sourceId": "H01-right-contact",
+      "sourceSha256": "15f9e3bf561ce688c2dd19ac1b872253930dec5a70b540a48b2f493f2e9233e9",
+      "sourcePath": "src/images/photoreal-female-pose-bank/candidates/H01-right-contact.png",
+      "measuredAngleDeg": 56.2,
+      "bucketDeg": 60,
+      "halfWidthPx": 53.5,
+      "visibility": 2,
+      "sideProvenance": "guide-derived",
+      "cutoutPath": "src/images/pose-material/bank/parts/H01-right-contact--farThigh.png",
+      "cutoutSha256": "1b0b73942f21ba13ed61ef239b013dc07b37604af8f88f45fb3a8b80cadddec6"
+    },
+    {
+      "materialId": "H03-right-pass--nearForearm",
+      "partId": "nearForearm",
+      "sourceId": "H03-right-pass",
+      "sourceSha256": "ab9831e9205e83ca92e5831d015145c718da837b43333e4a7eb2079ef75ccef4",
+      "sourcePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass.png",
+      "measuredAngleDeg": 13.2,
+      "bucketDeg": 15,
+      "halfWidthPx": 36.6,
+      "visibility": 3,
+      "sideProvenance": "guide-derived",
+      "cutoutPath": "src/images/pose-material/bank/parts/H03-right-pass--nearForearm.png",
+      "cutoutSha256": "3eab0c6e50f7a6b7c420a4716ad5de32fa9a3bcf91de341182044d28d1fcf772"
+    },
+    {
+      "materialId": "H03-right-pass--farForearm",
+      "partId": "farForearm",
+      "sourceId": "H03-right-pass",
+      "sourceSha256": "ab9831e9205e83ca92e5831d015145c718da837b43333e4a7eb2079ef75ccef4",
+      "sourcePath": "src/images/photoreal-female-pose-bank/candidates/H03-right-pass.png",
+      "measuredAngleDeg": 13.2,
+      "bucketDeg": 15,
+      "halfWidthPx": 36.6,
+      "visibility": 3,
+      "sideProvenance": "guide-derived",
+      "cutoutPath": "src/images/pose-material/bank/parts/H03-right-pass--farForearm.png",
+      "cutoutSha256": "3eab0c6e50f7a6b7c420a4716ad5de32fa9a3bcf91de341182044d28d1fcf772"
+    },
+    {
+      "materialId": "PR1-phase-09-bare-ortho-a--nearUpperArm",
+      "partId": "nearUpperArm",
+      "sourceId": "PR1-phase-09-bare-ortho-a",
+      "sourceSha256": "94be01dce6b2ebccf8754ad286e1e2f690a2bcd627a724e1acd40b3675c642cf",
+      "sourcePath": "../../../tmp/pr1/src/images/photoreal-female-phases/phase-09-bare-limb-orthogonal-angles-a.png",
+      "measuredAngleDeg": 97.2,
+      "bucketDeg": 90,
+      "halfWidthPx": 41.2,
+      "visibility": 3,
+      "sideProvenance": "guide-derived",
+      "cutoutPath": "src/images/pose-material/bank/parts/PR1-phase-09-bare-ortho-a--nearUpperArm.png",
+      "cutoutSha256": "195144e828b88d1a32eebd53389fb67dee613435a56052d9cd16cfcbd2512b29"
+    },
+    {
+      "materialId": "PR1-phase-09-bare-ortho-a--farUpperArm",
+      "partId": "farUpperArm",
+      "sourceId": "PR1-phase-09-bare-ortho-a",
+      "sourceSha256": "94be01dce6b2ebccf8754ad286e1e2f690a2bcd627a724e1acd40b3675c642cf",
+      "sourcePath": "../../../tmp/pr1/src/images/photoreal-female-phases/phase-09-bare-limb-orthogonal-angles-a.png",
+      "measuredAngleDeg": 94.3,
+      "bucketDeg": 90,
+      "halfWidthPx": 41.2,
+      "visibility": 3,
+      "sideProvenance": "guide-derived",
+      "cutoutPath": "src/images/pose-material/bank/parts/PR1-phase-09-bare-ortho-a--farUpperArm.png",
+      "cutoutSha256": "1e188eab8f8171d139c5ee40bb2b9e0fe4861873aea40f4c1a62a20b142dfb11"
+    }
+  ]
+}

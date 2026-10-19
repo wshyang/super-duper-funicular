@@ -48,7 +48,7 @@ export function warpPhotorealSegmentToQuad(
   const srcLen = Math.max(1, Math.hypot(srcDx, srcDy));
   const sux = srcDx / srcLen;
   const suy = srcDy / srcLen;
-  const bounds = computeSegmentBounds(spec, len);
+  const bounds = computeSegmentBounds(canvas, spec, len);
 
   for (let y = bounds.minY; y <= bounds.maxY; y++) {
     for (let x = bounds.minX; x <= bounds.maxX; x++) {
@@ -248,7 +248,14 @@ function applyGarmentTint(
   };
 }
 
+/**
+ * Bounds are clipped to the *target* canvas. Clipping to a fixed 220x256 rig
+ * canvas silently truncated every segment when the same warp was used on a
+ * full-resolution photo canvas, which made round-trip validation of harvested
+ * material impossible (and would clip any future large-canvas render).
+ */
 function computeSegmentBounds(
+  canvas: RasterImage,
   spec: SegmentWarpSpec,
   len: number,
 ): {
@@ -260,9 +267,9 @@ function computeSegmentBounds(
   const pad = Math.ceil(Math.max(spec.dstHalfWidthPx * 1.35, len * 0.55));
   return {
     minX: Math.max(0, Math.floor(Math.min(spec.dstStart.x, spec.dstEnd.x) - pad)),
-    maxX: Math.min(219, Math.ceil(Math.max(spec.dstStart.x, spec.dstEnd.x) + pad)),
+    maxX: Math.min(canvas.width - 1, Math.ceil(Math.max(spec.dstStart.x, spec.dstEnd.x) + pad)),
     minY: Math.max(0, Math.floor(Math.min(spec.dstStart.y, spec.dstEnd.y) - pad)),
-    maxY: Math.min(255, Math.ceil(Math.max(spec.dstStart.y, spec.dstEnd.y) + pad)),
+    maxY: Math.min(canvas.height - 1, Math.ceil(Math.max(spec.dstStart.y, spec.dstEnd.y) + pad)),
   };
 }
 

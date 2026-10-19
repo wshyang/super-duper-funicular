@@ -20,7 +20,10 @@
     "pose-bank:init": "tsx scripts/init-pose-bank.ts",
     "branches:compare": "tsx scripts/compare-branches.ts",
     "pipeline": "npm run dedupe && npm run extract && npm run analyze && npm run generate-sheets",
-    "validate": "npm run branches:compare && npm run typecheck && npm test && npm run build"
+    "validate": "npm run branches:compare && npm run typecheck && npm test && npm run build",
+    "pose-material:audit": "tsx scripts/audit-pose-material.ts",
+    "pose-material:harvest": "tsx scripts/harvest-pose-material.ts",
+    "pose-material:demo": "tsx scripts/demo-pose-material.ts"
   },
   "dependencies": {
     "jpeg-js": "^0.4.4",
